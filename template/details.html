@@ -107,16 +107,50 @@
         </div>
 
         <div class="mt-5">
+            <h3>Was this recipe helpful?</h3>
+            <i class="fa fa-thumbs-up fa-lg"></i> Upvote
+            &nbsp;
+            <i class="fa fa-thumbs-down fa-lg"></i> Downvote
+        </div>
+
+        <div class="mt-5">
             <h3 class="mb-4">Reviews</h3>
             <span class="text-muted"><em>John Doe said:</em></span>
             <p>This was an awesome recipe to try out...</p>
         </div>
 
-        <div class="mt-5">
-            <h3>Was this helpful?</h3>
-            <i class="fa fa-thumbs-up fa-lg"></i> Upvote
-            &nbsp;
-            <i class="fa fa-thumbs-down fa-lg"></i> Downvote
+        <div class="mt-5 mb-2">
+            <h3>Drop a review</h3>
+            <form class="" id="needs-validation" novalidate>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="review-body"></label>
+                        <textarea class="form-control" placeholder="How awesome was this recipe?" name="review-body" id="review-body" cols="30" rows="10"></textarea>
+                        <div class="invalid-feedback">
+                            Please add a review
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Submit form</button>
+            </form>
+
+            <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function() {
+                    "use strict";
+                    window.addEventListener("load", function() {
+                        var form = document.getElementById("needs-validation");
+                        form.addEventListener("submit", function(event) {
+                            if (form.checkValidity() == false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add("was-validated");
+                        }, false);
+                    }, false);
+                }());
+            </script>
         </div>
 
     </div>
