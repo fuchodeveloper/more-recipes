@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
 </head>
 <body>
-    
+    <!--Main top navigation menu start-->
     <nav class="navbar navbar-expand-md navbar-dark navbar-bg-color fixed-top">
             <a class="navbar-brand navbar-brand-color" href="#">More Recipes</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,118 +29,65 @@
                 </div>
             </div>
      </nav>
+    <!--Main top navigation menu stop-->
 
-    <div style="margin-top: 50px;"></div>
-
-    <div class="overlay" style="position: relative">
-        <div class="jumbotron recipe-header-background" style="background: url('./img/noodles.jpg');">
-            <div class="container">
-                <h1 class="display-3 recipe-title">Recipe: Party Jollof</h1>
-                <p class="recipe-author"><em>By: John Doe</em></p>
-            </div>
-        </div>
-    </div>
+    <div style="margin-top: 70px;"></div>
 
     <div class="container">
-        <div class="mb-4">
-                <span class="recipe-title">Recipe and Ingredients</span>
-                <span class="float-right recipe-ratings-right text-muted">30 Views <span class="big-pipe">|</span> 42 Reviews <span>|</span> 30 Favorites </span>    
+        <div class="">
+            <h1 class="text-center p-4 center-hero-text">Add Recipe</h1>
         </div>
 
-        <!--<div class="dropdown-divider"></div>-->
-
-        <!--<h3 class="recipe-instructions mt-4 mb-4">Ingredients:</h3>-->
-
-       <div class="row">
-           <div class="col-sm-6">
-               <table class="table table-striped">
-                   <thead>
-                   <tr>
-                       <!--<th>#</th>-->
-                       <th>Quantity</th>
-                       <th>Name</th>
-                   </tr>
-                   </thead>
-                   <tbody>
-                   <tr>
-                       <!--<th scope="row">1</th>-->
-                       <td>Mark</td>
-                       <td>Otto</td>
-
-                   </tr>
-                   <tr>
-                       <!--<th scope="row">2</th>-->
-                       <td>Mark</td>
-                       <td>Otto</td>
-
-                   </tr>
-
-                   <tr>
-                       <!--<th scope="row">3</th>-->
-                       <td>Mark</td>
-                       <td>Otto</td>
-
-                   </tr>
-                   <tr>
-                       <!--<th scope="row">4</th>-->
-                       <td>Mark</td>
-                       <td>Otto</td>
-
-                   </tr>
-
-                   </tbody>
-               </table>
-           </div>
-
-           <div class="col-sm-6 float-right">
-               <img src="./img/noodles.jpg" class="img img-fluid" style="" alt="">
-               <span class="text-muted form-text text-center"><em>Food is ready</em></span>
-           </div>
-       </div>
-
-        <div class="mt-5">
-            <h3>Directions</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti doloremque ea esse excepturi hic maxime, neque placeat reiciendis! Aspernatur beatae eaque eius eligendi hic, ipsam magnam nihil pariatur quae rerum?
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur distinctio fuga ipsam iste magni nihil odio pariatur provident tenetur veniam! Accusantium assumenda inventore iusto labore odio omnis sit, unde ut?
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab animi aspernatur at blanditiis, commodi consequuntur earum enim natus nemo odit perferendis quam quibusdam reiciendis repellat sed sit veniam. Dolorum, eaque?
-            </p>
+        <!--Default placeholder avatar image, user uploads new avatar-->
+        <div class="col-md-6 mx-auto p-3 add_recipe-card text-center">
+            <img src="./img/no-image.svg" width="350px" id="recipe-image-avatar" height="auto" class="img-fluid" alt="">
         </div>
 
-        <div class="mt-5">
-            <h3>Was this recipe helpful?</h3>
-            <i class="fa fa-thumbs-up fa-lg"></i> Upvote
-            &nbsp;
-            <i class="fa fa-thumbs-down fa-lg"></i> Downvote
-        </div>
+        <!--Form to add recipe ingredients and quantity-->
+        <div class="col-md-6 mx-auto p-3">
+            <form action="#" method="post" enctype="multipart/form-data">
+                    <input type="file" name="recipe-image" id="recipe-image" accept="image/*" required>
+                    <h3 class="text-center p-4 center-hero-text">Add Ingredients</h3>
 
-        <div class="mt-5">
-            <h3 class="mb-4">Reviews</h3>
-            <span class="text-muted"><em>John Doe said:</em></span>
-            <p>This was an awesome recipe to try out...</p>
-        </div>
-
-        <div class="mt-5 mb-2">
-            <h3>Drop a review</h3>
-            <form class="" id="needs-validation" novalidate>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="review-body"></label>
-                        <textarea class="form-control" placeholder="How awesome was this recipe?" name="review-body" id="review-body" cols="30" rows="10"></textarea>
-                        <div class="invalid-feedback">
-                            Please add a review
+                    <div class="form-row" id="recipe-quantity">
+                        <div class="col-sm-4 mb-1">
+                            <select class="btn dropdown-toggle" name="quantity" id="quantity">
+                                    <option value="">Select quantity</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                            </select>
                         </div>
+                        <div class="col-sm-8">
+                            <div>
+                                <input type="text" name="ingredient[]" id="ingredient" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                <div class="float-right p-1">
+                    <input type="button" value="Add More" id="add-more-ingredient">
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="recipe-direction"></label>
+                        <textarea class="form-control" placeholder="Give a detailed direction for this recipe" name="recipe-direction" id="recipe-direction" cols="30" rows="10" required></textarea>
                     </div>
                 </div>
 
-                <button class="btn btn-primary" type="submit">Submit form</button>
+                <div class="float-right p-1">
+                    <input type="submit" class="" value="Submit">
+                </div>
+
             </form>
         </div>
-
     </div>
-    
 
-<script src="./js/jquery-3.2.1.min.js"></script>
-<script src="./js/popper.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
+    <!--Custom script files and bootstrap core script files-->
+    <script src="./js/main.js"></script>
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
 </body>
 </html>
