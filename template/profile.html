@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>More Recipes</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark navbar-bg-color fixed-top">
+    <a class="navbar-brand navbar-brand-color" href="#">More Recipes</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto"></ul>
+
+        <div>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button">Sign Up</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button">Sign In</button>
+        </div>
+
+    </div>
+</nav>
+
+<div style="margin-top: 70px;"></div>
+<div class="container">
+
+    <div class="">
+        <h1 class="text-center p-4"  style="margin-top: 130px; margin-bottom: 50px;
+    font-size: 48px !important;
+    line-height: 56px !important;
+    letter-spacing: -0.8px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    color: #484848 !important;
+    font-weight: 300 !important;">My Profile</h1>
+    </div>
+
+    <div style="margin-top: 50px; margin-bottom: 50px;"></div>
+
+    <div class="col-md-6 mx-auto p-3 user-profile-card">
+        <form class="container" id="needs-validation" novalidate>
+        <div class="row" >
+            <div class="col-md-6 mb-3">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control text-muted" id="firstName" name="firstName" required value="John">
+                <div class="invalid-feedback">
+                    Please check input again
+                </div>
+            </div>
+            <!--&nbsp; &nbsp; &nbsp;-->
+            <div class="col-md-6 mb-3">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control text-muted" id="lastName" name="lastName" value="Doe" required>
+                <div class="invalid-feedback">
+                    Please check input again
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label for="emailAddress">Email Address</label>
+                <input type="email" class="form-control text-muted" id="emailAddress" value="johndoe@gmail.com" required>
+                <div class="invalid-feedback">
+                    Please provide a valid email address.
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Save Changes</button>
+    </form>
+    </div>
+
+    <!--<div class="col-md-6 border-test text-center mx-auto">-->
+        <!--<form action="#" method="post">-->
+            <!--<div class="row">-->
+                <!--<div class="col-md-6">-->
+                    <!--<input type="text" class="form-control">-->
+                <!--</div>-->
+
+                <!--<div class="col-md-6">-->
+                    <!--<input type="text" class="form-control">-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="row">-->
+                <!--<div class="col-md-12">-->
+                    <!--<input type="text" class="form-control">-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</form>-->
+    <!--</div>-->
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            "use strict";
+            window.addEventListener("load", function() {
+                var form = document.getElementById("needs-validation");
+                form.addEventListener("submit", function(event) {
+                    if (form.checkValidity() == false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add("was-validated");
+                }, false);
+            }, false);
+        }());
+    </script>
+
+</div>
+
+
+<script src="./js/jquery-3.2.1.min.js"></script>
+<script src="./js/popper.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
