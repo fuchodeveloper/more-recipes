@@ -65,6 +65,11 @@ a:hover, a:visited, a:link, a:active
     color: #FF7055 !important;
 }
 
+.hamburger-color-primary {
+    color: $primary-color !important;
+    background-color: $primary-color !important;
+}
+
 /* End Home */
 /* Recipe Details Page start */
 .recipe-header-background {
