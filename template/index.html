@@ -4,54 +4,84 @@
 <script src="./js/w3.js"></script>
 <div w3-include-html="header.html"></div>
 
-    <div style="margin-top: 70px;"></div>
-    <div class="container">
+<div style="margin-top: 70px;"></div>
+<div class="container">
 
-        <div>
-            <h2 class="text-center p-4">Awesome Recipes Just For You</h2>
-        </div>
+    <div class="">
+        <h1 class="text-center p-4 center-hero-title">Awesome Recipes Just For You</h1>
+        <form action="#" method="post" class="">
 
-        <div class="card-deck">
-            <div class="card mt-1">
-                <img class="card-img-top" src="./img/noodles.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <div class="card-footer custom-card-footer-bg">
-                        <p class="card-text"><small class="text-muted">30 views . 20 votes . 42 reviews</small></p>
-                        <a href="#" class="btn btn-primary">View Recipe</a>
-                    </div>
-                </div>
+            <div class="input-group mt-2 mb-2 p-1">
+                <input type="text" class="form-control p-3" placeholder="Try: 'Jollof Rice' " aria-describedby="basic-addon2">
+                <input type="submit" value="SEARCH" class="btn btn-primary input-group-addon">
             </div>
-            <div class="card mt-1">
-                <img class="card-img-top" src="./img/noodles.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <div class="card-footer">
-                        <p class="card-text"><small class="text-muted">30 views . 20 votes . 42 reviews</small></p>
-                        <a href="#" class="btn btn-primary">View Recipe</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card mt-1">
-                <img class="card-img-top" src="./img/noodles.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        </form>
+    </div>
+
+    <div style="margin-top: 50px; margin-bottom: 50px;"></div>
+
+    <div>
+        <h3 style="color: #484848; font-family: 'Roboto', sans-serif; font-size: 32px; font-weight: 500;">Most popular recipes</h3>
+    </div>
+    <div class="card-deck">
+        <div class="card mt-1">
+            <img class="card-img-top" src="./img/noodles.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Card title</h4>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div class="card-footer custom-card-footer-bg">
                     <p class="card-text"><small class="text-muted">30 views . 20 votes . 42 reviews</small></p>
-                    <a href="#" class="btn btn-primary">View Recipe</a>
+                    <a href="#" class="btn btn-primary btn-primary-color">View Recipe</a>
                 </div>
-
-                <!--<div class="card-footer">-->
-                    <!--<small class="text-muted">Last updated 3 mins ago</small>-->
-                <!--</div>-->
             </div>
         </div>
-    
-<script>w3.includeHTML();</script>
-<script src="./js/jquery-3.2.1.min.js"></script>
-<script src="./js/popper.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
+        <div class="card mt-1">
+            <img class="card-img-top" src="./img/noodles.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Card title</h4>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div class="card-footer custom-card-footer-bg">
+                    <p class="card-text"><small class="text-muted">30 views . 20 votes . 42 reviews</small></p>
+                    <a href="#" class="btn btn-primary btn-primary-color">View Recipe</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-1">
+            <img class="card-img-top" src="./img/noodles.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Card title</h4>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div class="card-footer custom-card-footer-bg">
+                    <p class="card-text"><small class="text-muted">30 views . 20 votes . 42 reviews</small></p>
+                    <a href="#" class="btn btn-primary btn-primary-color">View Recipe</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix mt-4"></div>
+
+    <!-- Bottom Navigation -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+    <script>w3.includeHTML();</script>
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
