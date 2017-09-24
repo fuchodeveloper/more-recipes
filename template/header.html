@@ -1,26 +1,42 @@
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>More Recipes</title>
-    <style>@import url('https://fonts.googleapis.com/css?family=Open+Sans');</style>
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>More Recipes</title>
+<style>@import url('https://fonts.googleapis.com/css?family=Open+Sans');</style>
+<link rel="stylesheet" href="./css/main.css">
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+<script src="./js/fontawesome.js"></script>
 </head>
 <body>
-    
-    <nav class="navbar navbar-expand-md navbar-dark navbar-bg-color fixed-top">
-            <a class="navbar-brand navbar-brand-color" href="index.html">More Recipes</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto"></ul>
 
-                <div>
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Sign Up</button>
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Sign In</button>
+<nav class="navbar navbar-expand-md navbar-dark navbar-bg-color fixed-top">
+        <a class="navbar-brand navbar-brand-color" href="../index.html">More Recipes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <nav class="navbar-nav ml-auto main-nav-menu">
+                <a href="../index.html" class="mr-2">Home</a>
+                <div class="dropdown-divider"></div>
+                <a href="sign-up.html" class="mr-2">Sign Up</a>
+                <div class="dropdown-divider"></div>
+                <a href="sign-in.html" class="mr-2">Sign In</a>
+                <div class="dropdown-divider"></div>
+
+                <div class="dropdown show mr-5 main-nav-menu">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        John Doe
+                    </a>
+                    
+                    <div class="dropdown-menu main-nav-menu" style="width: 5px;" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="profile.html">Profile</a>
+                        <a class="dropdown-item" href="add_recipe.html">Add Recipe</a>
+                        <a class="dropdown-item" href="category.html">Category</a>
+                        <a class="dropdown-item" href="favorite_recipes.html">Favorite Recipes</a>
+                        <a class="dropdown-item" href="my_recipes.html">My Recipes</a>
+                    </div>
                 </div>
-            </div>
-     </nav>
+            </nav>
+        </div>
+ </nav>

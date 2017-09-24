@@ -36,10 +36,29 @@ body {
 
 
 /* Home styling */
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none !important;
+}
+
+.btn-primary-color {
+    background-color: #FF7055 !important;
+    border-color: transparent !important;
+}
+
 .navbar-brand-color {
     color: #FF7055 !important;
 }
-/* End ome */
+
+.main-nav-menu > a {
+    color: #4a4a4a !important;
+}
+
+.main-nav-menu > a:hover {
+    color: #FF7055 !important;
+}
+
+/* End Home */
 /* Recipe Details Page start */
 .recipe-header-background {
     background-repeat: no-repeat !important;
