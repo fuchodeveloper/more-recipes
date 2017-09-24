@@ -34,6 +34,12 @@ body {
 a:hover, a:visited, a:link, a:active {
   text-decoration: none !important; }
 
+.popular-text {
+  color: #484848;
+  font-family: 'Roboto', sans-serif;
+  font-size: 32px;
+  font-weight: 500; }
+
 .btn-primary-color {
   background-color: #FF7055 !important;
   border-color: transparent !important; }
