@@ -34,9 +34,12 @@ body {
     color: #4a4a4a;
 }
 
-/* Home */
 
-
+/* Home styling */
+.navbar-brand-color {
+    color: #FF7055 !important;
+}
+/* End ome */
 /* Recipe Details Page start */
 .recipe-header-background {
     background-repeat: no-repeat !important;
@@ -47,6 +50,46 @@ body {
 
 .recipe-ratings-right {
     font-size: 15px;
+}
+
+.mt-5 .font-awesome-fav {
+    color: #FF7055;
+    -webkit-text-stroke-width: 0.6px;
+    -webkit-text-stroke-color: #FF7055;
+}
+
+.font-awesome-fav a {
+    @extend .font-awesome-fav;
+    color: #FF7055;
+}
+
+.font-awesome-fav a:hover {
+    @extend .font-awesome-fav;
+    color: #FF7055;
+}
+
+.font-awesome-fav a:link {
+    @extend .font-awesome-fav;
+    color: #FF7055;
+    text-decoration: none;
+}
+
+.font-awesome-fav a {
+    @extend .font-awesome-fav;
+    color: #FF7055;
+}
+
+.font-awesome-delete {
+    color: #E60026;
+}
+
+.font-awesome-delete a:hover {
+    color: #E60026;
+}
+
+.font-awesome-delete a:link {
+    color: #E60026;
+    text-decoration: none;
 }
 
 .recipe-title {
@@ -60,7 +103,10 @@ body {
     @extend .recipe-title;
     font-weight: 400;
 }
-
+.font-awesome-thumb {
+    color: black;
+}
+//End
 .overlay:before{
     position: absolute;
     content:" ";

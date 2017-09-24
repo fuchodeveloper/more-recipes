@@ -1,6 +1,6 @@
 window.addEventListener('load', function() {
     // Add new ingredient select and text field
-    document.getElementById('add-more-ingredient').addEventListener('click', () => {
+    document.getElementById('add-more-ingredient').addEventListener('click', function() {
         let addMore = document.createElement('div');
         addMore.innerHTML = `<div class="col-sm-4 mb-1">
                             <select class="btn dropdown-toggle" name="quantity" id="quantity">
@@ -18,8 +18,9 @@ window.addEventListener('load', function() {
         document.getElementById('recipe-quantity').append(addMore);
     });
 
-    document.querySelector('input[type="file"]').addEventListener('change', () =>  {
+    document.querySelector('input[type="file"]').addEventListener('change', function() {
         if (this.files && this.files[0]) {
+            console.log(this.files[0]);
             let img = document.querySelector('img');
             img.src = URL.createObjectURL(this.files[0]);
         }
