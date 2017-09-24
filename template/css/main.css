@@ -53,6 +53,10 @@ a:hover, a:visited, a:link, a:active {
 .main-nav-menu > a:hover {
   color: #FF7055 !important; }
 
+.hamburger-color-primary {
+  color: #FF7055 !important;
+  background-color: #FF7055 !important; }
+
 /* End Home */
 /* Recipe Details Page start */
 .recipe-header-background {
