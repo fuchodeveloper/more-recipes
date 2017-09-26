@@ -6,10 +6,20 @@ ol {
   padding: 0; }
 
 .border-test {
-  border: 1px solid red !important; }
+  border: 1px solid red; }
 
 body {
   font-family: 'Open Sans' , sans-serif !important; }
+
+.width-5 {
+  width: 5px; }
+
+.nav-menu-active {
+  border: 1px solid transparent;
+  background-color: #FF7055; }
+
+.main-nav-menu .nav-menu-active {
+  color: white !important; }
 
 .navbar-bg-color {
   background-color: #F5F5F6; }
@@ -29,6 +39,18 @@ body {
 
 .forms-label-color {
   color: #4a4a4a; }
+
+.margin-top-70 {
+  margin-top: 70px; }
+
+.margin-top-50 {
+  margin-top: 50px; }
+
+.margin-bottom-50 {
+  margin-bottom: 50px; }
+
+.primary-color {
+  color: #FF7055; }
 
 /* Home styling */
 a:hover, a:visited, a:link, a:active {
@@ -59,7 +81,12 @@ a:hover, a:visited, a:link, a:active {
 
 /* End Home */
 /* Recipe Details Page start */
+.recipe-overlay-text {
+  position: absolute;
+  width: auto; }
+
 .recipe-header-background {
+  background: url("../img/noodles.jpg");
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: 50% 50% !important;
@@ -100,13 +127,16 @@ a:hover, a:visited, a:link, a:active {
   font-weight: bold;
   font-size: 20px;
   font-family: 'Open Sans', sans-serif;
-  color: #eeeeee; }
+  color: #9a9a9a; }
 
 .recipe-author {
   font-weight: 400; }
 
 .font-awesome-thumb {
   color: black; }
+
+.overlay {
+  position: relative; }
 
 .overlay:before {
   position: absolute;
