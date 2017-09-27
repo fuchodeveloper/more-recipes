@@ -3,7 +3,7 @@ import { assert, equal, notEqual, expect } from 'chai';
 import { request } from 'request';
 import chaiHttp from 'chai-http';
 import chai from 'chai';
-const app = require("../app");
+import app from '../app.js';
 chai.use(chaiHttp);
 
 describe('Tests for more-recipes API endpoints', () => {
