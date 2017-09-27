@@ -1,0 +1,29 @@
+{
+  "name": "more-recipes",
+  "version": "1.0.0",
+  "description": "Server-side code to power more-recipes app",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register"
+  },
+  "author": "Fredrick Mgbeoma",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chai-http": "^3.0.0",
+    "express": "^4.15.5",
+    "morgan": "^1.9.0",
+    "request": "^2.83.0"
+  }
+}
