@@ -1,6 +1,5 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-// import { request } from 'request';
 import chaiHttp from 'chai-http';
 import chai from 'chai';
 import app from '../app';
@@ -20,14 +19,14 @@ describe('Tests for more-recipes API endpoints', () => {
             });
         });
 
-        describe('POST api/v1/recipes', () => {
-            it('it should use POST to add recipes', (done) => {
-                chai.request(app)
-                    .post('/api/v1/recipes')
-                    .end((error, response) => {
-                        expect(response).to.have.status(200);
-                        done();
-                });
+    describe('POST api/v1/recipes', () => {
+      it('it should use POST to add recipes', (done) => {
+        chai.request(app)
+          .post('/api/v1/recipes')
+                .end((error, response) => {
+                    expect(response).to.have.status(200);
+                    done();
+            });
             });
         });
 
