@@ -4,6 +4,7 @@
 
 <p align="center">
     <img src="https://travis-ci.org/fuchodeveloper/more-recipes.svg?branch=master" alt="travis ci build test badge" />
+    <a href='https://coveralls.io/github/fuchodeveloper/more-recipes?branch=master'><img src='https://coveralls.io/repos/github/fuchodeveloper/more-recipes/badge.svg?branch=master' alt='Coverage Status' /></a>
 </p>
 
 ## More-recipes
