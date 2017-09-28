@@ -1,22 +1,21 @@
-
 import { describe, it } from 'mocha';
-import { assert, equal, notEqual, expect } from 'chai';
-import { request } from 'request';
+import { expect } from 'chai';
+// import { request } from 'request';
 import chaiHttp from 'chai-http';
 import chai from 'chai';
-import app from '../app.js';
+import app from '../app';
+
 chai.use(chaiHttp);
 
 describe('Tests for more-recipes API endpoints', () => {
-
-    describe('Handle valid endpoints', () => {
-        describe('GET api/v1/recipes', () => {
-            it('it should GET all recipes', (done) => {
-                chai.request(app)
-                    .get('/api/v1/recipes')
-                    .end((error, response) => {
-                        expect(response).to.have.status(200);
-                        done();
+  describe('Handle valid endpoints', () => {
+    describe('GET api/v1/recipes', () => {
+      it('it should GET all recipes', (done) => {
+        chai.request(app)
+                 .get('/api/v1/recipes')
+                 .end((error, response) => {
+                   expect(response).to.have.status(200);
+                   done();
                 });
             });
         });
@@ -39,7 +38,7 @@ describe('Tests for more-recipes API endpoints', () => {
                     .end((error, response) => {
                         expect(response).to.have.status(200);
                         done();
-                    });
+                });
             });
         });
 
@@ -47,22 +46,20 @@ describe('Tests for more-recipes API endpoints', () => {
     });
 
     describe('Handle invalid endpoints', () => {
-        describe ('About page', () => {
+        describe('About page', () => {
             it('it should return true if "About" page does not exist', () => {
-                chai.request('/api/v1/about', (error, response, body) => {
+                chai.request('/api/v1/about', (error, response) => {
                     expect(response.statusCode).to.equal(404);
                 });
             });
         });
 
-        describe ('Contact page', () => {
+        describe('Contact page', () => {
             it('it should return true if "Contact" page does not exist', () => {
-                chai.request('/api/v1/contact', (error, response, body) => {
+                chai.request('/api/v1/contact', (error, response) => {
                     expect(response.statusCode).to.equal(404);
                 });
             });
         });
-
     });
-
 });

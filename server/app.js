@@ -1,13 +1,14 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+
 const app = express();
 
 app.use(bodyParser.json());
 
 app.use(require('./routes'));
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+app.listen(3000, () => {
+  // console.log('Example app listening on port 3000!')
 });
 
 // module.exports = app;
