@@ -5,7 +5,7 @@
 ## More-recipes
 More-Recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.  Suppose a user comes up with a recipe,  he/she can post it on More-Recipes and  get feedback in form of reviews and votes from other users who explore that recipe. Users can also keep a list of their favorite recipes on the application.
 
-## How it
+## How it works
 * Users can view various recipes on the application by visiting the app catalog page
 * Users can add recipes to the app, but first the user needs to create a new account or sign in
 * Authenticated users can do the following on the app:
