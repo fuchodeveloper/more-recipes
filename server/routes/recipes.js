@@ -10,12 +10,7 @@ global.recipes = [{
   recipeDirection: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque eius in magnam omnis perferendis saepe tempora. Adipisci consectetur consequatur dolorum facilis id ipsum modi quas quibusdam repellat voluptas. Sit, sunt?'
 }];
 
-router.get('/', (request, response) => {
-  return response.json({
-    recipes: global.recipes,
-    error: false
-  });
-});
+router.get('/', (request, response) => { response.json({ recipes: global.recipes, error: false }); });
 
 router.post('/', (request, response) => {
   if (!request.body.recipeQuantity) {
@@ -34,7 +29,7 @@ router.post('/', (request, response) => {
 });
 
 router.put('/:recipeId', (request, response) => {
-  for (let i = 0; i < global.recipes.length; i++) {
+  for (let i = 0; i < global.recipes.length; i += 1) {
     if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
       global.recipes[i].recipeImage = request.body.recipeImage;
       global.recipes[i].recipeQuantity = request.body.recipeQuantity;
@@ -57,7 +52,7 @@ router.put('/:recipeId', (request, response) => {
 });
 
 router.get('/:recipeId', (request, response) => {
-  for (let i = 0; i < global.recipes.length; i++) {
+  for (let i = 0; i < global.recipes.length; i += 1) {
     if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
       return response.json({
         recipe: global.recipes[i],
@@ -73,7 +68,7 @@ router.get('/:recipeId', (request, response) => {
 });
 
 router.delete('/:recipeId', (request, response) => {
-  for (let i = 0; i < global.recipes.length; i++) {
+  for (let i = 0; i < global.recipes.length; i += 1) {
     if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
       global.recipes.splice(i, 1);
       return response.json({
