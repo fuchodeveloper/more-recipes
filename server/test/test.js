@@ -48,7 +48,7 @@ describe('Tests for more-recipes API endpoints', () => {
     describe('Handle invalid endpoints', () => {
         describe ('About page', () => {
             it('it should return true if "About" page does not exist', () => {
-                chai.request('http://localhost:3000/api/v1/about', (error, response, body) => {
+                chai.request('/api/v1/about', (error, response, body) => {
                     expect(response.statusCode).to.equal(404);
                 });
             });
@@ -56,7 +56,7 @@ describe('Tests for more-recipes API endpoints', () => {
 
         describe ('Contact page', () => {
             it('it should return true if "Contact" page does not exist', () => {
-                chai.request('http://localhost:3000/api/v1/contact', (error, response, body) => {
+                chai.request('/api/v1/contact', (error, response, body) => {
                     expect(response.statusCode).to.equal(404);
                 });
             });
