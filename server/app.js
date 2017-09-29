@@ -12,8 +12,8 @@ app.use(require('./routes'));
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 
-app.listen(port || 3000, function(){
-    console.log('listening...');
+app.listen(port, () => {
+  console.log('listening...');
 });
 
 // module.exports = app;
