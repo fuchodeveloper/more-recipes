@@ -4,46 +4,44 @@
 <script src="./js/w3.js"></script>
 <div w3-include-html="header.html"></div>
 
+<div class="container margin-top-70">
 
-<div style="margin-top: 70px;"></div>
-<div class="container">
-
-    <div class="">
+    <div>
         <h1 class="text-center p-4 center-hero-text">My Profile</h1>
     </div>
 
-    <div style="margin-top: 50px; margin-bottom: 50px;"></div>
+    <div class="margin-top-50 margin-bottom-50"></div>
 
     <div class="col-md-6 mx-auto p-3 user-profile-card">
         <form class="container" id="needs-validation" novalidate>
-        <div class="row" >
-            <div class="col-md-6 mb-3">
-                <label for="firstName">First Name</label>
-                <input type="text" class="form-control text-muted" id="firstName" name="firstName" required value="John">
-                <div class="invalid-feedback">
-                    Please check input again
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control text-muted" id="firstName" name="firstName" required value="John">
+                    <div class="invalid-feedback">
+                        Please check input again
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" class="form-control text-muted" id="lastName" name="lastName" value="Doe" required>
+                    <div class="invalid-feedback">
+                        Please check input again
+                    </div>
                 </div>
             </div>
-            <!--&nbsp; &nbsp; &nbsp;-->
-            <div class="col-md-6 mb-3">
-                <label for="lastName">Last Name</label>
-                <input type="text" class="form-control text-muted" id="lastName" name="lastName" value="Doe" required>
-                <div class="invalid-feedback">
-                    Please check input again
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="emailAddress">Email Address</label>
+                    <input type="email" class="form-control text-muted" id="emailAddress" value="johndoe@gmail.com" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid email address.
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 mb-3">
-                <label for="emailAddress">Email Address</label>
-                <input type="email" class="form-control text-muted" id="emailAddress" value="johndoe@gmail.com" required>
-                <div class="invalid-feedback">
-                    Please provide a valid email address.
-                </div>
-            </div>
-        </div>
-        <button class="btn btn-primary btn-primary-color" type="submit">Save Changes</button>
-    </form>
+            <button class="btn btn-primary btn-primary-color" type="submit">Save Changes</button>
+        </form>
     </div>
 
     <script>
@@ -71,5 +69,3 @@
 <script src="./js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
