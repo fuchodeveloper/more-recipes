@@ -2,15 +2,48 @@ import express from 'express';
 
 const router = express.Router();
 
-global.recipes = [{
-  id: 1,
-  recipeImage: null,
-  recipeQuantity: 1,
-  recipeIngredient: 'tomatoes',
-  recipeDirection: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque eius in magnam omnis perferendis saepe tempora. Adipisci consectetur consequatur dolorum facilis id ipsum modi quas quibusdam repellat voluptas. Sit, sunt?'
-}];
+global.recipes = [
+  {
+    id: 1,
+    recipeName: 'Party rice',
+    recipeImage: null,
+    recipeQuantity: 1,
+    recipeIngredient: 'tomatoes',
+    recipeDirection: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque eius in magnam omnis perferendis saepe tempora. Adipisci consectetur consequatur dolorum facilis id ipsum modi quas quibusdam repellat voluptas. Sit, sunt?',
+    upvotes: 124,
+    reviews: [
+      {
+        id: 1,
+        review: 'This is the most detailed recipe I have seen'
+      }
+    ]
+  },
+  {
+    id: 2,
+    recipeName: 'Jollof rice',
+    recipeImage: null,
+    recipeQuantity: 5,
+    recipeIngredient: 'Knorr cubes',
+    recipeDirection: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque eius in magnam omnis perferendis saepe tempora. Adipisci consectetur consequatur dolorum facilis id ipsum modi quas quibusdam repellat voluptas. Sit, sunt?',
+    upvotes: 32
+  }
+];
 
-router.get('/', (request, response) => { response.json({ recipes: global.recipes, error: false }); });
+router.get('/recipes', (request, response) => { response.json({ recipes: global.recipes, Derror: false }); });
+
+router.get('/recipes?sort=upvotes&order=des', (request, response) => {
+  // return response.json({
+  //   recipes: request.query
+  // });
+  // if (request.query.sort) {
+    // console.log(request.query);
+    const sorted = global.recipes.id.sort((a, b) => a - b);
+    return response.status(200).json({
+      recipes: sorted,
+      error: false
+    });
+  // }
+});
 
 router.post('/', (request, response) => {
   if (!request.body.recipeQuantity) {
