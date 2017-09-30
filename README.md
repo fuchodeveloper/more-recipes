@@ -24,3 +24,4 @@ More-Recipes provides a platform for users to share the awesome and exciting  re
     * Retrieve favorited recipes from the catalog
     * Add a review for a recipe
     * Retrieve recipes with the most upvotes
+More recipes API documentation - <a href="https://fuchodeveloper.github.io/slate/?javascript#more-recipes-api-documentation">here</a>
