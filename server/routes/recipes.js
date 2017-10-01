@@ -10,7 +10,7 @@ global.recipes = [
     recipeQuantity: 1,
     recipeIngredient: 'tomatoes',
     recipeDirection: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque eius in magnam omnis perferendis saepe tempora. Adipisci consectetur consequatur dolorum facilis id ipsum modi quas quibusdam repellat voluptas. Sit, sunt?',
-    upvotes: 124,
+    upvotes: 24,
     reviews: [
       {
         id: 1,
@@ -32,20 +32,16 @@ global.recipes = [
 router.get('/recipes', (request, response) => { response.json({ recipes: global.recipes, Derror: false }); });
 
 router.get('/recipes?sort=upvotes&order=des', (request, response) => {
-  // return response.json({
-  //   recipes: request.query
-  // });
-  // if (request.query.sort) {
-    // console.log(request.query);
+  if (request.query.sort) {
     const sorted = global.recipes.id.sort((a, b) => a - b);
     return response.status(200).json({
       recipes: sorted,
       error: false
     });
-  // }
+  }
 });
 
-router.post('/', (request, response) => {
+router.post('/recipes', (request, response) => {
   if (!request.body.recipeQuantity) {
     return response.json({
       message: 'Fill all fields',
@@ -61,7 +57,7 @@ router.post('/', (request, response) => {
   });
 });
 
-router.put('/:recipeId', (request, response) => {
+router.put('/recipes/:recipeId', (request, response) => {
   for (let i = 0; i < global.recipes.length; i += 1) {
     if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
       global.recipes[i].recipeImage = request.body.recipeImage;
@@ -84,7 +80,7 @@ router.put('/:recipeId', (request, response) => {
   });
 });
 
-router.get('/:recipeId', (request, response) => {
+router.get('/recipes/:recipeId', (request, response) => {
   for (let i = 0; i < global.recipes.length; i += 1) {
     if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
       return response.json({
@@ -100,7 +96,7 @@ router.get('/:recipeId', (request, response) => {
   });
 });
 
-router.delete('/:recipeId', (request, response) => {
+router.delete('/recipes/:recipeId', (request, response) => {
   for (let i = 0; i < global.recipes.length; i += 1) {
     if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
       global.recipes.splice(i, 1);
