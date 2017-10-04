@@ -3,11 +3,10 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import Validator from 'validatorjs';
 import _ from 'lodash';
-// import User from '../models/user';
 import db from '../models/';
 
 const User = db.User;
-// const User = db.User;
+
 dotenv.config();
 const secret = process.env.SECRET_TOKEN;
 

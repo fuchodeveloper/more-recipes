@@ -46,7 +46,6 @@ const recipeController = {
   },
 
   get(request, response) {
-    console.log(request.params.id);
     return Recipe
       .findById(request.params.id)
       .then((recipe) => {
@@ -60,11 +59,6 @@ const recipeController = {
         if (!recipe) {
           response.status(404).json({ message: 'Recipe not found' });
         }
-        // const token = request.headers['x-access-token'];
-        // if (token) {
-        //   const decodedId = jwt.verify(token, secret);
-        //   if (decodedId.data.id === recipe.userId) recipe.views = 1;
-        // }
         response.status(200).json({ recipe });
       })
       .catch(error => response.status(400).json({ error: error.message }));
@@ -86,15 +80,18 @@ const recipeController = {
           response.status(404).json({ message: 'Recipe not found' });
         }
         const token = request.headers['x-access-token'];
-        if (!token) return response.status(401).json({ auth: false, message: 'No token provided.' });
+        if (!token) {
+          return response.status(401).json({ auth: false, message: 'No token provided.' });
+        } else
         if (token) {
           const decodedId = jwt.verify(token, secret);
-          if (decodedId.data.id === recipe.userId) recipe.views = 1;
+          if (decodedId.data.id === recipe.userId) {
+            return recipe
+              .destroy()
+              .then(() => response.status(200).json({ message: 'Recipe deleted' }))
+              .catch(error => response.status(400).json(error));
+          }
         }
-        return recipe
-          .destroy()
-          .then(() => response.status(200).json({ message: 'Recipe deleted' }))
-          .catch(error => response.status(400).json(error));
       })
       .catch(error => response.status(400).json(error));
   }
