@@ -31,6 +31,7 @@
     "dotenv": "^4.0.0",
     "eslint": "^4.7.2",
     "express": "^4.15.5",
+    "faker": "^4.1.0",
     "istanbul": "^0.4.5",
     "jsonwebtoken": "^8.0.1",
     "lodash": "^4.17.4",
