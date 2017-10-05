@@ -7,6 +7,9 @@ const Recipe = db.Recipes;
 const User = db.User;
 const Review = db.Review;
 
+/**
+ * Get secret key from environment variable
+ */
 dotenv.config();
 const secret = process.env.SECRET_TOKEN;
 
@@ -30,7 +33,7 @@ const recipeController = {
     }
     User.findById(decodedId.data.id)
       .then((user) => {
-        if (!user) response.status(404).json({ code: 404, message: 'User not found.' });
+        if (!user) response.status(404).json({ errorCode: 404, message: 'User not found.' });
         return Recipe.create({
           userId: decodedId.data.id,
           recipeName: request.body.recipeName,
@@ -42,9 +45,15 @@ const recipeController = {
           .then(recipe => response.status(201).json({ message: 'Recipe created successfully ', recipe }))
           .catch(error => response.status(404).send(error.message));
       })
-      .catch(error => response.status(404).send(error));
+      .catch(error => response.status(404).send(error.message));
   },
 
+  /**
+   * Get a single recipe
+   * @param {any} request
+   * @param {any} response
+   * @returns {obj} json
+   */
   get(request, response) {
     return Recipe
       .findById(request.params.id)

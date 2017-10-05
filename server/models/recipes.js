@@ -33,12 +33,19 @@ export default (sequelize, DataTypes) => {
 
   Recipe.associate = (models) => {
     Recipe.belongsTo(models.User, {
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
     });
 
-    // Recipe.hasMany(models.Reviews, {
-    //   foreignKey: 'recipeId'
-    // });
+    Recipe.hasMany(models.Reviews, {
+      foreignKey: 'recipeId',
+      as: 'reviews'
+    });
+
+    Recipe.hasMany(models.Favorites, {
+      foreignKey: 'recipeId',
+      as: 'favorites'
+    });
   };
   return Recipe;
 };

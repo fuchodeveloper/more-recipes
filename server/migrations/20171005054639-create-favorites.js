@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Recipes', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Favorites', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -16,24 +16,15 @@ module.exports = {
         as: 'userId'
       }
     },
-    recipeName: {
-      type: Sequelize.STRING
-    },
-    ingredientQuantity: {
-      type: Sequelize.STRING
-    },
-    ingredient: {
-      type: Sequelize.STRING
-    },
-    recipeDirection: {
-      type: Sequelize.TEXT
-    },
-    recipeImage: {
-      type: Sequelize.TEXT
-    },
-    views: {
+    recipeId: {
       type: Sequelize.INTEGER,
-      defaultValue: 0
+      allowNull: false,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Recipes',
+        key: 'id',
+        as: 'recipeId'
+      }
     },
     createdAt: {
       allowNull: false,
@@ -42,7 +33,7 @@ module.exports = {
     updatedAt: {
       allowNull: false,
       type: Sequelize.DATE
-    },
+    }
   }),
-  down: queryInterface => queryInterface.dropTable('Recipes')
+  down: queryInterface => queryInterface.dropTable('Favorites')
 };
