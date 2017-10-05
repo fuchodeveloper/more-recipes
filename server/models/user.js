@@ -39,12 +39,12 @@ export default (sequelize, DataTypes) => {
     User.hasMany(models.Recipes, {
       foreignKey: 'userId'
     });
-    // User.hasMany(models.Reviews, {
-    //   foreignKey: 'userId',
-    // });
-    // User.hasMany(models.Favorites, {
-    //   foreignKey: 'userId',
-    // });
+    User.hasMany(models.Reviews, {
+      foreignKey: 'userId',
+    });
+    User.hasMany(models.Favorites, {
+      foreignKey: 'userId',
+    });
   };
   return User;
 };

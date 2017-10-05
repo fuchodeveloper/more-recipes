@@ -5,7 +5,10 @@ import authorization from '../middleware/tokenMiddleware';
 import favoritesController from '../controllers/favoritesController';
 
 const routes = (router) => {
-  router.get('/', (request, response) => response.status(200).send({ message: 'Welcome to more-recipes!' }));
+  router.get('/', (request, response) => {
+    response.status(200)
+      .send({ message: 'Welcome to more-recipes!' });
+  });
 
   router.post('/users/signup', usersController.create);
   router.post('/users/signin', usersController.login);
@@ -16,7 +19,7 @@ const routes = (router) => {
   router.post('/recipes', authorization.verifyToken, recipesController.create);
   router.get('/recipes/:id', recipesController.get);
   router.get('/recipes', recipesController.getAll);
-  router.delete('/recipes/:id', recipesController.delete);
+  router.delete('/recipes/:id', authorization.verifyToken, recipesController.delete);
   // router.get('/recipes/?sort=upvotes&order=desc', recipesController.getUpVotes);
 
   /**
