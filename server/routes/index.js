@@ -20,6 +20,7 @@ const routes = (router) => {
   router.get('/recipes/:id', recipesController.get);
   router.get('/recipes', recipesController.getAll);
   router.delete('/recipes/:id', authorization.verifyToken, recipesController.delete);
+  router.put('/recipes/:id', authorization.verifyToken, recipesController.update);
   // router.get('/recipes/?sort=upvotes&order=desc', recipesController.getUpVotes);
 
   /**

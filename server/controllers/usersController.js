@@ -5,7 +5,7 @@ import Validator from 'validatorjs';
 import _ from 'lodash';
 import db from '../models/';
 
-const User = db.User;
+const { User } = db;
 
 dotenv.config();
 const secret = process.env.SECRET_TOKEN;
@@ -19,7 +19,7 @@ const usersController = {
    * @returns {obj} User
    */
   create(request, response) {
-    const body = request.body;
+    const { body } = request;
     const rules = {
       firstName: 'required|string',
       lastName: 'required|string',
@@ -60,7 +60,7 @@ const usersController = {
    * @returns {json} user
    */
   login(request, response) {
-    const body = request.body;
+    const { body } = request;
 
     const rules = {
       emailAddress: 'required|email',
