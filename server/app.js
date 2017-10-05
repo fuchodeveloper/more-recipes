@@ -13,12 +13,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.use(require('./routes'));
-/**
- * Default routes prefix
- */
 app.use('/api/v1', router);
-// app.use('/auth', AuthController);
 
 app.get('*', (request, response) => response.status(404).json({ message: 'Route does not exist!' }));
 

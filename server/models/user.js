@@ -35,13 +35,16 @@ export default (sequelize, DataTypes) => {
     }
   });
 
-  // User.associate = (models) => {
-  //   User.hasMany(models.Recipes, {
-  //     foreignKey: 'recipeId',
-  //     as: 'recipeId'
-  //   });
-  // };
+  User.associate = (models) => {
+    User.hasMany(models.Recipes, {
+      foreignKey: 'userId'
+    });
+    // User.hasMany(models.Reviews, {
+    //   foreignKey: 'userId',
+    // });
+    // User.hasMany(models.Favorites, {
+    //   foreignKey: 'userId',
+    // });
+  };
   return User;
 };
-
-// export default UserModel;
