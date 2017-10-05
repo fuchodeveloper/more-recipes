@@ -6,14 +6,18 @@
   "directories": {},
   "scripts": {
     "test": "nyc mocha --compilers js:babel-core/register ./server/test/test.js",
-    "start": "babel-node ./server/app.js --presets es2015,stage-2",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "start": "sequelize db:migrate && babel-node ./dist/app.js --presets es2015,stage-2",
+    "start:dev": "babel-node ./server/app.js --presets es2015,stage-2",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "build": "babel ./server -d ./dist"
   },
   "author": "Fredrick Mgbeoma",
   "license": "ISC",
   "devDependencies": {
     "eslint-config-airbnb-base": "^12.0.1",
-    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-import": "^2.7.0"
+  },
+  "dependencies": {
     "supertest": "^3.0.0",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
@@ -26,9 +30,7 @@
     "bcryptjs": "^2.4.3",
     "nodemon": "^1.12.1",
     "faker": "^4.1.0",
-    "coveralls": "^2.13.2"
-  },
-  "dependencies": {
+    "coveralls": "^2.13.2",
     "body-parser": "^1.18.2",
     "dotenv": "^4.0.0",
     "eslint": "^4.7.2",
@@ -45,6 +47,7 @@
     "pg-hstore": "^2.3.2",
     "request": "^2.83.0",
     "sequelize": "^4.13.1",
+    "sequelize-cli": "^3.0.0",
     "sequelize-transforms": "^1.0.2",
     "validatorjs": "^3.13.5"
   }
