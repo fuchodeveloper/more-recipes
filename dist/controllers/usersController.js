@@ -72,12 +72,12 @@ var usersController = {
       }).then(function (savedUser) {
         var data = _lodash2.default.pick(savedUser, ['id', 'firstName', 'lastName']);
         var authToken = _jsonwebtoken2.default.sign({ data: data }, secret, { expiresIn: 86400 });
-        response.status(200).json({ auth: true, user: data, token: authToken });
+        response.status(201).json({ auth: true, user: data, token: authToken });
       }).catch(function (error) {
-        return response.status(500).json({ error: error.message });
+        return response.status(400).json({ error: error.message });
       });
     }).catch(function () {
-      return response.status(500).json({ message: 'There was a problem registering the user.' });
+      return response.status(400).json({ message: 'There was a problem registering the user.' });
     });
   },
 
@@ -106,7 +106,7 @@ var usersController = {
     if (!token) return response.status(401).json({ auth: false, message: 'No token provided.' });
 
     _jsonwebtoken2.default.verify(token, secret, function (error) {
-      if (error) return response.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+      if (error) return response.status(400).json({ auth: false, message: 'Failed to authenticate token.' });
     });
 
     User.findOne({
@@ -127,7 +127,7 @@ var usersController = {
       var data = _lodash2.default.pick(user, ['id', 'firstName', 'lastName']);
       var myToken = _jsonwebtoken2.default.sign(data, secret, { expiresIn: 86400 });
       var decoded = _jsonwebtoken2.default.verify(myToken, secret);
-      return response.status(201).send({ message: 'Log in successful', user: decoded, token: myToken });
+      return response.status(200).send({ message: 'Log in successful', user: decoded, token: myToken });
     }).catch(function (error) {
       return response.send(error);
     });

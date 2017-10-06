@@ -22,6 +22,7 @@ _dotenv2.default.config();
 var secret = process.env.SECRET_TOKEN;
 var User = _models2.default.User;
 
+
 var authourization = {
   verifyToken: function verifyToken(req, res, next) {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -45,17 +46,6 @@ var authourization = {
         message: 'Token not provided'
       });
     }
-  },
-  verifyUser: function verifyUser(req, res, next) {
-    User.findById(req.params.id).then(function (user) {
-      if (!user) {
-        req.user = user;
-        return next();
-      }
-      return res.status(404).json({ message: 'User not found' });
-    }).catch(function (error) {
-      return res.status(500).json({ error: error.message });
-    });
   }
 };
 exports.default = authourization;

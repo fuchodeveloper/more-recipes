@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function up(queryInterface, Sequelize) {
-    return queryInterface.createTable('Votes', {
+    return queryInterface.createTable('downvotes', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,11 +15,7 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
-      upvotes: {
-        type: Sequelize.STRING,
-        defaultValue: 0
-      },
-      downvotes: {
+      downVotes: {
         type: Sequelize.STRING,
         defaultValue: 0
       },
@@ -34,6 +30,6 @@ module.exports = {
     });
   },
   down: function down(queryInterface) {
-    return queryInterface.dropTable('Votes');
+    return queryInterface.dropTable('downvotes');
   }
 };

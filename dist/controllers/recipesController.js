@@ -111,6 +111,14 @@ var recipeController = {
       return response.status(400).json(error);
     });
   },
+
+
+  /**
+   * Delete a recipe
+   * @param {any} request
+   * @param {any} response
+   * @returns {json} json
+   */
   delete: function _delete(request, response) {
     return Recipes.findById(request.params.id).then(function (recipe) {
       if (!recipe) {
@@ -133,6 +141,14 @@ var recipeController = {
       return response.status(400).json(error);
     });
   },
+
+
+  /**
+   * Update a recipe
+   * @param {any} request
+   * @param {any} response
+   * @returns {json} json
+   */
   update: function update(request, response) {
     var body = request.body;
 
@@ -152,6 +168,17 @@ var recipeController = {
     }).catch(function (error) {
       return response.status(400).json({ error: error.message });
     });
+  },
+  sort: function sort(request, response) {
+    if (request.query.sort) {
+      return Recipes.findAll({
+        order: [['upVotes', 'DESC']]
+      }).then(function (allSortedRecipes) {
+        return response.status(200).json({ SortedRecipes: allSortedRecipes });
+      }).catch(function (error) {
+        return response.status(400).json({ error: error.message });
+      });
+    }
   }
 };
 
