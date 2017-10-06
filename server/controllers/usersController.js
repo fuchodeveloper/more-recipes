@@ -47,10 +47,10 @@ const usersController = {
           .then((savedUser) => {
             const data = _.pick(savedUser, ['id', 'firstName', 'lastName']);
             const authToken = jwt.sign({ data }, secret, { expiresIn: 86400 });
-            response.status(200).json({ auth: true, user: data, token: authToken });
+            response.status(201).json({ auth: true, user: data, token: authToken });
           })
-          .catch(error => response.status(500).json({ error: error.message }));
-      }).catch(() => response.status(500).json({ message: 'There was a problem registering the user.' }));
+          .catch(error => response.status(400).json({ error: error.message }));
+      }).catch(() => response.status(400).json({ message: 'There was a problem registering the user.' }));
   },
 
   /**
@@ -76,7 +76,7 @@ const usersController = {
     if (!token) return response.status(401).json({ auth: false, message: 'No token provided.' });
 
     jwt.verify(token, secret, (error) => {
-      if (error) return response.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+      if (error) return response.status(400).json({ auth: false, message: 'Failed to authenticate token.' });
     });
 
     User.findOne({
@@ -99,7 +99,7 @@ const usersController = {
         const data = _.pick(user, ['id', 'firstName', 'lastName']);
         const myToken = jwt.sign(data, secret, { expiresIn: 86400 });
         const decoded = jwt.verify(myToken, secret);
-        return response.status(201).send({ message: 'Log in successful', user: decoded, token: myToken, });
+        return response.status(200).send({ message: 'Log in successful', user: decoded, token: myToken, });
       })
       .catch(error => response.send(error));
   }

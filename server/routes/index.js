@@ -11,6 +11,9 @@ const routes = (router) => {
       .send({ message: 'Welcome to more-recipes!' });
   });
 
+  /**
+   * User signup and sign in routes
+   */
   router.post('/users/signup', usersController.create);
   router.post('/users/signin', usersController.login);
 
@@ -22,7 +25,7 @@ const routes = (router) => {
   router.get('/recipes', recipesController.getAll);
   router.delete('/recipes/:id', authorization.verifyToken, recipesController.delete);
   router.put('/recipes/:id', authorization.verifyToken, recipesController.update);
-  // router.get('/recipes/?sort=upvotes&order=desc', recipesController.getUpVotes);
+  router.get('/recipes/?sort=upvotes&order=desc', recipesController.sort);
   router.post('/recipes/:id/upvote', authorization.verifyToken, votesController.upVote);
   router.post('/recipes/:id/downvote', authorization.verifyToken, votesController.downVote);
 
@@ -35,7 +38,7 @@ const routes = (router) => {
    * Recipe favorite routes
    */
   router.post('/users/:id/recipes', authorization.verifyToken, favoritesController.create);
-  router.get('/users/:id/recipes', favoritesController.getAll);
+  router.get('/users/:id/recipes', authorization.verifyToken, favoritesController.getAll);
 };
 
 export default routes;
