@@ -99,6 +99,12 @@ const recipeController = {
         .json(error));
   },
 
+  /**
+   * Delete a recipe
+   * @param {any} request
+   * @param {any} response
+   * @returns {json} json
+   */
   delete(request, response) {
     return Recipes
       .findById(request.params.id)
@@ -151,6 +157,13 @@ const recipeController = {
       .catch(error => response.status(400)
         .json({ error: error.message }));
   },
+
+  // sort(request, response) {
+  //   if (request.query.sort) {
+  //     return Recipes
+  //     .findAll
+  //   }
+  // }
 };
 
 export default recipeController;

@@ -3,6 +3,7 @@ import recipesController from '../controllers/recipesController';
 import reviewsController from '../controllers/reviewsController';
 import authorization from '../middleware/tokenMiddleware';
 import favoritesController from '../controllers/favoritesController';
+import votesController from '../controllers/votesController';
 
 const routes = (router) => {
   router.get('/', (request, response) => {
@@ -22,6 +23,8 @@ const routes = (router) => {
   router.delete('/recipes/:id', authorization.verifyToken, recipesController.delete);
   router.put('/recipes/:id', authorization.verifyToken, recipesController.update);
   // router.get('/recipes/?sort=upvotes&order=desc', recipesController.getUpVotes);
+  router.post('/recipes/:id/upvote', authorization.verifyToken, votesController.upVote);
+  router.post('/recipes/:id/downvote', authorization.verifyToken, votesController.downVote);
 
   /**
    * Recipe review routes
