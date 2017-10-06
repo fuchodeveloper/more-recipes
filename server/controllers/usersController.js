@@ -72,13 +72,6 @@ const usersController = {
       return response.json({ error: validation.errors.all() });
     }
 
-    const token = request.headers['x-access-token'];
-    if (!token) return response.status(401).json({ auth: false, message: 'No token provided.' });
-
-    jwt.verify(token, secret, (error) => {
-      if (error) return response.status(400).json({ auth: false, message: 'Failed to authenticate token.' });
-    });
-
     User.findOne({
       where: {
         emailAddress: request.body.emailAddress
@@ -101,7 +94,7 @@ const usersController = {
         const decoded = jwt.verify(myToken, secret);
         return response.status(200).send({ message: 'Log in successful', user: decoded, token: myToken, });
       })
-      .catch(error => response.send(error));
+      .catch(error => response.send(error.message));
   }
 };
 

@@ -102,13 +102,6 @@ var usersController = {
       return response.json({ error: validation.errors.all() });
     }
 
-    var token = request.headers['x-access-token'];
-    if (!token) return response.status(401).json({ auth: false, message: 'No token provided.' });
-
-    _jsonwebtoken2.default.verify(token, secret, function (error) {
-      if (error) return response.status(400).json({ auth: false, message: 'Failed to authenticate token.' });
-    });
-
     User.findOne({
       where: {
         emailAddress: request.body.emailAddress
@@ -129,7 +122,7 @@ var usersController = {
       var decoded = _jsonwebtoken2.default.verify(myToken, secret);
       return response.status(200).send({ message: 'Log in successful', user: decoded, token: myToken });
     }).catch(function (error) {
-      return response.send(error);
+      return response.send(error.message);
     });
   }
 };
