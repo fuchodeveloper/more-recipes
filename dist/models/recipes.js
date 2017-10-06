@@ -29,10 +29,20 @@ exports.default = function (sequelize, DataTypes) {
       type: DataTypes.TEXT
     },
     recipeImage: {
-      type: DataTypes.TEXT
+      type: DataTypes.STRING
     },
     views: {
       type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    upVotes: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
+    },
+    downVotes: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
       defaultValue: 0
     }
   });
@@ -51,6 +61,14 @@ exports.default = function (sequelize, DataTypes) {
     Recipe.hasMany(models.Favorites, {
       foreignKey: 'recipeId',
       as: 'favorites'
+    });
+
+    Recipe.hasMany(models.Votes, {
+      foreignKey: 'recipeId'
+    });
+
+    Recipe.hasMany(models.downvotes, {
+      foreignKey: 'recipeId'
     });
   };
   return Recipe;

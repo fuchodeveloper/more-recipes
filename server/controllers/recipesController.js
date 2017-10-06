@@ -134,6 +134,12 @@ const recipeController = {
         .json(error));
   },
 
+  /**
+   * Update a recipe
+   * @param {any} request
+   * @param {any} response
+   * @returns {json} json
+   */
   update(request, response) {
     const { body } = request;
     return Recipes
@@ -158,12 +164,20 @@ const recipeController = {
         .json({ error: error.message }));
   },
 
-  // sort(request, response) {
-  //   if (request.query.sort) {
-  //     return Recipes
-  //     .findAll
-  //   }
-  // }
+  sort(request, response) {
+    if (request.query.sort) {
+      return Recipes
+        .findAll({
+          order: [
+            ['upVotes', 'DESC']
+          ]
+        })
+        .then(allSortedRecipes => response.status(200)
+          .json({ SortedRecipes: allSortedRecipes }))
+        .catch(error => response.status(400)
+          .json({ error: error.message }));
+    }
+  }
 };
 
 export default recipeController;

@@ -32,7 +32,7 @@ app.use((0, _morgan2.default)('dev'));
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 
-app.use('/api/v1', router);
+app.use('/', router);
 
 app.get('*', function (request, response) {
   return response.status(404).json({ message: 'Route does not exist!' });
