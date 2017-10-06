@@ -5,14 +5,14 @@ ol {
   margin: 0;
   padding: 0; }
 
-.border-test {
-  border: 1px solid red; }
-
 body {
   font-family: 'Open Sans' , sans-serif !important; }
 
 .width-5 {
   width: 5px; }
+
+.margin-top-bottom-auto {
+  margin: 100px auto 50px auto; }
 
 .nav-menu-active {
   border: 1px solid transparent;
