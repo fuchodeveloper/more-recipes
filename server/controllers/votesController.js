@@ -1,6 +1,14 @@
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 import db from '../models/';
 
 const { Recipes, Votes, downvotes } = db;
+
+/**
+ * Get secret key from environment variable
+ */
+dotenv.config();
+const secret = process.env.SECRET_TOKEN;
 
 const votesController = {
   upVote(request, response) {
@@ -14,7 +22,7 @@ const votesController = {
         if (!recipe) {
           return response.status(404).json({ message: 'Recipe not found.' });
         }
-        Votes.findOne({ where: { userId: request.decoded.id } })
+        Votes.findOne({ where: { userId: request.decoded.id, recipeId: request.params.id } })
           .then((vote) => {
             if (vote) {
               return response.status(400)
@@ -50,12 +58,13 @@ const votesController = {
         .json({ message: 'Id of recipe is needed.' });
     }
 
+
     Recipes.findById(request.params.id)
       .then((recipe) => {
         if (!recipe) {
           return response.status(404).json({ message: 'Recipe not found.' });
         }
-        downvotes.findOne({ where: { userId: request.decoded.id } })
+        downvotes.findOne({ where: { userId: request.decoded.id, recipeId: request.params.id } })
           .then((vote) => {
             if (vote) {
               return response.status(400)
