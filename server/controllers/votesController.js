@@ -1,14 +1,6 @@
-import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
 import db from '../models/';
 
 const { Recipes, Votes, downvotes } = db;
-
-/**
- * Get secret key from environment variable
- */
-dotenv.config();
-const secret = process.env.SECRET_TOKEN;
 
 const votesController = {
   upVote(request, response) {

@@ -3,7 +3,7 @@ import Validator from 'validatorjs';
 import jwt from 'jsonwebtoken';
 import db from '../models/';
 
-const { Recipes, User } = db;
+const { Recipes } = db;
 
 /**
  * Get secret key from environment variable
@@ -20,37 +20,21 @@ const recipeController = {
       recipeDirection: 'required:min:6'
     };
 
-    const token = request.headers['x-access-token'];
-    if (!token) {
-      return response.status(401)
-        .send({ auth: false, message: 'No token provided.' });
-    }
-
-    const decodedId = jwt.verify(token, secret);
-
     const validation = new Validator(body, rules);
     if (validation.fails()) {
       return response.json({ error: validation.errors.all() });
     }
-    User.findById(decodedId.data.id)
-      .then((user) => {
-        if (!user) {
-          response.status(404)
-            .json({ errorCode: 404, message: 'User not found.' });
-        }
-        return Recipes.create({
-          userId: decodedId.data.id,
-          recipeName: request.body.recipeName,
-          ingredientQuantity: request.body.ingredientQuantity,
-          ingredient: request.body.ingredient,
-          recipeDirection: request.body.recipeDirection,
-          recipeImage: request.body.recipeImage
-        })
-          .then(recipe => response.status(201)
-            .json({ message: 'Recipe created successfully ', recipe }))
-          .catch(error => response.status(404)
-            .send(error.message));
-      })
+
+    Recipes.create({
+      userId: request.decoded.id,
+      recipeName: request.body.recipeName,
+      ingredientQuantity: request.body.ingredientQuantity,
+      ingredient: request.body.ingredient,
+      recipeDirection: request.body.recipeDirection,
+      recipeImage: request.body.recipeImage
+    })
+      .then(recipe => response.status(201)
+        .json({ message: 'Recipe created successfully ', recipe }))
       .catch(error => response.status(404)
         .send(error.message));
   },
@@ -113,22 +97,17 @@ const recipeController = {
           response.status(404)
             .json({ message: 'Recipe not found' });
         }
-        const token = request.headers['x-access-token'];
-        if (!token) {
-          return response.status(401)
-            .json({ auth: false, message: 'No token provided.' });
-        } else
-        if (token) {
-          const decodedId = jwt.verify(token, secret);
-          if (decodedId.data.id === recipe.userId) {
-            return recipe
-              .destroy()
-              .then(() => response.status(200)
-                .json({ message: 'Recipe deleted' }))
-              .catch(error => response.status(400)
-                .json(error));
-          }
+        if (request.decoded.id === recipe.userId) {
+          return recipe
+            .destroy()
+            .then(recipeDeleted => response.status(200)
+              .json({ message: 'Recipe deleted', recipeDeleted }))
+            .catch(error => response.status(400)
+              .json(error));
         }
+        return response.json({ message: 'Only recipe owners can delete recipe.' });
+
+        // }
       })
       .catch(error => response.status(400)
         .json(error));
@@ -149,21 +128,30 @@ const recipeController = {
           response.status(404)
             .json({ message: 'Recipe not found.' });
         }
+        /**
+         * Update the specified recipe and catch any errors
+         */
         return Recipes
           .update({
-            recipeName: body.recipeImage,
+            recipeName: body.recipeName,
             ingredientQuantity: body.ingredientQuantity,
             ingredient: body.ingredient,
             recipeDirection: body.recipeDirection,
             recipeImage: body.recipeImage
-          }, { where: { id: request.params.id } });
+          }, { where: { id: request.params.id } })
+          .then(updateSucess => response.status(201).json({ message: 'Recipe updated', updateSucess }));
       })
-      .then(updatedRecipe => response.status(200)
-        .json({ message: 'Update successful', updatedRecipe }))
       .catch(error => response.status(400)
         .json({ error: error.message }));
   },
 
+  /**
+   * Sort recipes according to upvotes in descending order
+   *
+   * @param {any} request
+   * @param {any} response
+   * @returns {json} json
+   */
   sort(request, response) {
     if (request.query.sort) {
       return Recipes
