@@ -22,12 +22,12 @@ const authourization = {
         if (error) {
           return res.status(401).json({ message: error.message });
         }
-        User.findById(decoded.data.id)
+        User.findById(decoded.id)
           .then((user) => {
             if (!user) {
               return res.json({ message: error.message });
             }
-            req.decoded = decoded.data;
+            req.decoded = decoded;
             return next();
           })
           .catch(err => res.status(404).json({ error: err.message }));
@@ -46,7 +46,6 @@ const authourization = {
         .send({ auth: false, message: 'No token provided.' });
     }
 
-    // const decodedId = jwt.verify(token, secret);
     jwt.verify(token, secret, (error, decoded) => {
       if (error) {
         return res.status(401).json({ message: error.message });

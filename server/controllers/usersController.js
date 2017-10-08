@@ -45,7 +45,7 @@ const usersController = {
           password: hashedPassword
         })
           .then((savedUser) => {
-            const data = _.pick(savedUser, ['id', 'firstName', 'lastName']);
+            const data = _.pick(savedUser, ['id', 'firstName', 'lastName', 'emailAddress']);
             const authToken = jwt.sign({ data }, secret, { expiresIn: 86400 });
             response.status(201).json({ auth: true, user: data, token: authToken });
           })
@@ -89,7 +89,7 @@ const usersController = {
           }
         }
 
-        const data = _.pick(user, ['id', 'firstName', 'lastName']);
+        const data = _.pick(user, ['id', 'firstName', 'lastName', 'emailAddress']);
         const myToken = jwt.sign(data, secret, { expiresIn: 86400 });
         const decoded = jwt.verify(myToken, secret);
         return response.status(200).send({ message: 'Log in successful', user: decoded, token: myToken, });
