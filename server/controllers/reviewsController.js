@@ -51,8 +51,6 @@ const reviewsController = {
   },
 
   get(request, response) {
-    // const { body } = request;
-
     const token = request.headers['x-access-token'];
     if (!token) return response.status(401).send({ auth: false, message: 'No token provided.' });
 
@@ -73,15 +71,6 @@ const reviewsController = {
         if (review) {
           return response.status(404).json({ code: 404, message: review });
         }
-
-
-        // return Review.findAll({
-        //   where: { userId: decodedId.data.id }
-        // })
-        //   .then(reviews => response.status(200)
-        //     .json({ message: reviews }))
-        //   .catch(error => response.status(400)
-        //     .json(error));
       })
       .then(review => response.status(200).json({ message: review }))
       .catch(error => response.status(400).json(error.message));

@@ -15,7 +15,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', router);
 
-app.get('*', (request, response) => response.status(404).json({ message: 'Route does not exist!' }));
+app.get('*', (request, response) => response.status(404)
+  .json({ message: 'Route does not exist!' }));
 
 app.listen(port);
 

@@ -24,7 +24,7 @@ const usersController = {
       firstName: 'required|string',
       lastName: 'required|string',
       emailAddress: 'required|email',
-      password: 'required|min:6|max:24|alpha_num',
+      password: 'required|min:6|alpha_num',
       password_confirmation: 'required|same:password'
     };
 
@@ -35,7 +35,8 @@ const usersController = {
     User.findOne({ where: { emailAddress: body.emailAddress } })
       .then((user) => {
         if (user) {
-          return response.status(404).json({ message: 'User already exists. Try again.' });
+          return response.status(404)
+            .json({ message: 'User already exists. Try again.' });
         }
         const hashedPassword = bcrypt.hashSync((request.body.password).trim());
         User.create({
@@ -49,8 +50,10 @@ const usersController = {
             const authToken = jwt.sign({ data }, secret, { expiresIn: 86400 });
             response.status(201).json({ auth: true, user: data, token: authToken });
           })
-          .catch(error => response.status(400).json({ error: error.message }));
-      }).catch(() => response.status(400).json({ message: 'There was a problem registering the user.' }));
+          .catch(error => response.status(400)
+            .json({ error: error.message }));
+      }).catch(() => response.status(400)
+        .json({ message: 'There was a problem registering the user.' }));
   },
 
   /**

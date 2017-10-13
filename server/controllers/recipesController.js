@@ -1,15 +1,7 @@
-import dotenv from 'dotenv';
 import Validator from 'validatorjs';
-import jwt from 'jsonwebtoken';
 import db from '../models/';
 
 const { Recipes } = db;
-
-/**
- * Get secret key from environment variable
- */
-dotenv.config();
-const secret = process.env.SECRET_TOKEN;
 
 const recipeController = {
   create(request, response) {
