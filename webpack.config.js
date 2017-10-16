@@ -5,7 +5,9 @@ module.exports = {
   devServer: {
     inline: true,
     contentBase: 'src',
-    port: 8000
+    port: 8000,
+    historyApiFallback: true,
+    hot: true
   },
   devtool: 'cheap-module-eval-source-map',
   entry: './client/index.js',
@@ -31,6 +33,8 @@ module.exports = {
     path: path.resolve(__dirname, 'src')
   },
   plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
   ]
 };
