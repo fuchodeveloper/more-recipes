@@ -5,12 +5,16 @@ module.exports = {
   devServer: {
     inline: true,
     contentBase: 'src',
+    // host: 'localhost',
     port: 8000,
     historyApiFallback: true,
     hot: true
   },
   devtool: 'cheap-module-eval-source-map',
-  entry: './client/index.js',
+  entry: [
+    'webpack-hot-middleware/client',
+    path.join(__dirname, './client/index.js')
+  ],
   module: {
     loaders: [
       {
@@ -19,7 +23,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loaders: ['babel-loader'],
+        loaders: ['react-hot-loader/webpack', 'babel-loader'],
         exclude: /node_modules/
       },
       {
