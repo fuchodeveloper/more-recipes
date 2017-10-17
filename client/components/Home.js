@@ -10,7 +10,7 @@ class Home extends Component {
       <div>
         {/* Header component for navigation */}
         <Header />
-
+        
           <div className="container margin-top-70">
             
               <h1 className="text-center p-4 center-hero-title">Awesome Recipes Just For You</h1>

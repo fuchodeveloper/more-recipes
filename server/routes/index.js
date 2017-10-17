@@ -1,3 +1,4 @@
+import path from 'path';
 import usersController from '../controllers/usersController';
 import recipesController from '../controllers/recipesController';
 import reviewsController from '../controllers/reviewsController';
@@ -6,9 +7,13 @@ import favoritesController from '../controllers/favoritesController';
 import votesController from '../controllers/votesController';
 
 const routes = (router) => {
+  // router.get('/', (request, response) => {
+  //   response.status(200)
+  //     .send({ message: 'Welcome to more-recipes!' });
+  // });
+
   router.get('/', (request, response) => {
-    response.status(200)
-      .send({ message: 'Welcome to more-recipes!' });
+    response.status(200).sendFile(path.join(__dirname, '../../src/index.html'));
   });
 
   /**

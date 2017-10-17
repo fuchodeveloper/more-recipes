@@ -1,8 +1,29 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Header from '../../components/navigation/Header';
 
 class SignUp extends Component {
+
+  constructor(props) {
+    super(props);
+    // Initialize state properties
+    this.state = { 
+      credentials: {
+        emailAddress: '',
+        password: ''
+      }
+     }
+    //  Bin create user function
+    this.createUser = this.createUser.bind(this);
+  }
+
+  createUser(event) {
+    event.preventDefault();
+    console.log(event);
+  }
+
   render() {
     return (
       <div>
@@ -15,7 +36,7 @@ class SignUp extends Component {
         </div>
         <div className="col-md-5 card mx-auto p-4 mb-5">
             <div className="mx-auto">
-                <form action="#" method="post">
+                <form onSubmit={ this.createUser }>
                     <div className="row">
                         <div className="col-md-12 mb-3">
                             <label for="firstName" className="forms-label-color">First Name</label>
