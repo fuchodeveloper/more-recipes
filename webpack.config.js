@@ -5,14 +5,14 @@ module.exports = {
   devServer: {
     inline: true,
     contentBase: 'src',
-    // host: 'localhost',
+    host: 'localhost',
     port: 8000,
     historyApiFallback: true,
     hot: true
   },
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack-hot-middleware/client',
+    'webpack-hot-middleware/client?reload=true',
     path.join(__dirname, './client/index.js')
   ],
   module: {

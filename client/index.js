@@ -23,10 +23,12 @@ const Root = () => {
       <Route path="/signup" component={SignUp}/>
       <Route path="/signin" component={SignIn}/>
       <Route path="/details" component={Details}/>
-      <Route component={NotFound}/>
+      {/* <Route component={NotFound}/> */}
       </div>
     </Router>
   )
 }
 
 render(<Root />, document.getElementById('root'));
+
+
