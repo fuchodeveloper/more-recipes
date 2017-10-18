@@ -10,7 +10,7 @@ import webpackConfiguration from '../webpack.config';
 
 
 const app = express();
-const bundleConfig = webpack(webpackConfiguration);
+const compiler = webpack(webpackConfiguration);
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 const router = express.Router();
@@ -21,9 +21,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(webpackMiddleware(bundleConfig));
+app.use(webpackMiddleware(compiler));
 
-app.use(webpackHotMiddleware(bundleConfig, {
+app.use(webpackHotMiddleware(compiler, {
   hot: true,
   publicPath: webpackConfiguration.output.path
 }));

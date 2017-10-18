@@ -11,8 +11,8 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel ./server -d ./dist",
     "dev": "webpack",
-    "react":"webpack-dev-server --hot",
-    "express":"babel-node ./server/app.js --presets es2015,stage-2",
+    "react": "webpack-dev-server --hot",
+    "express": "babel-node ./server/app.js --presets es2015,stage-2",
     "start:client": "concurrently 'npm run express' 'npm run express'"
   },
   "author": "Fredrick Mgbeoma",
@@ -25,6 +25,7 @@
     "redux-devtools": "^3.4.0"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
