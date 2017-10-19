@@ -5,6 +5,7 @@ import reviewsController from '../controllers/reviewsController';
 import authorization from '../middleware/tokenMiddleware';
 import favoritesController from '../controllers/favoritesController';
 import votesController from '../controllers/votesController';
+// import validateInput from '../shared/validations/signup';
 
 const routes = (router) => {
   // router.get('/', (request, response) => {
@@ -12,6 +13,7 @@ const routes = (router) => {
   //     .send({ message: 'Welcome to more-recipes!' });
   // });
 
+  
   router.get('/', (request, response) => {
     response.status(200).sendFile(path.join(__dirname, '../../src/index.html'));
   });
