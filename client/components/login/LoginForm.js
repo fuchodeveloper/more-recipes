@@ -45,10 +45,16 @@ class LoginForm extends React.Component {
     if (this.isValid()){
       this.setState({ errors: {}, isLoading: true });
       this.props.login(this.state)
-        .then(
-          (res) => this.context.router.history.push('/'),
-          (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
-        );
+        // .then(
+        //   (res) => this.context.router.history.push('/'),
+        //   (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
+        // );
+        .then(() => {
+          this.context.router.history.push('/');
+        })
+        .catch((error) => {
+          this.setState({ errors: error.response.data, isLoading: false })
+        })
     }
   }
 
@@ -70,7 +76,7 @@ class LoginForm extends React.Component {
     return (
       <form onSubmit={this.onSubmit}>
         <div className="row">
-
+      
             <div className="col-md-12 mb-2">
                 <label htmlFor="emailAddress" className="forms-label-color">Email Address</label>
                 <input 
@@ -80,8 +86,10 @@ class LoginForm extends React.Component {
                   name="emailAddress"
                   value={emailAddress}
                   onChange={this.onChange}
-                  error={errors.emailAddress}
+                  /* error={errors.emailAddress} */
                 />
+                <span className="mb-1"></span>
+                { errors.emailAddress && <div className="text-danger text-center">{errors.emailAddress}</div> }
             </div>
 
             <div className="col-md-12 mb-2">
@@ -93,8 +101,12 @@ class LoginForm extends React.Component {
                   id="password"
                   value={password}
                   onChange={this.onChange}
-                  error={errors.password}
+                  /* error={errors.password} */
                 />
+                <span className="mb-1"></span>
+                { errors.password && <div className="text-danger text-center">{errors.password}</div> }
+
+                
             </div>
 
 

@@ -7,12 +7,13 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import routes from './routes/index';
 import webpackConfiguration from '../webpack.config';
-
+import auth from './routes/auth';
 
 const app = express();
 const compiler = webpack(webpackConfiguration);
 
 const port = parseInt(process.env.PORT, 10) || 8000;
+
 const router = express.Router();
 routes(router);
 
@@ -20,6 +21,8 @@ app.use(logger('dev'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use('/api/v1/users', auth);
 
 app.use(webpackMiddleware(compiler));
 
