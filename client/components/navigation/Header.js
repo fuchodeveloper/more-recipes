@@ -19,7 +19,7 @@ class Header extends React.Component {
                   <div className="dropdown-divider"/>
                   <Link to="/signup" className="mr-2 btn">Sign Up</Link>
                   <div className="dropdown-divider"/>
-                  <Link to="/signin" className="mr-2 btn">Sign In</Link>
+                  <Link to="/login" className="mr-2 btn">Sign In</Link>
                   <div className="dropdown-divider"/>
 
 

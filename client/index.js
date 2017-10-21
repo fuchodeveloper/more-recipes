@@ -13,6 +13,7 @@ import SignIn from './components/auth/SignIn';
 import Details from './components/recipes/Details';
 import NotFound from './components/errors/NotFound';
 import rootReducer from './rootReducer';
+import LoginPage from './components/login/LoginPage';
 import './assets/scss/main.scss';
 import './assets/js/main';
 // import './assets/js/fontawesome';
@@ -32,7 +33,7 @@ const Root = () => {
           <div>
             <Route exact path="/" component={Home}/>
             <Route path="/signup" component={SignUp}/>
-            <Route path="/signin" component={SignIn}/>
+            <Route path="/login" component={LoginPage}/>
             <Route path="/details" component={Details}/>
           {/* <Route component={NotFound}/> */}
           </div>
