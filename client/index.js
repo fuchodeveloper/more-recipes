@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 import App from './components/App';
 import Home from './components/Home';
 import SignUp from './components/auth/SignUp';
-import SignIn from './components/auth/SignIn';
+// import SignIn from './components/auth/SignIn';
 import Details from './components/recipes/Details';
 import NotFound from './components/errors/NotFound';
 import rootReducer from './rootReducer';

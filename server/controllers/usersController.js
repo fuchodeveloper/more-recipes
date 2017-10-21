@@ -67,7 +67,7 @@ const usersController = {
 
     const rules = {
       emailAddress: 'required|email',
-      password: 'required|min:6|max:24|alpha_num'
+      password: 'required|min:6|alpha_num'
     };
 
     const validation = new Validator(body, rules);
@@ -82,13 +82,13 @@ const usersController = {
     })
       .then((user) => {
         if (!user) {
-          return response.status(404).json({ message: 'Authentication failed. No user found.' });
+          return response.status(404).json({ error: 'Authentication failed. No user found.' });
         }
         if (user) {
           const confirmPassword =
           bcrypt.compareSync((request.body.password).trim(), user.password);
           if (confirmPassword === false) {
-            response.status(401).json({ message: 'Authentication failed. Wrong password.' });
+            response.status(401).json({ error: 'Authentication failed. Wrong password.' });
           }
         }
 
