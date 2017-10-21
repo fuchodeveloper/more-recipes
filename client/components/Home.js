@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
 import noodles from '../assets/img/noodles.jpg';
 import Header from '../components/navigation/Header';
+import FlashMessagesList from './flash/FlashMessagesList';
 
 class Home extends Component {
   render() {
@@ -11,11 +12,16 @@ class Home extends Component {
         {/* Header component for navigation */}
         <Header />
         
+        
+        {this.props.children}
+        
           <div className="container margin-top-70">
-            
+          <FlashMessagesList />
+          
               <h1 className="text-center p-4 center-hero-title">Awesome Recipes Just For You</h1>
+              <FlashMessagesList />
               <form action="#" method="post">
-
+              
                   <div className="input-group mt-2 mb-2 p-1">
                       <input type="text" className="form-control p-3" placeholder="Try: 'Jollof Rice' " aria-describedby="basic-addon2"/>
                       <input type="submit" value="SEARCH" className="btn btn-primary input-group-addon"/>

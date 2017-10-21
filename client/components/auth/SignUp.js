@@ -8,7 +8,7 @@ import axios from 'axios';
 import Header from '../../components/navigation/Header';
 import SignupForm from './SignupForm';
 import { userSignupRequest } from '../../action/authentication/signupActions';
-import { addFlashMessage } from '../../action/flashMessages';
+import { addFlashMessage } from '../../action/flashMessages.js';
 
 class SignUp extends Component {
 
