@@ -25,7 +25,7 @@ const authourization = {
         User.findById(decoded.id)
           .then((user) => {
             if (!user) {
-              return res.json({ error: error.message });
+              return res.json({ error: 'User not found' });
             }
             req.decoded = decoded;
             return next();
