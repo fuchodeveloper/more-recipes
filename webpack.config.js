@@ -1,16 +1,16 @@
-const path = require('path');
-const webpack = require('webpack');
+import path from 'path';
+import webpack from 'webpack';
 
-module.exports = {
-  devServer: {
-    inline: true,
-    contentBase: 'src',
-    host: 'localhost',
-    port: 8000,
-    historyApiFallback: true,
-    hot: true
-  },
-  devtool: 'cheap-module-eval-source-map',
+export default {
+  // devServer: {
+  //   inline: true,
+  //   contentBase: 'src',
+  //   host: 'localhost',
+  //   port: 8000,
+  //   historyApiFallback: true,
+  //   hot: true
+  // },
+  devtool: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client?reload=true',
     path.join(__dirname, './client/index.js')
@@ -23,6 +23,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        include: path.join(__dirname, 'client'),
         loaders: ['react-hot-loader/webpack', 'babel-loader'],
         exclude: /node_modules/
       },
@@ -33,8 +34,9 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'js/webpack-bundle.min.js',
-    path: path.resolve(__dirname, 'src')
+    filename: 'bundle.js',
+    path: '/',
+    publicPath: '/'
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
