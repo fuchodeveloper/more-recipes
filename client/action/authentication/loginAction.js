@@ -3,6 +3,13 @@ import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../../utils/setAuthorizationToken';
 import { SET_CURRENT_USER } from '../types';
 
+/**
+ * set current user type
+ *
+ * @export currentUser
+ * @param {any} user
+ * @returns {obj} obj
+ */
 export function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,

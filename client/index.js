@@ -10,9 +10,8 @@ import jwt from 'jsonwebtoken';
 import App from './components/App';
 import Home from './components/Home';
 import SignUp from './components/auth/SignUp';
-// import SignIn from './components/auth/SignIn';
 import Details from './components/recipes/Details';
-import NotFound from './components/errors/NotFound';
+import AddRecipePage from './components/recipes/AddRecipePage';
 import rootReducer from './rootReducer';
 import LoginPage from './components/login/LoginPage';
 import './assets/scss/main.scss';
@@ -41,7 +40,7 @@ const Root = () => {
             <Route path="/signup" component={SignUp}/>
             <Route path="/login" component={LoginPage}/>
             <Route path="/details" component={Details}/>
-          {/* <Route component={NotFound}/> */}
+            <Route path="/add_recipe" component={AddRecipePage}/>
           </div>
       </Router>
     </Provider>

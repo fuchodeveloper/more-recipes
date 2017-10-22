@@ -20,12 +20,12 @@ const authourization = {
     if (token) {
       jwt.verify(token, secret, (error, decoded) => {
         if (error) {
-          return res.status(401).json({ message: error.message });
+          return res.status(401).json({ error: error.message });
         }
         User.findById(decoded.id)
           .then((user) => {
             if (!user) {
-              return res.json({ message: error.message });
+              return res.json({ error: error.message });
             }
             req.decoded = decoded;
             return next();
@@ -34,7 +34,7 @@ const authourization = {
       });
     } else {
       res.status(403).json({
-        message: 'Token not provided'
+        error: 'Token not provided'
       });
     }
   },
@@ -43,12 +43,12 @@ const authourization = {
     const token = req.headers['x-access-token'];
     if (!token) {
       return res.status(401)
-        .send({ auth: false, message: 'No token provided.' });
+        .send({ auth: false, error: 'No token provided.' });
     }
 
     jwt.verify(token, secret, (error, decoded) => {
       if (error) {
-        return res.status(401).json({ message: error.message });
+        return res.status(401).json({ error: error.message });
       }
       req.decoded = decoded;
       return next();

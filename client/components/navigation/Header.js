@@ -33,7 +33,7 @@ class Header extends React.Component {
 
           <div className="dropdown-menu main-nav-menu width-5" aria-labelledby="dropdownMenuLink">
             <a className="dropdown-item" href="template/profile.html">Profile</a>
-            <a className="dropdown-item" href="template/add_recipe.html">Add Recipe</a>
+            <Link className="dropdown-item" to="add_recipe">Add Recipe</Link>
             <a className="dropdown-item" href="template/category.html">Category</a>
             <a className="dropdown-item" href="template/favorite_recipes.html">Favorite Recipes</a>
             <a className="dropdown-item" href="template/my_recipes.html">My Recipes</a>
