@@ -40,5 +40,9 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-  ]
+  ],
+  node: {
+    net: 'empty',
+    dns: 'empty'
+  }
 };
