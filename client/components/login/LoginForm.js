@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import validateInput from '../shared/validations/login';
-import { login } from '../../action/login';
+import { login } from '../../action/authentication/loginAction';
 
 class LoginForm extends React.Component {
   constructor(props) {

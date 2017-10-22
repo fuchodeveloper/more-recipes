@@ -6,6 +6,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
+import jwt from 'jsonwebtoken';
 import App from './components/App';
 import Home from './components/Home';
 import SignUp from './components/auth/SignUp';
@@ -16,7 +17,8 @@ import rootReducer from './rootReducer';
 import LoginPage from './components/login/LoginPage';
 import './assets/scss/main.scss';
 import './assets/js/main';
-// import './assets/js/fontawesome';
+import setAuthorizationToken from './utils/setAuthorizationToken';
+import { setCurrentUser } from './action/authentication/loginAction';
 
 const Root = () => {
   const store = createStore(
@@ -27,6 +29,10 @@ const Root = () => {
     )
   );
 
+  if (localStorage.jwtToken) {
+    setAuthorizationToken(localStorage.jwtToken);
+    store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+  }
   return (
     <Provider store={store}>
         <Router history = {browserHistory}>
