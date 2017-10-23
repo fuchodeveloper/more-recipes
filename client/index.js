@@ -18,6 +18,7 @@ import './assets/scss/main.scss';
 import './assets/js/main';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import { setCurrentUser } from './action/authentication/loginAction';
+import requireAuth from './utils/requireAuth';
 
 const Root = () => {
   const store = createStore(
@@ -40,7 +41,7 @@ const Root = () => {
             <Route path="/signup" component={SignUp}/>
             <Route path="/login" component={LoginPage}/>
             <Route path="/details" component={Details}/>
-            <Route path="/add_recipe" component={AddRecipePage}/>
+            <Route path="/add_recipe" component={requireAuth(AddRecipePage)}/>
           </div>
       </Router>
     </Provider>

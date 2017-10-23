@@ -72,7 +72,8 @@ const usersController = {
 
     const validation = new Validator(body, rules);
     if (validation.fails()) {
-      return response.json({ error: validation.errors.all() });
+      return response.json({ error: 'Check details again.' });
+      // return response.json({ error: validation.errors.all() });
     }
 
     User.findOne({
