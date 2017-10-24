@@ -42,5 +42,9 @@ export default {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-  ]
+  ],
+  node: {
+    fs: 'empty',
+    net: 'empty'
+  }
 };
