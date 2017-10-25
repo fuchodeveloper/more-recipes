@@ -3,16 +3,43 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import Validator from 'validatorjs';
 import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import db from '../models/';
+import commonValidations from '../../client/components/shared/validations/signup';
 
 const { User } = db;
 
 dotenv.config();
 const secret = process.env.SECRET_TOKEN;
 
+/**
+ * Validations
+ *
+ * @param {any} data
+ * @param {any} otherValidations
+ * @returns {obj} obj
+ */
+function validateInput(data, otherValidations) {
+  const { errors } = otherValidations(data);
+
+  return User.findOne({ where: { emailAddress: data.emailAddress } })
+    .then((user) => {
+      if (user) {
+        if (user.emailAddress === data.emailAddress) {
+          errors.emailAddress = 'User already exists. Try again.';
+        }
+      }
+      return {
+        errors,
+        isValid: isEmpty(errors)
+      };
+    });
+}
+
+
 const usersController = {
   /**
-    * Controller to create a new user
+   * Controller to create a new user
    *
    * @param {any} request
    * @param {any} response
@@ -20,24 +47,25 @@ const usersController = {
    */
   create(request, response) {
     const { body } = request;
-    const rules = {
-      firstName: 'required|string',
-      lastName: 'required|string',
-      emailAddress: 'required|email',
-      password: 'required|min:6|alpha_num',
-      password_confirmation: 'required|same:password'
-    };
+    /**
+     * validate form input
+     *
+     * @param {any} data
+     * @returns {obj} obj
+     */
 
-    const validation = new Validator(body, rules);
-    if (validation.fails()) {
-      return response.json({ error: validation.errors.all() });
-    }
-    User.findOne({ where: { emailAddress: body.emailAddress } })
-      .then((user) => {
-        if (user) {
-          return response.status(404)
-            .json({ message: 'User already exists. Try again.' });
+    validateInput(body, commonValidations)
+      .then(({ errors, isValid }) => {
+        if (!isValid) {
+          response.status(400).json(errors);
         }
+
+        // User.findOne({ where: { emailAddress: body.emailAddress } })
+        //   .then((user) => {
+        //     if (user) {
+        //       return response.status(404)
+        //         .json({ message: 'User already exists. Try again.' });
+        //     }
         const hashedPassword = bcrypt.hashSync((request.body.password).trim());
         User.create({
           firstName: request.body.firstName,
@@ -52,8 +80,11 @@ const usersController = {
           })
           .catch(error => response.status(400)
             .json({ error: error.message }));
-      }).catch(() => response.status(400)
-        .json({ message: 'There was a problem registering the user.' }));
+      });
+    // .catch(() => {
+    //   'There was a problem registering the user.';
+    // });
+    // });
   },
 
   /**
