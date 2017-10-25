@@ -43,8 +43,10 @@ class SignupForm extends React.Component {
           type: 'success',
           text: 'Sign up successful!'
         });
-        this.context.router.history.push('/');
-      })
+       this.context.router.history.push('/');
+        
+      }
+    )
       .catch((error) => {
         this.setState({ errors: error.response.data, isLoading: false })
       })
@@ -57,7 +59,7 @@ class SignupForm extends React.Component {
     return (
       <form onSubmit={ this.onSubmit }>
         <div className="row"> 
-             <div className={classnames("col-md-12 mb-3", {"has-error": errors.firstName})}>
+             <div className={classnames("col-md-12 mb-3", {"text-danger": errors.firstName})}>
                 <label htmlFor="firstName" className="forms-label-color">First Name</label>
                 <input 
                   value={this.state.firstName} 
@@ -70,7 +72,7 @@ class SignupForm extends React.Component {
                 { errors.firstName && <span className="form-text">{ errors.firstName }</span> }
             </div>
 
-            <div className={classnames("col-md-12 mb-3", {"has-error": errors.lastName})}>
+            <div className={classnames("col-md-12 mb-3", {"text-danger": errors.lastName})}>
                 <label htmlFor="firstName" className="forms-label-color">Last Name</label>
                 <input 
                   value={this.state.lastName} 
@@ -83,7 +85,7 @@ class SignupForm extends React.Component {
                 { errors.lastName && <span className="form-text">{ errors.lastName }</span> }
             </div>
 
-            <div className={classnames("col-md-12 mb-2", { "has-error": errors.emailAddress })}>
+            <div className={classnames("col-md-12 mb-2", { "text-danger": errors.emailAddress })}>
                 <label htmlFor="emailAddress" className="forms-label-color">Email Address</label>
                 <input 
                   value={this.state.emailAddress} 
@@ -96,7 +98,7 @@ class SignupForm extends React.Component {
                 { errors.emailAddress && <span className="form-text">{ errors.emailAddress }</span> }
             </div>
 
-            <div className={classnames("col-md-12 mb-2", { "has-error": errors.password })}>
+            <div className={classnames("col-md-12 mb-2", { "text-danger": errors.password })}>
                 <label htmlFor="password" className="forms-label-color">Password</label>
                 <input 
                   value={this.state.password} 
@@ -109,7 +111,7 @@ class SignupForm extends React.Component {
                 { errors.password && <span className="form-text">{ errors.password }</span> }
             </div>
 
-            <div className={classnames("col-md-12 mb-2", { "has-error": errors.password_confirmation })}>
+            <div className={classnames("col-md-12 mb-2", { "text-danger": errors.password_confirmation })}>
                 <label htmlFor="password_confirmation" className="forms-label-color">Confirm Password</label>
                 <input 
                   value={this.state.password_confirmation} 

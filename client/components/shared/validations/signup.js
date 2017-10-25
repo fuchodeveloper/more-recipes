@@ -26,7 +26,7 @@ export default function validateInput(data) {
     errors.password_confirmation = 'Passwords must match';
   }
   if (validator.isEmpty(data.password_confirmation)) {
-    errors.password_confirmation = 'Comfirm password is required';
+    errors.password_confirmation = 'Confirm password is required';
   }
 
   return {

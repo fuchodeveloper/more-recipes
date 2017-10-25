@@ -95,7 +95,7 @@ class LoginForm extends React.Component {
             <div className="col-md-12 mb-2">
                 <label htmlFor="password" className="forms-label-color">Password</label>
                 <input 
-                  type="text"
+                  type="password"
                   className="form-control" 
                   name="password" 
                   id="password"
