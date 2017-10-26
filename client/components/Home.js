@@ -1,25 +1,58 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import noodles from '../assets/img/noodles.jpg';
 import Header from '../components/navigation/Header';
 import FlashMessagesList from './flash/FlashMessagesList';
+import AllRecipes from './recipes/AllRecipes';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      details: {},
+      errors: {}
+    }; // Initialize the state
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ isLoading: false }), 1000);
+    axios.get('/api/v1/recipes')
+    .then((recipe) => {
+      return this.setState({ details: recipe.data })
+    })
+    .catch((error) => {
+      this.setState({ errors: error.response })
+    })
+  }
+
   render() {
+    const { isLoading } = this.state;
+
+    if (isLoading) {
+      return (
+        <h2 className="text-center">Loading...</h2>
+      );
+    }
+
     return (
       <div>
+
         {/* Header component for navigation */}
         <Header />
-        
         
         {this.props.children}
         
           <div className="container margin-top-70">
           <FlashMessagesList />
           
-              <h1 className="text-center p-4 center-hero-title">Awesome Recipes Just For You</h1>
-              <FlashMessagesList />
+              <h1
+               className="text-center p-4 center-hero-title">Awesome Recipes Just For You</h1>
+              <div>
+
+              </div>
               <form action="#" method="post">
               
                   <div className="input-group mt-2 mb-2 p-1">
@@ -33,42 +66,18 @@ class Home extends Component {
                 <h3 className="popular-text">Most popular recipes</h3>
               </div>
 
-              <div className="card-deck">
-                <div className="card mt-1">
-                    <img className="card-img-top" src={noodles} alt="Recipe image"/>
-                    <div className="card-body">
-                        <h4 className="card-title">Card title</h4>
-                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <div className="card-footer custom-card-footer-bg">
-                            <p className="card-text"><small className="text-muted">30 <i className="fa fa-eye" aria-hidden="true"/> . 20 <i className="fa fa-thumbs-up" aria-hidden="true"/> . 42 <i className="fa fa-star" aria-hidden="true"/></small></p>
-                            <Link to="/details" className="btn btn-primary btn-primary-color">View Recipe</Link>
-                        </div>
-                    </div>
-                </div>
-                <div className="card mt-1">
-                <img className="card-img-top" src={noodles} alt="Recipe image"/>
-                    <div className="card-body">
-                        <h4 className="card-title">Card title</h4>
-                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <div className="card-footer custom-card-footer-bg">
-                            <p className="card-text"><small className="text-muted">30 <i className="fa fa-eye" aria-hidden="true"/> . 20 <i className="fa fa-thumbs-up" aria-hidden="true"/> . 42 <i className="fa fa-star" aria-hidden="true"/></small></p>
-                            <a href="template/details.html" className="btn btn-primary btn-primary-color">View Recipe</a>
-                        </div>
-                    </div>
+              <div>
+
+                <div className="row">
+                  {Object
+                    .keys(this.state.details.recipes)
+                    .map(key => <AllRecipes key={key} details={this.state.details.recipes[key]}/>)  
+                  }
                 </div>
 
-                <div className="card mt-1">
-                <img className="card-img-top" src={noodles} alt="Recipe image"/>
-                <div className="card-body">
-                    <h4 className="card-title">Card title</h4>
-                    <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <div className="card-footer custom-card-footer-bg">
-                        <p className="card-text"><small className="text-muted">30 <i className="fa fa-eye" aria-hidden="true"/> . 20 <i className="fa fa-thumbs-up" aria-hidden="true"/> . 42 <i className="fa fa-star" aria-hidden="true"/></small></p>
-                        <a href="template/details.html" className="btn btn-primary btn-primary-color">View Recipe</a>
-                    </div>
-                </div>
               </div>
-          </div>
+
+          
 
           <div className="clearfix mt-4"/>
           {/* Bottom Navigation */}

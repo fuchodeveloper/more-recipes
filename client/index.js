@@ -10,7 +10,7 @@ import jwt from 'jsonwebtoken';
 import App from './components/App';
 import Home from './components/Home';
 import SignUp from './components/auth/SignUp';
-import Details from './components/recipes/Details';
+import RecipeDetailsPage from './components/recipes/RecipeDetailsPage';
 import AddRecipePage from './components/recipes/AddRecipePage';
 import rootReducer from './rootReducer';
 import LoginPage from './components/login/LoginPage';
@@ -40,7 +40,7 @@ const Root = () => {
             <Route exact path="/" component={Home}/>
             <Route path="/signup" component={SignUp}/>
             <Route path="/login" component={LoginPage}/>
-            <Route path="/details" component={Details}/>
+            <Route path="/details" component={RecipeDetailsPage}/>
             <Route path="/add_recipe" component={requireAuth(AddRecipePage)}/>
           </div>
       </Router>

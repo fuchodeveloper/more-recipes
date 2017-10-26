@@ -28,8 +28,8 @@ const routes = (router) => {
    * Recipe routes
    */
   router.post('/api/v1/recipes', authorization.verifyToken, recipesController.create);
-  router.get('/api/v1/recipes/:id', recipesController.get);
-  router.get('/api/v1/recipes', recipesController.getAll);
+  router.get('/api/v1/recipes/:id', recipesController.get); // changed
+  router.get('/api/v1/recipes', recipesController.getAll); // changed
   router.delete('/api/v1/recipes/:id', authorization.verifyToken, recipesController.delete);
   router.put('/api/v1/recipes/:id', authorization.verifyToken, recipesController.update);
   router.get('/api/v1/recipes/?sort=upvotes&order=desc', recipesController.sort);
