@@ -19,8 +19,9 @@ module.exports = {
     recipeName: {
       type: Sequelize.STRING
     },
-    ingredientQuantity: {
-      type: Sequelize.STRING
+    favoriteCount: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0
     },
     ingredient: {
       type: Sequelize.STRING

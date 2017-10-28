@@ -5,7 +5,7 @@ module.exports = {
   development: {
     username: 'fucho',
     password: 'administrator',
-    database: 'more-recipes',
+    database: 'more-recipes2',
     host: '127.0.0.1',
     port: 5432,
     dialect: 'postgres'

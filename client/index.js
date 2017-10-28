@@ -40,13 +40,13 @@ const Root = () => {
             <Route exact path="/" component={Home}/>
             <Route path="/signup" component={SignUp}/>
             <Route path="/login" component={LoginPage}/>
-            <Route path="/details" component={RecipeDetailsPage}/>
+            <Route path="/recipes/:id" component={RecipeDetailsPage}/>
             <Route path="/add_recipe" component={requireAuth(AddRecipePage)}/>
           </div>
       </Router>
     </Provider>
   )
-}
+};
 
 render(<Root />, document.getElementById('root'));
 

@@ -13,23 +13,26 @@ class Home extends Component {
     this.state = {
       isLoading: true,
       details: {},
-      errors: {}
+      errors: {},
+      favoriteCount: 0
     }; // Initialize the state
   }
 
-  componentDidMount() {
+  // Changed from: ComponentDidMount to componentWiillMount
+  componentWillMount() {
+
     setTimeout(() => this.setState({ isLoading: false }), 1000);
     axios.get('/api/v1/recipes')
     .then((recipe) => {
-      return this.setState({ details: recipe.data })
+      this.setState({ details: recipe.data })
     })
     .catch((error) => {
       this.setState({ errors: error.response })
     })
   }
-
+  
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, favoriteCount } = this.state;
 
     if (isLoading) {
       return (
@@ -71,7 +74,7 @@ class Home extends Component {
                 <div className="row">
                   {Object
                     .keys(this.state.details.recipes)
-                    .map(key => <AllRecipes key={key} details={this.state.details.recipes[key]}/>)  
+                    .map(key => <AllRecipes key={key} details={this.state.details.recipes[key]} />)  
                   }
                 </div>
 

@@ -1,4 +1,5 @@
 import Validator from 'validatorjs';
+// import validator from 'validator';
 import db from '../models/';
 
 const { Recipes } = db;
@@ -16,6 +17,11 @@ const recipeController = {
     if (validation.fails()) {
       return response.json({ error: validation.errors.all() });
     }
+
+    // const errors = {};
+    // if (validator.isEmpty(body.recipeName)) {
+    //   errors.recipeImage = 'Recipe name is required';
+    // }
 
     Recipes.create({
       userId: request.decoded.id,
@@ -43,7 +49,7 @@ const recipeController = {
       .then((recipe) => {
         if (!recipe) {
           response.status(404)
-            .json({ message: 'Recipe not found' });
+            .json({ error: 'Recipe not found' });
         }
         return recipe
           .update({ views: recipe.views + 1 });
@@ -51,7 +57,7 @@ const recipeController = {
       .then((recipe) => {
         if (!recipe) {
           response.status(404)
-            .json({ message: 'Recipe not found' });
+            .json({ error: 'Recipe not found' });
         }
         response.status(200)
           .json({ recipe });
@@ -95,14 +101,14 @@ const recipeController = {
             .then(recipeDeleted => response.status(200)
               .json({ message: 'Recipe deleted', recipeDeleted }))
             .catch(error => response.status(400)
-              .json(error));
+              .json({ error: error.message }));
         }
-        return response.json({ message: 'Only recipe owners can delete recipe.' });
+        return response.json({ error: 'Only recipe owners can delete recipe.' });
 
         // }
       })
       .catch(error => response.status(400)
-        .json(error));
+        .json({ error: error.message }));
   },
 
   /**

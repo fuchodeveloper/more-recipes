@@ -1,28 +1,85 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import noodles from '../../assets/img/noodles.jpg';
 import { getAllRecipes } from '../../action/recipes/recipeDetails';
+import { createFavorite } from '../../action/favorites/createFavorite';
 
 class RecipeDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredient: '',
-      recipeName: '',
-      recipeDirection: ''
-    }
+      isLoading: true,
+      details: {},
+      errors: {},
+      favorited: '',
+      recipeDelete: '',
+      favoriteCount: 0
+    }; // Initialize the state
   }
 
 
+  componentDidMount() {
+    const { param } = this.props;
+
+    setTimeout(() => this.setState({ isLoading: false }), 1000);
+    axios.get('/api/v1/recipes/' + param)
+        .then((recipe) => {
+          console.log(recipe.data);
+      return this.setState({ details: recipe.data })
+    })
+    .catch((error) => {
+      this.setState({ errors: error.response })
+    })
+  }
+
+  createFavorite(e) {
+    e.preventDefault();
+    const { param } = this.props;
+
+    return axios.post(`/api/v1/users/${param}/recipes`)
+      .then((favorite) => {
+        alert(error.response.data.message);
+        this.setState({ favorited: favorite.response.data.message })
+      })
+      .catch((error) => {
+        alert(error.response.data.error);
+        this.setState({ errors: error.response.data.error })
+      })
+  }
+
+  deleteRecipe(e) {
+    e.preventDefault();
+    const { param } = this.props;
+
+    return axios.delete(`/api/v1/recipes/${param}`)
+      .then((recipeDelete) => {
+        console.log(recipeDelete);
+        // console.log(recipeDelete.data.error);
+        this.setState({ favorited: recipeDelete.response.data.message })
+      })
+      .catch((error) => {
+        alert(error.response.data.error);
+        this.setState({ errors: error })
+      })
+  }
+  
   render() {
-    
+    const { isLoading, details, favoriteCount } = this.state;
+
+    if (isLoading) {
+      return (
+        <h2 className="text-center">Loading...</h2>
+      );
+    }
+
     return (
       <div>
         <div className="overlay margin-top-50">
             <div className="jumbotron recipe-header-background">
                 <div className="container recipe-overlay-text">
-                    <h1 className="display-3 recipe-title">Recipe: Party Jollof</h1>
+                    <h1 className="display-3 recipe-title">Recipe: {details.recipe.recipeName}</h1>
                     <p className="recipe-author"><em>By: John Doe</em></p>
                 </div>
             </div>
@@ -30,38 +87,15 @@ class RecipeDetails extends React.Component {
 
         <div className="container">
           <div className="mb-4">
-            <span className="recipe-title">Recipe and Ingredients</span>
-            <span className="float-right recipe-ratings-right text-muted">30 <i className="fa fa-eye" aria-hidden="true"/> <span className="big-pipe">.</span> 42 <i className="fa fa-thumbs-up" aria-hidden="true"/> <span>.</span> 30 <i className="fa fa-star" aria-hidden="true"/> </span>
+            <span className="recipe-title">Recipe Ingredients</span>
+            <span className="float-right recipe-ratings-right text-muted">{details.recipe.views} <i className="fa fa-eye" aria-hidden="true"/> <span className="big-pipe">.</span> {details.recipe.upVotes} <i className="fa fa-thumbs-up" aria-hidden="true"/> <span>.</span> {details.recipe.favoriteCount} <i className="fa fa-star" aria-hidden="true"/> </span>
           </div>
 
         <div className="row">
             <div className="col-sm-6">
-                <table className="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Quantity</th>
-                        <th>Name</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>3</td>
-                        <td>cigar cups | 750g long grain parboiled rice</td>
-                    </tr>
-                    <tr>
-                        <td>500 mls</td>
-                        <td>Tomato stew</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Whole chicken</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Medium bulb onions</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <p>
+                {details.recipe.ingredient}
+                </p>  
             </div>
 
             <div className="col-sm-6 float-right">
@@ -73,23 +107,14 @@ class RecipeDetails extends React.Component {
             <div className="mt-5">
                 <h3>Directions</h3>
                 <p>
-
-                    Pour the chicken stock and the tomato stew into a sizeable pot and leave to boil.
-                    Add the drained parboiled rice, curry powder, salt and pepper to taste. The water level should be the same level of the rice. This is to ensure that all the water dries up by the time the rice is cooked.
-                    Cover the pot and leave to cook on low to medium heat. This way the rice does not burn before the water dries up.
-
-                    If you parboiled the rice as described at parboiling rice for cooking jollof rice, the rice should be done by the time the water is dry. Taste to confirm. If not, you will need to add more water and reduce the heat to prevent burning. Keep cooking till done.
-
-                    Serve with Fried Plantain, Nigerian Moi Moi, Nigerian Salad or Coleslaw.
-
-                    You can spice up this recipe by adding 2 well known vegetables to arrive at what we refer to as Mixed Vegetables Jollof Rice.
+                  {details.recipe.recipeDirection}
                 </p>
             </div>
 
             <div className="mt-5 fav-link">
-                <a href="#" className="font-awesome-fav"><i className="fa fa-heart-o fa-lg"/> Favorite</a>
+                <a href="#" onClick={ this.createFavorite.bind(this) } className="font-awesome-fav"><i className="fa fa-heart-o fa-lg"/> Favorite</a>
                 &nbsp;
-                <a href="#" className="font-awesome-delete"><i className="fa fa-trash-o fa-lg"/> Delete</a>
+                <a href="#" onClick={ this.deleteRecipe.bind(this) } className="font-awesome-delete"><i className="fa fa-trash-o fa-lg"/> Delete</a>
             </div>
 
             <div className="mt-5">
@@ -118,7 +143,7 @@ class RecipeDetails extends React.Component {
                 <form>
                     <div className="row">
                         <div className="col-md-6 mb-3">
-                            <label htmlFor="review-body"></label>
+                            <label htmlFor="review-body"/>
                             <textarea className="form-control" placeholder="How awesome was this recipe?" name="review-body" id="review-body" cols="30" rows="10"/>
                             <div className="invalid-feedback">
                                 Please add a review
@@ -139,7 +164,7 @@ class RecipeDetails extends React.Component {
 
 RecipeDetails.propTypes = {
   getAllRecipes: PropTypes.func.isRequired
-}
+};
 
 export default connect(null, { getAllRecipes })(RecipeDetails);
 
