@@ -8,6 +8,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfiguration from '../webpack.config';
 import auth from './routes/auth';
 import recipes from './routes/recipes';
+import favorites from './routes/favorites';
 import users from './routes/users';
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/v1/users', auth);
 app.use('/api/v1/recipes', recipes);
+app.use('/api/v1', favorites);
 app.use('/upload', users);
 
 app.use(webpackMiddleware(compiler, {

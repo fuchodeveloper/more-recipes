@@ -2,14 +2,6 @@ import path from 'path';
 import webpack from 'webpack';
 
 export default {
-  // devServer: {
-  //   inline: true,
-  //   contentBase: 'src',
-  //   host: 'localhost',
-  //   port: 8000,
-  //   historyApiFallback: true,
-  //   hot: true
-  // },
   devtool: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client?reload=true',

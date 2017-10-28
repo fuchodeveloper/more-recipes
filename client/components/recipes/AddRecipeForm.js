@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ReactFileReader from 'react-file-reader';
 import { createRecipe } from '../../action/recipes/recipeActions';
 
 class AddRecipeForm extends React.Component {
@@ -17,16 +18,28 @@ class AddRecipeForm extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleFiles = this.handleFiles.bind(this);
+  }
+
+  handleFiles (files) {
+    this.setState({ recipeImage: files[0].name })
   }
 
   onChange(e) {
-    this.setState
-    ({ [e.target.name]: e.target.value });
+    const file = e.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () =>{
+      this.setState({ recipeImage: file.name })
+    }
+    // this.setState
+    // ({ [e.target.name]: e.target.value });
   }
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.createRecipe(this.state);
+    this.props.createRecipe(this.state)
+    console.log(this.state);
   }
 
   render() {
@@ -42,6 +55,7 @@ class AddRecipeForm extends React.Component {
                 value={this.state.recipeImage}
                 onChange={ this.onChange }
               />
+              
               <h3 className="text-center p-4 center-hero-text">Add Ingredients</h3>
 
               <div className="form-row" id="recipe-quantity">

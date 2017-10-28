@@ -13,8 +13,9 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       trim: true
     },
-    ingredientQuantity: {
-      type: DataTypes.STRING
+    favoriteCount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     ingredient: {
       type: DataTypes.STRING

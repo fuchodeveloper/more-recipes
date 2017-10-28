@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import validateInput from '../shared/validations/login';
 import { login } from '../../action/authentication/loginAction';
 
@@ -45,11 +46,8 @@ class LoginForm extends React.Component {
     if (this.isValid()){
       this.setState({ errors: {}, isLoading: true });
       this.props.login(this.state)
-        // .then(
-        //   (res) => this.context.router.history.push('/'),
-        //   (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
-        // );
         .then(() => {
+          console.log(res);
           this.context.router.history.push('/');
         })
         .catch((error) => {
@@ -113,7 +111,7 @@ class LoginForm extends React.Component {
             <div className="col-md-12 mb-2">
                 <label htmlFor="submit" className="forms-label-color"/>
                 <input type="submit" id="submit" value="Sign In" className="btn btn-primary form-control btn-primary-color" disabled={isLoading}/>
-                <p className="small text-muted mt-3 text-center">Don't have an account? <a href="sign-up.html">Sign Up</a></p>
+                <p className="small text-muted mt-3 text-center">Don't have an account? <Link to="/signup">Sign Up</Link></p>
             </div>
 
         </div>

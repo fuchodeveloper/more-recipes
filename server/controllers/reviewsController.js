@@ -21,14 +21,14 @@ const reviewsController = {
     }
 
     const token = request.headers['x-access-token'];
-    if (!token) return response.status(401).send({ auth: false, message: 'No token provided.' });
+    if (!token) return response.status(401).send({ auth: false, error: 'No token provided.' });
 
     const decodedId = jwt.verify(token, secret);
 
     User.findById(decodedId.data.id)
       .then((user) => {
         if (!user) {
-          return response.status(404).json({ errorCode: 404, message: 'User not found.' });
+          return response.status(404).json({ errorCode: 404, error: 'User not found.' });
         }
       })
       .catch(error => response.status(400).json(error.message));
@@ -36,7 +36,7 @@ const reviewsController = {
     Recipe.findById(request.params.id)
       .then((recipe) => {
         if (!recipe) {
-          return response.status(404).json({ code: 404, message: 'Recipe not found.' });
+          return response.status(404).json({ code: 404, error: 'Recipe not found.' });
         }
 
         return Review.create({

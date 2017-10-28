@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { Link } from 'react-router-dom';
 import validateInput from '../shared/validations/signup';
 
 class SignupForm extends React.Component {
@@ -128,7 +129,7 @@ class SignupForm extends React.Component {
                 <label className="forms-label-color"></label>
                 {/* <input type="submit" value="Sign Up" className="btn btn-primary form-control btn-primary-color"/> */}
                 <div className="form-group"><button  className="btn btn-primary btn-lg" disabled={this.state.isLoading }>Login</button></div>
-                <p className="small text-muted mt-3 text-center">Already have an account? <a href="sign-in.html">Sign in</a></p>
+                <p className="small text-muted mt-3 text-center">Already have an account? <Link to="/login">Sign in</Link></p>
             </div>
           </div>
       </form>
