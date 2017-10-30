@@ -24,7 +24,7 @@ module.exports = {
       defaultValue: 0
     },
     ingredient: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     recipeDirection: {
       type: Sequelize.TEXT

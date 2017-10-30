@@ -39,8 +39,8 @@ const routes = (router) => {
   /**
    * Recipe review routes
    */
-  router.post('/api/v1/recipes/:id/reviews', authorization.verifyToken, reviewsController.create);
-  router.get('/api/v1/recipes/:id/reviews', authorization.verifyToken, reviewsController.get);
+  router.post('/api/v1/recipes/:id/reviews', authorization.verifyToken, reviewsController.create); // changed
+  router.get('/api/v1/recipes/:id/reviews', authorization.verifyToken, reviewsController.get); // changed
 
   /**
    * Recipe favorite routes

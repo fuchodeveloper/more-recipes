@@ -9,6 +9,7 @@ import webpackConfiguration from '../webpack.config';
 import auth from './routes/auth';
 import recipes from './routes/recipes';
 import favorites from './routes/favorites';
+import reviews from './routes/reviews';
 import users from './routes/users';
 
 const app = express();
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/v1/users', auth);
 app.use('/api/v1/recipes', recipes);
 app.use('/api/v1', favorites);
+app.use('/api/v1/recipes', reviews);
 app.use('/upload', users);
 
 app.use(webpackMiddleware(compiler, {
@@ -37,6 +39,7 @@ app.use(webpackHotMiddleware(compiler));
 app.get('/*', (request, response) => {
   response.sendFile(path.join(__dirname, './index.html'));
 });
+
 
 app.listen(port);
 

@@ -15,10 +15,7 @@ class AddRecipePage extends React.Component {
             <h1 className="text-center p-4 center-hero-text">Add Recipe</h1>
         </div>
 
-        {/* Recipe avatar */}
-        <div className="col-md-6 mx-auto p-3 add_recipe-card text-center">
-            <img src="./img/no-image.svg" width="350px" id="recipe-image-avatar" height="auto" className="img-fluid" alt=""/>
-        </div>
+       
 
         {/* Form to add recipe ingredients and quantity */}
         <div className="col-md-6 mx-auto p-3">
