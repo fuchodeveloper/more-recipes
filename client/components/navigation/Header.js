@@ -28,7 +28,7 @@ class Header extends React.Component {
      <div>
        <div className="dropdown show mr-5 main-nav-menu">
           <a className="dropdown-toggle btn btn-block" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              John
+              Welcome
           </a>
 
           <div className="dropdown-menu main-nav-menu width-5" aria-labelledby="dropdownMenuLink">

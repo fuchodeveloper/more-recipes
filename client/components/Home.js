@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
+import qs from 'qs'
 import noodles from '../assets/img/noodles.jpg';
 import Header from '../components/navigation/Header';
 import FlashMessagesList from './flash/FlashMessagesList';
@@ -14,11 +16,14 @@ class Home extends Component {
       isLoading: true,
       details: {},
       errors: {},
-      favoriteCount: 0
+      favoriteCount: 0,
+      cloudinaryRecipeImage: ''
     }; // Initialize the state
   }
 
-  // Changed from: ComponentDidMount to componentWiillMount
+  /**
+   *  GET all recipes from the database table
+   */
   componentWillMount() {
 
     setTimeout(() => this.setState({ isLoading: false }), 1000);
@@ -30,7 +35,7 @@ class Home extends Component {
       this.setState({ errors: error.response })
     })
   }
-  
+
   render() {
     const { isLoading, favoriteCount } = this.state;
 
@@ -45,7 +50,7 @@ class Home extends Component {
 
         {/* Header component for navigation */}
         <Header />
-        
+         
         {this.props.children}
         
           <div className="container margin-top-70">

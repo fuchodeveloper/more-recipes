@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactFileReader from 'react-file-reader';
+import toastr from 'toastr';
 import { createRecipe } from '../../action/recipes/recipeActions';
+import img from '../../assets/img/noodles.jpg'
 
 class AddRecipeForm extends React.Component {
   constructor(props) {
@@ -12,50 +14,72 @@ class AddRecipeForm extends React.Component {
       recipeImage: '',
       ingredient: '',
       recipeDirection: '',
-      errors: {},
-      isLoading: false
+      isLoading: 0,
+      errors: {}
     }
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.handleFiles = this.handleFiles.bind(this);
-  }
-
-  handleFiles (files) {
-    this.setState({ recipeImage: files[0].name })
+    this.uploadWidget = this.uploadWidget.bind(this);
   }
 
   onChange(e) {
-    const file = e.target.files[0];
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-    fileReader.onload = () =>{
-      this.setState({ recipeImage: file.name })
-    }
-    // this.setState
-    // ({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit(e) {
     e.preventDefault();
     this.props.createRecipe(this.state)
-    console.log(this.state);
+    .then(() => {
+      // setTimeout(() => this.setState({ isLoading: 1 }), 1000);
+      alert('Recipe Added.')
+      this.context.router.history.push('/');
+      
+    }
+  )
+    .catch((error) => {
+      this.setState({ errors: error.response.data, isLoading: 0 })
+    })
+  }
+
+  uploadWidget() {
+    let _this = this;
+    // let recipeImageButton = document.getElementById('recipeImage');
+    // recipeImageButton.setAttribute('disabled', 1);
+
+    cloudinary.openUploadWidget({ cloud_name: 'fuchodeveloper', upload_preset: 'wvxnziq0', tags:['recipe']},
+      function(error, result) {
+        _this.setState({ recipeImage: result[0].url})
+    });
+
   }
 
   render() {
     const { recipeName, recipeDirection, ingredient } = this.state;
     return (
       <div>
-          <form encType="multipart/form-data" onSubmit={this.onSubmit}>
-              <input 
+         {/* Recipe avatar */}
+          <div className="col-md-6 mx-auto p-3 add_recipe-card text-center">
+            
+              <img src={this.state.recipeImage === undefined ? img : this.state.recipeImage} width="350px" id="recipe-image-avatar" height="auto" className="img-fluid" alt=""/>
+          </div>
+
+          <form encType="multipart/form-data" onSubmit={this.onSubmit}> 
+              {/* <input 
                 type="file" 
                 name="recipeImage" 
                 id="recipe-image" 
                 accept="image/*" 
                 value={this.state.recipeImage}
                 onChange={ this.onChange }
-              />
-              
+              /> */}
+              <br />
+              <div className="upload">
+                  <button name="recipeImage" id="recipeImage" disabled={0} onClick={this.uploadWidget.bind(this)} className="upload-button">
+                      Add Image
+                  </button>
+              </div>
+
               <h3 className="text-center p-4 center-hero-text">Add Ingredients</h3>
 
               <div className="form-row" id="recipe-quantity">
@@ -69,6 +93,7 @@ class AddRecipeForm extends React.Component {
                           className="form-control"
                           value={this.state.recipeName}
                           onChange={ this.onChange }
+                          required
                         />
                     </div>
                 </div>
@@ -84,6 +109,7 @@ class AddRecipeForm extends React.Component {
                           className="form-control"
                           value={this.state.ingredient}
                           onChange={ this.onChange }
+                          required
                         />
                     </div>
                 </div>
@@ -102,6 +128,7 @@ class AddRecipeForm extends React.Component {
                         rows="10" 
                         value={ this.state.recipeDirection }
                         onChange={ this.onChange }
+                        required
                       />
                   </div>
               </div>
@@ -119,6 +146,10 @@ class AddRecipeForm extends React.Component {
 
 AddRecipeForm.propTypes = {
   createRecipe: PropTypes.func.isRequired
+}
+
+AddRecipeForm.contextTypes = {
+  router: PropTypes.object.isRequired
 }
 
 export default connect(null, { createRecipe })(AddRecipeForm);

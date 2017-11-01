@@ -10,7 +10,7 @@ class AllRecipes extends React.Component {
     return (      
       <div className="col-md-4 mb-2">
           <div className="card mt-1">
-            <img className="card-img-top" src={noodles} alt="Recipe image"/>
+            <img className="card-img-top" max-width="348px" height="231px" src={details.recipeImage === '' ? noodles : details.recipeImage} alt={details.recipeName}/>
             <div className="card-body">
                 <h4 className="card-title">{details.recipeName}</h4>
                 <p className="card-text">{details.recipeDirection.slice(0, 100) + '...'}</p>

@@ -24,7 +24,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.TEXT
     },
     recipeImage: {
-      type: DataTypes.STRING
+      type: DataTypes.TEXT
     },
     views: {
       type: DataTypes.INTEGER,

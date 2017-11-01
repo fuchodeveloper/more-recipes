@@ -5,6 +5,8 @@ import axios from 'axios';
 import noodles from '../../assets/img/noodles.jpg';
 import { getAllRecipes } from '../../action/recipes/recipeDetails';
 import { createFavorite } from '../../action/favorites/createFavorite';
+import upvoteRecipe from '../../action/recipes/upvoteAction';
+import downvoteRecipe from '../../action/recipes/downvoteAction';
 
 class RecipeDetails extends React.Component {
   constructor(props) {
@@ -15,8 +17,13 @@ class RecipeDetails extends React.Component {
       errors: {},
       favorited: '',
       recipeDelete: '',
-      favoriteCount: 0
+      favoriteCount: 0,
+      review: '',
+      upVote: '',
+      downVote: ''
     }; // Initialize the state
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
 
@@ -26,11 +33,19 @@ class RecipeDetails extends React.Component {
     setTimeout(() => this.setState({ isLoading: false }), 1000);
     axios.get('/api/v1/recipes/' + param)
         .then((recipe) => {
-          console.log(recipe.data);
       return this.setState({ details: recipe.data })
     })
     .catch((error) => {
       this.setState({ errors: error.response })
+    })
+
+    axios.get(`/api/v1/recipes/${param}/reviews`)
+      .then((reviews) => {
+        this.setState({ review: reviews });
+    }
+  )
+    .catch((error) => {
+      this.setState({ errors: error.response.data })
     })
   }
 
@@ -55,14 +70,63 @@ class RecipeDetails extends React.Component {
 
     return axios.delete(`/api/v1/recipes/${param}`)
       .then((recipeDelete) => {
-        console.log(recipeDelete);
-        // console.log(recipeDelete.data.error);
         this.setState({ favorited: recipeDelete.response.data.message })
       })
       .catch((error) => {
         alert(error.response.data.error);
         this.setState({ errors: error })
       })
+  }
+
+  upVote(e) {
+    e.preventDefault();
+    const { param } = this.props;
+
+    this.props.upvoteRecipe(param)
+    .then((recipeUpvoteSuccess) => {
+      alert(recipeUpvoteSuccess.response.data.message);
+      this.setState({ upVote: recipeUpvoteSuccess.response.data.message })
+    })
+    .catch((recipeUpvoteError) => {
+      alert(recipeUpvoteError.response.data.error);
+      this.setState({ errors: recipeUpvoteError.response.data.error })
+    })
+  }
+
+  downVote(e) {
+    e.preventDefault();
+    const { param } = this.props;
+
+    this.props.downvoteRecipe(param)
+    .then((recipeDownvoteSuccess) => {
+      alert(recipeDownvoteSuccess.response.data.message);
+      this.setState({ downVote: recipeDownvoteSuccess.response.data.message })
+    })
+    .catch((recipeDownvoteError) => {
+      alert(recipeDownvoteError.response.data.error);
+      this.setState({ errors: recipeDownvoteError.response.data.error })
+    })
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    const { param } = this.props;
+
+    return axios.post(`/api/v1/recipes/${param}/reviews`, this.state)
+    .then((review) => {
+      alert('Review Added.')
+      this.refs.review.value = '';
+      this.setState({ review: review })
+    }
+  )
+    .catch((error) => {
+      this.setState({ errors: error.response.data })
+    })
+
   }
   
   render() {
@@ -77,7 +141,7 @@ class RecipeDetails extends React.Component {
     return (
       <div>
         <div className="overlay margin-top-50">
-            <div className="jumbotron recipe-header-background">
+            <div className="jumbotron recipe-header-background" style={{ backgroundImage: `url(${details.recipe.recipeImage === '' ? noodles : details.recipe.recipeImage})` }}>
                 <div className="container recipe-overlay-text">
                     <h1 className="display-3 recipe-title">Recipe: {details.recipe.recipeName}</h1>
                     <p className="recipe-author"><em>By: John Doe</em></p>
@@ -99,7 +163,7 @@ class RecipeDetails extends React.Component {
             </div>
 
             <div className="col-sm-6 float-right">
-                <img src={noodles} className="img img-fluid" alt="Recipe image"/>
+                <img src={details.recipe.recipeImage === '' ? noodles : details.recipe.recipeImage} className="img img-fluid" alt="Recipe image"/>
                 <span className="text-muted form-text text-center"><em>Food is ready</em></span>
             </div>
         </div>
@@ -119,9 +183,9 @@ class RecipeDetails extends React.Component {
 
             <div className="mt-5">
                 <h3>Was this recipe helpful?</h3>
-                <a href="#" className="font-awesome-thumb"><i className="fa fa-thumbs-up fa-lg"/> Upvote </a>
+                <a href="#" onClick={ this.upVote.bind(this) } className="font-awesome-thumb"><i className="fa fa-thumbs-up fa-lg"/> Upvote </a>
                 &nbsp;
-                <a href="#" className="font-awesome-thumb">
+                <a href="#" onClick={ this.downVote.bind(this) } className="font-awesome-thumb">
                     <i className="fa fa-thumbs-down fa-lg"/> Downvote
                 </a>
             </div>
@@ -135,16 +199,30 @@ class RecipeDetails extends React.Component {
             <div className="mt-5">
                 <h3 className="mb-4">Reviews</h3>
                 <span className="text-muted"><em>John Doe said:</em></span>
-                <p>This was an awesome recipe to try out...</p>
+                <div>
+                 {/* reviews={this.state.review.data.review[key]} */}
+                {/* <div>{console.log(reviews)}</div> */}
+                </div>
             </div>
 
             <div className="mt-5 mb-2">
                 <h3>Drop a review</h3>
-                <form>
+                <form onSubmit={ this.onSubmit  }>
                     <div className="row">
                         <div className="col-md-6 mb-3">
                             <label htmlFor="review-body"/>
-                            <textarea className="form-control" placeholder="How awesome was this recipe?" name="review-body" id="review-body" cols="30" rows="10"/>
+                            <textarea 
+                              className="form-control" 
+                              placeholder="How awesome was this recipe?" 
+                              name="review" 
+                              id="review-body" 
+                              cols="30" 
+                              rows="10"
+                              required
+                              /* value={ this.state.review } */
+                              onChange = { this.onChange }
+                              ref="review"
+                            />
                             <div className="invalid-feedback">
                                 Please add a review
                             </div>
@@ -166,5 +244,11 @@ RecipeDetails.propTypes = {
   getAllRecipes: PropTypes.func.isRequired
 };
 
-export default connect(null, { getAllRecipes })(RecipeDetails);
+RecipeDetails.propTypes = {
+  upvoteRecipe: PropTypes.func.isRequired,
+  downvoteRecipe: PropTypes.func.isRequired
+}
+
+
+export default connect(null, { getAllRecipes, upvoteRecipe, downvoteRecipe })(RecipeDetails);
 

@@ -74,7 +74,12 @@ const recipeController = {
    */
   getAll(request, response) {
     return Recipes
-      .findAll()
+      .findAll({
+        order: [
+          // Will sort recipes by latest ascending order
+          ['createdAt', 'DESC']
+        ]
+      })
       .then(recipes => response.status(200)
         .json({ recipes }))
       .catch(error => response.status(400)

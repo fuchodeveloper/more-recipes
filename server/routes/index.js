@@ -33,14 +33,14 @@ const routes = (router) => {
   router.delete('/api/v1/recipes/:id', authorization.verifyToken, recipesController.delete); // changed
   router.put('/api/v1/recipes/:id', authorization.verifyToken, recipesController.update);
   router.get('/api/v1/recipes/?sort=upvotes&order=desc', recipesController.sort);
-  router.post('/api/v1/recipes/:id/upvote', authorization.verifyUser, votesController.upVote);
-  router.post('/api/v1/recipes/:id/downvote', authorization.verifyUser, votesController.downVote);
+  router.post('/api/v1/recipes/:id/upvote', authorization.verifyUser, votesController.upVote); // changed
+  router.post('/api/v1/recipes/:id/downvote', authorization.verifyUser, votesController.downVote); // changed
 
   /**
    * Recipe review routes
    */
-  router.post('/api/v1/recipes/:id/reviews', authorization.verifyToken, reviewsController.create);
-  router.get('/api/v1/recipes/:id/reviews', authorization.verifyToken, reviewsController.get);
+  router.post('/api/v1/recipes/:id/reviews', authorization.verifyToken, reviewsController.create); // changed
+  router.get('/api/v1/recipes/:id/reviews', authorization.verifyToken, reviewsController.get); // changed
 
   /**
    * Recipe favorite routes
