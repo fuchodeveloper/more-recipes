@@ -10,6 +10,7 @@ import auth from './routes/auth';
 import recipes from './routes/recipes';
 import favorites from './routes/favorites';
 import reviews from './routes/reviews';
+import votes from './routes/votes';
 import users from './routes/users';
 
 const app = express();
@@ -26,6 +27,7 @@ app.use('/api/v1/users', auth);
 app.use('/api/v1/recipes', recipes);
 app.use('/api/v1', favorites);
 app.use('/api/v1/recipes', reviews);
+app.use('/api/v1/recipes', votes);
 app.use('/upload', users);
 
 app.use(webpackMiddleware(compiler, {

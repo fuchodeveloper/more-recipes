@@ -2,3 +2,5 @@ export const ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const GET_RECIPES = 'GET_RECIPES';
 export const GET_RECIPE_DETAILS = 'GET_RECIPE_DETAILS';
+export const ADD_UPVOTE = 'ADD_UPVOTE';
+export const ADD_DOWNVOTE = 'ADD_DOWNVOTE';

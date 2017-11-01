@@ -43,7 +43,7 @@ const authourization = {
     const token = req.headers['x-access-token'];
     if (!token) {
       return res.status(401)
-        .send({ auth: false, error: 'No token provided.' });
+        .json({ error: 'No token provided.' });
     }
 
     jwt.verify(token, secret, (error, decoded) => {

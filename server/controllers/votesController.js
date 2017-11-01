@@ -6,13 +6,13 @@ const votesController = {
   upVote(request, response) {
     if (!request.params.id) {
       return response.status(400)
-        .json({ message: 'Id of recipe is needed.' });
+        .json({ error: 'Id of recipe is needed.' });
     }
 
     Recipes.findById(request.params.id)
       .then((recipe) => {
         if (!recipe) {
-          return response.status(404).json({ message: 'Recipe not found.' });
+          return response.status(404).json({ error: 'Recipe not found.' });
         }
         Votes.findOne({ where: { userId: request.decoded.id, recipeId: request.params.id } })
           .then((vote) => {
@@ -47,14 +47,14 @@ const votesController = {
   downVote(request, response) {
     if (!request.params.id) {
       return response.status(400)
-        .json({ message: 'Id of recipe is needed.' });
+        .json({ error: 'Id of recipe is needed.' });
     }
 
 
     Recipes.findById(request.params.id)
       .then((recipe) => {
         if (!recipe) {
-          return response.status(404).json({ message: 'Recipe not found.' });
+          return response.status(404).json({ error: 'Recipe not found.' });
         }
         downvotes.findOne({ where: { userId: request.decoded.id, recipeId: request.params.id } })
           .then((vote) => {

@@ -5,6 +5,8 @@ import axios from 'axios';
 import noodles from '../../assets/img/noodles.jpg';
 import { getAllRecipes } from '../../action/recipes/recipeDetails';
 import { createFavorite } from '../../action/favorites/createFavorite';
+import upvoteRecipe from '../../action/recipes/upvoteAction';
+import downvoteRecipe from '../../action/recipes/downvoteAction';
 
 class RecipeDetails extends React.Component {
   constructor(props) {
@@ -16,7 +18,9 @@ class RecipeDetails extends React.Component {
       favorited: '',
       recipeDelete: '',
       favoriteCount: 0,
-      review: ''
+      review: '',
+      upVote: '',
+      downVote: ''
     }; // Initialize the state
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -38,7 +42,6 @@ class RecipeDetails extends React.Component {
     axios.get(`/api/v1/recipes/${param}/reviews`)
       .then((reviews) => {
         this.setState({ review: reviews });
-      // console.log(review);
     }
   )
     .catch((error) => {
@@ -67,14 +70,42 @@ class RecipeDetails extends React.Component {
 
     return axios.delete(`/api/v1/recipes/${param}`)
       .then((recipeDelete) => {
-        console.log(recipeDelete);
-        // console.log(recipeDelete.data.error);
         this.setState({ favorited: recipeDelete.response.data.message })
       })
       .catch((error) => {
         alert(error.response.data.error);
         this.setState({ errors: error })
       })
+  }
+
+  upVote(e) {
+    e.preventDefault();
+    const { param } = this.props;
+
+    this.props.upvoteRecipe(param)
+    .then((recipeUpvoteSuccess) => {
+      alert(recipeUpvoteSuccess.response.data.message);
+      this.setState({ upVote: recipeUpvoteSuccess.response.data.message })
+    })
+    .catch((recipeUpvoteError) => {
+      alert(recipeUpvoteError.response.data.error);
+      this.setState({ errors: recipeUpvoteError.response.data.error })
+    })
+  }
+
+  downVote(e) {
+    e.preventDefault();
+    const { param } = this.props;
+
+    this.props.downvoteRecipe(param)
+    .then((recipeDownvoteSuccess) => {
+      alert(recipeDownvoteSuccess.response.data.message);
+      this.setState({ downVote: recipeDownvoteSuccess.response.data.message })
+    })
+    .catch((recipeDownvoteError) => {
+      alert(recipeDownvoteError.response.data.error);
+      this.setState({ errors: recipeDownvoteError.response.data.error })
+    })
   }
 
   onChange(e) {
@@ -107,7 +138,6 @@ class RecipeDetails extends React.Component {
       );
     }
 
-    // console.log(this.state.review.data.review)
     return (
       <div>
         <div className="overlay margin-top-50">
@@ -153,9 +183,9 @@ class RecipeDetails extends React.Component {
 
             <div className="mt-5">
                 <h3>Was this recipe helpful?</h3>
-                <a href="#" className="font-awesome-thumb"><i className="fa fa-thumbs-up fa-lg"/> Upvote </a>
+                <a href="#" onClick={ this.upVote.bind(this) } className="font-awesome-thumb"><i className="fa fa-thumbs-up fa-lg"/> Upvote </a>
                 &nbsp;
-                <a href="#" className="font-awesome-thumb">
+                <a href="#" onClick={ this.downVote.bind(this) } className="font-awesome-thumb">
                     <i className="fa fa-thumbs-down fa-lg"/> Downvote
                 </a>
             </div>
@@ -214,5 +244,11 @@ RecipeDetails.propTypes = {
   getAllRecipes: PropTypes.func.isRequired
 };
 
-export default connect(null, { getAllRecipes })(RecipeDetails);
+RecipeDetails.propTypes = {
+  upvoteRecipe: PropTypes.func.isRequired,
+  downvoteRecipe: PropTypes.func.isRequired
+}
+
+
+export default connect(null, { getAllRecipes, upvoteRecipe, downvoteRecipe })(RecipeDetails);
 
