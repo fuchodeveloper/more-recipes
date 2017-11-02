@@ -8,12 +8,6 @@ import votesController from '../controllers/votesController';
 // import validateInput from '../shared/validations/signup';
 
 const routes = (router) => {
-  // router.get('/', (request, response) => {
-  //   response.status(200)
-  //     .send({ message: 'Welcome to more-recipes!' });
-  // });
-
-  
   router.get('/', (request, response) => {
     response.status(200).sendFile(path.join(__dirname, '../../src/index.html'));
   });
@@ -21,8 +15,8 @@ const routes = (router) => {
   /**
    * User signup and sign in routes
    */
-  router.post('/api/v1/users/signup', usersController.create);
-  router.post('/api/v1/users/signin', usersController.login);
+  router.post('/api/v1/users/signup', usersController.create); // changed
+  router.post('/api/v1/users/signin', usersController.login); // changed
 
   /**
    * Recipe routes

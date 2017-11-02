@@ -36,7 +36,7 @@ class Header extends React.Component {
             <Link className="dropdown-item" to="/add_recipe">Add Recipe</Link>
             <a className="dropdown-item" href="template/category.html">Category</a>
             <a className="dropdown-item" href="template/favorite_recipes.html">Favorite Recipes</a>
-            <a className="dropdown-item" href="template/my_recipes.html">My Recipes</a>
+            <Link className="dropdown-item" to="/my_recipes">My Recipes</Link>
             <a className="dropdown-item" href="#" onClick={this.logout.bind(this)}>Logout</a>
           </div>
         </div>
