@@ -65,44 +65,6 @@ class MyRecipesPage extends React.Component {
           }
 
           </div>
-{/* 
-          <div className="card-deck mb-5">
-              <div className="card mt-1">
-                  <img className="card-img-top" src="./img/noodles.jpg" alt="Card image cap" />
-                  <div className="card-body">
-                      <h4 className="card-title favorite-recipe-title"><strong>Party Jollof Rice</strong></h4>
-                      <p className="card-text recipe-font-family">This is a with supporting text below as a natural lead-in to additional content. This content is a little bit longer...</p>
-                      <div className="card-footer custom-card-footer-bg">
-                          <p className="card-text"><small className="text-muted">30 views . 20 votes . 42 reviews</small></p>
-                          <a href="#" className="btn btn-primary btn-primary-color">View Recipe</a>
-                      </div>
-                  </div>
-              </div>
-              <div className="card mt-1">
-                  <img className="card-img-top" src="./img/noodles.jpg" alt="Card image cap" />
-                  <div className="card-body">
-                      <h4 className="card-title favorite-recipe-title"><strong>Party Jollof Rice</strong></h4>
-                      <p className="card-text recipe-font-family">This is a with supporting text below as a natural lead-in to additional content. This content is a little bit longer...</p>
-                      <div className="card-footer custom-card-footer-bg">
-                          <p className="card-text"><small className="text-muted">30 views . 20 votes . 42 reviews</small></p>
-                          <a href="#" className="btn btn-primary btn-primary-color">View Recipe</a>
-                      </div>
-                  </div>
-              </div>
-
-              <div className="card mt-1">
-                  <img className="card-img-top" src="./img/noodles.jpg" alt="Card image cap"/>
-                  <div className="card-body">
-                      <h4 className="card-title favorite-recipe-title"><strong>Party Jollof Rice</strong></h4>
-                      <p className="card-text recipe-font-family">This is a with supporting text below as a natural lead-in to additional content. This content is a little bit longer...</p>
-                      <div className="card-footer custom-card-footer-bg">
-                          <p className="card-text"><small className="text-muted">30 views . 20 votes . 42 reviews</small></p>
-                          <a href="#" className="btn btn-primary btn-primary-color">View Recipe</a>
-                      </div>
-                  </div>
-              </div>
-
-          </div> */}
 
           {/* Bottom Navigation */}
           <nav aria-label="Page navigation example">

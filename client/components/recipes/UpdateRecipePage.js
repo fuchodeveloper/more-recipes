@@ -1,37 +1,40 @@
 import React from 'react';
 import Header from '../../components/navigation/Header';
 import Footer from '../../components/navigation/Footer';
-import AddRecipeForm from './AddRecipeForm';
+import UpdateRecipeForm from './UpdateRecipeForm';
 
-class AddRecipePage extends React.Component {
+class UpdateRecipePage extends React.Component {
   render() {
+    const paramId = this.props.match.params.id;
+
     return (
       <div>
+
         {/* Header component for navigation */}
         <Header />
 
         <div className="container margin-top-70">
           <div>
-              <h1 className="text-center p-4 center-hero-text">Add Recipe</h1>
+              <h1 className="text-center p-4 center-hero-text">Update Recipe</h1>
           </div>
 
         
 
-          {/* Form to add recipe ingredients and quantity */}
+          {/* Form to update recipe ingredients and quantity */}
           <div className="col-md-6 mx-auto p-3">
             
-            <AddRecipeForm />
+            <UpdateRecipeForm param={paramId} />
 
           </div>
         </div>
 
-    <div className="clearfix m-5"/>
+        <div className="clearfix m-5"/>
 
-    <Footer />
+        <Footer />
 
-  </div>
+      </div>
     );
   }
 }
 
-export default AddRecipePage;
+export default UpdateRecipePage;

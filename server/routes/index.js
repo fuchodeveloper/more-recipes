@@ -25,7 +25,7 @@ const routes = (router) => {
   router.get('/api/v1/recipes/:id', recipesController.get); // changed
   router.get('/api/v1/recipes', recipesController.getAll); // changed
   router.delete('/api/v1/recipes/:id', authorization.verifyToken, recipesController.delete); // changed
-  router.put('/api/v1/recipes/:id', authorization.verifyToken, recipesController.update);
+  router.put('/api/v1/recipes/:id', authorization.verifyToken, recipesController.update); // changed
   router.get('/api/v1/recipes/?sort=upvotes&order=desc', recipesController.sort);
   router.post('/api/v1/recipes/:id/upvote', authorization.verifyUser, votesController.upVote); // changed
   router.post('/api/v1/recipes/:id/downvote', authorization.verifyUser, votesController.downVote); // changed

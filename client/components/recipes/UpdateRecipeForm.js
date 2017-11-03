@@ -1,11 +1,10 @@
 import React from 'react';
+import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
-import { createRecipe } from '../../action/recipes/recipeActions';
-import img from '../../assets/img/noodles.jpg'
+import updateRecipe from '../../action/recipes/updateRecipeAction';
 
-class AddRecipeForm extends React.Component {
+class UpdateRecipeForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,35 +15,43 @@ class AddRecipeForm extends React.Component {
       isLoading: 0,
       errors: {}
     }
-
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.uploadWidget = this.uploadWidget.bind(this);
   }
 
+  /**
+   * Handle change events
+   * @param {e} e 
+   */
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.createRecipe(this.state)
-    .then(() => {
-      // setTimeout(() => this.setState({ isLoading: 1 }), 1000);
-      alert('Recipe Added.')
-      this.context.router.history.push('/');
-      
-    }
-  )
-    .catch((error) => {
-      this.setState({ errors: error.response.data, isLoading: 0 })
-    })
+
+    /**
+     * Id of the recipe to be updated sent as param
+     */
+    const { param } = this.props;
+
+    this.props.updateRecipe(this.state, param)
+  //   .then(() => {
+  //     // setTimeout(() => this.setState({ isLoading: 1 }), 1000);
+  //     alert('Recipe Added.')
+  //     // this.context.router.history.push('/');   
+  //   }
+  // )
+  //   .catch((error) => {
+  //     this.setState({ errors: error.response.data, isLoading: 0 })
+  //   })
+  // }
+
   }
 
   uploadWidget() {
     let _this = this;
-    // let recipeImageButton = document.getElementById('recipeImage');
-    // recipeImageButton.setAttribute('disabled', 1);
 
     cloudinary.openUploadWidget({ cloud_name: 'fuchodeveloper', upload_preset: 'wvxnziq0', tags:['recipe']},
       function(error, result) {
@@ -54,27 +61,19 @@ class AddRecipeForm extends React.Component {
   }
 
   render() {
-    const { recipeName, recipeDirection, ingredient } = this.state;
+    const { recipeName, recipeDirection, ingredient, recipeImage } = this.state;
     return (
       <div>
          {/* Recipe avatar */}
-          <div className="col-md-6 mx-auto p-3 add_recipe-card text-center">
+         <div className="col-md-6 mx-auto p-3 add_recipe-card text-center">
             
-              <img src={this.state.recipeImage === undefined ? img : this.state.recipeImage} width="350px" id="recipe-image-avatar" height="auto" className="img-fluid" alt=""/>
+              <img src={this.state.recipeImage} width="350px" id="recipe-image-avatar" height="auto" className="img-fluid" alt=""/>
           </div>
 
           <form encType="multipart/form-data" onSubmit={this.onSubmit}> 
-              {/* <input 
-                type="file" 
-                name="recipeImage" 
-                id="recipe-image" 
-                accept="image/*" 
-                value={this.state.recipeImage}
-                onChange={ this.onChange }
-              /> */}
               <br />
               <div className="upload">
-                  <button name="recipeImage" id="recipeImage" disabled={0} onClick={this.uploadWidget.bind(this)} className="upload-button">
+                  <button name="recipeImage" id="recipeImage" onClick={this.uploadWidget.bind(this)} className="upload-button">
                       Add Image
                   </button>
               </div>
@@ -133,22 +132,22 @@ class AddRecipeForm extends React.Component {
               </div>
 
               <div className="float-right p-1">
-                  {/* <input type="submit" className="" value="Submit"/> */}
-                  <button type="submit" className="btn btn-primary">Submit</button>
+                  <button type="submit" className="btn btn-primary btn-primary-color">Submit</button>
               </div>
 
           </form>
+
       </div>
-    )
+    );
   }
 }
 
-AddRecipeForm.propTypes = {
-  createRecipe: PropTypes.func.isRequired
+UpdateRecipeForm.propTypes = {
+  updateRecipe: PropTypes.func.isRequired
 }
 
-AddRecipeForm.contextTypes = {
+UpdateRecipeForm.contextTypes = {
   router: PropTypes.object.isRequired
 }
 
-export default connect(null, { createRecipe })(AddRecipeForm);
+export default connect(null, { updateRecipe })(UpdateRecipeForm);
