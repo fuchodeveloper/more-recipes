@@ -64,10 +64,10 @@ const favoritesController = {
     })
       .then((isFound) => {
         if (isFound.length === 0) {
-          return response.status(404).json({ message: 'No favorites found.' });
+          return response.status(404).json({ error: 'No favorites found.' });
         } else
         if (isFound) {
-          return response.status(200).json({ message: isFound });
+          return response.status(200).json({ isFound });
         }
       })
       .catch(error => response.status(400).json({ error: error.message }));

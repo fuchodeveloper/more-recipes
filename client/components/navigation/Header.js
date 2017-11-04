@@ -20,6 +20,7 @@ class Header extends React.Component {
   render() {
 
     const { isAuthenticated } = this.props.login;
+    const id = this.props.login.user.id;
     /**
      * Links available to logged in users
      */
@@ -31,11 +32,13 @@ class Header extends React.Component {
               Welcome
           </a>
 
+
+           
           <div className="dropdown-menu main-nav-menu width-5" aria-labelledby="dropdownMenuLink">
             <a className="dropdown-item" href="template/profile.html">Profile</a>
             <Link className="dropdown-item" to="/add_recipe">Add Recipe</Link>
             <a className="dropdown-item" href="template/category.html">Category</a>
-            <a className="dropdown-item" href="template/favorite_recipes.html">Favorite Recipes</a>
+            <Link className="dropdown-item" to={`/${id}/my_favorites`}>Favorite Recipes</Link>
             <Link className="dropdown-item" to="/my_recipes">My Recipes</Link>
             <a className="dropdown-item" href="#" onClick={this.logout.bind(this)}>Logout</a>
           </div>

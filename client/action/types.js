@@ -5,3 +5,4 @@ export const GET_RECIPE_DETAILS = 'GET_RECIPE_DETAILS';
 export const ADD_UPVOTE = 'ADD_UPVOTE';
 export const ADD_DOWNVOTE = 'ADD_DOWNVOTE';
 export const UPDATE_RECIPE = 'UPDATE_RECIPE';
+export const GET_ALL_FAVORITES = 'GET_ALL_FAVORITES';

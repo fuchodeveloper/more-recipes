@@ -21,5 +21,5 @@ export function updateRecipeAction() {
  */
 export default function updateRecipe(recipe, param) {
   // console.log(recipe, param);
-  return dispatch => axios.put('#', recipe);
+  return dispatch => axios.put(`/api/v1/recipes/${param}`, recipe);
 }
