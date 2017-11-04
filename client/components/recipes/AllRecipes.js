@@ -7,7 +7,7 @@ class AllRecipes extends React.Component {
   render() {
     const { details } = this.props;
 
-    return (      
+    return (
       <div className="col-md-4 mb-2">
           <div className="card mt-1">
             <img className="card-img-top" max-width="348px" height="231px" src={details.recipeImage === '' ? noodles : details.recipeImage} alt={details.recipeName}/>
