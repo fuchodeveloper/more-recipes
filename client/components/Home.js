@@ -22,7 +22,7 @@ class Home extends Component {
   }
 
   /**
-   *  GET all recipes from the database table
+   *  GET all recipes using API endpoint
    */
   componentWillMount() {
 

@@ -12,6 +12,9 @@ import Home from './components/Home';
 import SignUp from './components/auth/SignUp';
 import RecipeDetailsPage from './components/recipes/RecipeDetailsPage';
 import AddRecipePage from './components/recipes/AddRecipePage';
+import MyRecipesPage from './components/recipes/MyRecipesPage';
+import UpdateRecipePage from './components/recipes/UpdateRecipePage';
+import FavoriteRecipesPage from './components/favorites/FavoriteRecipesPage';
 import rootReducer from './rootReducer';
 import LoginPage from './components/login/LoginPage';
 import './assets/scss/main.scss';
@@ -42,6 +45,9 @@ const Root = () => {
             <Route path="/login" component={LoginPage}/>
             <Route path="/recipes/:id" component={RecipeDetailsPage}/>
             <Route path="/add_recipe" component={requireAuth(AddRecipePage)}/>
+            <Route path='/my_recipes' component={ requireAuth(MyRecipesPage) } />
+            <Route path='/:id/my_favorites' component={ requireAuth(FavoriteRecipesPage) } />
+            <Route path='/edit_recipe/:id' component={ requireAuth(UpdateRecipePage) } />
           </div>
       </Router>
     </Provider>

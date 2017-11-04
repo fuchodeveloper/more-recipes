@@ -87,6 +87,26 @@ const recipeController = {
   },
 
   /**
+   * Get all recipes for authenticated user
+   * @param {any} request
+   * @param {any} response
+   * @returns {json} json
+   */
+  getAllForUser(request, response) {
+    return Recipes
+      .findAll({
+        where: { userId: request.decoded.id },
+        order: [
+          ['createdAt', 'DESC']
+        ]
+      })
+      .then(recipes => response.status(200)
+        .json({ recipes }))
+      .catch(error => response.status(400)
+        .json(error));
+  },
+
+  /**
    * Delete a recipe
    * @param {any} request
    * @param {any} response
