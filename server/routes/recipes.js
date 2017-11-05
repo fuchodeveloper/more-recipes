@@ -14,5 +14,6 @@ router.get('/get_all_for_user', authorization.verifyToken, recipesController.get
 router.get('/:id', recipesController.get);
 router.delete('/:id', authorization.verifyToken, recipesController.delete);
 router.put('/:id', authorization.verifyToken, recipesController.update);
+router.get('/?sort=upvotes&order=desc', recipesController.sort); // GET most upvoted recipes in desc order
 
 export default router;
