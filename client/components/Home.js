@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
 import qs from 'qs'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import noodles from '../assets/img/noodles.jpg';
 import Header from '../components/navigation/Header';
 import FlashMessagesList from './flash/FlashMessagesList';
 import AllRecipes from './recipes/AllRecipes';
+import recipeSearch from '../action/recipes/recipeSearchAction';
 
 class Home extends Component {
   constructor(props) {
@@ -17,8 +20,11 @@ class Home extends Component {
       details: {},
       errors: {},
       favoriteCount: 0,
-      cloudinaryRecipeImage: ''
+      cloudinaryRecipeImage: '',
+      value: ''
     }; // Initialize the state
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   /**
@@ -34,6 +40,17 @@ class Home extends Component {
     .catch((error) => {
       this.setState({ errors: error.response })
     })
+  }
+
+  onChange(e) {
+    this.setState({ value: e.target.value })
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    this.props.recipeSearch(this.state)
+      .then((recipe) => { console.log(recipe) })
+      .catch((error) => { console.log(error) })
   }
 
   render() {
@@ -61,10 +78,21 @@ class Home extends Component {
               <div>
 
               </div>
-              <form action="#" method="post">
+              <form onSubmit={ this.onSubmit } >
               
                   <div className="input-group mt-2 mb-2 p-1">
-                      <input type="text" className="form-control p-3" placeholder="Try: 'Jollof Rice' " aria-describedby="basic-addon2"/>
+
+                      <input 
+                        type="text" 
+                        className="form-control p-3" 
+                        placeholder="Try: 'Jollof Rice' " 
+                        aria-describedby="basic-addon2"
+                        name="value"
+                        value={ this.state.value }
+                        onChange={ this.onChange }
+                        required
+                      />
+
                       <input type="submit" value="SEARCH" className="btn btn-primary input-group-addon"/>
                   </div>
               </form>
@@ -110,4 +138,8 @@ class Home extends Component {
   }
 }
 
-export default Home;
+Home.propTypes = {
+  recipeSearch: PropTypes.func.isRequired
+}
+
+export default connect(null, { recipeSearch })(Home);

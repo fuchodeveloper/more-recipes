@@ -60,12 +60,6 @@ const usersController = {
           response.status(400).json(errors);
         }
 
-        // User.findOne({ where: { emailAddress: body.emailAddress } })
-        //   .then((user) => {
-        //     if (user) {
-        //       return response.status(404)
-        //         .json({ message: 'User already exists. Try again.' });
-        //     }
         const hashedPassword = bcrypt.hashSync((request.body.password).trim());
         User.create({
           firstName: request.body.firstName,
@@ -81,10 +75,6 @@ const usersController = {
           .catch(error => response.status(400)
             .json({ error: error.message }));
       });
-    // .catch(() => {
-    //   'There was a problem registering the user.';
-    // });
-    // });
   },
 
   /**
@@ -104,7 +94,6 @@ const usersController = {
     const validation = new Validator(body, rules);
     if (validation.fails()) {
       return response.json({ error: 'Check details again.' });
-      // return response.json({ error: validation.errors.all() });
     }
 
     User.findOne({
@@ -130,6 +119,16 @@ const usersController = {
         return response.status(200).send({ message: 'Log in successful', user: decoded, token: myToken, });
       })
       .catch(error => response.send(error.message));
+  },
+
+  getUser(req, res) {
+    User.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(user => res.json({ user: user.firstName }))
+      .catch(error => res.status(404).json({ error }));
   }
 };
 

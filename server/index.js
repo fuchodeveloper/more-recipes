@@ -28,7 +28,7 @@ app.use('/api/v1/recipes', recipes);
 app.use('/api/v1', favorites);
 app.use('/api/v1/recipes', reviews);
 app.use('/api/v1/recipes', votes);
-app.use('/upload', users);
+app.use('/api/v1', users);
 
 app.use(webpackMiddleware(compiler, {
   hot: true,

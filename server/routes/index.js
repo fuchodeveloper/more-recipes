@@ -5,7 +5,6 @@ import reviewsController from '../controllers/reviewsController';
 import authorization from '../middleware/tokenMiddleware';
 import favoritesController from '../controllers/favoritesController';
 import votesController from '../controllers/votesController';
-// import validateInput from '../shared/validations/signup';
 
 const routes = (router) => {
   router.get('/', (request, response) => {

@@ -30,18 +30,19 @@ class AddRecipeForm extends React.Component {
     e.preventDefault();
     this.props.createRecipe(this.state)
     .then(() => {
-      // setTimeout(() => this.setState({ isLoading: 1 }), 1000);
       alert('Recipe Added.')
       this.context.router.history.push('/');
       
     }
   )
     .catch((error) => {
-      this.setState({ errors: error.response.data, isLoading: 0 })
+      alert(error.response.data.error);
+      this.setState({ errors: error.response.data.error, isLoading: 0 })
     })
   }
 
-  uploadWidget() {
+  uploadWidget(e) {
+    e.preventDefault();
     let _this = this;
     // let recipeImageButton = document.getElementById('recipeImage');
     // recipeImageButton.setAttribute('disabled', 1);
@@ -64,14 +65,6 @@ class AddRecipeForm extends React.Component {
           </div>
 
           <form encType="multipart/form-data" onSubmit={this.onSubmit}> 
-              {/* <input 
-                type="file" 
-                name="recipeImage" 
-                id="recipe-image" 
-                accept="image/*" 
-                value={this.state.recipeImage}
-                onChange={ this.onChange }
-              /> */}
               <br />
               <div className="upload">
                   <button name="recipeImage" id="recipeImage" disabled={0} onClick={this.uploadWidget.bind(this)} className="upload-button">
