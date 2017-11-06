@@ -7,6 +7,7 @@ import { getAllRecipes } from '../../action/recipes/recipeDetails';
 import { createFavorite } from '../../action/favorites/createFavorite';
 import upvoteRecipe from '../../action/recipes/upvoteAction';
 import downvoteRecipe from '../../action/recipes/downvoteAction';
+import RecipeReviews from './RecipeReviews';
 
 class RecipeDetails extends React.Component {
   constructor(props) {
@@ -20,7 +21,8 @@ class RecipeDetails extends React.Component {
       favoriteCount: 0,
       review: '',
       upVote: '',
-      downVote: ''
+      downVote: '',
+      reviewUserName: ''
     }; // Initialize the state
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -32,8 +34,8 @@ class RecipeDetails extends React.Component {
 
     setTimeout(() => this.setState({ isLoading: false }), 1000);
     axios.get('/api/v1/recipes/' + param)
-        .then((recipe) => {
-      return this.setState({ details: recipe.data })
+      .then((recipe) => {
+      this.setState({ details: recipe.data })
     })
     .catch((error) => {
       this.setState({ errors: error.response })
@@ -41,11 +43,11 @@ class RecipeDetails extends React.Component {
 
     axios.get(`/api/v1/recipes/${param}/reviews`)
       .then((reviews) => {
-        this.setState({ review: reviews });
+      this.setState({ review: reviews.data.review });
     }
   )
     .catch((error) => {
-      this.setState({ errors: error.response.data })
+      this.setState({ errors: error.data.error })
     })
   }
 
@@ -124,7 +126,8 @@ class RecipeDetails extends React.Component {
     }
   )
     .catch((error) => {
-      this.setState({ errors: error.response.data })
+      alert(error.response.data.error);
+      this.setState({ errors: error.response.data.error })
     })
 
   }
@@ -138,7 +141,9 @@ class RecipeDetails extends React.Component {
       );
     }
 
+    
     return (
+      
       <div>
         <div className="overlay margin-top-50">
             <div className="jumbotron recipe-header-background" style={{ backgroundImage: `url(${details.recipe.recipeImage === '' ? noodles : details.recipe.recipeImage})` }}>
@@ -198,11 +203,13 @@ class RecipeDetails extends React.Component {
 
             <div className="mt-5">
                 <h3 className="mb-4">Reviews</h3>
-                <span className="text-muted"><em>John Doe said:</em></span>
-                <div>
-                 {/* reviews={this.state.review.data.review[key]} */}
-                {/* <div>{console.log(reviews)}</div> */}
-                </div>
+                
+                {
+                  Object
+                    .keys(this.state.review)
+                    .map(key => <RecipeReviews key={key} details={this.state.review[key]}/>)
+                }
+                
             </div>
 
             <div className="mt-5 mb-2">

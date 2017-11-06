@@ -1,7 +1,9 @@
 import Validator from 'validatorjs';
+import Sequelize from 'sequelize';
 // import validator from 'validator';
 import db from '../models/';
 
+const { Op } = Sequelize;
 const { Recipes } = db;
 
 const recipeController = {
@@ -25,16 +27,15 @@ const recipeController = {
 
     Recipes.create({
       userId: request.decoded.id,
-      recipeName: request.body.recipeName,
-      ingredientQuantity: request.body.ingredientQuantity,
-      ingredient: request.body.ingredient,
-      recipeDirection: request.body.recipeDirection,
+      recipeName: request.body.recipeName.trim().toLowerCase(),
+      ingredient: request.body.ingredient.trim().toLowerCase(),
+      recipeDirection: request.body.recipeDirection.trim().toLowerCase(),
       recipeImage: request.body.recipeImage
     })
       .then(recipe => response.status(201)
         .json({ message: 'Recipe created successfully ', recipe }))
       .catch(error => response.status(404)
-        .send(error.message));
+        .json({ error: error.message }));
   },
 
   /**
@@ -156,10 +157,9 @@ const recipeController = {
          */
         return Recipes
           .update({
-            recipeName: body.recipeName,
-            ingredientQuantity: body.ingredientQuantity,
-            ingredient: body.ingredient,
-            recipeDirection: body.recipeDirection,
+            recipeName: body.recipeName.trim().toLowerCase(),
+            ingredient: body.ingredient.trim().toLowerCase(),
+            recipeDirection: body.recipeDirection.trim().toLowerCase(),
             recipeImage: body.recipeImage
           }, { where: { id: request.params.id } })
           .then(updateSucess => response.status(201).json({ message: 'Recipe updated', updateSucess }));
@@ -188,6 +188,25 @@ const recipeController = {
         .catch(error => response.status(400)
           .json({ error: error.message }));
     }
+  },
+  /**
+ * Search for a recipe
+ *
+ * @param {any} request
+ * @param {any} response
+ * @returns {obj} obj
+ */
+  search(request, response) {
+    return Recipes
+      .findAll({
+        where: {
+          recipeName: {
+            [Op.like]: `%${request.body.value.trim().toLowerCase()}%`
+          }
+        }
+      })
+      .then(recipe => response.status(200).json({ recipe }))
+      .catch(error => response.status(404).json({ error }));
   }
 };
 
