@@ -11,7 +11,8 @@
     "start:deploy": "babel-node ./dist/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel ./server -d ./dist",
-    "express": "babel-node ./server/app.js --presets es2015,stage-2"
+    "express": "babel-node ./server/app.js --presets es2015,stage-2",
+    "postinstall": "npm run build"
   },
   "author": "Fredrick Mgbeoma",
   "license": "ISC",
