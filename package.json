@@ -6,7 +6,7 @@
   "directories": {},
   "scripts": {
     "test": "nyc mocha --compilers js:babel-core/register ./server/test/test.js",
-    "start": "sequelize db:migrate && npm run build && nodemon ./dist/index.js",
+    "start": "npm run build && nodemon ./dist/index.js",
     "start:dev": "nodemon --watch server --exec babel-node -- server/index.js",
     "start:deploy": "babel-node ./dist/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
