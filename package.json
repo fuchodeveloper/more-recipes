@@ -6,13 +6,12 @@
   "directories": {},
   "scripts": {
     "test": "nyc mocha --compilers js:babel-core/register ./server/test/test.js",
-    "start": "sequelize db:migrate && nodemon ./dist/index.js",
+    "start": "sequelize db:migrate && npm run build && nodemon ./dist/index.js",
     "start:dev": "nodemon --watch server --exec babel-node -- server/index.js",
     "start:deploy": "babel-node ./dist/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel ./server -d ./dist",
-    "express": "babel-node ./server/app.js --presets es2015,stage-2",
-    "postinstall": "npm run build"
+    "express": "babel-node ./server/app.js --presets es2015,stage-2"
   },
   "author": "Fredrick Mgbeoma",
   "license": "ISC",
