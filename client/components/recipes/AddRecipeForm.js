@@ -44,8 +44,6 @@ class AddRecipeForm extends React.Component {
   uploadWidget(e) {
     e.preventDefault();
     let _this = this;
-    // let recipeImageButton = document.getElementById('recipeImage');
-    // recipeImageButton.setAttribute('disabled', 1);
 
     cloudinary.openUploadWidget({ cloud_name: 'fuchodeveloper', upload_preset: 'wvxnziq0', tags:['recipe']},
       function(error, result) {
@@ -67,7 +65,7 @@ class AddRecipeForm extends React.Component {
           <form encType="multipart/form-data" onSubmit={this.onSubmit}> 
               <br />
               <div className="upload">
-                  <button name="recipeImage" id="recipeImage" disabled={0} onClick={this.uploadWidget.bind(this)} className="upload-button">
+                  <button name="recipeImage" id="recipeImage" onClick={this.uploadWidget.bind(this)} className="upload-button">
                       Add Image
                   </button>
               </div>
@@ -126,7 +124,6 @@ class AddRecipeForm extends React.Component {
               </div>
 
               <div className="float-right p-1">
-                  {/* <input type="submit" className="" value="Submit"/> */}
                   <button type="submit" className="btn btn-primary">Submit</button>
               </div>
 

@@ -1,14 +1,21 @@
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import Validator from 'validatorjs';
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 import db from '../models/';
 
 const { Recipes, User, Reviews } = db;
 
-dotenv.config();
-const secret = process.env.SECRET_TOKEN;
+// dotenv.config();
+// const secret = process.env.SECRET_TOKEN;
 
 const reviewsController = {
+  /**
+   * Create a review for a recipe
+   *
+   * @param {any} request
+   * @param {any} response
+   * @returns {obj} obj
+   */
   create(request, response) {
     const { body } = request;
     const rules = {
@@ -19,11 +26,6 @@ const reviewsController = {
     if (validation.fails()) {
       return response.json({ error: validation.errors.all() });
     }
-
-    const token = request.headers['x-access-token'];
-    if (!token) return response.status(401).send({ auth: false, error: 'No token provided.' });
-
-    const decodedId = jwt.verify(token, secret);
 
     User.findById(request.decoded.id)
       .then((user) => {
@@ -64,19 +66,6 @@ const reviewsController = {
   },
 
   getUserReviews(request, response) {
-    // const token = request.headers['x-access-token'];
-    // if (!token) return response.status(401).send({ auth: false, message: 'No token provided.' });
-
-    // const decodedId = jwt.verify(token, secret);
-
-    // User.findById(decodedId.data.id)
-    //   .then((user) => {
-    //     if (!user) {
-    //       return response.status(404).json({ errorCode: 404, message: 'User not found.' });
-    //     }
-    //   })
-    //   .catch(error => response.status(400).json(error.message));
-
     Reviews.findAll({
       where: { userId: request.decoded.id }
     })

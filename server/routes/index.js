@@ -14,34 +14,34 @@ const routes = (router) => {
   /**
    * User signup and sign in routes
    */
-  router.post('/api/v1/users/signup', usersController.create); // changed
-  router.post('/api/v1/users/signin', usersController.login); // changed
+  router.post('/api/v1/users/signup', usersController.create);
+  router.post('/api/v1/users/signin', usersController.login);
 
   /**
    * Recipe routes
    */
-  router.post('/api/v1/recipes', authorization.verifyToken, recipesController.create); // changed
-  router.get('/api/v1/recipes/:id', recipesController.get); // changed
-  router.get('/api/v1/recipes', recipesController.getAll); // changed
-  router.delete('/api/v1/recipes/:id', authorization.verifyToken, recipesController.delete); // changed
-  router.put('/api/v1/recipes/:id', authorization.verifyToken, recipesController.update); // changed
-  router.get('/api/v1/recipes/?sort=upvotes&order=desc', recipesController.sort); // changed
-  router.post('/api/v1/recipes/:id/upvote', authorization.verifyUser, votesController.upVote); // changed
-  router.post('/api/v1/recipes/:id/downvote', authorization.verifyUser, votesController.downVote); // changed
+  router.post('/api/v1/recipes', authorization.verifyToken, recipesController.create);
+  router.get('/api/v1/recipes/:id', recipesController.get);
+  router.get('/api/v1/recipes', recipesController.getAll);
+  router.delete('/api/v1/recipes/:id', authorization.verifyToken, recipesController.delete);
+  router.put('/api/v1/recipes/:id', authorization.verifyToken, recipesController.update);
+  router.get('/api/v1/recipes/?sort=upvotes&order=desc', recipesController.sort);
+  router.post('/api/v1/recipes/:id/upvote', authorization.verifyUser, votesController.upVote);
+  router.post('/api/v1/recipes/:id/downvote', authorization.verifyUser, votesController.downVote);
 
   /**
    * Recipe review routes
    */
-  router.post('/api/v1/recipes/:id/reviews', authorization.verifyToken, reviewsController.create); // changed
-  router.get('/api/v1/recipes/:id/reviews', authorization.verifyToken, reviewsController.get); // changed
+  router.post('/api/v1/recipes/:id/reviews', authorization.verifyToken, reviewsController.create);
+  router.get('/api/v1/recipes/:id/reviews', authorization.verifyToken, reviewsController.get);
 
   /**
    * Recipe favorite routes
    */
-  router.post('/api/v1/users/:id/recipes', authorization.verifyToken, favoritesController.create); // changed
-  router.get('/api/v1/users/:id/recipes', authorization.verifyToken, favoritesController.getAll); // changed
+  router.post('/api/v1/users/:id/recipes', authorization.verifyToken, favoritesController.create);
+  router.get('/api/v1/users/:id/recipes', authorization.verifyToken, favoritesController.getAll);
 
-  router.get('/api/v1/favorites/:id', favoritesController.getFavoriteCount); // changed
+  router.get('/api/v1/favorites/:id', favoritesController.getFavoriteCount);
 };
 
 export default routes;
