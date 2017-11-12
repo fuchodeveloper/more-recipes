@@ -14,9 +14,9 @@ const usersController = {
   /**
     * Controller to create a new user
    *
-   * @param {any} request
-   * @param {any} response
-   * @returns {obj} User
+   * @param {any} request - The incoming request
+   * @param {any} response - The response
+   * @returns {object} User - Returned user object
    */
   create(request, response) {
     const { body } = request;
@@ -100,6 +100,13 @@ const usersController = {
       .catch(error => response.send(error.message));
   },
 
+  /**
+   * Get the user with the id specified in the param
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} object
+   */
   getUser(req, res) {
     User.findOne({
       where: {

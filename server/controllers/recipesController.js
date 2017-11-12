@@ -1,29 +1,31 @@
 import Validator from 'validatorjs';
 import Sequelize from 'sequelize';
-// import validator from 'validator';
 import db from '../models/';
 
 const { Op } = Sequelize;
 const { Recipes } = db;
 
 const recipeController = {
+
+  /**
+   * Create a new recipe
+   *
+   * @param {any} request
+   * @param {any} response
+   * @returns {obj} obj
+   */
   create(request, response) {
     const { body } = request;
     const rules = {
       recipeName: 'required|min:3',
       ingredient: 'required',
-      recipeDirection: 'required:min:6'
+      recipeDirection: 'required|min:6'
     };
 
     const validation = new Validator(body, rules);
     if (validation.fails()) {
       return response.json({ error: validation.errors.all() });
     }
-
-    // const errors = {};
-    // if (validator.isEmpty(body.recipeName)) {
-    //   errors.recipeImage = 'Recipe name is required';
-    // }
 
     Recipes.create({
       userId: request.decoded.id,
@@ -52,6 +54,7 @@ const recipeController = {
           response.status(404)
             .json({ error: 'Recipe not found' });
         }
+        // if (!request.decoded.id) {}
         return recipe
           .update({ views: recipe.views + 1 });
       })
@@ -77,6 +80,7 @@ const recipeController = {
     return Recipes
       .findAll({
         order: [
+
           // Will sort recipes by latest ascending order
           ['createdAt', 'DESC']
         ]
@@ -84,7 +88,7 @@ const recipeController = {
       .then(recipes => response.status(200)
         .json({ recipes }))
       .catch(error => response.status(400)
-        .json(error));
+        .json(error.message));
   },
 
   /**
@@ -130,8 +134,6 @@ const recipeController = {
               .json({ error: error.message }));
         }
         return response.json({ error: 'Only recipe owners can delete recipe.' });
-
-        // }
       })
       .catch(error => response.status(400)
         .json({ error: error.message }));
@@ -152,6 +154,7 @@ const recipeController = {
           response.status(404)
             .json({ message: 'Recipe not found.' });
         }
+
         /**
          * Update the specified recipe and catch any errors
          */
@@ -162,7 +165,7 @@ const recipeController = {
             recipeDirection: body.recipeDirection.trim().toLowerCase(),
             recipeImage: body.recipeImage
           }, { where: { id: request.params.id } })
-          .then(updateSucess => response.status(201).json({ message: 'Recipe updated', updateSucess }));
+          .then(updateSuccess => response.status(201).json({ message: 'Recipe updated', updateSuccess }));
       })
       .catch(error => response.status(400)
         .json({ error: error.message }));

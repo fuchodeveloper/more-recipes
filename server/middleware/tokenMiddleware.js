@@ -55,4 +55,5 @@ const authourization = {
     });
   }
 };
+
 export default authourization;

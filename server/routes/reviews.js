@@ -5,7 +5,7 @@ import authorization from '../middleware/tokenMiddleware';
 const router = express.Router();
 
 /**
- * Recipe reviews routes
+ * Recipe review routes
  */
 
 router.post('/:id/reviews', authorization.verifyToken, reviewsController.create);
