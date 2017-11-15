@@ -1,116 +1,35 @@
 import express from 'express';
+import recipesController from '../controllers/recipesController';
+import authorization from '../middleware/tokenMiddleware';
 
 const router = express.Router();
 
-global.recipes = [
-  {
-    id: 1,
-    recipeName: 'Party rice',
-    recipeImage: null,
-    recipeQuantity: 1,
-    recipeIngredient: 'tomatoes',
-    recipeDirection: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque eius in magnam omnis perferendis saepe tempora. Adipisci consectetur consequatur dolorum facilis id ipsum modi quas quibusdam repellat voluptas. Sit, sunt?',
-    upvotes: 24,
-    reviews: [
-      {
-        id: 1,
-        review: 'This is the most detailed recipe I have seen'
-      }
-    ]
-  },
-  {
-    id: 2,
-    recipeName: 'Jollof rice',
-    recipeImage: null,
-    recipeQuantity: 5,
-    recipeIngredient: 'Knorr cubes',
-    recipeDirection: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque eius in magnam omnis perferendis saepe tempora. Adipisci consectetur consequatur dolorum facilis id ipsum modi quas quibusdam repellat voluptas. Sit, sunt?',
-    upvotes: 32
-  }
-];
+/**
+ * Routes to handle recipe operations
+ */
 
-router.get('/recipes', (request, response) => { response.json({ recipes: global.recipes, Derror: false }); });
+// Allow an authenticated user create a new recipe
+router.post('/', authorization.verifyToken, recipesController.create);
 
-router.get('/recipes?sort=upvotes&order=des', (request, response) => {
-  if (request.query.sort) {
-    const sorted = global.recipes.id.sort((a, b) => a - b);
-    return response.status(200).json({
-      recipes: sorted,
-      error: false
-    });
-  }
-});
+// Get all the available recipes
+router.get('/', recipesController.getAllPaginate);
 
-router.post('/recipes', (request, response) => {
-  if (!request.body.recipeQuantity) {
-    return response.json({
-      message: 'Fill all fields',
-      error: true
-    });
-  }
+// Get all the recipes created by a user
+router.get('/get_all_for_user', authorization.verifyToken, recipesController.getAllForUser);
 
-  global.recipes.push(request.body);
+// Get a particular recipe
+router.get('/:id', recipesController.get);
 
-  return response.json({
-    message: 'Recipe successfully created',
-    error: false
-  });
-});
+// An authenticated user can delete their recipes
+router.delete('/:id', authorization.verifyToken, recipesController.delete);
 
-router.put('/recipes/:recipeId', (request, response) => {
-  for (let i = 0; i < global.recipes.length; i += 1) {
-    if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
-      global.recipes[i].recipeImage = request.body.recipeImage;
-      global.recipes[i].recipeQuantity = request.body.recipeQuantity;
-      global.recipes[i].recipeIngredient = request.body.recipeIngredient;
-      global.recipes[i].recipeDirection = request.body.recipeDirection;
-      return response.json({
-        message: 'recipe successfully updated',
-        error: false
-      });
-    }
-  }
+//  An authenticated user can update their recipes
+router.put('/:id', authorization.verifyToken, recipesController.update);
 
-  /**
-     * If recipe id is not found
-     */
-  return response.status(404).json({
-    message: 'Recipe not found.',
-    error: true
-  });
-});
+// GET most upvoted recipes in desc order
+router.get('/?sort=upvotes&order=desc', recipesController.sort);
 
-router.get('/recipes/:recipeId', (request, response) => {
-  for (let i = 0; i < global.recipes.length; i += 1) {
-    if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
-      return response.json({
-        recipe: global.recipes[i],
-        message: 'Successful',
-        error: false
-      });
-    }
-  }
-  return response.status(404).json({
-    message: 'Recipe not found',
-    error: true
-  });
-});
+// search for a recipe
+router.post('/search', recipesController.search);
 
-router.delete('/recipes/:recipeId', (request, response) => {
-  for (let i = 0; i < global.recipes.length; i += 1) {
-    if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
-      global.recipes.splice(i, 1);
-      return response.json({
-        message: 'Successfully deleted',
-        error: false
-      });
-    }
-  }
-
-  return response.status(404).json({
-    message: 'Recipe not found',
-    error: true
-  });
-});
-
-module.exports = router;
+export default router;
