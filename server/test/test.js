@@ -1,6 +1,6 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../app';
+import app from '../index';
 import models from '../models';
 
 chai.use(chaiHttp);
@@ -15,8 +15,8 @@ describe('Tests for more-recipes API endpoints', () => {
         });
       });
 
-      it('should not GET all recipes', (done) => {
-        chai.request(app).get('/api/v1/recipe').end((error, response) => {
+      it('should not GET any recipes', (done) => {
+        chai.request(app).get('/api/v1/recipes/100').end((error, response) => {
           expect(response).to.have.status(404);
           done();
         });
@@ -30,13 +30,6 @@ describe('Tests for more-recipes API endpoints', () => {
           done();
         });
       });
-
-      // it('should not GET a recipe', (done) => {
-      //   chai.request(app).get('/api/v1/recipes/1000').end((error, response) => {
-      //     expect(response).to.have.status(404);
-      //     done();
-      //   });
-      // });
     });
 
     describe('About page', () => {

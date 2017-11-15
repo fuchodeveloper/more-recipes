@@ -22,7 +22,8 @@ class RecipeDetails extends React.Component {
       review: '',
       upVote: '',
       downVote: '',
-      reviewUserName: ''
+      reviewUserName: '',
+      recipeImage: ''
     }; // Initialize the state
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);

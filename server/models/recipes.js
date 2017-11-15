@@ -39,6 +39,11 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: 0
+    },
+    recipe_owner_view: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
     }
   });
 
@@ -50,7 +55,7 @@ export default (sequelize, DataTypes) => {
 
     Recipe.hasMany(models.Reviews, {
       foreignKey: 'recipeId',
-      as: 'reviews'
+      // as: 'reviews'
     });
 
     Recipe.hasMany(models.Favorites, {

@@ -1,12 +1,7 @@
-// import dotenv from 'dotenv';
 import Validator from 'validatorjs';
-// import jwt from 'jsonwebtoken';
 import db from '../models/';
 
 const { Recipes, User, Reviews } = db;
-
-// dotenv.config();
-// const secret = process.env.SECRET_TOKEN;
 
 const reviewsController = {
   /**
@@ -14,7 +9,7 @@ const reviewsController = {
    *
    * @param {any} request
    * @param {any} response
-   * @returns {obj} obj
+   * @returns {object} object
    */
   create(request, response) {
     const { body } = request;
@@ -52,6 +47,13 @@ const reviewsController = {
       .catch(error => response.status(400).json(error.message));
   },
 
+  /**
+   * Get a review
+   *
+   * @param {any} request
+   * @param {any} response
+   * @returns {json} json
+   */
   get(request, response) {
     Reviews.findAll({
       where: { recipeId: request.params.id }
@@ -62,7 +64,7 @@ const reviewsController = {
         }
         return response.status(200).json({ review });
       })
-      .catch(error => response.status(400).json(error.message));
+      .catch(error => response.status(500).json(error.message));
   },
 
   getUserReviews(request, response) {

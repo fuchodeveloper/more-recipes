@@ -35,25 +35,25 @@ const usersController = {
     User.findOne({ where: { emailAddress: body.emailAddress } })
       .then((user) => {
         if (user) {
-          return response.status(404)
-            .json({ message: 'User already exists. Try again.' });
+          return response.status(200)
+            .json({ error: 'User already exists. Try again.' });
         }
-        const hashedPassword = bcrypt.hashSync((request.body.password).trim());
+        const hashedPassword = bcrypt.hashSync((request.body.password));
         User.create({
-          firstName: request.body.firstName,
-          lastName: request.body.lastName,
-          emailAddress: request.body.emailAddress,
+          firstName: request.body.firstName.trim(),
+          lastName: request.body.lastName.trim(),
+          emailAddress: request.body.emailAddress.trim(),
           password: hashedPassword
         })
           .then((savedUser) => {
-            const data = _.pick(savedUser, ['id', 'firstName', 'lastName', 'emailAddress']);
-            const authToken = jwt.sign({ data }, secret, { expiresIn: 86400 });
-            response.status(201).json({ auth: true, user: data, token: authToken });
+            const userDetails = _.pick(savedUser, ['id', 'firstName', 'lastName', 'emailAddress']);
+            const authToken = jwt.sign(userDetails, secret, { expiresIn: 86400 });
+            response.status(201).json({ user: userDetails, token: authToken });
           })
           .catch(error => response.status(400)
             .json({ error: error.message }));
-      }).catch(() => response.status(400)
-        .json({ message: 'There was a problem registering the user.' }));
+      }).catch(() => response.status(500)
+        .json({ error: 'There was a problem registering the user.' }));
   },
 
   /**
@@ -67,7 +67,7 @@ const usersController = {
 
     const rules = {
       emailAddress: 'required|email',
-      password: 'required|min:6|max:24|alpha_num'
+      password: 'required|min:6|alpha_num'
     };
 
     const validation = new Validator(body, rules);
@@ -77,27 +77,27 @@ const usersController = {
 
     User.findOne({
       where: {
-        emailAddress: request.body.emailAddress
+        emailAddress: request.body.emailAddress.trim()
       }
     })
       .then((user) => {
         if (!user) {
-          return response.status(404).json({ message: 'Authentication failed. No user found.' });
+          return response.status(404).json({ error: 'Authentication failed. No user found.' });
         }
         if (user) {
           const confirmPassword =
-          bcrypt.compareSync((request.body.password).trim(), user.password);
+          bcrypt.compareSync((request.body.password), user.password);
           if (confirmPassword === false) {
-            response.status(401).json({ message: 'Authentication failed. Wrong password.' });
+            response.status(401).json({ error: 'Authentication failed. Wrong password.' });
           }
         }
 
-        const data = _.pick(user, ['id', 'firstName', 'lastName', 'emailAddress']);
-        const myToken = jwt.sign(data, secret, { expiresIn: 86400 });
+        const userDetails = _.pick(user, ['id', 'firstName', 'lastName', 'emailAddress']);
+        const myToken = jwt.sign(userDetails, secret, { expiresIn: 86400 });
         const decoded = jwt.verify(myToken, secret);
         return response.status(200).send({ message: 'Log in successful', user: decoded, token: myToken, });
       })
-      .catch(error => response.send(error.message));
+      .catch(error => response.status(500).send(error.message));
   },
 
   /**

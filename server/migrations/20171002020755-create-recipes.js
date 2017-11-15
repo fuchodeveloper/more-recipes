@@ -54,6 +54,11 @@ module.exports = {
       allowNull: false,
       type: Sequelize.DATE
     },
+    recipe_owner_view: {
+      type: Sequelize.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
+    }
   }),
   down: queryInterface => queryInterface.dropTable('Recipes')
 };

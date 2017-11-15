@@ -10,10 +10,10 @@ const authourization = {
   /**
    * Verify authenticated user id supplied in token
    *
-   * @param {any} req
-   * @param {any} res
+   * @param {any} req - HTTP Request
+   * @param {any} res - HTTP Response
    * @param {any} next
-   * @return {json} json
+   * @return {object} object
    */
   verifyToken(req, res, next) {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -25,7 +25,7 @@ const authourization = {
         User.findById(decoded.id)
           .then((user) => {
             if (!user) {
-              return res.json({ error: 'User not found' });
+              return res.status(404).json({ error: 'User not found' });
             }
             req.decoded = decoded;
             return next();
@@ -39,8 +39,16 @@ const authourization = {
     }
   },
 
+  /**
+   * Verify user based on token
+   *
+   * @param {any} req - HTTP Request
+   * @param {any} res - HTTP Response
+   * @param {any} next
+   * @returns {object} object
+   */
   verifyUser(req, res, next) {
-    const token = req.headers['x-access-token'];
+    const token = req.body.token || req.query.token || req.headers['x-access-token'];
     if (!token) {
       return res.status(401)
         .json({ error: 'No token provided.' });
