@@ -2,7 +2,9 @@
 @import 'helpers/variables';
 @import 'forms/forms';
 
-.border-test {}
+.border-test {
+    border: 1px solid red;
+}
 
 body {
     font-family: 'Open Sans' , sans-serif !important;
