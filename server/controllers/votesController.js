@@ -3,6 +3,14 @@ import db from '../models/';
 const { Recipes, Votes, downvotes } = db;
 
 const votesController = {
+
+/**
+ * Upvote a recipe
+ *
+ * @param {any} request
+ * @param {any} response
+ * @returns {object} object
+ */
   upVote(request, response) {
     if (!request.params.id) {
       return response.status(400)
@@ -82,7 +90,7 @@ const votesController = {
           .catch(() => response.status(400)
             .json({ error: 'An error occurred while voting' }));
       })
-      .catch(error => response.status(400)
+      .catch(error => response.status(500)
         .json({ error: error.message }));
   }
 };

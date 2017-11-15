@@ -33,7 +33,7 @@ const options = {
   // import swaggerDefinitions
   swaggerDefinition,
   // path to the API docs
-  apis: ['./server/api.js'],
+  apis: ['./server/docs.js'],
 };
 
 // initialize swagger-jsdoc

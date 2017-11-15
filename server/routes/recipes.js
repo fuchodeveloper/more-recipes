@@ -12,7 +12,7 @@ const router = express.Router();
 router.post('/', authorization.verifyToken, recipesController.create);
 
 // Get all the available recipes
-router.get('/', recipesController.getAll);
+router.get('/', recipesController.getAllPaginate);
 
 // Get all the recipes created by a user
 router.get('/get_all_for_user', authorization.verifyToken, recipesController.getAllForUser);

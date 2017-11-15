@@ -35,7 +35,7 @@ class Home extends Component {
     setTimeout(() => this.setState({ isLoading: false }), 1000);
     axios.get('/api/v1/recipes')
     .then((recipe) => {
-      this.setState({ details: recipe.data })
+      this.setState({ details: recipe.data.recipes })
     })
     .catch((error) => {
       this.setState({ errors: error.response })
@@ -106,9 +106,18 @@ class Home extends Component {
 
                 <div className="row">
                   {Object
-                    .keys(this.state.details.recipes)
-                    .map(key => <AllRecipes key={key} details={this.state.details.recipes[key]} />)  
+                    .keys(this.state.details )
+                    .map(key => <AllRecipes key={key} details={this.state.details [key]} />)  
                   }
+                  {/* { this.state.details.map((value, index) => {
+                    return (
+                      <AllRecipes key={index}
+                      details={value} />
+                    );
+                  }
+                  )
+                } */}
+                
                 </div>
 
               </div>

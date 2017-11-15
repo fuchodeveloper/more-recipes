@@ -1,18 +1,20 @@
 import Validator from 'validatorjs';
 import Sequelize from 'sequelize';
+import jwtDecode from 'jwt-decode';
 import db from '../models/';
 
+
 const { Op } = Sequelize;
-const { Recipes } = db;
+const { Recipes, Reviews, User } = db;
 
 const recipeController = {
 
   /**
    * Create a new recipe
    *
-   * @param {any} request
-   * @param {any} response
-   * @returns {obj} obj
+   * @param {any} request - HTTP Request
+   * @param {any} response - HTTP Response
+   * @returns {object} Returned object
    */
   create(request, response) {
     const { body } = request;
@@ -36,35 +38,53 @@ const recipeController = {
     })
       .then(recipe => response.status(201)
         .json({ message: 'Recipe created successfully ', recipe }))
-      .catch(error => response.status(404)
+      .catch(error => response.status(500)
         .json({ error: error.message }));
   },
 
   /**
    * Get a single recipe
-   * @param {any} request
-   * @param {any} response
-   * @returns {obj} json
+   * @param {any} request - HTTP Request
+   * @param {any} response - HTTP Response
+   * @returns {object} json - Returned object
    */
   get(request, response) {
+    const token = request.body.token || request.query.token || request.headers['x-access-token'];
+
     return Recipes
-      .findById(request.params.id)
-      .then((recipe) => {
-        if (!recipe) {
-          response.status(404)
-            .json({ error: 'Recipe not found' });
-        }
-        // if (!request.decoded.id) {}
-        return recipe
-          .update({ views: recipe.views + 1 });
+      .findOne({
+        where: { id: request.params.id },
+        include: [{
+          attributes: ['review'],
+          model: Reviews,
+          include: [{
+            attributes: ['firstName'],
+            model: User
+          }]
+        }]
       })
       .then((recipe) => {
         if (!recipe) {
           response.status(404)
             .json({ error: 'Recipe not found' });
         }
+
         response.status(200)
           .json({ recipe });
+
+        if (!token) {
+          return recipe
+            .update({ views: recipe.views + 1 });
+        }
+
+        const decoded = jwtDecode(token);
+        if (decoded.id === recipe.userId && recipe.recipe_owner_view === false) {
+          return recipe
+            .update({ views: recipe.views + 1, recipe_owner_view: true });
+        } else if (decoded.id !== recipe.userId) {
+          return recipe
+            .update({ views: recipe.views + 1 });
+        }
       })
       .catch(error => response.status(400)
         .json({ error: error.message }));
@@ -72,9 +92,9 @@ const recipeController = {
 
   /**
    * Return all recipes;
-   * @param {any} request
-   * @param {any} response
-   * @returns {obj} obj
+   * @param {any} request - HTTP Request
+   * @param {any} response - HTTP Response
+   * @returns {object} Returned object
    */
   getAll(request, response) {
     return Recipes
@@ -85,17 +105,59 @@ const recipeController = {
           ['createdAt', 'DESC']
         ]
       })
-      .then(recipes => response.status(200)
-        .json({ recipes }))
-      .catch(error => response.status(400)
-        .json(error.message));
+      .then((recipes) => {
+        response.status(200)
+          .json({ recipes });
+      })
+      .catch((error) => {
+        response.status(400)
+          .json(error.message);
+      });
+  },
+
+  /**
+   * Return all recipes with pagination
+   * @param {any} request - HTTP Request
+   * @param {any} response - HTTP Response
+   * @returns {object} Returned object
+   */
+  getAllPaginate(request, response) {
+    const page = request.query.page || 1;
+    const limit = request.query.limit || 9;
+    const offset = (page - 1) * limit;
+
+    return Recipes
+      .findAndCountAll({
+        limit,
+        offset,
+        order: [
+
+          // Will sort recipes by latest ascending order
+          ['createdAt', 'DESC']
+        ]
+      })
+      .then((recipes) => {
+        const totalCount = recipes.count;
+        const pageCount = Math.ceil(totalCount / limit);
+        const pageSize = recipes.rows.length;
+
+        response.status(200)
+          .json({
+            page, pageCount, pageSize, totalCount, recipes: recipes.rows
+          });
+      })
+      .catch((error) => {
+        // response.status(400)
+        //   .json(error.message);
+        response.json(error.message);
+      });
   },
 
   /**
    * Get all recipes for authenticated user
-   * @param {any} request
-   * @param {any} response
-   * @returns {json} json
+   * @param {any} request - HTTP Request
+   * @param {any} response - HTTP Response
+   * @returns {json} Returned json
    */
   getAllForUser(request, response) {
     return Recipes
@@ -113,9 +175,9 @@ const recipeController = {
 
   /**
    * Delete a recipe
-   * @param {any} request
-   * @param {any} response
-   * @returns {json} json
+   * @param {any} request - HTTP Request
+   * @param {any} response - HTTP Response
+   * @returns {json} Returned json
    */
   delete(request, response) {
     return Recipes
@@ -141,9 +203,9 @@ const recipeController = {
 
   /**
    * Update a recipe
-   * @param {any} request
-   * @param {any} response
-   * @returns {json} json
+   * @param {any} request - HTTP Request
+   * @param {any} response - HTTP Response
+   * @returns {json} Returned json
    */
   update(request, response) {
     const { body } = request;
@@ -174,9 +236,9 @@ const recipeController = {
   /**
    * Sort recipes according to upvotes in descending order
    *
-   * @param {any} request
-   * @param {any} response
-   * @returns {json} json
+   * @param {any} request - HTTP Request
+   * @param {any} response - HTTP Response
+   * @returns {json} - Returned json
    */
   sort(request, response) {
     if (request.query.sort) {
@@ -195,9 +257,9 @@ const recipeController = {
   /**
  * Search for a recipe
  *
- * @param {any} request
- * @param {any} response
- * @returns {obj} obj
+ * @param {any} request - HTTP Request
+ * @param {any} response - HTTP Response
+ * @returns {object} Returned object
  */
   search(request, response) {
     return Recipes
@@ -208,8 +270,14 @@ const recipeController = {
           }
         }
       })
-      .then(recipe => response.status(200).json({ recipe }))
-      .catch(error => response.status(404).json({ error }));
+      .then((recipe) => {
+        if (recipe.length === 0) {
+          response.status(404).json({ error: 'Recipe not found!' });
+        } else {
+          response.status(200).json({ recipe });
+        }
+      })
+      .catch(error => response.status(404).json({ error: error.message }));
   }
 };
 
