@@ -16,7 +16,7 @@ const recipeController = {
    * @param {any} response - HTTP Response
    * @returns {object} Returned object
    */
-  create(request, response) {
+  createRecipe(request, response) {
     const { body } = request;
     const rules = {
       recipeName: 'required|min:3',
@@ -48,7 +48,7 @@ const recipeController = {
    * @param {any} response - HTTP Response
    * @returns {object} json - Returned object
    */
-  get(request, response) {
+  getRecipe(request, response) {
     const token = request.body.token || request.query.token || request.headers['x-access-token'];
 
     return Recipes
@@ -96,7 +96,7 @@ const recipeController = {
    * @param {any} response - HTTP Response
    * @returns {object} Returned object
    */
-  getAll(request, response) {
+  getAllRecipes(request, response) {
     return Recipes
       .findAll({
         order: [
@@ -121,7 +121,7 @@ const recipeController = {
    * @param {any} response - HTTP Response
    * @returns {object} Returned object
    */
-  getAllPaginate(request, response) {
+  getAllRecipesPaginate(request, response) {
     const page = request.query.page || 1;
     const limit = request.query.limit || 9;
     const offset = (page - 1) * limit;
@@ -147,8 +147,6 @@ const recipeController = {
           });
       })
       .catch((error) => {
-        // response.status(400)
-        //   .json(error.message);
         response.json(error.message);
       });
   },
@@ -179,7 +177,7 @@ const recipeController = {
    * @param {any} response - HTTP Response
    * @returns {json} Returned json
    */
-  delete(request, response) {
+  deleteRecipe(request, response) {
     return Recipes
       .findById(request.params.id)
       .then((recipe) => {
@@ -197,7 +195,7 @@ const recipeController = {
         }
         return response.json({ error: 'Only recipe owners can delete recipe.' });
       })
-      .catch(error => response.status(400)
+      .catch(error => response.status(500)
         .json({ error: error.message }));
   },
 
@@ -207,7 +205,7 @@ const recipeController = {
    * @param {any} response - HTTP Response
    * @returns {json} Returned json
    */
-  update(request, response) {
+  updateRecipe(request, response) {
     const { body } = request;
     return Recipes
       .findById(request.params.id)
@@ -240,7 +238,7 @@ const recipeController = {
    * @param {any} response - HTTP Response
    * @returns {json} - Returned json
    */
-  sort(request, response) {
+  sortRecipes(request, response) {
     if (request.query.sort) {
       return Recipes
         .findAll({
@@ -261,7 +259,7 @@ const recipeController = {
  * @param {any} response - HTTP Response
  * @returns {object} Returned object
  */
-  search(request, response) {
+  searchRecipes(request, response) {
     return Recipes
       .findAll({
         where: {
@@ -277,7 +275,7 @@ const recipeController = {
           response.status(200).json({ recipe });
         }
       })
-      .catch(error => response.status(404).json({ error: error.message }));
+      .catch(error => response.status(500).json({ error: error.message }));
   }
 };
 

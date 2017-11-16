@@ -8,7 +8,7 @@ const router = express.Router();
  * Recipe favorite routes
  */
 router.post('/users/:id/recipes', authorization.verifyToken, favoritesController.create);
-router.get('/users/:id/recipes', authorization.verifyToken, favoritesController.getAll);
+router.get('/users/:id/recipes', authorization.verifyToken, favoritesController.getAllFavorites);
 router.get('/favorites/:id', favoritesController.getFavoriteCount);
 
 export default router;

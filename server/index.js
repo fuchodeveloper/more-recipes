@@ -24,7 +24,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'API documentation for more-recipes. More-Recipes provides a platform for users to share the awesome and exciting recipe ideas they have invented or learnt',
   },
-  host: 'localhost:8000',
+  host: parseInt(process.env.PORT, 10) || 8000,
   basePath: '/',
 };
 

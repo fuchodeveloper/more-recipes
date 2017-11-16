@@ -13,7 +13,7 @@ const favoritesController = {
 
   create(request, response) {
     if (!request.params.id) {
-      return response.status(404).json({ error: 'Recipe id is required.' });
+      return response.status(400).json({ error: 'Recipe id is required.' });
     }
     Favorites.findOne({
       where: {
@@ -50,24 +50,24 @@ const favoritesController = {
     })
       .then((isFound) => {
         if (isFound.length === 0) {
-          return response.status(200).send({ isFound });
+          return response.status(404).send(0);
         }
         return response.status(200).send({ isFound });
       })
       .catch(error => response.status(400).json({ error: error.message }));
   },
 
-  getAll(request, response) {
+  getAllFavorites(request, response) {
     Favorites.findAll({
       where: { userId: request.params.id },
       include: [{ model: Recipes }]
     })
-      .then((isFound) => {
-        if (isFound.length === 0) {
+      .then((favoriteIsFound) => {
+        if (favoriteIsFound.length === 0) {
           return response.status(404).json({ error: 'No favorites found.' });
         } else
-        if (isFound) {
-          return response.status(200).json({ isFound });
+        if (favoriteIsFound) {
+          return response.status(200).json({ favoriteIsFound });
         }
       })
       .catch(error => response.status(400).json({ error: error.message }));
