@@ -35,7 +35,7 @@ const usersController = {
     User.findOne({ where: { emailAddress: body.emailAddress } })
       .then((user) => {
         if (user) {
-          return response.status(200)
+          return response.status(400)
             .json({ error: 'User already exists. Try again.' });
         }
         const hashedPassword = bcrypt.hashSync((request.body.password));

@@ -35,6 +35,13 @@ More-recipes API: <a href="https://more-recipes-application.herokuapp.com">here<
   <li>Back-end: NodeJS, Expressjs, Sequelize and Postgresql</li>
 </ul>
 
+<h3>Getting Started</h3>
+<ul>
+    <li>Clone project - git clone https://github.com/fuchodeveloper/more-recipes.git</li>
+    <li>Install dependencies - npm install</li>
+    <li>Run app - npm run start:dev</li>
+</ul>
+
 <h3>API ENDPOINTS</h3>
 <hr>
 <table>
@@ -117,4 +124,4 @@ More-recipes API: <a href="https://more-recipes-application.herokuapp.com">here<
   </tr>
 </table>
 <br/>
-More recipes API documentation - <a href="https://fuchodeveloper.github.io/slate/?javascript#more-recipes-api-documentation">here</a>
+More recipes API documentation - <a href="https://more-recipes-application.herokuapp.com/api-docs">here</a>
