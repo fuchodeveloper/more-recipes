@@ -1,4 +1,14 @@
 language: node_js
 node_js:
  - "node"
+ # database service
+ services:
+  - postgresql
+  before_script:
+  - psql -c 'create database test;' -U postgres
+  - sequelize db:migrate
+  env:
+    global:
+      - export NODE_ENV=test
+      - export SECRET_TOKEN=abc123test
 after_success: npm run coverage
