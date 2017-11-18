@@ -65,10 +65,8 @@ const favoritesController = {
       .then((favoriteIsFound) => {
         if (favoriteIsFound.length === 0) {
           return response.status(404).json({ error: 'No favorites found.' });
-        } else
-        if (favoriteIsFound) {
-          return response.status(200).json({ favoriteIsFound });
         }
+        return response.status(200).json({ favoriteIsFound });
       })
       .catch(error => response.status(400).json({ error: error.message }));
   }

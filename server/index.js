@@ -40,7 +40,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 // serve swagger
-app.get('/swagger.json', function(req, res) {
+app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
@@ -61,18 +61,23 @@ app.use('/api/v1/recipes', reviews);
 app.use('/api/v1/recipes', votes);
 app.use('/api/v1', users);
 
-app.use(webpackMiddleware(compiler, {
-  hot: true,
-  publicPath: webpackConfiguration.output.publicPath,
-  noInfo: true
-}));
-app.use(webpackHotMiddleware(compiler));
+if (process.env.NODE_ENV !== 'test') {
+  app.use(webpackMiddleware(compiler, {
+    hot: true,
+    publicPath: webpackConfiguration.output.publicPath,
+    noInfo: true
+  }));
+  app.use(webpackHotMiddleware(compiler));
+}
 
 
 app.get('/*', (request, response) => {
   response.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
+app.use(res => res.status(404).json({
+  message: '404: page not found'
+}));
 
 app.listen(port);
 

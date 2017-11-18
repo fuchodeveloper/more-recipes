@@ -12,7 +12,7 @@ const router = express.Router();
 router.post('/', authorization.verifyToken, recipesController.createRecipe);
 
 // Get all the available recipes
-router.get('/', recipesController.getAllRecipesPaginate);
+router.get('/', recipesController.getAllRecipesPaginate, recipesController.sortRecipes);
 
 // Get all the recipes created by a user
 router.get('/get_all_for_user', authorization.verifyToken, recipesController.getAllForUser);
@@ -27,7 +27,7 @@ router.delete('/:id', authorization.verifyToken, recipesController.deleteRecipe)
 router.put('/:id', authorization.verifyToken, recipesController.updateRecipe);
 
 // GET most upvoted recipes in desc order
-router.get('/?sort=upvotes&order=desc', recipesController.sortRecipes);
+// router.get('/?sort=upvotes&order=desc', recipesController.sortRecipes);
 
 // search for a recipe
 router.post('/search', recipesController.searchRecipes);

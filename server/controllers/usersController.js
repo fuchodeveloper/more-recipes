@@ -88,7 +88,7 @@ const usersController = {
           const confirmPassword =
           bcrypt.compareSync((request.body.password), user.password);
           if (confirmPassword === false) {
-            response.status(401).json({ error: 'Authentication failed. Wrong password.' });
+            return response.status(401).json({ error: 'Authentication failed. Wrong password.' });
           }
         }
 
