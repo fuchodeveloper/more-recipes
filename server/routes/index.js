@@ -25,7 +25,7 @@ const routes = (router) => {
   router.get('/api/v1/recipes', recipesController.getAllRecipesPaginate);
   router.delete('/api/v1/recipes/:id', authorization.verifyToken, recipesController.deleteRecipe);
   router.put('/api/v1/recipes/:id', authorization.verifyToken, recipesController.updateRecipe);
-  router.get('/api/v1/recipes/?sort=upvotes&order=desc', recipesController.sortRecipes);
+  // router.get('/api/v1/recipes/?sort=upvotes&order=desc', recipesController.sortRecipes);
   router.post('/api/v1/recipes/:id/upvote', authorization.verifyUser, votesController.upVote);
   router.post('/api/v1/recipes/:id/downvote', authorization.verifyUser, votesController.downVote);
 

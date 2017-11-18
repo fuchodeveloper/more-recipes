@@ -43,8 +43,8 @@ const votesController = {
               upvotes: +1
             });
           })
-          .then(() => response.status(201)
-            .json({ message: 'Recipe upvoted.' }))
+          .then(upVote => response.status(201)
+            .json({ upVote, message: 'Recipe upvoted.' }))
           .catch(error => response.status(400)
             .json({ error: error.message }));
       })
