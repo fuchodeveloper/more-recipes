@@ -5,7 +5,8 @@
   "main": "./server/app.js",
   "directories": {},
   "scripts": {
-    "test": "NODE_ENV=test nyc mocha --compilers js:babel-core/register ./server/test/*.js",
+    "test": "nyc mocha --compilers js:babel-core/register ./server/test/*.js",
+    "test:dev": "NODE_ENV=test nyc mocha --compilers js:babel-core/register ./server/test/*.js",
     "start": "npm run build && nodemon ./dist/index.js",
     "start:dev": "nodemon --watch server --exec babel-node -- server/index.js",
     "start:deploy": "babel-node ./dist/index.js",
