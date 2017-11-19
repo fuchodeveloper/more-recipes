@@ -4,7 +4,6 @@ node_js:
 services:
 - postgresql
 before_script:
-  - export NODE_ENV ='test'
   - psql -c 'create database test;' -U postgres
   - sequelize db:migrate
 env:
