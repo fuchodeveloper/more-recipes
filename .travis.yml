@@ -9,6 +9,7 @@ before_script:
 env:
   global:
     - export SECRET_KEY = 'abc123test'
+    - export NODE_ENV ='test'
 script:
 - npm install
 - npm test
