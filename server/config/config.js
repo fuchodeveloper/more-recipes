@@ -5,17 +5,17 @@ module.exports = {
   development: {
     username: 'postgres',
     password: 'administrator',
-    database: 'more-recipes2',
+    database: 'more_recipes',
     host: '127.0.0.1',
-    port: 5433,
+    port: 5432,
     dialect: 'postgres'
   },
   test: {
     username: 'postgres',
     password: 'administrator',
-    database: 'tests',
+    database: 'test',
     host: '127.0.0.1',
-    port: 5433,
+    port: 5432,
     dialect: 'postgres'
   },
   production: {
