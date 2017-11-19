@@ -9,7 +9,7 @@ before_script:
   - sequelize db:migrate
 env:
   global:
-    - export SECRET_KEY = 'abc123test'
+    - export SECRET_KEY = 'abc123test' 
 script:
 - npm install
 - npm test
