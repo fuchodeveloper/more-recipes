@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import noodles from '../../assets/img/noodles.jpg';
-import { getAllRecipes } from '../../action/recipes/recipeDetails';
-import { createFavorite } from '../../action/favorites/createFavorite';
-import upvoteRecipe from '../../action/recipes/upvoteAction';
-import downvoteRecipe from '../../action/recipes/downvoteAction';
-import RecipeReviews from './RecipeReviews';
+import getRecipeDetails from '../../action/recipes/getRecipeDetails';
+// import { createFavorite } from '../../action/favorites/createFavorite';
+// import upvoteRecipe from '../../action/recipes/upvoteAction';
+// import downvoteRecipe from '../../action/recipes/downvoteAction';
+// import RecipeReviews from './RecipeReviews';
 
 class RecipeDetails extends React.Component {
   constructor(props) {
@@ -32,24 +32,7 @@ class RecipeDetails extends React.Component {
 
   componentDidMount() {
     const { param } = this.props;
-
-    setTimeout(() => this.setState({ isLoading: false }), 1000);
-    axios.get('/api/v1/recipes/' + param)
-      .then((recipe) => {
-      this.setState({ details: recipe.data })
-    })
-    .catch((error) => {
-      this.setState({ errors: error.response })
-    })
-
-    axios.get(`/api/v1/recipes/${param}/reviews`)
-      .then((reviews) => {
-      this.setState({ review: reviews.data.review });
-    }
-  )
-    .catch((error) => {
-      this.setState({ errors: error.data.error })
-    })
+    this.props.dispatch(getRecipeDetails(param));
   }
 
   createFavorite(e) {
@@ -134,9 +117,9 @@ class RecipeDetails extends React.Component {
   }
   
   render() {
-    const { isLoading, details, favoriteCount } = this.state;
+    const { isFetching, recipe} = this.props;
 
-    if (isLoading) {
+    if (isFetching) {
       return (
         <h2 className="text-center">Loading...</h2>
       );
@@ -144,12 +127,12 @@ class RecipeDetails extends React.Component {
 
     
     return (
-      
+   
       <div>
         <div className="overlay margin-top-50">
-            <div className="jumbotron recipe-header-background" style={{ backgroundImage: `url(${details.recipe.recipeImage === '' ? noodles : details.recipe.recipeImage})` }}>
+            <div className="jumbotron recipe-header-background" style={{ backgroundImage: `url(${recipe.recipeImage === '' ? noodles : recipe.recipeImage})` }}>
                 <div className="container recipe-overlay-text">
-                    <h1 className="display-3 recipe-title">Recipe: {details.recipe.recipeName}</h1>
+                    <h1 className="display-3 recipe-title">Recipe: {recipe.recipeName}</h1>
                     <p className="recipe-author"><em>By: John Doe</em></p>
                 </div>
             </div>
@@ -158,18 +141,18 @@ class RecipeDetails extends React.Component {
         <div className="container">
           <div className="mb-4">
             <span className="recipe-title">Recipe Ingredients</span>
-            <span className="float-right recipe-ratings-right text-muted">{details.recipe.views} <i className="fa fa-eye" aria-hidden="true"/> <span className="big-pipe">.</span> {details.recipe.upVotes} <i className="fa fa-thumbs-up" aria-hidden="true"/> <span>.</span> {details.recipe.favoriteCount} <i className="fa fa-star" aria-hidden="true"/> </span>
+            <span className="float-right recipe-ratings-right text-muted">{recipe.views} <i className="fa fa-eye" aria-hidden="true"/> <span className="big-pipe">.</span> {recipe.upVotes} <i className="fa fa-thumbs-up" aria-hidden="true"/> <span>.</span> {recipe.favoriteCount} <i className="fa fa-star" aria-hidden="true"/> </span>
           </div>
 
         <div className="row">
             <div className="col-sm-6">
                 <p>
-                {details.recipe.ingredient}
+                {recipe.ingredient}
                 </p>  
             </div>
 
             <div className="col-sm-6 float-right">
-                <img src={details.recipe.recipeImage === '' ? noodles : details.recipe.recipeImage} className="img img-fluid" alt="Recipe image"/>
+                <img src={recipe.recipeImage === '' ? noodles : recipe.recipeImage} className="img img-fluid" alt="Recipe image"/>
                 <span className="text-muted form-text text-center"><em>Food is ready</em></span>
             </div>
         </div>
@@ -177,7 +160,7 @@ class RecipeDetails extends React.Component {
             <div className="mt-5">
                 <h3>Directions</h3>
                 <p>
-                  {details.recipe.recipeDirection}
+                  {recipe.recipeDirection}
                 </p>
             </div>
 
@@ -248,15 +231,28 @@ class RecipeDetails extends React.Component {
   }
 }
 
-RecipeDetails.propTypes = {
-  getAllRecipes: PropTypes.func.isRequired
-};
+// RecipeDetails.propTypes = {
+//   getAllRecipes: PropTypes.func.isRequired
+// };
 
-RecipeDetails.propTypes = {
-  upvoteRecipe: PropTypes.func.isRequired,
-  downvoteRecipe: PropTypes.func.isRequired
-}
+// RecipeDetails.propTypes = {
+//   upvoteRecipe: PropTypes.func.isRequired,
+//   downvoteRecipe: PropTypes.func.isRequired
+// }
 
+const mapStateToProps = ({recipe, isFetching}) => ({
+  recipe,
+  isFetching
+});
 
-export default connect(null, { getAllRecipes, upvoteRecipe, downvoteRecipe })(RecipeDetails);
+// const mapDispatchToProps = dispatch => {
+//   console.log(dispatch)
+//   return {
+//     upvoteRecipe,
+//     downVote
+//   }
+// }
+
+export default connect(mapStateToProps)(RecipeDetails);
+// export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);
 

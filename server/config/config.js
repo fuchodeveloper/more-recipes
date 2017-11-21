@@ -18,6 +18,14 @@ module.exports = {
     port: 5432,
     dialect: 'postgres'
   },
+  test_dev: {
+    username: 'postgres',
+    password: 'administrator',
+    database: 'test',
+    host: '127.0.0.1',
+    port: 5432,
+    dialect: 'postgres'
+  },
   production: {
     use_env_variable: 'DB_URL'
   }

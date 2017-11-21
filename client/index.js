@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { enableBatching } from 'redux-batched-actions';
 import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import jwt from 'jsonwebtoken';
@@ -26,7 +27,7 @@ import requireAuth from './utils/requireAuth';
 
 const Root = () => {
   const store = createStore(
-    rootReducer,
+    enableBatching(rootReducer),
     compose(
       applyMiddleware(thunk),
       window.devToolsExtension ? window.devToolsExtension() : f => f
