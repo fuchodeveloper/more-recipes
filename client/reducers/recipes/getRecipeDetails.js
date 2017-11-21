@@ -1,12 +1,21 @@
-import { GET_RECIPE_DETAILS } from '../../action/types';
+import { RECEIVE_RECIPE, RECEIVE_VOTE } from '../../action/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case GET_RECIPE_DETAILS:
-      return {
-        ...state,
-        action
-      };
+    case RECEIVE_RECIPE:
+      return Object.assign(
+        {},
+        state,
+        action.recipe
+      );
+    case RECEIVE_VOTE:
+      return Object.assign(
+        {},
+        state, {
+          upVotes: action.upVotes,
+          downVotes: action.downVotes
+        }
+      );
     default:
       return state;
   }

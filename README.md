@@ -3,12 +3,12 @@
 </p>
 
 <p align="center">
-    <img src="https://travis-ci.org/fuchodeveloper/more-recipes.svg?branch=master" alt="travis ci build test badge" />
-    <a href='https://coveralls.io/github/fuchodeveloper/more-recipes?branch=master'><img src='https://coveralls.io/repos/github/fuchodeveloper/more-recipes/badge.svg?branch=master' alt='Coverage Status' /></a>
+    <img src="https://travis-ci.org/fuchodeveloper/more-recipes.svg?branch=develop" alt="travis ci build test badge" />
+    <a href='https://coveralls.io/github/fuchodeveloper/more-recipes?branch=develop'><img src='https://coveralls.io/repos/github/fuchodeveloper/more-recipes/badge.svg?branch=develop' alt='Coverage Status' /></a>
     <a href="https://codeclimate.com/github/fuchodeveloper/more-recipes"><img src="https://codeclimate.com/github/fuchodeveloper/more-recipes/badges/gpa.svg" /></a>
 </p>
 
-## More-recipes
+## More-recipes 
 More-Recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.  Suppose a user comes up with a recipe,  he/she can post it on More-Recipes and  get feedback in form of reviews and votes from other users who explore that recipe. Users can also keep a list of their favorite recipes on the application.
 
 More-recipes API: <a href="https://more-recipes-application.herokuapp.com">here</a>
