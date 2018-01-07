@@ -22,26 +22,40 @@ const favoritesController = {
       }
     })
       .then((favorite) => {
+        let messageText;
         if (favorite) {
-          return response.status(400).json({
-            error: 'Recipe already favorited.'
-          });
+          // destroy favorite and decrement recipes table
+          messageText = 'Favorite removed';
+          return Recipes.findOne({
+            where: { id: request.params.id }
+          })
+            .then((recipe) => {
+              recipe.decrement('favoriteCount');
+              favorite.destroy()
+                .then(() => response.status(200).json({
+                  favorite: recipe.favoriteCount, favorited: false, message: messageText
+                }));
+            });
         }
-        Favorites.create({
-          recipeId: request.params.id,
-          userId: request.decoded.id
-        });
 
-        return Recipes.increment({ favoriteCount: 1 }, { where: { id: request.params.id } });
+        // create favorite and increment table
+
+        messageText = 'Recipe favorited';
+        return Recipes.findOne({
+          where: { id: request.params.id }
+        })
+          .then((recipe) => {
+            recipe.increment('favoriteCount');
+            return Favorites.create({
+              recipeId: request.params.id,
+              userId: request.decoded.id
+            })
+              .then(() => response.status(200).json({
+                favorite: recipe.favoriteCount, favorited: true, message: messageText
+              }));
+          });
       })
-      .then(favoriteSuccess => response.status(201).json({
-        message: 'Recipe successfully favorited.',
-        data: favoriteSuccess
-      }))
-      .catch(error => response.status(400).json({
-        // error: 'An error occured during this operation',
-        error: error.message
-      }));
+      .catch(error => response.status(500).json({ error: error.message }));
   },
 
   getFavoriteCount(request, response) {

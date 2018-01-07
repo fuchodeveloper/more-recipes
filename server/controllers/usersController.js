@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import Validator from 'validatorjs';
 import _ from 'lodash';
 import db from '../models/';
+import validateInput from '../validations/validateInput';
 
 const { User } = db;
 
@@ -111,10 +112,71 @@ const usersController = {
     User.findOne({
       where: {
         id: req.params.id
+      },
+      attributes: ['firstName', 'lastName', 'emailAddress']
+    })
+      .then(user => res.status(200).json({ user }))
+      .catch(error => res.status(404).json({ error }));
+  },
+
+  updateUser(req, res) {
+    const { body } = req;
+
+    const isNotValid = () => {
+      const { errors, isValid } = validateInput(body);
+      if (!isValid) {
+        return errors;
+      }
+    };
+
+    if (isNotValid()) {
+      return res.json({ errors: isNotValid() });
+    }
+
+    const { firstName } = req.body;
+    const { lastName } = req.body;
+    const { emailAddress } = req.body;
+    const { password } = req.body;
+    const { newPassword } = req.body;
+
+    return User.findOne({
+      where: {
+        id: req.decoded.id
       }
     })
-      .then(user => res.json({ user: user.firstName }))
-      .catch(error => res.status(404).json({ error }));
+      .then((user) => {
+        if (!user) {
+          return res.status(404).json({ error: 'No user found.' });
+        }
+
+        const comparePassword = bcrypt.compareSync(password, user.password);
+
+        if (comparePassword === false) {
+          return res.status(401).json({ error: 'Incorrect old password' });
+        }
+
+        const newUpdatedPassword = bcrypt.hashSync(newPassword);
+
+        return user.update({
+          firstName: firstName ? firstName.trim() : user.firstName,
+          lastName: lastName ? lastName.trim() : user.lastName,
+          emailAddress: emailAddress ? emailAddress.trim() : user.emailAddress,
+          password: newUpdatedPassword
+        }, { where: { id: req.decoded.id } })
+          .then((userData) => {
+            User.findOne({
+              where: {
+                id: userData.id
+              },
+              attributes: ['firstName', 'lastName', 'emailAddress']
+            })
+              .then(updatedUser => res.status(200).json({ user: updatedUser }))
+              .catch(error => res.status(404).json({ error: error.message }));
+          })
+          .catch(error => res.status(400)
+            .json({ error: error.message }));
+      })
+      .catch(error => res.status(500).json({ error: error.message }));
   }
 };
 

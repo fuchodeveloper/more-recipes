@@ -29,11 +29,11 @@ class Header extends React.Component {
      <div>
        <div className="dropdown show mr-5 main-nav-menu">
           <a className="dropdown-toggle btn btn-block" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Welcome
+              <strong>{this.props.login.user.firstName}</strong>
           </a>
 
           <div className="dropdown-menu main-nav-menu width-5" aria-labelledby="dropdownMenuLink">
-            <a className="dropdown-item" href="template/profile.html">Profile</a>
+            <a className="dropdown-item" href="/profile">Profile</a>
             <Link className="dropdown-item" to="/add_recipe">Add Recipe</Link>
             <a className="dropdown-item" href="template/category.html">Category</a>
             <Link className="dropdown-item" to={`/${id}/my_favorites`}>Favorite Recipes</Link>
@@ -65,7 +65,6 @@ class Header extends React.Component {
 
           <div className="collapse navbar-collapse" id="navbarsExampleDefault">
               <nav className="navbar-nav ml-auto main-nav-menu">
-                  <Link to="/" className="mr-2 btn nav-menu-active">Home</Link>
                   { isAuthenticated ? userLinks : guestLinks }
               </nav>
           </div>

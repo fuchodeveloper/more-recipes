@@ -4,6 +4,6 @@ import usersController from '../controllers/usersController';
 
 const router = express.Router();
 
-router.get('/findUser/:id', usersController.getUser);
+router.get('/profile/:id', usersController.getUser);
 
 export default router;

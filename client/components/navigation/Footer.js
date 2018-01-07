@@ -6,7 +6,7 @@ class Footer extends React.Component {
     return (
       <footer>
         <p className="text-center">
-            <strong>&copy; 2017 | More-recipes</strong>
+            <strong>&copy; {new Date().getFullYear()} | More-recipes</strong>
         </p>
       </footer>
     )

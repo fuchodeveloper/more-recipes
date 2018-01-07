@@ -13,7 +13,7 @@ module.exports = {
       type: Sequelize.INTEGER
     },
     downVotes: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       defaultValue: 0
     },
     createdAt: {

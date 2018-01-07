@@ -1,26 +1,19 @@
 import axios from 'axios';
 import { batchActions } from 'redux-batched-actions';
-import { RECEIVE_RECIPE, RECEIVE_VOTE } from '../types';
+import { RECEIVE_RECIPE } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
 
 /**
  * Set type for GET all recipes
  *
- * @export {func} func
+ * @export {function} function
  * @param {any} recipe
- * @returns {obj} obj
+ * @returns {object} object
  */
 export const receiveRecipe = recipe => ({
   type: RECEIVE_RECIPE,
   recipe
 });
-
-export const receiveVote = (upVotes, downVotes) => ({
-  type: RECEIVE_VOTE,
-  upVotes,
-  downVotes
-});
-
 
 /**
  * GET a recipe
@@ -36,9 +29,11 @@ const getRecipeDetails = id => (dispatch) => {
         receiveRecipe(res.data.recipe),
         unsetFetching()
       ]));
+
+      // dispatch(receiveRecipe(res.data.recipe));
     })
-    .catch((err) => {
-      console.log(err.response.data.error);
+    .catch(() => {
+      // console.log(err.response.data.error);
       dispatch(unsetFetching());
     });
 };

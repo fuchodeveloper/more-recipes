@@ -13,11 +13,11 @@ module.exports = {
       type: Sequelize.INTEGER
     },
     upvotes: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       defaultValue: 0
     },
     downvotes: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       defaultValue: 0
     },
     createdAt: {

@@ -127,8 +127,7 @@ class SignupForm extends React.Component {
 
             <div className="col-md-12 mb-2">
                 <label className="forms-label-color"></label>
-                {/* <input type="submit" value="Sign Up" className="btn btn-primary form-control btn-primary-color"/> */}
-                <div className="form-group"><button  className="btn btn-primary btn-lg" disabled={this.state.isLoading }>Login</button></div>
+                <div className="form-group"><button  className="btn btn-primary btn-lg btn-primary-color" disabled={this.state.isLoading }>Login</button></div>
                 <p className="small text-muted mt-3 text-center">Already have an account? <Link to="/login">Sign in</Link></p>
             </div>
           </div>

@@ -14,7 +14,7 @@ module.exports = {
         loader: 'url-loader'
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         include: path.join(__dirname, 'client'),
         loaders: ['react-hot-loader/webpack', 'babel-loader'],
         exclude: /node_modules/
@@ -35,6 +35,9 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
+  resolve: {
+    extensions: ['.js', '.json', '.jsx', '.css', '.scss']
+  },
   node: {
     fs: 'empty',
     net: 'empty'
