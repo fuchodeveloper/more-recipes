@@ -6,7 +6,7 @@ export default (state = {}, action) => {
       // return Object.assign(
       //   {},
       //   state,
-      //   {recipe: action.recipe}
+      //   recipe: action.recipe
       // );
       return {
         ...state,

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
-import qs from 'qs'
+import qs from 'qs';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ReactPaginate from 'react-paginate';
 import noodles from '../assets/img/noodles.jpg';
 import Header from '../components/navigation/Header';
 import FlashMessagesList from './flash/FlashMessagesList';
@@ -23,32 +23,42 @@ class Home extends Component {
       favoriteCount: 0,
       cloudinaryRecipeImage: '',
       searchQuery: '',
-      recipes: {}
+      recipes: {},
+      pageCount: ''
     }; // Initialize the state
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.onPageChange = this.onPageChange.bind(this);
   }
 
   /**
    *  GET all recipes using API endpoint
    */
   componentDidMount() {
-    this.props.recipeProps();
+    this.props.recipeProps(this.state.pageCount);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ recipes: nextProps.recipes });
+    this.setState({
+      recipes: nextProps.recipes,
+      pageCount: nextProps.pageCount.pageCount
+    });
   }
 
-  onFocus(){
+  onFocus() {
     this.context.router.history.push('/search');
+  }
+
+  onPageChange(current) {
+    current.selected += 1;
+    this.props.recipeProps(current.selected);
   }
 
   onChange(e) {
     e.preventDefault();
 
-    this.setState({ [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit(e) {
@@ -64,31 +74,31 @@ class Home extends Component {
         <h2 className="text-center">Loading...</h2>
       );
     }
-    
+
     return (
       <div>
 
         {/* Header component for navigation */}
         <Header />
-         
+
         {this.props.children}
-        
+
           <div className="container margin-top-70">
           <FlashMessagesList />
-          
+
               <h1
                className="text-center p-4 center-hero-title">Awesome Recipes Just For You</h1>
               <div>
 
               </div>
               <form onSubmit={ this.onSubmit } >
-              
+
                   <div className="input-group mt-2 mb-2 p-1">
 
-                      <input 
-                        type="text" 
-                        className="form-control p-3" 
-                        placeholder="Try: 'Jollof Rice' " 
+                      <input
+                        type="text"
+                        className="form-control p-3"
+                        placeholder="Try: 'Jollof Rice' "
                         aria-describedby="basic-addon2"
                         name="searchQuery"
                         value={ this.state.searchQuery }
@@ -111,33 +121,38 @@ class Home extends Component {
                 {
                   Object
                     .keys(this.state.recipes)
-                    .map(key => <AllRecipes key={key} details={this.state.recipes [key]} />)  
+                    .map(key => <AllRecipes key={key} details={this.state.recipes[key]} />)
                   }
-                
+
                 </div>
 
               </div>
 
-          
+              <div className="clearfix mt-4"/>
 
-          <div className="clearfix mt-4"/>
-          {/* Bottom Navigation */}
-          <nav aria-label="Page navigation example">
-              <ul className="pagination justify-content-center">
-                  <li className="page-item disabled">
-                  <a className="page-link" href="#">Previous</a>
-                  </li>
-                  <li className="page-item"><a className="page-link" href="#">1</a></li>
-                  <li className="page-item"><a className="page-link" href="#">2</a></li>
-                  <li className="page-item"><a className="page-link" href="#">3</a></li>
-                  <li className="page-item">
-                  <a className="page-link" href="#">Next</a>
-                  </li>
-              </ul>
-          </nav>
+             <div className="row">
+             <ReactPaginate
+                pageCount={parseInt(this.state.pageCount, 10)}
+                pageRangeDisplayed={5}
+                marginPagesDisplayed={3}
+                previousLabel={'Previous'}
+                nextLabel={'Next'}
+                breakClassName={'text-center'}
+                initialPage={0}
+                containerClassName={'container pagination justify-content-center'}
+                pageClassName={'page-item'}
+                pageLinkClassName={'page-link'}
+                activeClassName={'page-item active'}
+                previousClassName={'page-item'}
+                nextClassName={'page-item'}
+                nextLinkClassName={'page-link'}
+                previousLinkClassName={'page-link'}
+                onPageChange={this.onPageChange}
+              />
+             </div>
 
           </div>
-      
+
       </div>
     );
   }
@@ -147,18 +162,19 @@ Home.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({recipes, isFetching, searchResult}) => ({
+const mapStateToProps = ({
+  recipes, isFetching, searchResult, pageCount
+}) => ({
   recipes,
   isFetching,
-  searchResult
+  searchResult,
+  pageCount
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    recipeProps: () => dispatch(getAllRecipes()),
-    recipeSearch: searchContent => dispatch(recipeSearch(searchContent))
-  }  
-}
+const mapDispatchToProps = dispatch => ({
+  recipeProps: pageCount => dispatch(getAllRecipes(pageCount)),
+  recipeSearch: searchContent => dispatch(recipeSearch(searchContent))
+});
 
 // Home.propTypes = {
 //   recipeSearch: PropTypes.func.isRequired

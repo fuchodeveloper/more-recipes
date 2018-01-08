@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { batchActions } from 'redux-batched-actions';
-import { GET_ALL_RECIPES } from '../types';
+import { GET_ALL_RECIPES, GET_PAGE_DETAILS } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
 
 export const receiveRecipes = recipes => ({
@@ -8,12 +8,18 @@ export const receiveRecipes = recipes => ({
   recipes
 });
 
-const getAllRecipes = () => (dispatch) => {
+export const recipePageDetails = pageCount => ({
+  type: GET_PAGE_DETAILS,
+  pageCount
+});
+
+const getAllRecipes = page => (dispatch) => {
   dispatch(setFetching());
-  axios.get('/api/v1/recipes')
+  axios.get(`/api/v1/recipes?page=${page}`)
     .then((response) => {
       dispatch(batchActions([
         receiveRecipes(response.data.recipes),
+        recipePageDetails(response.data.pageCount),
         unsetFetching(),
       ]));
     })
