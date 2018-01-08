@@ -98,7 +98,7 @@ const usersController = {
         const decoded = jwt.verify(myToken, secret);
         return response.status(200).send({ message: 'Log in successful', user: decoded, token: myToken, });
       })
-      .catch(error => response.status(500).send(error.message));
+      .catch(error => response.status(500).json({ error: error.message }));
   },
 
   /**

@@ -27,26 +27,25 @@ class FavoriteRecipesPage extends React.Component {
 
     setTimeout(() => this.setState({ isLoading: false }), 1000);
     this.props.getAllFavorites(userIdParam)
-    .then((favorites) => {
+      .then((favorites) => {
       // console.log(favorites.data.isFound);
-      this.setState({ details: favorites.data.isFound })
-    })
-    .catch((error) => {
+        this.setState({ details: favorites.data.isFound });
+      })
+      .catch((error) => {
       // console.log(error);
-      this.setState({ errors: error.data })
-    })
+        this.setState({ errors: error.data });
+      });
   }
 
   render() {
-
     const { isLoading } = this.state;
-    
+
     if (isLoading) {
       return (
         <h2 className="text-center">Loading...</h2>
       );
     }
-    
+
     return (
       <div>
         {/* Header component for navigation */}
@@ -66,7 +65,7 @@ class FavoriteRecipesPage extends React.Component {
                 .keys(this.state.details)
                 .map(key => <AllFavoriteRecipes key={key} details={this.state.details[key]} />)
             }
-            
+
           </div>
 
         </div>
@@ -76,12 +75,12 @@ class FavoriteRecipesPage extends React.Component {
         {/* Display footer  */}
         <Footer />
       </div>
-    )
+    );
   }
 }
 
 FavoriteRecipesPage.propTypes = {
   getAllFavorites: PropTypes.func.isRequired
-}
+};
 
 export default connect(null, { getAllFavorites })(FavoriteRecipesPage);

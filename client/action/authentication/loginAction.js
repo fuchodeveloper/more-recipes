@@ -2,7 +2,7 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../../utils/setAuthorizationToken';
-import { SET_CURRENT_USER } from '../types';
+import { SET_CURRENT_USER, SET_CURRENT_USER_FAIL } from '../types';
 
 /**
  * set current user type
@@ -17,6 +17,11 @@ export function setCurrentUser(user) {
     user
   };
 }
+
+export const setCurrentUserError = error => ({
+  type: SET_CURRENT_USER_FAIL,
+  error
+});
 
 /**
  * log authenticated user out from app
@@ -46,5 +51,8 @@ export function login(data) {
       localStorage.setItem('jwtToken', token);
       setAuthorizationToken(token);
       dispatch(setCurrentUser(jwt.decode(token)));
+    })
+    .catch((error) => {
+      console.log(error);
     });
 }
