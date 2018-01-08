@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addFlashMessage } from '../action/flashMessages';
 
-export default function(ComposedComponent) {
+export default function (ComposedComponent) {
   class Authenticate extends React.Component {
-    componentWillMount(){
+    componentWillMount() {
       if (!this.props.isAuthenticated) {
         this.props.addFlashMessage({
           type: 'error',
@@ -20,8 +20,8 @@ export default function(ComposedComponent) {
         this.context.router.history.push('/');
       }
     }
-  render() {
-    return(
+    render() {
+      return (
      <ComposedComponent {...this.props} />
       );
     }
@@ -30,18 +30,17 @@ export default function(ComposedComponent) {
   Authenticate.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     addFlashMessage: PropTypes.func.isRequired
-  }
+  };
 
   Authenticate.contextTypes = {
     router: PropTypes.object.isRequired
-  }
+  };
 
   function mapStateToProps(state) {
     return {
       isAuthenticated: state.login.isAuthenticated
-    }
+    };
   }
 
   return connect(mapStateToProps, { addFlashMessage })(Authenticate);
 }
-

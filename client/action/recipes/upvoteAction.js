@@ -1,19 +1,17 @@
 import axios from 'axios';
-import toastr from 'toastr';
-import { ADD_UPVOTE } from '../types';
+import alertify from 'alertify.js';
+import { GET_UPVOTE } from '../types';
 
 /**
- * upvote recipe action
+ * upvote recipe action creator
  *
  * @export upvoteRecipeAction
- * @param {any} upvoteSuccess
+ * @param {any} recipe
  * @returns {object} object
  */
-export const upvoteRecipeAction = upvoteSuccess => ({
-
-  type: ADD_UPVOTE,
-  upvoteSuccess
-
+export const upvoteRecipeAction = recipe => ({
+  type: GET_UPVOTE,
+  recipe
 });
 
 /**
@@ -24,13 +22,16 @@ export const upvoteRecipeAction = upvoteSuccess => ({
  * @returns {null} null
  */
 const upvoteRecipe = param =>
-  // return dispatch => axios.post(`/api/v1/recipes/${param}/upvote`);
   dispatch => axios.post(`/api/v1/recipes/${param}/upvote`)
-    .then((recipeUpvoteSuccess) => {
-      const upvoteSuccess = recipeUpvoteSuccess;
-      return dispatch(upvoteRecipeAction(upvoteSuccess));
+    .then((response) => {
+      alertify.delay(900);
+      alertify.logPosition('bottom right');
+      alertify.success(response.data.message);
+      return dispatch(upvoteRecipeAction(response.data.recipe));
     })
-    .catch((recipeUpvoteError) => {
-      toastr.error(recipeUpvoteError.response.data.error);
+    .catch((error) => {
+      alertify.logPosition('bottom right');
+      alertify.error(error.message);
     });
+
 export default upvoteRecipe;

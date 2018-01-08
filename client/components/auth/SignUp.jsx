@@ -11,7 +11,6 @@ import { userSignupRequest } from '../../action/authentication/signupActions';
 import { addFlashMessage } from '../../action/flashMessages.js';
 
 class SignUp extends Component {
-
   render() {
     const { userSignupRequest, addFlashMessage } = this.props;
     return (
@@ -34,14 +33,14 @@ class SignUp extends Component {
 
         {/* End div */}
       </div>
-    )
+    );
   }
 }
 
 SignUp.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
   addFlashMessage: PropTypes.func.isRequired
-}
+};
 
 export default connect(null, { userSignupRequest, addFlashMessage })(SignUp);
 

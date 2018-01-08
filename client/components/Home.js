@@ -11,6 +11,7 @@ import Header from '../components/navigation/Header';
 import FlashMessagesList from './flash/FlashMessagesList';
 import AllRecipes from './recipes/AllRecipes';
 import recipeSearch from '../action/recipes/recipeSearchAction';
+import getAllRecipes from '../action/recipes/getAllRecipes';
 
 class Home extends Component {
   constructor(props) {
@@ -21,47 +22,49 @@ class Home extends Component {
       errors: {},
       favoriteCount: 0,
       cloudinaryRecipeImage: '',
-      value: ''
+      searchQuery: '',
+      recipes: {}
     }; // Initialize the state
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onFocus = this.onFocus.bind(this);
   }
 
   /**
    *  GET all recipes using API endpoint
    */
-  componentWillMount() {
+  componentDidMount() {
+    this.props.recipeProps();
+  }
 
-    setTimeout(() => this.setState({ isLoading: false }), 1000);
-    axios.get('/api/v1/recipes')
-    .then((recipe) => {
-      this.setState({ details: recipe.data.recipes })
-    })
-    .catch((error) => {
-      this.setState({ errors: error.response })
-    })
+  componentWillReceiveProps(nextProps) {
+    this.setState({ recipes: nextProps.recipes });
+  }
+
+  onFocus(){
+    this.context.router.history.push('/search');
   }
 
   onChange(e) {
-    this.setState({ value: e.target.value })
+    e.preventDefault();
+
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.recipeSearch(this.state)
-      .then((recipe) => { console.log(recipe) })
-      .catch((error) => { console.log(error) })
+    this.props.recipeSearch(this.state.searchQuery);
   }
 
   render() {
-    const { isLoading, favoriteCount } = this.state;
+    const { isFetching } = this.state;
 
-    if (isLoading) {
+    if (isFetching) {
       return (
         <h2 className="text-center">Loading...</h2>
       );
     }
-
+    
     return (
       <div>
 
@@ -87,9 +90,10 @@ class Home extends Component {
                         className="form-control p-3" 
                         placeholder="Try: 'Jollof Rice' " 
                         aria-describedby="basic-addon2"
-                        name="value"
-                        value={ this.state.value }
-                        onChange={ this.onChange }
+                        name="searchQuery"
+                        value={ this.state.searchQuery }
+                        // onChange={ this.onChange }
+                        onFocus = { this.onFocus }
                         required
                       />
 
@@ -103,20 +107,12 @@ class Home extends Component {
               </div>
 
               <div>
-
                 <div className="row">
-                  {Object
-                    .keys(this.state.details )
-                    .map(key => <AllRecipes key={key} details={this.state.details [key]} />)  
+                {
+                  Object
+                    .keys(this.state.recipes)
+                    .map(key => <AllRecipes key={key} details={this.state.recipes [key]} />)  
                   }
-                  {/* { this.state.details.map((value, index) => {
-                    return (
-                      <AllRecipes key={index}
-                      details={value} />
-                    );
-                  }
-                  )
-                } */}
                 
                 </div>
 
@@ -147,8 +143,25 @@ class Home extends Component {
   }
 }
 
-Home.propTypes = {
-  recipeSearch: PropTypes.func.isRequired
+Home.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
+const mapStateToProps = ({recipes, isFetching, searchResult}) => ({
+  recipes,
+  isFetching,
+  searchResult
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    recipeProps: () => dispatch(getAllRecipes()),
+    recipeSearch: searchContent => dispatch(recipeSearch(searchContent))
+  }  
 }
 
-export default connect(null, { recipeSearch })(Home);
+// Home.propTypes = {
+//   recipeSearch: PropTypes.func.isRequired
+// }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

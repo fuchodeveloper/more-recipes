@@ -55,7 +55,7 @@ const recipeController = {
       .findOne({
         where: { id: request.params.id },
         include: [{
-          attributes: ['review'],
+          attributes: ['id', 'review'],
           model: Reviews,
           include: [{
             attributes: ['firstName'],
@@ -266,15 +266,15 @@ const recipeController = {
       .findAll({
         where: {
           recipeName: {
-            [Op.like]: `%${request.body.value.trim().toLowerCase()}%`
+            [Op.like]: `%${request.body.search.trim().toLowerCase()}%`
           }
         }
       })
-      .then((recipe) => {
-        if (recipe.length === 0) {
+      .then((searchedRecipes) => {
+        if (searchedRecipes.length === 0) {
           response.status(404).json({ error: 'Recipe not found!' });
         } else {
-          response.status(200).json({ recipe });
+          response.status(200).json({ recipes: searchedRecipes });
         }
       })
       .catch(error => response.status(500).json({ error: error.message }));

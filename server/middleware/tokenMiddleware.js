@@ -20,7 +20,7 @@ const authourization = {
     if (token) {
       jwt.verify(token, secret, (error, decoded) => {
         if (error) {
-          return res.status(401).json({ error: error.message });
+          return res.status(401).json({ error });
         }
         User.findById(decoded.id)
           .then((user) => {

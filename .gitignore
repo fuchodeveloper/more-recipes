@@ -5,3 +5,4 @@ coverage
 .coveralls.yml
 .nyc_output
 .env
+dummy.js

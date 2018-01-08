@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../../utils/setAuthorizationToken';
@@ -8,7 +9,7 @@ import { SET_CURRENT_USER } from '../types';
  *
  * @export setCurrentUser
  * @param {any} user
- * @returns {obj} obj
+ * @returns {object} user
  */
 export function setCurrentUser(user) {
   return {

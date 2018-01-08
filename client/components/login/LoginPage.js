@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import Header from '../../components/navigation/Header';
 import LoginForm from './LoginForm';
 
-class LoginPage extends React.Component {
+class LoginPage extends Component {
   render() {
     return (
       <div>

@@ -5,7 +5,7 @@ import axios from 'axios';
  *
  * @export createRecipe
  * @param {any} recipe
- * @returns {onj} onj
+ * @returns {object} object
  */
 export function createRecipe(recipe) {
   return dispatch => axios.post('/api/v1/recipes', recipe);

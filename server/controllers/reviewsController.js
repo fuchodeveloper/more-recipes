@@ -30,21 +30,34 @@ const reviewsController = {
       })
       .catch(error => response.status(400).json(error.message));
 
-    Recipes.findById(request.params.id)
+    return Recipes.findById(request.params.id)
       .then((recipe) => {
         if (!recipe) {
           return response.status(404).json({ code: 404, error: 'Recipe not found.' });
         }
 
-        return Reviews.create({
+        Reviews.create({
           review: request.body.review,
           recipeId: request.params.id,
           userId: request.decoded.id
         })
-          .then(reviewPosted => response.status(201).json({ statusCode: 201, message: 'Review created.', data: reviewPosted }))
-          .catch(error => response.status(404).json(error.message));
+          .then(() => Recipes
+            .findOne({
+              where: { id: request.params.id },
+              include: [
+                {
+                  attributes: ['id', 'review'],
+                  model: Reviews,
+                  include: [
+                    { attributes: ['firstName'], model: User }
+                  ]
+                }
+              ]
+            }).then(updatedRecipe => response.status(201).json({ statusCode: 201, message: 'Review created.', recipe: updatedRecipe }))
+            .catch(error => response.status(404).json({ error: error.message })))
+          .catch(error => response.status(400).json({ error: error.message }));
       })
-      .catch(error => response.status(400).json(error.message));
+      .catch(error => response.status(400).json({ error: error.message }));
   },
 
   /**
@@ -56,7 +69,11 @@ const reviewsController = {
    */
   get(request, response) {
     Reviews.findAll({
-      where: { recipeId: request.params.id }
+      where: { recipeId: request.params.id },
+      include: [{
+        attributes: ['id', 'firstName'],
+        model: User
+      }]
     })
       .then((review) => {
         if (!review) {
