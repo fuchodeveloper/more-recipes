@@ -18,80 +18,76 @@ class ProfilePage extends Component {
       password: '',
       newPassword: '',
       errors: ''
-    }
+    };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
   }
 
-  componentWillMount(){
+  componentWillMount() {
     const id = this.props.login;
     this.props.getProfile(id);
   }
   componentWillReceiveProps(nextProps) {
-    const profile = nextProps.profile;
-    const firstName = nextProps.profile.firstName;
-    const lastName = nextProps.profile.lastName;
-    const emailAddress = nextProps.profile.emailAddress;
- 
-    this.props.profile
+    const { profile } = nextProps;
+    const { firstName } = nextProps.profile;
+    const { lastName } = nextProps.profile;
+    const { emailAddress } = nextProps.profile;
 
-    this.setState({ profile, firstName, lastName, emailAddress });
+    this.setState({
+      profile, firstName, lastName, emailAddress
+    });
   }
 
   /**
    * Handle change events
-   * @param {event} event 
+   * @param {event} event
+   * @returns {object} value
    */
-    onChange(event) {
-      this.setState({ [event.target.name]: event.target.value });
-    }
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
 
-    onSubmit(event) {
-      event.preventDefault();
-      this.props.updateProfile(this.state);
-      this.setState({ password: '', newPassword: '' });
-    }
+  onSubmit(event) {
+    event.preventDefault();
+    this.props.updateProfile(this.state);
+    this.setState({ password: '', newPassword: '' });
+  }
 
-  render () {
+  render() {
     return (
       <div>
 
         <Header />
 
-        <ProfileDetail 
-          profile={this.state.profile} 
+        <ProfileDetail
+          profile={this.state.profile}
           onChange={this.onChange}
           onSubmit={this.onSubmit}
           firstName={this.state.firstName}
           lastName={this.state.lastName}
-          emailAddress={this.state.emailAddress }
+          emailAddress={this.state.emailAddress}
           password={this.state.password}
           newPassword={this.state.newPassword}
           // errors={this.state.errors}
         />
-        
-        <div className="clearfix m-5"></div>
+
+        <div className="clearfix m-5" />
         <Footer />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    profile: state.profile,
-    login: state.login.user.id
-  }
-};
+const mapStateToProps = state => ({
+  profile: state.profile,
+  login: state.login.user.id
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getProfile: profileId => dispatch(profileAction(profileId)),
-    updateProfile: newProfileDetails => dispatch(updateProfileAction(newProfileDetails))
-  }
-};
+const mapDispatchToProps = dispatch => ({
+  getProfile: profileId => dispatch(profileAction(profileId)),
+  updateProfile: newProfileDetails => dispatch(updateProfileAction(newProfileDetails))
+});
 
 // ProfilePage.propType = {
 

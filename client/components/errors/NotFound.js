@@ -9,7 +9,7 @@ class NotFound extends Component {
           <code>404: Resource not found!</code>
         </h1>
       </div>
-    )
+    );
   }
 }
 

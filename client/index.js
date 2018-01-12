@@ -9,7 +9,6 @@ import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import jwt from 'jsonwebtoken';
 import jwtDecode from 'jwt-decode';
-import App from './components/App';
 import Home from './components/Home';
 import SignUp from './components/auth/SignUp';
 import RecipeDetails from './components/recipes/RecipeDetails';
@@ -20,6 +19,8 @@ import FavoriteRecipesPage from './components/favorites/FavoriteRecipesPage';
 import MostUpvotesPage from './components/most-upvotes/MostUpvotesPage';
 import ProfilePage from './components/profile/ProfilePage';
 import RecipeSearchPage from './components/recipes/RecipeSearchPage';
+import CategoriesPage from './components/categories/CategoriesPage';
+import Category from './components/categories/Category';
 import rootReducer from './rootReducer';
 import LoginPage from './components/login/LoginPage';
 import './assets/scss/main.scss';
@@ -52,20 +53,22 @@ const Root = () => {
 
   return (
     <Provider store={store}>
-        <Router history = {browserHistory}>
-          <div>
-            <Route exact path="/" component={Home}/>
-            <Route path="/signup" component={SignUp}/>
-            <Route path="/login" component={LoginPage}/>
-            <Route path="/recipes/:id" component={RecipeDetails}/>
-            <Route path="/search" component={RecipeSearchPage} />
-            <Route path="/add_recipe" component={requireAuth(AddRecipePage)}/>
-            <Route path='/my_recipes' component={ requireAuth(MyRecipesPage) } />
-            <Route path='/:id/my_favorites' component={ requireAuth(FavoriteRecipesPage) } />
-            <Route path='/profile' component={ requireAuth(ProfilePage) } />
-            <Route path='/edit_recipe/:id' component={ requireAuth(UpdateRecipePage) } />
-            <Route path='/most_voted' component={ MostUpvotesPage } />
-          </div>
+      <Router history={browserHistory}>
+        <div>
+          <Route exact path="/" component={Home} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/recipes/:id" component={RecipeDetails} />
+          <Route path="/search" component={RecipeSearchPage} />
+          <Route path="/add" component={requireAuth(AddRecipePage)} />
+          <Route path="/:name/recipes" component={requireAuth(MyRecipesPage)} />
+          <Route path="/favorites" component={requireAuth(FavoriteRecipesPage)} />
+          <Route path="/profile" component={requireAuth(ProfilePage)} />
+          <Route path="/edit_recipe/:id" component={requireAuth(UpdateRecipePage)} />
+          <Route path="/categories" component={requireAuth(CategoriesPage)} />
+          <Route path="/category/breakfast" component={requireAuth(Category)} />
+          <Route path="/votes" component={MostUpvotesPage} />
+        </div>
       </Router>
     </Provider>
   );

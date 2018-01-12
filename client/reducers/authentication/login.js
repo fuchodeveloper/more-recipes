@@ -1,5 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
-import { SET_CURRENT_USER } from '../../action/types';
+import { SET_CURRENT_USER, SET_CURRENT_USER_FAIL } from '../../action/types';
 
 const initialState = {
   isAuthenticated: false,
@@ -14,6 +14,14 @@ export default (state = initialState, action = {}) => {
         user: action.user
       };
 
-    default: return state;
+    case SET_CURRENT_USER_FAIL:
+      return {
+        isAuthenticated: false,
+        user: {},
+        error: action.error
+      };
+
+    default:
+      return state;
   }
 };

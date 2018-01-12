@@ -7,7 +7,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     downVotes: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       defaultValue: 0
     }
   });

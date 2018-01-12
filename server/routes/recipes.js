@@ -11,11 +11,11 @@ const router = express.Router();
 // Allow an authenticated user create a new recipe
 router.post('/', authorization.verifyToken, recipesController.createRecipe);
 
-// Get all the available recipes
+// Get all the available recipes, get sorted recipes
 router.get('/', recipesController.getAllRecipesPaginate, recipesController.sortRecipes);
 
 // Get all the recipes created by a user
-router.get('/get_all_for_user', authorization.verifyToken, recipesController.getAllForUser);
+router.get('/userRecipes', authorization.verifyToken, recipesController.getAllForUser);
 
 // Get a particular recipe
 router.get('/:id', recipesController.getRecipe);

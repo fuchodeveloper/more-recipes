@@ -9,14 +9,14 @@ const RecipeReviews = props =>
    */
 
   (
-      <div>
-        { props.review.review ? (
-           <div>
-             <span className="text-muted"><em>{props.review.User.firstName} said:</em></span>
-            <p>{props.review.review} </p>
-          </div>
+    <div>
+      { props.review.review ? (
+        <div>
+          <span className="text-muted"><em>{props.review.User.firstName} said:</em></span>
+          <p>{props.review.review} </p>
+        </div>
         ) : 'no reviews' }
 
-      </div>
+    </div>
   );
 export default RecipeReviews;

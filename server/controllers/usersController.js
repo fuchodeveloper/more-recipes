@@ -26,7 +26,7 @@ const usersController = {
       lastName: 'required|string',
       emailAddress: 'required|email',
       password: 'required|min:6|alpha_num',
-      password_confirmation: 'required|same:password'
+      passwordConfirmation: 'required|same:password'
     };
 
     const validation = new Validator(body, rules);
@@ -89,7 +89,7 @@ const usersController = {
           const confirmPassword =
           bcrypt.compareSync((request.body.password), user.password);
           if (confirmPassword === false) {
-            return response.status(401).json({ error: 'Authentication failed. Wrong password.' });
+            return response.status(401).json({ error: 'Wrong email/password' });
           }
         }
 

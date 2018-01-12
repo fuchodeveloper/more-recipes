@@ -1,6 +1,11 @@
 import { mapKeys } from 'lodash';
 
-import { RECEIVE_RECIPE, GET_UPVOTE, ADD_REVIEW, GET_DOWNVOTE, ADD_FAVORITE_SUCCESS } from '../../action/types';
+import {
+  RECEIVE_RECIPE,
+  GET_UPVOTE, ADD_REVIEW,
+  GET_DOWNVOTE,
+  ADD_FAVORITE_SUCCESS
+} from '../../action/types';
 
 export default (state = {}, action) => {
   switch (action.type) {

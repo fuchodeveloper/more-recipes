@@ -15,7 +15,6 @@ export const updateProfileActionCreatorError = error => ({
 });
 
 const updateProfileAction = profileUpdate => (dispatch) => {
-  // debugger;
   dispatch(setFetching());
   axios.post('/api/v1/users/update', profileUpdate)
     .then((response) => {
@@ -27,7 +26,6 @@ const updateProfileAction = profileUpdate => (dispatch) => {
       ]));
     })
     .catch((error) => {
-      console.log(error.message);
       alertify.logPosition('bottom right');
       alertify.error('An error occurred. Check input again');
       dispatch(updateProfileActionCreatorError(error.response.data));

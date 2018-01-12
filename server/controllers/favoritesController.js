@@ -8,7 +8,7 @@ const favoritesController = {
    *
    * @param {any} request
    * @param {any} response
-   * @returns {obj} obj
+   * @returns {object} object
    */
 
   create(request, response) {
@@ -73,14 +73,15 @@ const favoritesController = {
 
   getAllFavorites(request, response) {
     Favorites.findAll({
+      distinct: 'recipeId',
       where: { userId: request.params.id },
       include: [{ model: Recipes }]
     })
-      .then((favoriteIsFound) => {
-        if (favoriteIsFound.length === 0) {
+      .then((favoritesFound) => {
+        if (favoritesFound.length === 0) {
           return response.status(404).json({ error: 'No favorites found.' });
         }
-        return response.status(200).json({ favorites: favoriteIsFound });
+        return response.status(200).json({ favorites: favoritesFound });
       })
       .catch(error => response.status(400).json({ error: error.message }));
   }

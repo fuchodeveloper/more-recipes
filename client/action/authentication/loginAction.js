@@ -1,8 +1,10 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import { batchActions } from 'redux-batched-actions';
 import setAuthorizationToken from '../../utils/setAuthorizationToken';
 import { SET_CURRENT_USER, SET_CURRENT_USER_FAIL } from '../types';
+import { setFetching, unsetFetching } from '../fetching';
 
 /**
  * set current user type
@@ -11,12 +13,10 @@ import { SET_CURRENT_USER, SET_CURRENT_USER_FAIL } from '../types';
  * @param {any} user
  * @returns {object} user
  */
-export function setCurrentUser(user) {
-  return {
-    type: SET_CURRENT_USER,
-    user
-  };
-}
+export const setCurrentUser = user => ({
+  type: SET_CURRENT_USER,
+  user
+});
 
 export const setCurrentUserError = error => ({
   type: SET_CURRENT_USER_FAIL,
@@ -44,15 +44,24 @@ export function logout() {
  * @param {any} data
  * @returns {obj} obj
  */
-export function login(data) {
-  return dispatch => axios.post('/api/v1/users/signin', data)
+const login = data => (dispatch) => {
+  dispatch(setFetching());
+  return axios.post('/api/v1/users/signin', data)
     .then((res) => {
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       setAuthorizationToken(token);
-      dispatch(setCurrentUser(jwt.decode(token)));
+      dispatch(batchActions([
+        dispatch(setCurrentUser(jwt.decode(token))),
+        unsetFetching()
+      ]));
     })
     .catch((error) => {
-      console.log(error);
+      dispatch(batchActions([
+        dispatch(setCurrentUserError(error.response.data.error)),
+        unsetFetching()
+      ]));
     });
-}
+};
+
+export default login;

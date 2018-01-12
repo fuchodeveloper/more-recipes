@@ -16,11 +16,7 @@ const recipeSearchActionCreator = recipes => ({
 
 const recipeSearch = searchParam =>
   dispatch => axios.post('/api/v1/recipes/search', { search: searchParam })
-    .then((response) => {
-      console.log(response.data);
-      return dispatch(recipeSearchActionCreator(response.data.recipes));
-    })
-
+    .then(response => dispatch(recipeSearchActionCreator(response.data.recipes)))
     .catch((error) => {
       if (error.response.status === 404) {
         const message = 'No recipe matches your search';

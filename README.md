@@ -14,35 +14,56 @@ More-Recipes provides a platform for users to share the awesome and exciting  re
 More-recipes API: <a href="https://more-recipes-application.herokuapp.com">here</a>
 
 ## How it works 
-* Users can view various recipes on the application by visiting the app catalog page
+* Users can view various recipes on the application by visiting the app homepage page
 * Users can add recipes to the app, but first the user needs to create a new account or sign in
 * Authenticated users can do the following on the app:
     * Add a recipe
     * View or modify the recipe he/she added
     * Delete the recipe he/she added
     * Retrieve recipes from the catalog
-    * Modify a recipe in the catalog, including upvoting, downvoting, favoriting e.t.c
+    * Modify a recipe in the catalog, including upvoting, downvoting, favoriting
     * Delete a recipe from the catalog
     * Retrieve favorited recipes from the catalog
-    * Add a review for a recipe
+    * Add a review to a recipe
     * Retrieve recipes with the most upvotes
+    * Search for recipes
     
 
-<h3>TECHNOLOGIES USED</h3>
-<hr>
-<ul>
-  <li>Front-end: HTML, CSS and JavaScript</li>
-  <li>Back-end: NodeJS, Expressjs, Sequelize and Postgresql</li>
-</ul>
+## Technologies used
 
-<h3>Getting Started</h3>
-<ul>
-    <li>Clone project - git clone https://github.com/fuchodeveloper/more-recipes.git</li>
-    <li>Install dependencies - npm install</li>
-    <li>Run app - npm run start:dev</li>
-</ul>
+#### Core Technology Stacks
 
-<h3>API ENDPOINTS</h3>
+* Front-end: React/Redux + SASS/Bootstrap
+* Back-end: Expressjs + Sequelize
+* Libraries: jsonwebtoken, Babel, eslint, Mocha/Chai + chai-http
+* System Dependencies: Node + PostgreSQL
+
+### Folder Structure
+
+* client: contains React/Redux implementation of the frontend
+* server: contains the project API created using Node/express + Sequelize/postgreSQL, and tests
+* template: contains the UI design with HTML/CSS/BOOTSTRAP
+
+### Getting Started
+
+* Clone project repo - git clone `https://github.com/fuchodeveloper/more-recipes.git`
+* Ensure you have installed [NodeJS](https://nodejs.org/en/) and [Postgres](https://www.postgresql.org/download/)
+* Navigate into the application root directory: `cd more-recipes`
+* Setup PostgresSQL on your local machine or Use [ElephantSql](https://www.elephantsql.com/)
+* Run `$ npm install` to install all dependencies
+* Install sequelize-cli, Run $ npm install -g sequelize-cli (NB: May require sudo priviledges)
+* Create a `.env` file in the root directory using the sample `.env.sample` file
+* setup your database configurations according to settings in server/config/config.js
+* Run `$ sequelize db:migrate`
+* Run tests using `npm run test:dev`
+
+### How to Demo/Run the App
+
+* To start the app in development, run: `npm run start:dev`
+* To start the app in a production environment, run: `npm start`
+
+
+<h3>API Endpoints</h3>
 <hr>
 <table>
   <tr>
@@ -125,3 +146,24 @@ More-recipes API: <a href="https://more-recipes-application.herokuapp.com">here<
 </table>
 <br/>
 More recipes API documentation - <a href="https://more-recipes-application.herokuapp.com/api-docs">here</a>
+
+## Contributing
+
+This project is open for contributions. All contributions must adhere to the Airbnb styleguide.
+
+* [Javascript](http://airbnb.io/javascript/)
+* [React](https://github.com/airbnb/javascript/tree/master/react)
+
+### To get started:
+
+* Raise an Issue [here](https://github.com/fuchodeveloper/more-recipes/issues)
+* Fork the repository
+* Create a branch the feature: `git checkout -b my-new-feature`
+* Add your changes `git add .`
+* Commit your changes: `git commit -am 'Added some features'`
+* Push to the branch: `git push origin my-new-feature`
+* Submit a PR (pull request) to the [develop branch](https://github.com/fuchodeveloper/more-recipes/tree/develop)
+
+### Author(s)
+
+[Fredrick Mgbeoma](https://github.com/fuchodeveloper)

@@ -15,20 +15,19 @@ class UpdateRecipePage extends React.Component {
 
         <div className="container margin-top-70">
           <div>
-              <h1 className="text-center p-4 center-hero-text">Update Recipe</h1>
+            <h1 className="text-center p-4 center-hero-text">Update Recipe</h1>
           </div>
 
-        
 
           {/* Form to update recipe ingredients and quantity */}
           <div className="col-md-6 mx-auto p-3">
-            
+
             <UpdateRecipeForm param={paramId} />
 
           </div>
         </div>
 
-        <div className="clearfix m-5"/>
+        <div className="clearfix m-5" />
 
         <Footer />
 

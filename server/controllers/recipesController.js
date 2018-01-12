@@ -78,9 +78,9 @@ const recipeController = {
         }
 
         const decoded = jwtDecode(token);
-        if (decoded.id === recipe.userId && recipe.recipe_owner_view === false) {
+        if (decoded.id === recipe.userId && recipe.recipeOwnerView === false) {
           return recipe
-            .update({ views: recipe.views + 1, recipe_owner_view: true });
+            .update({ views: recipe.views + 1, recipeOwnerView: true });
         } else if (decoded.id !== recipe.userId) {
           return recipe
             .update({ views: recipe.views + 1 });
@@ -89,31 +89,6 @@ const recipeController = {
       .catch(error => response.status(400)
         .json({ error: error.message }));
   },
-
-  /**
-   * Return all recipes;
-   * @param {any} request - HTTP Request
-   * @param {any} response - HTTP Response
-   * @returns {object} Returned object
-   */
-  // getAllRecipes(request, response) {
-  //   return Recipes
-  //     .findAll({
-  //       order: [
-
-  //         // Will sort recipes by latest ascending order
-  //         ['createdAt', 'DESC']
-  //       ]
-  //     })
-  //     .then((recipes) => {
-  //       response.status(200)
-  //         .json({ recipes });
-  //     })
-  //     .catch((error) => {
-  //       response.status(400)
-  //         .json(error.message);
-  //     });
-  // },
 
   /**
    * Return all recipes with pagination
@@ -170,7 +145,7 @@ const recipeController = {
       .then(recipes => response.status(200)
         .json({ recipes }))
       .catch(error => response.status(400)
-        .json(error));
+        .json({ error: error.message }));
   },
 
   /**
@@ -248,11 +223,9 @@ const recipeController = {
         ]
       })
       .then(allSortedRecipes => response.status(200)
-        .json({ SortedRecipes: allSortedRecipes }))
+        .json({ recipes: allSortedRecipes }))
       .catch(error => response.status(400)
         .json({ error: error.message }));
-
-    // return response.status(400).json({ error: 'Bad request' });
   },
   /**
  * Search for a recipe
