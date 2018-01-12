@@ -6,7 +6,7 @@ import recipes from './reducers/recipes/getAllRecipes';
 import isFetching from './reducers/isFetching';
 import profile from './reducers/profile/userProfileReducer';
 import searchResult from './reducers/recipes/getSearchRecipes';
-import favorite from './reducers/favorites/favoritesReducer';
+import favorites from './reducers/favorites/favoritesReducer';
 import pageCount from './reducers/recipes/getRecipePageDetails';
 
 export default combineReducers({
@@ -17,6 +17,6 @@ export default combineReducers({
   recipes,
   profile,
   searchResult,
-  favorite,
+  favorites,
   pageCount
 });

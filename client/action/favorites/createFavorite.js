@@ -26,7 +26,7 @@ const createFavorite = recipeId =>
     .catch(() => {
       alertify.delay(2000);
       alertify.logPosition('bottom right');
-      alertify.error('Please login to complete action');
+      alertify.error('Please login to favorite recipe');
     });
 
 

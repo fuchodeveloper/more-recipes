@@ -6,7 +6,7 @@ const testData = {
     lastName: faker.name.lastName(),
     emailAddress: faker.internet.email(),
     password: 'password',
-    password_confirmation: 'password'
+    passwordConfirmation: 'password'
   },
 
   anotherNewUser: {
@@ -14,7 +14,7 @@ const testData = {
     lastName: faker.name.lastName(),
     emailAddress: faker.internet.email(),
     password: 'password1',
-    password_confirmation: 'password1'
+    passwordConfirmation: 'password1'
   },
 
   newRecipe: {

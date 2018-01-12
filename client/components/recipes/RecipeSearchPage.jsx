@@ -40,51 +40,49 @@ class RecipeSearchPage extends Component {
   render() {
     return (
       <div>
-         <div>
+        <div>
 
           {/* Header component for navigation */}
           <Header />
 
-            <div className="container margin-top-70">
+          <div className="container margin-top-70">
 
-                <div>
+            <div />
+            <form onSubmit={this.onSubmit} >
 
-                </div>
-                <form onSubmit={ this.onSubmit } >
+              <div className="input-group mt-2 mb-2 p-1">
 
-                    <div className="input-group mt-2 mb-2 p-1">
+                <input
+                  type="text"
+                  className="form-control p-3"
+                  placeholder="Try: 'Jollof Rice' "
+                  aria-describedby="basic-addon2"
+                  name="searchQuery"
+                  value={this.state.searchQuery}
+                  onChange={this.onChange}
+                  required
+                  autoFocus
+                />
 
-                        <input
-                          type="text"
-                          className="form-control p-3"
-                          placeholder="Try: 'Jollof Rice' "
-                          aria-describedby="basic-addon2"
-                          name="searchQuery"
-                          value={ this.state.searchQuery }
-                          onChange={ this.onChange }
-                          required
-                          autoFocus={true}
-                        />
+                <input type="submit" value="SEARCH" className="btn btn-primary input-group-addon" />
 
-                        <input type="submit" value="SEARCH" className="btn btn-primary input-group-addon"/>
-
-                    </div>
+              </div>
 
 
-                    {
-                      isEmpty(this.props.searchResult) ?
-                      <div className="text-center mt-5">
-                        <img src={recipePlaceholder} width="50%" max-height="50%" alt="No recipe"/>
-                      </div>
-                     : 'not empty'
-                    }
+              {
+                isEmpty(this.props.searchResult) ?
+                  <div className="text-center mt-5">
+                    <img src={recipePlaceholder} width="50%" max-height="50%" alt="No recipe" />
+                  </div>
+                : ''
+              }
 
-                </form>
-                <div className="margin-top-50 margin-bottom-50"/>
+            </form>
+            <div className="margin-top-50 margin-bottom-50" />
 
-                <div>
-                  <div className="row">
-                  { !isEmpty(this.state.searchResult) ?
+            <div>
+              <div className="row">
+                { !isEmpty(this.state.searchResult) ?
                     Object
                       .keys(this.state.searchResult)
                       .map(key => <RecipeSearchResult key={key} details={this.state.searchResult[key]} />)
@@ -92,13 +90,13 @@ class RecipeSearchPage extends Component {
                     this.state.touched && <div><h1>No recipe found</h1></div>
                     }
 
-                  </div>
-
-                </div>
+              </div>
 
             </div>
 
           </div>
+
+        </div>
       </div>
     );
   }

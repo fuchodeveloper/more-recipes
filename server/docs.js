@@ -14,7 +14,7 @@
 *       password:
 *         type: string
 *         format: password
-*       password_confirmation:
+*       passwordConfirmation:
 *         type: string
 *         format: password
 *     example:
@@ -22,7 +22,7 @@
 *       lastName: Jackson
 *       emailAddress: michael@gmail.com
 *       password: password
-*       password_confirmation: password
+*       passwordConfirmation: password
 */
 
 /**
@@ -75,8 +75,7 @@
 *     example:
 *       userId: 1
 *       recipeId: 1
-*/ 
-
+*/
 
 
 // Register a new User
@@ -165,5 +164,5 @@
 *     responses:
 *       200:
 *         description: Successful
-*        
+*
 */

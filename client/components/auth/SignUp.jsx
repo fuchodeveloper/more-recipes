@@ -8,28 +8,27 @@ import axios from 'axios';
 import Header from '../../components/navigation/Header';
 import SignupForm from './SignupForm';
 import { userSignupRequest } from '../../action/authentication/signupActions';
-import { addFlashMessage } from '../../action/flashMessages.js';
 
 class SignUp extends Component {
   render() {
     const { userSignupRequest, addFlashMessage } = this.props;
     return (
       <div>
-          {/* Header component for navigation */}
+        {/* Header component for navigation */}
         <Header />
 
         <div className="container margin-top-70">
-        <div className="margin-top-bottom-auto">
+          <div className="margin-top-bottom-auto">
             <h2 className="text-center">Create an account!</h2>
-        </div>
-        <div className="col-md-5 card mx-auto p-4 mb-5">
+          </div>
+          <div className="col-md-5 card mx-auto p-4 mb-5">
             <div className="mx-auto">
-                <SignupForm userSignupRequest={userSignupRequest} addFlashMessage={addFlashMessage}/>
+              <SignupForm userSignupRequest={userSignupRequest} />
             </div>
           </div>
         </div>
 
-        <div className="clearfix m-5"></div>
+        <div className="clearfix m-5" />
 
         {/* End div */}
       </div>

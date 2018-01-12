@@ -217,6 +217,14 @@ a:hover, a:visited, a:link, a:active
     font-weight: 300 !important;
 }
 
+.center-hero-title-small {
+    margin-top: 50px; margin-bottom: 20px;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    color: #484848 !important;
+    font-weight: 300 !important;
+}
+
 /* Add Recipe */
 .add_recipe-card {
     @extend .user-profile-card;

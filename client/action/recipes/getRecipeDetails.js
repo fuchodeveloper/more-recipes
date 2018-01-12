@@ -17,20 +17,18 @@ export const receiveRecipe = recipe => ({
 
 /**
  * GET a recipe
- * @param {id} id
- * @export {function} function
- * @returns {object} object
+ * @param {integer} id
+ * @export {function} getRecipeDetails
+ * @returns {object} recipe
  */
 const getRecipeDetails = id => (dispatch) => {
   dispatch(setFetching());
   axios.get(`/api/v1/recipes/${id}`)
-    .then((res) => {
+    .then((response) => {
       dispatch(batchActions([
-        receiveRecipe(res.data.recipe),
+        receiveRecipe(response.data.recipe),
         unsetFetching()
       ]));
-
-      // dispatch(receiveRecipe(res.data.recipe));
     })
     .catch(() => {
       // console.log(err.response.data.error);

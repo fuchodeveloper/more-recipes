@@ -12,23 +12,23 @@ class LoginPage extends Component {
 
         <div className="container margin-top-70">
 
-        <div className="margin-top-bottom-auto">
+          <div className="margin-top-bottom-auto">
             <h2 className="text-center">Welcome Back</h2>
-        </div>
+          </div>
 
-        <div className="col-md-5 card mx-auto p-4">
+          <div className="col-md-5 card mx-auto p-4">
             <div className="mx-auto">
 
-              <LoginForm />
+              <LoginForm {...this.props} />
 
             </div>
+          </div>
+
+          <div className="clearfix m-5" />
+
         </div>
 
-        <div className="clearfix m-5"/>
-        
-      </div>
-
-      {/* End div */}
+        {/* End div */}
       </div>
     );
   }
