@@ -1,6 +1,4 @@
 import React from 'react';
-import Header from '../../components/navigation/Header';
-import Footer from '../../components/navigation/Footer';
 import UpdateRecipeForm from './UpdateRecipeForm';
 
 class UpdateRecipePage extends React.Component {
@@ -9,9 +7,6 @@ class UpdateRecipePage extends React.Component {
 
     return (
       <div>
-
-        {/* Header component for navigation */}
-        <Header />
 
         <div className="container margin-top-70">
           <div>
@@ -28,8 +23,6 @@ class UpdateRecipePage extends React.Component {
         </div>
 
         <div className="clearfix m-5" />
-
-        <Footer />
 
       </div>
     );

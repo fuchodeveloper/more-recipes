@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
-import { Link } from 'react-router-dom';
-import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
-import qs from 'qs';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import isEmpty from 'lodash/isEmpty';
-import noodles from '../assets/img/noodles.jpg';
-import Header from '../components/navigation/Header';
-import Footer from '../components/navigation/Footer';
 import AllRecipes from './recipes/AllRecipes';
 import recipeSearch from '../action/recipes/recipeSearchAction';
 import getAllRecipes from '../action/recipes/getAllRecipes';
 
+/**
+ * @description class to display all recipes
+ *
+ * @class Home
+ * @extends {Component}
+ */
 class Home extends Component {
+  /**
+   * Creates an instance of Home.
+   * @param {any} props
+   * @memberof Home
+   */
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
-      details: {},
-      errors: {},
-      favoriteCount: 0,
-      cloudinaryRecipeImage: '',
       searchQuery: '',
       recipes: {},
       pageCount: ''
@@ -34,14 +33,22 @@ class Home extends Component {
   }
 
   /**
-  *
-  *
-  * @memberof Home
-  */
+   * @description lifecycle method to show all recipes
+   *
+   * @memberof Home
+   * @returns {void}
+   */
   componentDidMount() {
     this.props.recipeProps(this.state.pageCount);
   }
 
+  /**
+ * @description lifecycle method used to update state
+ *
+ * @param {any} nextProps
+ * @memberof Home
+ * @returns {void}
+ */
   componentWillReceiveProps(nextProps) {
     this.setState({
       recipes: nextProps.recipes,
@@ -49,26 +56,60 @@ class Home extends Component {
     });
   }
 
+  /**
+ * @description function to handle focus on search
+ *
+ * @memberof Home
+ * @returns {void}
+ */
   onFocus() {
     this.context.router.history.push('/search');
   }
 
+  /**
+ * function to handle page number change
+ *
+ * @param {any} current
+ * @memberof Home
+ * @returns {void}
+ */
   onPageChange(current) {
     current.selected += 1;
     this.props.recipeProps(current.selected);
   }
 
-  onChange(e) {
-    e.preventDefault();
+  /**
+ *
+ *
+ * @param {any} event
+ * @memberof Home
+ * @return {void}
+ */
+  onChange(event) {
+    event.preventDefault();
 
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit(e) {
-    e.preventDefault();
+  /**
+ * @description handle form submit
+ *
+ * @param {any} event
+ * @memberof Home
+ * @returns {void}
+ */
+  onSubmit(event) {
+    event.preventDefault();
     this.props.recipeSearch(this.state.searchQuery);
   }
 
+  /**
+ * @description Render the JSX template
+ *
+ *
+ * @memberof Home
+ * @returns  {html} html
+ */
   render() {
     const { isFetching } = this.state;
 
@@ -84,7 +125,6 @@ class Home extends Component {
         <div>
 
           {/* Header component for navigation */}
-          <Header />
 
           {this.props.children}
 
@@ -106,12 +146,15 @@ class Home extends Component {
                   aria-describedby="basic-addon2"
                   name="searchQuery"
                   value={this.state.searchQuery}
-                          // onChange={ this.onChange }
                   onFocus={this.onFocus}
                   required
                 />
 
-                <input type="submit" value="SEARCH" className="btn btn-primary input-group-addon" />
+                <input
+                  type="submit"
+                  value="SEARCH"
+                  className="btn btn-primary input-group-addon"
+                />
               </div>
             </form>
             <div className="margin-top-50 margin-bottom-50" />
@@ -135,8 +178,6 @@ class Home extends Component {
 
           <div className="clearfix m-5" />
 
-          {/* Display footer  */}
-          <Footer />
 
         </div>
       );
@@ -145,8 +186,6 @@ class Home extends Component {
     return (
       <div>
 
-        {/* Header component for navigation */}
-        <Header />
 
         {this.props.children}
 
@@ -168,12 +207,15 @@ class Home extends Component {
                 aria-describedby="basic-addon2"
                 name="searchQuery"
                 value={this.state.searchQuery}
-                        // onChange={ this.onChange }
                 onFocus={this.onFocus}
                 required
               />
 
-              <input type="submit" value="SEARCH" className="btn btn-primary input-group-addon" />
+              <input
+                type="submit"
+                value="SEARCH"
+                className="btn btn-primary input-group-addon"
+              />
             </div>
           </form>
           <div className="margin-top-50 margin-bottom-50" />
@@ -187,7 +229,10 @@ class Home extends Component {
               {
                   Object
                     .keys(this.state.recipes)
-                    .map(key => <AllRecipes key={key} details={this.state.recipes[key]} />)
+                    .map(key => (<AllRecipes
+                      key={key}
+                      details={this.state.recipes[key]}
+                    />))
                   }
 
             </div>
@@ -221,10 +266,6 @@ class Home extends Component {
 
 
         <div className="clearfix m-5 mb-5" />
-
-        {/* Display footer  */}
-        <Footer />
-
       </div>
     );
   }
@@ -248,8 +289,17 @@ const mapDispatchToProps = dispatch => ({
   recipeSearch: searchContent => dispatch(recipeSearch(searchContent))
 });
 
-// Home.propTypes = {
-//   recipeSearch: PropTypes.func.isRequired
-// }
+Home.defaultProps = {
+  recipes: {},
+  children: null
+};
+
+Home.propTypes = {
+  recipeProps: PropTypes.func.isRequired,
+  recipeSearch: PropTypes.func.isRequired,
+  recipes: PropTypes.shape({}),
+  pageCount: PropTypes.objectOf(PropTypes.number).isRequired,
+  children: PropTypes.node
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

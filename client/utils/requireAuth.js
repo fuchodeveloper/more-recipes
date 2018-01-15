@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addFlashMessage } from '../action/flashMessages';
 
 export default function (ComposedComponent) {
   class Authenticate extends React.Component {
@@ -28,8 +27,7 @@ export default function (ComposedComponent) {
   }
 
   Authenticate.propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
-    addFlashMessage: PropTypes.func.isRequired
+    isAuthenticated: PropTypes.bool.isRequired
   };
 
   Authenticate.contextTypes = {
@@ -38,9 +36,9 @@ export default function (ComposedComponent) {
 
   function mapStateToProps(state) {
     return {
-      isAuthenticated: state.login.isAuthenticated
+      isAuthenticated: state.auth.isAuthenticated
     };
   }
 
-  return connect(mapStateToProps, { addFlashMessage })(Authenticate);
+  return connect(mapStateToProps)(Authenticate);
 }

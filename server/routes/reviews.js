@@ -8,7 +8,10 @@ const router = express.Router();
  * Recipe review routes
  */
 
-router.post('/:id/reviews', authorization.verifyToken, reviewsController.create);
+router.post(
+  '/:id/reviews',
+  authorization.verifyToken, reviewsController.create
+);
 router.get('/:id/reviews', reviewsController.get);
 
 export default router;

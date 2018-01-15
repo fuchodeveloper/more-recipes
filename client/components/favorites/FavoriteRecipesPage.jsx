@@ -1,39 +1,58 @@
+/* eslint-disable max-len */
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Header from '../../components/navigation/Header';
-import Footer from '../../components/navigation/Footer';
 import getAllFavorites from '../../action/favorites/getAllFavorites';
 import AllFavoriteRecipes from './AllFavoriteRecipes';
 
+/**
+ * @description Parent component for favorite recipes class
+ *
+ * @class FavoriteRecipesPage
+ * @extends {React.Component}
+ */
 class FavoriteRecipesPage extends React.Component {
+  /**
+ * Creates an instance of FavoriteRecipesPage.
+ * @param {any} props
+ * @memberof FavoriteRecipesPage
+ */
   constructor(props) {
     super(props);
     this.state = {
-      details: {},
-      errors: {},
-      favoriteCount: 0,
-      cloudinaryRecipeImage: '',
-      favorites: []
+      favorites: {}
     }; // Initialize the state
   }
-
   /**
-   *  GET all favorite recipes for authenticated user using API endpoint
-   */
+ * @description get all favorite recipes for authenticated user using API endpoint
+ *
+ *
+ * @memberof FavoriteRecipesPage
+ * @returns {void}
+ */
   componentDidMount() {
-    // debugger;
     const { id } = this.props.user;
     this.props.getAllFavoritesProps(id);
   }
-
+  /**
+ * @description Update state with received props
+ *
+ * @param {any} nextProps
+ * @memberof FavoriteRecipesPage
+ * @returns {void}
+ */
   componentWillReceiveProps(nextProps) {
     const { favorites } = nextProps.favorites;
-    // const reviews = nextProps.recipe.Reviews;
     this.setState({ favorites });
   }
 
+  /**
+ * @description render favorite recipes page template
+ *
+ *
+ * @memberof FavoriteRecipesPage
+ * @returns  {void}
+ */
   render() {
     const { isFetching } = this.props;
 
@@ -46,8 +65,6 @@ class FavoriteRecipesPage extends React.Component {
     if (this.state.favorites.length > 0) {
       return (
         <div>
-          {/* Header component for navigation */}
-          <Header />
 
           <div className="container margin-top-70">
 
@@ -70,16 +87,12 @@ class FavoriteRecipesPage extends React.Component {
 
           <div className="clearfix m-5" />
 
-          {/* Display footer  */}
-          <Footer />
         </div>
       );
     }
 
     return (
       <div>
-        {/* Header component for navigation */}
-        <Header />
 
         <div className="container margin-top-70">
 
@@ -97,20 +110,22 @@ class FavoriteRecipesPage extends React.Component {
 
         <div className="clearfix m-5" />
 
-        {/* Display footer  */}
-        <Footer />
       </div>
     );
   }
 }
 
-// FavoriteRecipesPage.propTypes = {
-//   getAllFavorites: PropTypes.func.isRequired
-// };
+FavoriteRecipesPage.propTypes = {
+  id: PropTypes.number.isRequired,
+  user: PropTypes.number.isRequired,
+  getAllFavoritesProps: PropTypes.func.isRequired,
+  favorites: PropTypes.objectOf(String).isRequired,
+  isFetching: PropTypes.bool.isRequired
+};
 
 const mapStateToProps = state => ({
   favorites: state.favorites,
-  user: state.login.user
+  user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => ({

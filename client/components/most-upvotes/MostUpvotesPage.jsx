@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import mostUpvotes from '../../action/most-upvotes/mostUpvotesAction';
-import Header from '../../components/navigation/Header';
-import Footer from '../../components/navigation/Footer';
 import AllMostUpvotes from './AllMostUpvotes';
 
 class MostUpvotesPage extends React.Component {
@@ -40,9 +38,6 @@ class MostUpvotesPage extends React.Component {
       return (
         <div>
 
-          {/* Header component for navigation */}
-          <Header />
-
           <div className="container margin-top-70">
 
             <div>
@@ -64,18 +59,12 @@ class MostUpvotesPage extends React.Component {
 
           <div className="clearfix m-5" />
 
-          {/* Display footer  */}
-          <Footer />
-
         </div>
       );
     }
 
     return (
       <div>
-
-        {/* Header component for navigation */}
-        <Header />
 
         <div className="container margin-top-70">
 
@@ -93,8 +82,6 @@ class MostUpvotesPage extends React.Component {
 
         <div className="clearfix m-5" />
 
-        {/* Display footer  */}
-        <Footer />
 
       </div>
     );

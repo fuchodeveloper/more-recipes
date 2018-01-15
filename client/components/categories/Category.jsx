@@ -12,9 +12,7 @@ class Category extends React.Component {
   render() {
     return (
       <div>
-        {/* Header component for navigation */}
-        <Header />
-
+    
         <div>
           <p className="text-center p-4">
             <input type="text" className="text-center p-4 center-hero-title-small" value="Breakfast" /><br />
@@ -98,9 +96,6 @@ class Category extends React.Component {
           </div>
 
         </div>
-
-        {/* Display footer  */}
-        <Footer />
 
       </div>
     );

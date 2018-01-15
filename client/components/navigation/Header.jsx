@@ -1,25 +1,47 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import capitalize from 'lodash.capitalize';
-import { logout } from '../../action/authentication/loginAction';
+import logoutAction from '../../action/authentication/logoutAction';
 
+/**
+ * @description class for app header
+ *
+ * @class Header
+ * @extends {React.Component}
+ */
 class Header extends React.Component {
-  logout(e) {
-    e.preventDefault();
-    this.props.logout();
+  /**
+   * Creates an instance of Header.
+   * @param {any} props
+   * @memberof Header
+   */
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
   }
 
   /**
+ * @description handle user log out
+ *
+ * @param {any} event
+ * @memberof Header
+ * @returns {void}
+ */
+  logout(event) {
+    event.preventDefault();
+    this.props.logoutProps();
+  }
+
+  /**
+   * @description Render the JSX template
    *
-   *
-   * @returns
+   * @returns {html} html
    * @memberof Header
    */
   render() {
-    const { isAuthenticated, user: { firstName } } = this.props.login;
+    const { isAuthenticated, user: { firstName } } = this.props.auth;
     /**
      * Links available to logged in users
      */
@@ -27,18 +49,38 @@ class Header extends React.Component {
     const userLinks = (
       <div className="navbar-nav ml-auto main-nav-menu">
         <div className="dropdown show mr-5 main-nav-menu">
-          <a className="dropdown-toggle btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <strong>{capitalize(this.props.login.user.firstName)}</strong>
+          <a
+            className="dropdown-toggle btn"
+            href="#"
+            role="button"
+            id="dropdownMenuLink"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <strong>{capitalize(this.props.auth.user.firstName)}</strong>
           </a>
 
-          <div className="dropdown-menu main-nav-menu width-5" aria-labelledby="dropdownMenuLink">
+          <div
+            className="dropdown-menu main-nav-menu width-5"
+            aria-labelledby="dropdownMenuLink"
+            style={{ left: '-10px' }}
+          >
             <Link className="dropdown-item" to="/profile">Profile</Link>
             <Link className="dropdown-item" to="/add">Add Recipe</Link>
             <Link className="dropdown-item" to="/categories">Categories</Link>
-            <Link className="dropdown-item" to="/favorites">Favorite Recipes</Link>
-            <Link className="dropdown-item" to={`/${firstName}/recipes`}>My Recipes</Link>
-            <Link className="dropdown-item" to="/votes">Most Upvoted</Link>
-            <a className="dropdown-item" href="#" onClick={this.logout.bind(this)}>Logout</a>
+            <Link className="dropdown-item" to="/favorites">
+            Favorite Recipes
+            </Link>
+            <Link className="dropdown-item" to={`/${firstName}/recipes`}>
+            My Recipes
+            </Link>
+            <Link className="dropdown-item" to="/votes">
+            Most Upvoted
+            </Link>
+            <a className="dropdown-item" href="#" onClick={this.logout}>
+            Logout
+            </a>
           </div>
         </div>
       </div>
@@ -56,16 +98,21 @@ class Header extends React.Component {
 
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-          <a className="navbar-brand navbar-brand-color"
-           href="/">More Recipes</a>
-          <button 
+        <nav
+          className="navbar navbar-expand-lg navbar-light bg-light fixed-top"
+        >
+          <a
+            className="navbar-brand navbar-brand-color"
+            href="/"
+          >More Recipes
+          </a>
+          <button
             className="navbar-toggler hamburger-color-primary"
-            type="button" 
-            data-toggle="collapse" 
-            data-target="#navbarNavAltMarkup" 
-            aria-controls="navbarNavAltMarkup" 
-            aria-expanded="false" 
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon text-white" />
@@ -79,16 +126,26 @@ class Header extends React.Component {
   }
 }
 
-Header.propTypes = {
-  login: PropTypes.object.isRequired,
-  logout: PropTypes.func.isRequired
+Header.defaultProps = {
+  auth: {}
 };
 
-function mapStateToProps(state) {
-  return {
-    login: state.login
-  };
-}
+Header.propTypes = {
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool,
+    user: PropTypes.shape({
+      firstName: PropTypes.string
+    })
+  }),
+  logoutProps: PropTypes.func.isRequired
+};
 
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
-export default connect(mapStateToProps, { logout })(Header);
+const mapDispatchToProps = dispatch => ({
+  logoutProps: () => dispatch(logoutAction())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

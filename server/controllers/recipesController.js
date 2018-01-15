@@ -49,7 +49,10 @@ const recipeController = {
    * @returns {object} json - Returned object
    */
   getRecipe(request, response) {
-    const token = request.body.token || request.query.token || request.headers['x-access-token'];
+    const token =
+    request.body.token ||
+    request.query.token ||
+    request.headers['x-access-token'];
 
     return Recipes
       .findOne({
@@ -170,7 +173,9 @@ const recipeController = {
             .catch(error => response.status(400)
               .json({ error: error.message }));
         }
-        return response.status(401).json({ error: 'Only recipe owners can delete recipe.' });
+        return response.status(401).json({
+          error: 'Only recipe owners can delete recipe.'
+        });
       })
       .catch(error => response.status(400)
         .json({ error: error.message }));
@@ -202,7 +207,9 @@ const recipeController = {
             recipeDirection: body.recipeDirection.trim().toLowerCase(),
             recipeImage: body.recipeImage
           }, { where: { id: request.params.id } })
-          .then(updateSuccess => response.status(204).json({ message: 'Recipe updated', updateSuccess }));
+          .then(updateSuccess => response.status(204).json({
+            message: 'Recipe updated', updateSuccess
+          }));
       })
       .catch(error => response.status(400)
         .json({ error: error.message }));

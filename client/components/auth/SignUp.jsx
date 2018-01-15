@@ -1,21 +1,98 @@
+/* eslint-disable max-len, react/no-unused-state */
 import React, { Component } from 'react';
-import { render } from 'react-dom';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import validator from 'validator';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-import Header from '../../components/navigation/Header';
-import SignupForm from './SignupForm';
-import { userSignupRequest } from '../../action/authentication/signupActions';
+import { Link, Redirect } from 'react-router-dom';
+import validateInput from '../shared/validations/signup';
+import signupAction from '../../action/authentication/signupAction';
 
+/**
+ * @description class to handle user sign up
+ *
+ * @class SignUp
+ * @extends {Component}
+ */
 class SignUp extends Component {
+  /**
+   * Creates an instance of SignUp.
+   * @param {any} props
+   * @memberof SignUp
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      emailAddress: '',
+      password: '',
+      passwordConfirmation: '',
+      errors: {
+        firstName: '',
+        lastName: '',
+        emailAddress: '',
+        password: '',
+        passwordConfirmation: '',
+      }
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  /**
+ * @description function to handle on change event
+ *
+ * @param {any} event
+ * @memberof SignUp
+ * @returns {void}
+ */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  /**
+ * @description function to handle form submission
+ *
+ * @param {any} event
+ * @memberof SignUp
+ * @returns {void}
+ */
+  onSubmit(event) {
+    event.preventDefault();
+    if (this.isValid()) {
+      this.setState({ errors: {} });
+
+      this.props.signupProps(this.state);
+    }
+  }
+
+  /**
+ * @description function to validate user sign up input
+ *
+ * @memberof SignUp
+ * @returns {void}
+ */
+  isValid() {
+    const { errors, isValid } = validateInput(this.state);
+    if (!isValid) {
+      this.setState({ errors });
+    }
+
+    return isValid;
+  }
+  /**
+ * @description Render the JSX template
+ *
+ * @returns {html} html
+ * @memberof SignUp
+ */
   render() {
-    const { userSignupRequest, addFlashMessage } = this.props;
+    if (this.props.auth) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <div>
-        {/* Header component for navigation */}
-        <Header />
 
         <div className="container margin-top-70">
           <div className="margin-top-bottom-auto">
@@ -23,23 +100,122 @@ class SignUp extends Component {
           </div>
           <div className="col-md-5 card mx-auto p-4 mb-5">
             <div className="mx-auto">
-              <SignupForm userSignupRequest={userSignupRequest} />
+              <form onSubmit={this.onSubmit}>
+                <div className="row">
+                  <div className="col-md-12 mb-3">
+                    <label htmlFor="firstName" className="forms-label-color">First Name</label>
+                    <input
+                      value={this.firstName}
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      className="form-control"
+                      onChange={this.onChange}
+                      required
+                    />
+                    { this.state.errors.firstName && <span className="text-danger form-text">{ this.state.errors.firstName }</span> }
+                  </div>
+
+                  <div className="col-md-12 mb-3">
+                    <label htmlFor="firstName" className="forms-label-color">Last Name</label>
+                    <input
+                      value={this.lastName}
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      className="form-control"
+                      onChange={this.onChange}
+                      required
+                    />
+                    { this.state.errors.lastName && <span className="text-danger form-text">{ this.state.errors.lastName }</span> }
+                  </div>
+
+                  <div className="col-md-12 mb-2">
+                    <label htmlFor="emailAddress" className="forms-label-color">Email Address</label>
+                    <input
+                      value={this.emailAddress}
+                      type="email"
+                      id="emailAddress"
+                      name="emailAddress"
+                      className="form-control"
+                      onChange={this.onChange}
+                      required
+                    />
+                    { this.state.errors.emailAddress && <span className="text-danger form-text">{ this.state.errors.emailAddress }</span> }
+                  </div>
+
+                  <div className="col-md-12 mb-2">
+                    <label htmlFor="password" className="forms-label-color">Password</label>
+                    <input
+                      value={this.password}
+                      type="password"
+                      id="password"
+                      name="password"
+                      className="form-control"
+                      onChange={this.onChange}
+                      required
+                    />
+                    { this.state.errors.password && <span className="text-danger form-text">{ this.state.errors.password }</span> }
+                  </div>
+
+                  <div className="col-md-12 mb-2">
+                    <label htmlFor="passwordConfirmation" className="forms-label-color">Confirm Password</label>
+                    <input
+                      value={this.passwordConfirmation}
+                      type="password"
+                      id="confirmPassword"
+                      name="passwordConfirmation"
+                      className="form-control"
+                      onChange={this.onChange}
+                      // required
+                    />
+                    { this.state.errors.passwordConfirmation && <span className="text-danger form-text">{ this.state.errors.passwordConfirmation }</span> }
+                  </div>
+                  <br />
+
+                  <div className="col-md-12 mb-2">
+                    <label className="forms-label-color" />
+                    <div className="form-group">
+                      <button className="btn btn-primary btn-lg btn-primary-color" disabled="">Sign up</button>
+                    </div>
+                    <p className="small text-muted mt-3 text-center">
+                    Already have an account? <Link to="/login">Sign in</Link>
+                    </p>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
 
         <div className="clearfix m-5" />
-
-        {/* End div */}
+        
       </div>
     );
   }
 }
 
-SignUp.propTypes = {
-  userSignupRequest: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired
+SignUp.defaultProps = {
+  auth: false
 };
 
-export default connect(null, { userSignupRequest, addFlashMessage })(SignUp);
+SignUp.propTypes = {
+  signupProps: PropTypes.func.isRequired,
+  auth: PropTypes.bool
+};
 
+SignUp.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  errors: state.auth.error,
+  signup: state.auth,
+  auth: state.auth.isAuthenticated
+});
+
+const mapDispatchToProps = dispatch => ({
+  signupProps: userDetails => dispatch(signupAction(userDetails))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

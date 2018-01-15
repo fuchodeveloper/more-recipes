@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const ProfileDetail = props => (
 
@@ -72,7 +73,9 @@ const ProfileDetail = props => (
               required
             />
 
-            {/* { props.errors && <span className="form-text">{ props.errors }</span> } */}
+            {/* { props.errors && <span className="form-text">
+          { props.errors }</span> }
+          */}
           </div>
 
           <div className="col-md-6 mb-3">
@@ -91,32 +94,45 @@ const ProfileDetail = props => (
           </div>
 
           {/* <div className="col-md-12 mb-3">
-                        <label htmlFor="confirmPassword">Confirm Password</label>
-                        <input
-                          type="password"
-                          className="form-control text-muted"
-                          id="confirmPassword"
-                          name="newPassword"
-                          value={props.newPassword}
-                          onChange={ props.onChange }
-                          placeholder="******"
-                          required
-                        />
-                        <div className="invalid-feedback">
-                            Please check input again
-                        </div>
-                    </div> */}
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <input
+                  type="password"
+                  className="form-control text-muted"
+                  id="confirmPassword"
+                  name="newPassword"
+                  value={props.newPassword}
+                  onChange={ props.onChange }
+                  placeholder="******"
+                  required
+                />
+                <div className="invalid-feedback">
+                    Please check input again
+                </div>
+            </div> */}
 
         </div>
 
 
-        <button className="btn btn-primary btn-primary-color" type="submit">Save Changes</button>
+        <button
+          className="btn btn-primary btn-primary-color"
+          type="submit"
+        >
+          Save Changes
+        </button>
       </form>
     </div>
-
     <br />
-
   </div>
 );
+
+ProfileDetail.propTypes = {
+  password: PropTypes.string.isRequired,
+  newPassword: PropTypes.string.isRequired,
+  emailAddress: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default ProfileDetail;

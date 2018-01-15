@@ -9,19 +9,31 @@ const router = express.Router();
  */
 
 // Allow an authenticated user create a new recipe
-router.post('/', authorization.verifyToken, recipesController.createRecipe);
+router.post(
+  '/',
+  authorization.verifyToken, recipesController.createRecipe
+);
 
 // Get all the available recipes, get sorted recipes
-router.get('/', recipesController.getAllRecipesPaginate, recipesController.sortRecipes);
+router.get(
+  '/',
+  recipesController.getAllRecipesPaginate, recipesController.sortRecipes
+);
 
 // Get all the recipes created by a user
-router.get('/userRecipes', authorization.verifyToken, recipesController.getAllForUser);
+router.get(
+  '/userRecipes',
+  authorization.verifyToken, recipesController.getAllForUser
+);
 
 // Get a particular recipe
 router.get('/:id', recipesController.getRecipe);
 
 // An authenticated user can delete their recipes
-router.delete('/:id', authorization.verifyToken, recipesController.deleteRecipe);
+router.delete(
+  '/:id',
+  authorization.verifyToken, recipesController.deleteRecipe
+);
 
 //  An authenticated user can update their recipes
 router.put('/:id', authorization.verifyToken, recipesController.updateRecipe);

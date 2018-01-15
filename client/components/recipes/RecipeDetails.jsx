@@ -8,14 +8,22 @@ import upvoteRecipe from '../../action/recipes/upvoteAction';
 import postRecipeReview from '../../action/reviews/postReviewAction';
 import downvoteRecipe from '../../action/recipes/downvoteAction';
 import RecipeReviews from './RecipeReviews';
-import Header from '../navigation/Header';
-import Footer from '../navigation/Footer';
 
+/**
+ * @description class to handle recipe details
+ *
+ * @class RecipeDetails
+ * @extends {React.Component}
+ */
 class RecipeDetails extends React.Component {
+  /**
+   * Creates an instance of RecipeDetails.
+   * @param {any} props
+   * @memberof RecipeDetails
+   */
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
       details: {},
       errors: {},
       favorite: '',
@@ -34,23 +42,28 @@ class RecipeDetails extends React.Component {
     this.downVote = this.downVote.bind(this);
   }
 
-
-  componentWillMount() {
+  /**
+ * @description lifecycle method to handle getting recipe details
+ *
+ * @memberof RecipeDetails
+ * @returns {void}
+ */
+  componentDidMount() {
     const param = this.props.match.params.id;
     this.props.recipeProps(param);
   }
 
+  /**
+ * @description lifecycle method used to update state
+ *
+ * @param {any} nextProps
+ * @memberof RecipeDetails
+ * @returns {void}
+ */
   componentWillReceiveProps(nextProps) {
     const { recipe } = nextProps;
     const reviews = nextProps.recipe.Reviews;
     this.setState({ recipe, reviews });
-  }
-
-  createFavorite(e) {
-    e.preventDefault();
-    const param = this.props.match.params.id;
-
-    this.props.favoriteProps(param);
   }
 
   // deleteRecipe(e) {
@@ -67,29 +80,50 @@ class RecipeDetails extends React.Component {
   //     })
   // }
 
-  upVote(e) {
-    e.preventDefault();
-
-    this.props.receiveUpvote(this.props.match.params.id);
+  /**
+ * @description handle input field change
+ *
+ * @param {any} event
+ * @memberof RecipeDetails
+ * @returns {void}
+ */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
-  downVote(e) {
-    e.preventDefault();
-
-    this.props.receiveDownvote(this.props.match.params.id);
-  }
-
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
+  onSubmit(event) {
+    event.preventDefault();
     const param = this.props.match.params.id;
     const userReview = this.state;
 
     this.props.postReview(param, userReview);
     this.setState({ review: '' });
+  }
+
+  upVote(event) {
+    event.preventDefault();
+
+    this.props.receiveUpvote(this.props.match.params.id);
+  }
+
+  downVote(event) {
+    event.preventDefault();
+
+    this.props.receiveDownvote(this.props.match.params.id);
+  }
+
+  /**
+ * @description function to favorite a recipe
+ *
+ * @param {any} event
+ * @memberof RecipeDetails
+ * @returns {void}
+ */
+  createFavorite(event) {
+    event.preventDefault();
+    const param = this.props.match.params.id;
+
+    this.props.favoriteProps(param);
   }
 
   render() {
@@ -103,8 +137,6 @@ class RecipeDetails extends React.Component {
 
     return (
       <div>
-
-        <Header />
 
         <div>
           <div className="overlay margin-top-50">
@@ -176,7 +208,7 @@ class RecipeDetails extends React.Component {
                        .sort((a, b) => b - a)
                        .map(key => <RecipeReviews key={key} review={this.state.reviews[key]} />)
                   }
-              </div> : <i className="recipe-title">No reviews yet</i>
+                                                             </div> : <i className="recipe-title">No reviews yet</i>
                 }
 
             </div>
@@ -213,7 +245,6 @@ class RecipeDetails extends React.Component {
         </div>
 
         <div className="clearfix m-5" />
-        <Footer />
       </div>
     );
   }

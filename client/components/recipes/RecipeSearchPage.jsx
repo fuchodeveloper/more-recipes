@@ -1,49 +1,79 @@
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
-import Header from '../navigation/Header';
+import PropTypes from 'prop-types';
 import recipeSearch from '../../action/recipes/recipeSearchAction';
 import RecipeSearchResult from './RecipeSearchResult';
 import recipePlaceholder from '../../assets/img/recipe_placeholder.png';
 
+/**
+ * @description recipe search class
+ *
+ * @class RecipeSearchPage
+ * @extends {Component}
+ */
 class RecipeSearchPage extends Component {
+  /**
+   * Creates an instance of RecipeSearchPage.
+   * @param {any} props
+   * @memberof RecipeSearchPage
+   */
   constructor(props) {
     super(props);
     this.state = {
       searchQuery: '',
-      recipes: '',
-      searchResult: '',
+      searchResult: {},
       touched: false,
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-
+  /**
+ * @description lifecycle method used to update state
+ *
+ * @param {any} nextProps
+ * @memberof RecipeSearchPage
+ * @returns {void}
+ */
   componentWillReceiveProps(nextProps) {
     this.setState({ searchResult: nextProps.searchResult });
   }
-
-  onChange(e) {
-    e.preventDefault();
+  /**
+ * @description handle input change
+ *
+ * @param {any} event
+ * @memberof RecipeSearchPage
+ * @returns {void}
+ */
+  onChange(event) {
+    event.preventDefault();
 
     this.setState({ touched: true });
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   }
-
-  onSubmit(e) {
-    e.preventDefault();
+  /**
+ * @description handle form submission
+ *
+ * @param {any} event
+ * @memberof RecipeSearchPage
+ * @returns {void}
+ */
+  onSubmit(event) {
+    event.preventDefault();
     this.props.recipeSearch(this.state.searchQuery);
     this.setState({ searchResult: {} });
   }
-
+  /**
+ * @description render JSX template
+ *
+ * @returns {html} html
+ * @memberof RecipeSearchPage
+ */
   render() {
     return (
       <div>
         <div>
-
-          {/* Header component for navigation */}
-          <Header />
 
           <div className="container margin-top-70">
 
@@ -64,7 +94,11 @@ class RecipeSearchPage extends Component {
                   autoFocus
                 />
 
-                <input type="submit" value="SEARCH" className="btn btn-primary input-group-addon" />
+                <input
+                  type="submit"
+                  value="SEARCH"
+                  className="btn btn-primary input-group-addon"
+                />
 
               </div>
 
@@ -72,7 +106,12 @@ class RecipeSearchPage extends Component {
               {
                 isEmpty(this.props.searchResult) ?
                   <div className="text-center mt-5">
-                    <img src={recipePlaceholder} width="50%" max-height="50%" alt="No recipe" />
+                    <img
+                      src={recipePlaceholder}
+                      width="50%"
+                      max-height="50%"
+                      alt="No recipe"
+                    />
                   </div>
                 : ''
               }
@@ -85,7 +124,10 @@ class RecipeSearchPage extends Component {
                 { !isEmpty(this.state.searchResult) ?
                     Object
                       .keys(this.state.searchResult)
-                      .map(key => <RecipeSearchResult key={key} details={this.state.searchResult[key]} />)
+                      .map(key => (<RecipeSearchResult
+                        key={key}
+                        details={this.state.searchResult[key]}
+                      />))
                     :
                     this.state.touched && <div><h1>No recipe found</h1></div>
                     }
@@ -101,6 +143,11 @@ class RecipeSearchPage extends Component {
     );
   }
 }
+
+RecipeSearchPage.propTypes = {
+  searchResult: PropTypes.shape({}).isRequired,
+  recipeSearch: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = ({ searchResult }) => ({
   searchResult

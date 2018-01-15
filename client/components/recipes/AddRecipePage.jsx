@@ -7,8 +7,6 @@ class AddRecipePage extends React.Component {
   render() {
     return (
       <div>
-        {/* Header component for navigation */}
-        <Header />
 
         <div className="container margin-top-70">
           <div>
@@ -25,8 +23,6 @@ class AddRecipePage extends React.Component {
         </div>
 
         <div className="clearfix m-5" />
-
-        <Footer />
 
       </div>
     );

@@ -27,7 +27,10 @@ const votesController = {
 
         let messageText;
 
-        Votes.findOne({ where: { userId: request.decoded.id, recipeId: request.params.id } })
+        Votes.findOne({
+          where:
+          { userId: request.decoded.id, recipeId: request.params.id }
+        })
           .then((vote) => {
             if (vote) {
               if (vote.upvotes === 1 && vote.downvotes === 0) {
@@ -61,7 +64,11 @@ const votesController = {
                 });
 
                 messageText = 'Recipe upvoted';
-                recipe.increment('upVotes').then(recipeDecrem => response.status(200).json({ recipe: recipeDecrem, message: messageText }));
+                recipe.increment('upVotes')
+                  .then(recipeDecrem => response.status(200).json({
+                    recipe: recipeDecrem,
+                    message: messageText
+                  }));
               }
             } else {
               recipe.increment('upVotes').then((recipeDecrem) => {
@@ -75,7 +82,10 @@ const votesController = {
               });
             }
           });
-      }).catch(() => response.status(500).json({ message: 'something went wrong' }));
+      })
+      .catch(() => response.status(500).json({
+        message: 'something went wrong'
+      }));
   },
 
   downVote(request, response) {
@@ -92,7 +102,10 @@ const votesController = {
 
         let messageText;
 
-        Votes.findOne({ where: { userId: request.decoded.id, recipeId: request.params.id } })
+        Votes.findOne({
+          where:
+          { userId: request.decoded.id, recipeId: request.params.id }
+        })
           .then((vote) => {
             if (vote) {
               if (vote.upvotes === 0 && vote.downvotes === 1) {
@@ -126,7 +139,11 @@ const votesController = {
                 });
 
                 messageText = 'Recipe downvoted';
-                recipe.increment('downVotes').then(recipeDecrem => response.status(200).json({ recipe: recipeDecrem, message: messageText }));
+                recipe.increment('downVotes')
+                  .then(recipeDecrem => response.status(200).json({
+                    recipe: recipeDecrem,
+                    message: messageText
+                  }));
               }
             } else {
               recipe.increment('downVotes').then((recipeDecrem) => {
@@ -140,7 +157,9 @@ const votesController = {
               });
             }
           });
-      }).catch(() => response.status(500).json({ message: 'something went wrong' }));
+      }).catch(() => response.status(500).json({
+        message: 'something went wrong'
+      }));
   }
 };
 

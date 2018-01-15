@@ -25,7 +25,10 @@ const reviewsController = {
     User.findById(request.decoded.id)
       .then((user) => {
         if (!user) {
-          return response.status(404).json({ errorCode: 404, error: 'User not found.' });
+          return response.status(404).json({
+            errorCode: 404,
+            error: 'User not found.'
+          });
         }
       })
       .catch(error => response.status(400).json(error.message));
@@ -33,7 +36,9 @@ const reviewsController = {
     return Recipes.findById(request.params.id)
       .then((recipe) => {
         if (!recipe) {
-          return response.status(404).json({ code: 404, error: 'Recipe not found.' });
+          return response.status(404).json({
+            error: 'Recipe not found.'
+          });
         }
 
         Reviews.create({
@@ -53,11 +58,22 @@ const reviewsController = {
                   ]
                 }
               ]
-            }).then(updatedRecipe => response.status(201).json({ statusCode: 201, message: 'Review created.', recipe: updatedRecipe }))
-            .catch(error => response.status(404).json({ error: error.message })))
-          .catch(error => response.status(400).json({ error: error.message }));
+            })
+            .then(updatedRecipe => response.status(201).json({
+              statusCode: 201,
+              message: 'Review created.',
+              recipe: updatedRecipe
+            }))
+            .catch(error => response.status(404).json({
+              error: error.message
+            })))
+          .catch(error => response.status(400).json({
+            error: error.message
+          }));
       })
-      .catch(error => response.status(400).json({ error: error.message }));
+      .catch(error => response.status(400).json({
+        error: error.message
+      }));
   },
 
   /**

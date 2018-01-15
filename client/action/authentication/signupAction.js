@@ -6,6 +6,7 @@ import setAuthorizationToken from '../../utils/setAuthorizationToken';
 import { SET_CURRENT_USER, SET_CURRENT_USER_FAIL } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
 
+
 /**
  * @description The set current user action creator
  *
@@ -37,17 +38,17 @@ export const setCurrentUserError = error => ({
 });
 
 /**
- * @description log in user into the application
+ * @description The signup action
  *
  * @export  signupAction
- * @param   {object} userDetails -
- *          the details supplied by the user to be used for authentication
+ * @param   {object} userDetails - the details supplied by the user to be saved
  *
  * @returns {object} dispatch    - the dispatch object returned
  */
-const loginAction = userDetails => (dispatch) => {
+
+const signupAction = userDetails => (dispatch) => {
   dispatch(setFetching());
-  return axios.post('/api/v1/users/signin', userDetails)
+  return axios.post('/api/v1/users/signup', userDetails)
     .then((response) => {
       const { token, message } = response.data;
       alertify.delay(2000);
@@ -71,4 +72,4 @@ const loginAction = userDetails => (dispatch) => {
     });
 };
 
-export default loginAction;
+export default signupAction;
