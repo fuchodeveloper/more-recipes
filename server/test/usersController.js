@@ -24,7 +24,7 @@ describe('User authentication', () => {
       .set('Content-Type', 'application/json')
       .send(testData.newUser)
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(409);
         done();
       });
   });
@@ -46,21 +46,22 @@ describe('User authentication', () => {
   });
 
 
-  it('should return 404 if user attempting to sign in does not exist', (done) => {
-    const user = {
-      emailAddress: 'userdoesnotexist@domain.com',
-      password: 'password'
-    };
+  it(`should return 404 if user attempting to sign in
+   does not exist`, (done) => {
+      const user = {
+        emailAddress: 'userdoesnotexist@domain.com',
+        password: 'password'
+      };
 
-    chai.request(app)
-      .post('/api/v1/users/signin')
-      .set('Content-Type', 'application/json')
-      .send(user)
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        done();
-      });
-  });
+      chai.request(app)
+        .post('/api/v1/users/signin')
+        .set('Content-Type', 'application/json')
+        .send(user)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          done();
+        });
+    });
 
   it('should return 401 if user attempts using wrong password', (done) => {
     const user = {

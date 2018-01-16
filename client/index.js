@@ -1,9 +1,10 @@
+/* eslint-disable react/jsx-filename-extension, max-len */
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { enableBatching } from 'redux-batched-actions';
 import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
@@ -22,12 +23,15 @@ import RecipeSearchPage from './components/recipes/RecipeSearchPage';
 import CategoriesPage from './components/categories/CategoriesPage';
 import Category from './components/categories/Category';
 import rootReducer from './rootReducer';
-import LoginPage from './components/login/LoginPage';
+import LoginPage from './components/auth/LoginPage';
 import './assets/scss/main.scss';
 import './assets/js/main';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import { setCurrentUser, logout } from './action/authentication/loginAction';
 import requireAuth from './utils/requireAuth';
+import NotFound from './components/errors/NotFound';
+import Header from './components/navigation/Header';
+import Footer from './components/navigation/Footer';
 
 const Root = () => {
   const store = createStore(
@@ -55,19 +59,24 @@ const Root = () => {
     <Provider store={store}>
       <Router history={browserHistory}>
         <div>
-          <Route exact path="/" component={Home} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/recipes/:id" component={RecipeDetails} />
-          <Route path="/search" component={RecipeSearchPage} />
-          <Route path="/add" component={requireAuth(AddRecipePage)} />
-          <Route path="/:name/recipes" component={requireAuth(MyRecipesPage)} />
-          <Route path="/favorites" component={requireAuth(FavoriteRecipesPage)} />
-          <Route path="/profile" component={requireAuth(ProfilePage)} />
-          <Route path="/edit_recipe/:id" component={requireAuth(UpdateRecipePage)} />
-          <Route path="/categories" component={requireAuth(CategoriesPage)} />
-          <Route path="/category/breakfast" component={requireAuth(Category)} />
-          <Route path="/votes" component={MostUpvotesPage} />
+          <Header />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/recipes/:id" component={RecipeDetails} />
+            <Route path="/search" component={RecipeSearchPage} />
+            <Route path="/add" component={requireAuth(AddRecipePage)} />
+            <Route path="/:name/recipes" component={requireAuth(MyRecipesPage)} />
+            <Route path="/favorites" component={requireAuth(FavoriteRecipesPage)} />
+            <Route path="/profile" component={requireAuth(ProfilePage)} />
+            <Route path="/edit_recipe/:id" component={requireAuth(UpdateRecipePage)} />
+            <Route path="/categories" component={requireAuth(CategoriesPage)} />
+            <Route path="/category/breakfast" component={requireAuth(Category)} />
+            <Route path="/votes" component={MostUpvotesPage} />
+            <Route component={NotFound} />
+          </Switch>
+          <Footer />
         </div>
       </Router>
     </Provider>

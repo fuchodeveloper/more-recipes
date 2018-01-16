@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import Validator from 'validatorjs';
-import _ from 'lodash';
+import { pick } from 'lodash';
 import db from '../models/';
 import validateInput from '../validations/validateInput';
+import validateLoginInput from '../validations/validateLoginInput';
 
 const { User } = db;
 
@@ -13,31 +13,30 @@ const secret = process.env.SECRET_TOKEN;
 
 const usersController = {
   /**
-    * Controller to create a new user
+    * @description Controller to create a new user
    *
-   * @param {any} request - The incoming request
-   * @param {any} response - The response
-   * @returns {object} User - Returned user object
+   * @param {Object} request - The incoming request
+   * @param {Object} response - The response
+   *
+   * @returns {Object} User - Returned user object
    */
   create(request, response) {
     const { body } = request;
-    const rules = {
-      firstName: 'required|string',
-      lastName: 'required|string',
-      emailAddress: 'required|email',
-      password: 'required|min:6|alpha_num',
-      passwordConfirmation: 'required|same:password'
-    };
 
-    const validation = new Validator(body, rules);
-    if (validation.fails()) {
-      return response.json({ error: validation.errors.all() });
+    const { errors, isValid } = validateInput(body);
+    if (!isValid) {
+      return response.status(400).json({ error: errors });
     }
+
+
     User.findOne({ where: { emailAddress: body.emailAddress } })
       .then((user) => {
         if (user) {
-          return response.status(400)
-            .json({ error: 'User already exists. Try again.' });
+          return response.status(409)
+            .json({
+              error:
+              'User already exists. Try again.'
+            });
         }
         const hashedPassword = bcrypt.hashSync((request.body.password));
         User.create({
@@ -47,43 +46,51 @@ const usersController = {
           password: hashedPassword
         })
           .then((savedUser) => {
-            const userDetails = _.pick(savedUser, ['id', 'firstName', 'lastName', 'emailAddress']);
-            const authToken = jwt.sign(userDetails, secret, { expiresIn: 86400 });
-            response.status(201).json({ user: userDetails, token: authToken });
+            const userDetails = pick(
+              savedUser,
+              ['id', 'firstName', 'lastName', 'emailAddress']
+            );
+            const authToken = jwt.sign(
+              userDetails, secret,
+              { expiresIn: 86400 }
+            );
+            response.status(201).json({
+              message: 'Signup successful',
+              token: authToken
+            });
           })
-          .catch(error => response.status(400)
-            .json({ error: error.message }));
+          .catch(() => response.status(400)
+            .json({ error: 'Signup failed. Try again.' }));
       }).catch(() => response.status(500)
         .json({ error: 'There was a problem registering the user.' }));
   },
 
   /**
-   * Controller to log in an existing user
-   * @param {any} request
-   * @param {any} response
-   * @returns {json} user
+   * @description Controller to log in an existing user
+   *
+   * @param {Object} request
+   * @param {Object} response
+   *
+   * @returns {Object} user
    */
   login(request, response) {
     const { body } = request;
 
-    const rules = {
-      emailAddress: 'required|email',
-      password: 'required|min:6|alpha_num'
-    };
-
-    const validation = new Validator(body, rules);
-    if (validation.fails()) {
-      return response.json({ error: validation.errors.all() });
+    const { errors, isValid } = validateLoginInput(body);
+    if (!isValid) {
+      return response.status(400).json({ error: errors });
     }
 
     User.findOne({
       where: {
-        emailAddress: request.body.emailAddress.trim()
+        emailAddress: request.body.emailAddress
       }
     })
       .then((user) => {
         if (!user) {
-          return response.status(404).json({ error: 'Authentication failed. No user found.' });
+          return response.status(404).json({
+            error: 'Authentication failed. No user found.'
+          });
         }
         if (user) {
           const confirmPassword =
@@ -93,20 +100,29 @@ const usersController = {
           }
         }
 
-        const userDetails = _.pick(user, ['id', 'firstName', 'lastName', 'emailAddress']);
+        const userDetails = pick(
+          user,
+          ['id', 'firstName', 'lastName', 'emailAddress']
+        );
         const myToken = jwt.sign(userDetails, secret, { expiresIn: 86400 });
         const decoded = jwt.verify(myToken, secret);
-        return response.status(200).send({ message: 'Log in successful', user: decoded, token: myToken, });
+        return response.status(200).send({
+          message: 'Log in successful',
+          user: decoded,
+          token: myToken,
+        });
       })
-      .catch(error => response.status(500).json({ error: error.message }));
+      .catch(() => response.status(500).json({
+        error: 'An unexpected error occurred'
+      }));
   },
 
   /**
-   * Get the user with the id specified in the param
+   * @description Get the user with the id specified in the param
    *
-   * @param {any} req
-   * @param {any} res
-   * @returns {object} object
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} user
    */
   getUser(req, res) {
     User.findOne({

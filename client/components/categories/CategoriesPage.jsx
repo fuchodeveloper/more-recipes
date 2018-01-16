@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../../components/navigation/Header';
-import Footer from '../../components/navigation/Footer';
 
 class CategoriesPage extends React.Component {
   constructor(props) {
@@ -11,8 +9,6 @@ class CategoriesPage extends React.Component {
   render() {
     return (
       <div>
-        {/* Header component for navigation */}
-        <Header />
 
         <div className="margin-top-50">
           <h1 className="text-center p-4 center-hero-title">My Categories</h1>
@@ -65,12 +61,7 @@ class CategoriesPage extends React.Component {
 
           </div>
 
-
         </div>
-
-
-        {/* Display footer  */}
-        <Footer />
 
       </div>
     );

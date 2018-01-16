@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BounceLoader } from 'react-spinners';
-import Header from '../../components/navigation/Header';
-import Footer from '../../components/navigation/Footer';
 import MyRecipesDetail from './MyRecipesDetail';
 import myRecipesAction from '../../action/recipes/myRecipesActions';
 
@@ -60,8 +58,6 @@ class MyRecipesPage extends React.Component {
     if (this.state.recipes.length > 0) {
       return (
         <div>
-          {/* Display page Header */}
-          <Header />
 
           <div className="container margin-top-70">
 
@@ -98,17 +94,12 @@ class MyRecipesPage extends React.Component {
           </div>
 
           <div className="clearfix m-5" />
-
-          {/* Display footer */}
-          <Footer />
         </div>
       );
     }
 
     return (
       <div>
-        {/* Display page Header */}
-        <Header />
 
         <div className="container margin-top-70">
 
@@ -126,9 +117,6 @@ class MyRecipesPage extends React.Component {
           </div>
 
           <div className="clearfix m-5" />
-
-          {/* Display footer */}
-          <Footer />
 
         </div>
       </div>

@@ -8,15 +8,17 @@ const { User } = db;
 
 const authourization = {
   /**
-   * Verify authenticated user id supplied in token
+   * @description Verify authenticated user id supplied in token
    *
-   * @param {any} req - HTTP Request
-   * @param {any} res - HTTP Response
-   * @param {any} next
-   * @return {object} object
+   * @param {Object} req - HTTP Request
+   * @param {Object} res - HTTP Response
+   * @param {Function} next
+   *
+   * @return {Function} next
    */
   verifyToken(req, res, next) {
-    const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    const token =
+    req.body.token || req.query.token || req.headers['x-access-token'];
     if (token) {
       jwt.verify(token, secret, (error, decoded) => {
         if (error) {
@@ -40,15 +42,17 @@ const authourization = {
   },
 
   /**
-   * Verify user based on token
+   * @description Verify user based on token
    *
-   * @param {any} req - HTTP Request
-   * @param {any} res - HTTP Response
-   * @param {any} next
-   * @returns {object} object
+   * @param {Object} req - HTTP Request
+   * @param {Object} res - HTTP Response
+   * @param {Function} next
+   *
+   * @returns {Function} next
    */
   verifyUser(req, res, next) {
-    const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    const token =
+    req.body.token || req.query.token || req.headers['x-access-token'];
     if (!token) {
       return res.status(401)
         .json({ error: 'No token provided.' });

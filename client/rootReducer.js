@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
-import flashMessages from './reducers/flashMessages';
-import login from './reducers/authentication/login';
+import auth from './reducers/authentication/auth';
 import recipe from './reducers/recipes/getRecipeDetails';
 import recipes from './reducers/recipes/getAllRecipes';
 import isFetching from './reducers/isFetching';
@@ -10,8 +9,7 @@ import favorites from './reducers/favorites/favoritesReducer';
 import pageCount from './reducers/recipes/getRecipePageDetails';
 
 export default combineReducers({
-  flashMessages,
-  login,
+  auth,
   recipe,
   isFetching,
   recipes,

@@ -4,17 +4,23 @@ const { Favorites, Recipes } = db;
 
 const favoritesController = {
   /**
-   * Favorite a recipe
+   * @description Favorite a recipe
    *
-   * @param {any} request
-   * @param {any} response
-   * @returns {object} object
+   * @param {Object} request
+   * @param {Object} response
+   *
+   * @returns {Object} object - express http response object
    */
 
   create(request, response) {
     if (!request.params.id) {
       return response.status(400).json({ error: 'Recipe id is required.' });
     }
+
+    if (Number.isNaN(request.params.id)) {
+      return response.status(400).json({ error: 'Recipe id is invalid!' });
+    }
+
     Favorites.findOne({
       where: {
         recipeId: request.params.id,
@@ -33,7 +39,9 @@ const favoritesController = {
               recipe.decrement('favoriteCount');
               favorite.destroy()
                 .then(() => response.status(200).json({
-                  favorite: recipe.favoriteCount, favorited: false, message: messageText
+                  favorite: recipe.favoriteCount,
+                  favorited: false,
+                  message: messageText
                 }));
             });
         }
@@ -51,14 +59,26 @@ const favoritesController = {
               userId: request.decoded.id
             })
               .then(() => response.status(200).json({
-                favorite: recipe.favoriteCount, favorited: true, message: messageText
+                favorite: recipe.favoriteCount,
+                favorited: true,
+                message: messageText
               }));
           });
       })
-      .catch(error => response.status(500).json({ error: error.message }));
+      .catch(() => response.status(500).json({
+        error: 'An unexpected error occurred'
+      }));
   },
 
   getFavoriteCount(request, response) {
+    if (!request.params.id) {
+      return response.status(400).json({ error: 'Recipe id is required.' });
+    }
+
+    if (Number.isNaN(request.params.id)) {
+      return response.status(400).json({ error: 'Recipe id is invalid!' });
+    }
+
     Favorites.count({
       where: { recipeId: request.params.id }
     })
@@ -72,6 +92,14 @@ const favoritesController = {
   },
 
   getAllFavorites(request, response) {
+    if (!request.params.id) {
+      return response.status(400).json({ error: 'Recipe id is required.' });
+    }
+
+    if (Number.isNaN(request.params.id)) {
+      return response.status(400).json({ error: 'Recipe id is invalid!' });
+    }
+
     Favorites.findAll({
       distinct: 'recipeId',
       where: { userId: request.params.id },

@@ -5,11 +5,12 @@ const { Recipes, User, Reviews } = db;
 
 const reviewsController = {
   /**
-   * Create a review for a recipe
+   * @description Create a review for a recipe
    *
-   * @param {any} request
-   * @param {any} response
-   * @returns {object} object
+   * @param {Object} request - HTTP request
+   * @param {Object} response - HTTP response
+   *
+   * @returns {Object} recipe
    */
   create(request, response) {
     const { body } = request;
@@ -25,7 +26,9 @@ const reviewsController = {
     User.findById(request.decoded.id)
       .then((user) => {
         if (!user) {
-          return response.status(404).json({ errorCode: 404, error: 'User not found.' });
+          return response.status(404).json({
+            error: 'User not found.'
+          });
         }
       })
       .catch(error => response.status(400).json(error.message));
@@ -33,7 +36,9 @@ const reviewsController = {
     return Recipes.findById(request.params.id)
       .then((recipe) => {
         if (!recipe) {
-          return response.status(404).json({ code: 404, error: 'Recipe not found.' });
+          return response.status(404).json({
+            error: 'Recipe not found.'
+          });
         }
 
         Reviews.create({
@@ -53,19 +58,31 @@ const reviewsController = {
                   ]
                 }
               ]
-            }).then(updatedRecipe => response.status(201).json({ statusCode: 201, message: 'Review created.', recipe: updatedRecipe }))
-            .catch(error => response.status(404).json({ error: error.message })))
-          .catch(error => response.status(400).json({ error: error.message }));
+            })
+            .then(updatedRecipe => response.status(201).json({
+              statusCode: 201,
+              message: 'Review created.',
+              recipe: updatedRecipe
+            }))
+            .catch(error => response.status(404).json({
+              error: error.message
+            })))
+          .catch(error => response.status(400).json({
+            error: error.message
+          }));
       })
-      .catch(error => response.status(400).json({ error: error.message }));
+      .catch(error => response.status(400).json({
+        error: error.message
+      }));
   },
 
   /**
-   * Get a review
+   * @description Get a review
    *
-   * @param {any} request
-   * @param {any} response
-   * @returns {json} json
+   * @param {Object} request - HTTP request
+   * @param {any} response - HTTP response
+   *
+   * @returns {Object} review - the requested review object
    */
   get(request, response) {
     Reviews.findAll({

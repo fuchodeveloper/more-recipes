@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { batchActions } from 'redux-batched-actions';
+import alertify from 'alertify.js';
 import { GET_ALL_FAVORITES } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
 
@@ -31,8 +32,10 @@ const getAllFavorites = (userId, page) => (dispatch) => {
         unsetFetching()
       ]));
     })
-    .catch((error) => {
-      console.log(error.message);
+    .catch(() => {
+      alertify.delay(2000);
+      alertify.logPosition('bottom right');
+      // alertify.error(error.data.);
     });
 };
 

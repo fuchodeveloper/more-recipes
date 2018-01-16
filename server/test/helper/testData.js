@@ -27,9 +27,6 @@ const testData = {
 
   incompleteNewRecipe: {
     userId: null,
-    // recipeName: faker.name.findName(),
-    // ingredient: 'lorem, ipsum, itsum, gallum',
-    // recipeDirection: 'This is a sample recipe description',
     recipeImage: 'http://www/allnigeriafoods.com/sample-recipe-url'
   }
 };

@@ -12,8 +12,9 @@ const recipeController = {
   /**
    * Create a new recipe
    *
-   * @param {any} request - HTTP Request
-   * @param {any} response - HTTP Response
+   * @param {Object} request - HTTP Request
+   * @param {Object} response - HTTP Response
+   *
    * @returns {object} Returned object
    */
   createRecipe(request, response) {
@@ -49,7 +50,18 @@ const recipeController = {
    * @returns {object} json - Returned object
    */
   getRecipe(request, response) {
-    const token = request.body.token || request.query.token || request.headers['x-access-token'];
+    const token =
+    request.body.token ||
+    request.query.token ||
+    request.headers['x-access-token'];
+
+    if (!request.params.id) {
+      return response.status(400).json({ error: 'Recipe id is required.' });
+    }
+
+    if (Number.isNaN(request.params.id)) {
+      return response.status(400).json({ error: 'Recipe id is invalid!' });
+    }
 
     return Recipes
       .findOne({
@@ -91,11 +103,13 @@ const recipeController = {
   },
 
   /**
-   * Return all recipes with pagination
-   * @param {any} request - HTTP Request
-   * @param {any} response - HTTP Response
-   * @param {any} next - next request
-   * @returns {object} Returned object
+   * @description Return all recipes with pagination
+   *
+   * @param {Object} request - HTTP Request
+   * @param {Object} response - HTTP Response
+   * @param {Function} next - next request
+   *
+   * @returns {Object} Returned object
    */
   getAllRecipesPaginate(request, response, next) {
     if (request.query.sort === 'upvotes') {
@@ -155,6 +169,14 @@ const recipeController = {
    * @returns {json} Returned json
    */
   deleteRecipe(request, response) {
+    if (!request.params.id) {
+      return response.status(400).json({ error: 'Recipe id is required.' });
+    }
+
+    if (Number.isNaN(request.params.id)) {
+      return response.status(400).json({ error: 'Recipe id is invalid!' });
+    }
+
     return Recipes
       .findById(request.params.id)
       .then((recipe) => {
@@ -170,7 +192,9 @@ const recipeController = {
             .catch(error => response.status(400)
               .json({ error: error.message }));
         }
-        return response.status(401).json({ error: 'Only recipe owners can delete recipe.' });
+        return response.status(401).json({
+          error: 'Only recipe owners can delete recipe.'
+        });
       })
       .catch(error => response.status(400)
         .json({ error: error.message }));
@@ -183,6 +207,13 @@ const recipeController = {
    * @returns {json} Returned json
    */
   updateRecipe(request, response) {
+    if (!request.params.id) {
+      return response.status(400).json({ error: 'Recipe id is required.' });
+    }
+
+    if (Number.isNaN(request.params.id)) {
+      return response.status(400).json({ error: 'Recipe id is invalid!' });
+    }
     const { body } = request;
     return Recipes
       .findById(request.params.id)
@@ -202,7 +233,9 @@ const recipeController = {
             recipeDirection: body.recipeDirection.trim().toLowerCase(),
             recipeImage: body.recipeImage
           }, { where: { id: request.params.id } })
-          .then(updateSuccess => response.status(204).json({ message: 'Recipe updated', updateSuccess }));
+          .then(updateSuccess => response.status(204).json({
+            message: 'Recipe updated', updateSuccess
+          }));
       })
       .catch(error => response.status(400)
         .json({ error: error.message }));

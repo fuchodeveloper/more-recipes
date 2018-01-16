@@ -7,7 +7,7 @@ import { ADD_FAVORITE_SUCCESS } from '../types';
  *
  * @export
  * @param {any} recipeId
- * @returns {obj} obj
+ * @returns {object} favorite
  */
 
 export const createFavoriteActionCreator = favorite => ({
