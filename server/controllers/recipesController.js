@@ -44,9 +44,10 @@ const recipeController = {
   },
 
   /**
-   * Get a single recipe
-   * @param {any} request - HTTP Request
-   * @param {any} response - HTTP Response
+   * @description Get a single recipe
+   * @param {Object} request - HTTP Request
+   * @param {Object} response - HTTP Response
+   *
    * @returns {object} json - Returned object
    */
   getRecipe(request, response) {
