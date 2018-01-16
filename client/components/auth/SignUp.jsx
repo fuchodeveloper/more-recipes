@@ -10,12 +10,15 @@ import signupAction from '../../action/authentication/signupAction';
  * @description class to handle user sign up
  *
  * @class SignUp
+ *
  * @extends {Component}
  */
 class SignUp extends Component {
   /**
-   * Creates an instance of SignUp.
-   * @param {any} props
+   * @description Creates an instance of SignUp.
+   *
+   * @param {Object} props
+   *
    * @memberof SignUp
    */
   constructor(props) {
@@ -42,8 +45,10 @@ class SignUp extends Component {
   /**
  * @description function to handle on change event
  *
- * @param {any} event
+ * @param {Object} event
+ *
  * @memberof SignUp
+ *
  * @returns {void}
  */
   onChange(event) {
@@ -53,8 +58,10 @@ class SignUp extends Component {
   /**
  * @description function to handle form submission
  *
- * @param {any} event
+ * @param {Object} event
+ *
  * @memberof SignUp
+ *
  * @returns {void}
  */
   onSubmit(event) {
@@ -70,6 +77,7 @@ class SignUp extends Component {
  * @description function to validate user sign up input
  *
  * @memberof SignUp
+ *
  * @returns {void}
  */
   isValid() {
@@ -80,10 +88,12 @@ class SignUp extends Component {
 
     return isValid;
   }
+
   /**
  * @description Render the JSX template
  *
- * @returns {html} html
+ * @returns {JSX} JSX representation of component
+ *
  * @memberof SignUp
  */
   render() {
@@ -167,7 +177,7 @@ class SignUp extends Component {
                       name="passwordConfirmation"
                       className="form-control"
                       onChange={this.onChange}
-                      // required
+                      required
                     />
                     { this.state.errors.passwordConfirmation && <span className="text-danger form-text">{ this.state.errors.passwordConfirmation }</span> }
                   </div>
@@ -189,7 +199,7 @@ class SignUp extends Component {
         </div>
 
         <div className="clearfix m-5" />
-        
+
       </div>
     );
   }

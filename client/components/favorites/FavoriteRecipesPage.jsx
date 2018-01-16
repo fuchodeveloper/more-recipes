@@ -9,12 +9,15 @@ import AllFavoriteRecipes from './AllFavoriteRecipes';
  * @description Parent component for favorite recipes class
  *
  * @class FavoriteRecipesPage
+ *
  * @extends {React.Component}
  */
 class FavoriteRecipesPage extends React.Component {
   /**
- * Creates an instance of FavoriteRecipesPage.
- * @param {any} props
+ * @description Creates an instance of FavoriteRecipesPage.
+ *
+ * @param {Object} props
+ *
  * @memberof FavoriteRecipesPage
  */
   constructor(props) {
@@ -26,20 +29,23 @@ class FavoriteRecipesPage extends React.Component {
   /**
  * @description get all favorite recipes for authenticated user using API endpoint
  *
- *
  * @memberof FavoriteRecipesPage
- * @returns {void}
+ *
+ * @returns {undefined} calls getAllFavoritesProps
  */
   componentDidMount() {
     const { id } = this.props.user;
     this.props.getAllFavoritesProps(id);
   }
+
   /**
  * @description Update state with received props
  *
- * @param {any} nextProps
+ * @param {Object} nextProps
+ *
  * @memberof FavoriteRecipesPage
- * @returns {void}
+ *
+ * @returns {undefined} calls setState
  */
   componentWillReceiveProps(nextProps) {
     const { favorites } = nextProps.favorites;
@@ -51,7 +57,8 @@ class FavoriteRecipesPage extends React.Component {
  *
  *
  * @memberof FavoriteRecipesPage
- * @returns  {void}
+ *
+ * @returns  {undefined}
  */
   render() {
     const { isFetching } = this.props;
@@ -115,12 +122,17 @@ class FavoriteRecipesPage extends React.Component {
   }
 }
 
+FavoriteRecipesPage.defaultProps = {
+  id: null,
+  isFetching: false
+};
+
 FavoriteRecipesPage.propTypes = {
-  id: PropTypes.number.isRequired,
-  user: PropTypes.number.isRequired,
+  id: PropTypes.number,
+  user: PropTypes.shape({}).isRequired,
   getAllFavoritesProps: PropTypes.func.isRequired,
   favorites: PropTypes.objectOf(String).isRequired,
-  isFetching: PropTypes.bool.isRequired
+  isFetching: PropTypes.bool
 };
 
 const mapStateToProps = state => ({

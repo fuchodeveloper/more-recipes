@@ -5,11 +5,12 @@ const { Recipes, User, Reviews } = db;
 
 const reviewsController = {
   /**
-   * Create a review for a recipe
+   * @description Create a review for a recipe
    *
-   * @param {any} request
-   * @param {any} response
-   * @returns {object} object
+   * @param {Object} request - HTTP request
+   * @param {Object} response - HTTP response
+   *
+   * @returns {Object} recipe
    */
   create(request, response) {
     const { body } = request;
@@ -26,7 +27,6 @@ const reviewsController = {
       .then((user) => {
         if (!user) {
           return response.status(404).json({
-            errorCode: 404,
             error: 'User not found.'
           });
         }
@@ -77,11 +77,12 @@ const reviewsController = {
   },
 
   /**
-   * Get a review
+   * @description Get a review
    *
-   * @param {any} request
-   * @param {any} response
-   * @returns {json} json
+   * @param {Object} request - HTTP request
+   * @param {any} response - HTTP response
+   *
+   * @returns {Object} review - the requested review object
    */
   get(request, response) {
     Reviews.findAll({

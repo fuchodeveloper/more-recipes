@@ -3,8 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
-import Header from '../../components/navigation/Header';
-import Footer from '../../components/navigation/Footer';
 import validateInput from '../shared/validations/login';
 import login from '../../action/authentication/loginAction';
 
@@ -12,12 +10,15 @@ import login from '../../action/authentication/loginAction';
    * @description Login form class
    *
    * @class LoginForm
+   *
    * @extends {React.Component}
    */
 class LoginPage extends React.Component {
   /**
    * @description Creates an instance of LoginForm.
-   * @param {any} props
+   *
+   * @param {Object} props
+   *
    * @memberof LoginForm
    */
   constructor(props) {
@@ -42,9 +43,11 @@ class LoginPage extends React.Component {
   /**
  * @description Implement on change for form fields
  *
- * @param {any} event
+ * @param {Object} event
+ *
  * @memberof LoginPage
- * @returns {void}
+ *
+ * @returns {undefined}
  */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -53,8 +56,10 @@ class LoginPage extends React.Component {
   /**
  * @description Function to handle form submissions
  *
- * @param {any} event
+ * @param {Object} event
+ *
  * @memberof LoginPage
+ *
  * @returns {void}
  */
   onSubmit(event) {
@@ -68,7 +73,8 @@ class LoginPage extends React.Component {
   /**
    * @description Handle form validation
    *
-   * @returns {object} isValid
+   * @returns {Object} isValid
+   *
    * @memberof LoginPage
    */
   isValid() {
@@ -84,8 +90,9 @@ class LoginPage extends React.Component {
   /**
    * @description Render the JSX template
    *
-   * @returns {html} html
    * @memberof LoginPage
+   *
+   * @returns {JSX} JSX representation of component
    */
   render() {
     if (this.props.auth) {

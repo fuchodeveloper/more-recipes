@@ -7,11 +7,12 @@ const {
 const votesController = {
 
   /**
-   * Upvote a recipe
+   * @description Upvote a recipe
    *
-   * @param {any} request
-   * @param {any} response
-   * @returns {object} object
+   * @param {Object} request
+   * @param {Object} response
+   *
+   * @returns {object} recipe
    */
   upVote(request, response) {
     if (!request.params.id) {
@@ -88,6 +89,14 @@ const votesController = {
       }));
   },
 
+  /**
+ * @description function to downvote a recipe
+ *
+ * @param {Object} request - HTTP request
+ * @param {Object} response - HTTP response
+ *
+ * @returns {Object} recipe
+ */
   downVote(request, response) {
     if (!request.params.id) {
       return response.status(400)

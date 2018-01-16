@@ -2,23 +2,50 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-export default function (ComposedComponent) {
+export default (ComposedComponent) => {
+/**
+ * @description class to handle authentication
+ *
+ * @class Authenticate
+ *
+ * @extends {React.Component}
+ */
   class Authenticate extends React.Component {
+  /**
+   * @description lifecycle method to redirect if user is not authenticated
+   *
+   * @memberof Authenticate
+   *
+   * @returns {undefined}
+   */
     componentWillMount() {
       if (!this.props.isAuthenticated) {
-        this.props.addFlashMessage({
-          type: 'error',
-          text: 'You need to login to view page.'
-        });
         this.context.router.history.push('/login');
       }
     }
 
+    /**
+ * @description lifecycle method to receive props update
+ *
+ * @param {Object} nextProps
+ *
+ * @memberof Authenticate
+ *
+ * @returns {undefined}
+ */
     componentWillUpdate(nextProps) {
       if (!nextProps.isAuthenticated) {
         this.context.router.history.push('/');
       }
     }
+
+    /**
+ * @description renders component to the DOM
+ *
+ * @memberof Authenticate
+ *
+ * @returns {JSX} JSX representation of component
+ */
     render() {
       return (
         <ComposedComponent {...this.props} />
@@ -34,11 +61,9 @@ export default function (ComposedComponent) {
     router: PropTypes.object.isRequired
   };
 
-  function mapStateToProps(state) {
-    return {
-      isAuthenticated: state.auth.isAuthenticated
-    };
-  }
+  const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+  });
 
   return connect(mapStateToProps)(Authenticate);
-}
+};

@@ -13,11 +13,12 @@ const secret = process.env.SECRET_TOKEN;
 
 const usersController = {
   /**
-    * Controller to create a new user
+    * @description Controller to create a new user
    *
-   * @param {any} request - The incoming request
-   * @param {any} response - The response
-   * @returns {object} User - Returned user object
+   * @param {Object} request - The incoming request
+   * @param {Object} response - The response
+   *
+   * @returns {Object} User - Returned user object
    */
   create(request, response) {
     const { body } = request;
@@ -55,7 +56,6 @@ const usersController = {
             );
             response.status(201).json({
               message: 'Signup successful',
-              user: userDetails,
               token: authToken
             });
           })
@@ -66,10 +66,12 @@ const usersController = {
   },
 
   /**
-   * Controller to log in an existing user
-   * @param {any} request
-   * @param {any} response
-   * @returns {json} user
+   * @description Controller to log in an existing user
+   *
+   * @param {Object} request
+   * @param {Object} response
+   *
+   * @returns {Object} user
    */
   login(request, response) {
     const { body } = request;
@@ -116,11 +118,11 @@ const usersController = {
   },
 
   /**
-   * Get the user with the id specified in the param
+   * @description Get the user with the id specified in the param
    *
-   * @param {any} req
-   * @param {any} res
-   * @returns {void}
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} user
    */
   getUser(req, res) {
     User.findOne({

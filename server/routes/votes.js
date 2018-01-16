@@ -4,6 +4,9 @@ import authorization from '../middleware/tokenMiddleware';
 
 const router = express.Router();
 
+/**
+ * @description routes for upvote and downvote
+ */
 router.post(
   '/:id/upvote',
   authorization.verifyUser, votesController.upVote

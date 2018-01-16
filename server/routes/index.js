@@ -34,8 +34,7 @@ const routes = (router) => {
     '/api/v1/recipes/:id',
     authorization.verifyToken, recipesController.updateRecipe
   );
-  // router.get('/api/v1/recipes/?sort=upvotes&order=desc',
-  // recipesController.sortRecipes);
+
   router.post(
     '/api/v1/recipes/:id/upvote',
     authorization.verifyUser, votesController.upVote

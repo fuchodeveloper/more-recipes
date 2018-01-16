@@ -11,12 +11,15 @@ import getAllRecipes from '../action/recipes/getAllRecipes';
  * @description class to display all recipes
  *
  * @class Home
+ *
  * @extends {Component}
  */
 class Home extends Component {
   /**
-   * Creates an instance of Home.
-   * @param {any} props
+   * @description Creates an instance of Home.
+   *
+   * @param {Object} props
+   *
    * @memberof Home
    */
   constructor(props) {
@@ -36,7 +39,8 @@ class Home extends Component {
    * @description lifecycle method to show all recipes
    *
    * @memberof Home
-   * @returns {void}
+   *
+   * @returns {undefined}
    */
   componentDidMount() {
     this.props.recipeProps(this.state.pageCount);
@@ -45,9 +49,11 @@ class Home extends Component {
   /**
  * @description lifecycle method used to update state
  *
- * @param {any} nextProps
+ * @param {Object} nextProps
+ *
  * @memberof Home
- * @returns {void}
+ *
+ * @returns {undefined}
  */
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -60,7 +66,7 @@ class Home extends Component {
  * @description function to handle focus on search
  *
  * @memberof Home
- * @returns {void}
+ * @returns {undefined}
  */
   onFocus() {
     this.context.router.history.push('/search');
@@ -71,7 +77,7 @@ class Home extends Component {
  *
  * @param {any} current
  * @memberof Home
- * @returns {void}
+ * @returns {undefined}
  */
   onPageChange(current) {
     current.selected += 1;
@@ -81,9 +87,11 @@ class Home extends Component {
   /**
  *
  *
- * @param {any} event
+ * @param {Object} event
+ *
  * @memberof Home
- * @return {void}
+ *
+ * @return {undefined}
  */
   onChange(event) {
     event.preventDefault();
@@ -94,9 +102,11 @@ class Home extends Component {
   /**
  * @description handle form submit
  *
- * @param {any} event
+ * @param {Object} event
+ *
  * @memberof Home
- * @returns {void}
+ *
+ * @returns {undefined}
  */
   onSubmit(event) {
     event.preventDefault();
@@ -108,7 +118,7 @@ class Home extends Component {
  *
  *
  * @memberof Home
- * @returns  {html} html
+ * @returns  {JSX} JSX representation of component
  */
   render() {
     const { isFetching } = this.state;
@@ -123,8 +133,6 @@ class Home extends Component {
     if (isEmpty(this.state.recipes)) {
       return (
         <div>
-
-          {/* Header component for navigation */}
 
           {this.props.children}
 
@@ -185,8 +193,6 @@ class Home extends Component {
 
     return (
       <div>
-
-
         {this.props.children}
 
         <div className="container margin-top-70">
@@ -227,13 +233,13 @@ class Home extends Component {
           <div>
             <div className="row">
               {
-                  Object
-                    .keys(this.state.recipes)
-                    .map(key => (<AllRecipes
-                      key={key}
-                      details={this.state.recipes[key]}
-                    />))
-                  }
+                Object
+                  .keys(this.state.recipes)
+                  .map(key => (<AllRecipes
+                    key={key}
+                    details={this.state.recipes[key]}
+                  />))
+                }
 
             </div>
 

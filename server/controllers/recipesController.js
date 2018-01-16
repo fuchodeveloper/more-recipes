@@ -12,8 +12,9 @@ const recipeController = {
   /**
    * Create a new recipe
    *
-   * @param {any} request - HTTP Request
-   * @param {any} response - HTTP Response
+   * @param {Object} request - HTTP Request
+   * @param {Object} response - HTTP Response
+   *
    * @returns {object} Returned object
    */
   createRecipe(request, response) {
@@ -53,6 +54,14 @@ const recipeController = {
     request.body.token ||
     request.query.token ||
     request.headers['x-access-token'];
+
+    if (!request.params.id) {
+      return response.status(400).json({ error: 'Recipe id is required.' });
+    }
+
+    if (Number.isNaN(request.params.id)) {
+      return response.status(400).json({ error: 'Recipe id is invalid!' });
+    }
 
     return Recipes
       .findOne({
@@ -94,11 +103,13 @@ const recipeController = {
   },
 
   /**
-   * Return all recipes with pagination
-   * @param {any} request - HTTP Request
-   * @param {any} response - HTTP Response
-   * @param {any} next - next request
-   * @returns {object} Returned object
+   * @description Return all recipes with pagination
+   *
+   * @param {Object} request - HTTP Request
+   * @param {Object} response - HTTP Response
+   * @param {Function} next - next request
+   *
+   * @returns {Object} Returned object
    */
   getAllRecipesPaginate(request, response, next) {
     if (request.query.sort === 'upvotes') {
@@ -158,6 +169,14 @@ const recipeController = {
    * @returns {json} Returned json
    */
   deleteRecipe(request, response) {
+    if (!request.params.id) {
+      return response.status(400).json({ error: 'Recipe id is required.' });
+    }
+
+    if (Number.isNaN(request.params.id)) {
+      return response.status(400).json({ error: 'Recipe id is invalid!' });
+    }
+
     return Recipes
       .findById(request.params.id)
       .then((recipe) => {
@@ -188,6 +207,13 @@ const recipeController = {
    * @returns {json} Returned json
    */
   updateRecipe(request, response) {
+    if (!request.params.id) {
+      return response.status(400).json({ error: 'Recipe id is required.' });
+    }
+
+    if (Number.isNaN(request.params.id)) {
+      return response.status(400).json({ error: 'Recipe id is invalid!' });
+    }
     const { body } = request;
     return Recipes
       .findById(request.params.id)

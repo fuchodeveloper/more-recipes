@@ -16,7 +16,8 @@
     "build": "babel ./server -d ./dist",
     "eslint": "eslint --fix client server --ext=js,jsx",
     "express": "babel-node ./server/app.js --presets es2015,stage-2",
-    "migration": "NODE_ENV=test sequelize db:migrate"
+    "migration": "NODE_ENV=test sequelize db:migrate",
+    "migration:dev": "NODE_ENV=test_dev sequelize db:migrate"
   },
   "author": "Fredrick Mgbeoma",
   "license": "ISC",
