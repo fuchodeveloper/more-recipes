@@ -38,6 +38,7 @@ const Root = () => {
     enableBatching(rootReducer),
     compose(
       applyMiddleware(thunk),
+      process.env.NODE_ENV === 'development' &&
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
   );
