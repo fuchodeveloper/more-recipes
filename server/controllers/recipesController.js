@@ -60,7 +60,7 @@ const recipeController = {
       return response.status(400).json({ error: 'Recipe id is required.' });
     }
 
-    if (Number.isNaN(request.params.id)) {
+    if (isNaN(request.params.id)) {
       return response.status(400).json({ error: 'Recipe id is invalid!' });
     }
 
@@ -99,7 +99,7 @@ const recipeController = {
             .update({ views: recipe.views + 1 });
         }
       })
-      .catch(error => response.status(400)
+      .catch(error => response.status(500)
         .json({ error: error.message }));
   },
 
