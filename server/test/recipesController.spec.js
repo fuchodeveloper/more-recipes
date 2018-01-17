@@ -39,7 +39,8 @@ describe('Recipe controller', () => {
     chai.request(app)
       .post('/api/v1/recipes')
       .set('Content-Type', 'application/json')
-      .set('x-access-token', 'ejhs54nsofskalhdfkgnasflgnklsf;ag sfgjoE9EUR0Q3NFKSNDSI')
+      .set('x-access-token', `ejhs54nsofskalhdfkgnasflgnklsf;ag 
+      sfgjoE9EUR0Q3NFKSNDSI`)
       .send(testData.newRecipe)
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -143,23 +144,15 @@ describe('Recipe controller', () => {
       });
   });
 
-  it('should return 200 if recipe sort in descending order by upvote is successful', (done) => {
-    chai.request(app)
-      .get('/api/v1/recipes/?sort=upvotes&order=desc')
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        done();
-      });
-  });
-
-  // it('should return 400 if recipe sort in descending order by upvote is not successful', (done) => {
-  //   chai.request(app)
-  //     .get('/api/v1/recipes/?sort=wrongUpvotes&order=wrongOrder')
-  //     .end((err, res) => {
-  //       expect(res).to.have.status(500);
-  //       done();
-  //     });
-  // });
+  it(`should return 200 if recipe sort in descending 
+  order by upvote is successful`, (done) => {
+      chai.request(app)
+        .get('/api/v1/recipes/?sort=upvotes&order=desc')
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
 
   /** Delete recipe */
 
@@ -174,31 +167,4 @@ describe('Recipe controller', () => {
       });
   });
 });
-// it('should return 400 if user already exists', (done) => {
-//   chai.request(app)
-//     .post('/api/v1/users/signup')
-//     .set('Content-Type', 'application/json')
-//     .send(testData.newUser)
-//     .end((err, res) => {
-//       expect(res).to.have.status(400);
-//       done();
-//     });
-// });
 
-// it('should return true if user is created', (done) => {
-//   chai.request(app)
-//     .post('/api/v1/users/signup')
-//     .set('Content-Type', 'application/json')
-//     .send({
-//       firstName: 'harley',
-//       lastName: 'davidson',
-//       emailAddress: 'harley@gmail.com',
-//       password: 'password',
-//       password_confirmation: 'password'
-//     })
-//     .end((err, res) => {
-//       // expect(err).to.be.null;
-//       expect(res).to.have.status(400);
-//       done();
-//     });
-// });

@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-filename-extension, max-len */
-import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -27,7 +26,8 @@ import LoginPage from './components/auth/LoginPage';
 import './assets/scss/main.scss';
 import './assets/js/main';
 import setAuthorizationToken from './utils/setAuthorizationToken';
-import { setCurrentUser, logout } from './action/authentication/loginAction';
+import { setCurrentUser } from './action/authentication/loginAction';
+import logout from './action/authentication/logoutAction';
 import requireAuth from './utils/requireAuth';
 import NotFound from './components/errors/NotFound';
 import Header from './components/navigation/Header';

@@ -29,9 +29,10 @@ const upvoteRecipe = param =>
       alertify.success(response.data.message);
       return dispatch(upvoteRecipeAction(response.data.recipe));
     })
-    .catch((error) => {
+    .catch(() => {
+      alertify.delay(1000);
       alertify.logPosition('bottom right');
-      alertify.error(error.message);
+      alertify.error('Please login to upvote recipe');
     });
 
 export default upvoteRecipe;

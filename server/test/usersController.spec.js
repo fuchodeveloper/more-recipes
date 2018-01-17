@@ -18,7 +18,7 @@ describe('User authentication', () => {
       });
   });
 
-  it('should return 400 if user already exists', (done) => {
+  it('should return 409 if user already exists', (done) => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .set('Content-Type', 'application/json')
@@ -78,23 +78,4 @@ describe('User authentication', () => {
         done();
       });
   });
-
-
-  // it('should return true if user is created', (done) => {
-  //   chai.request(app)
-  //     .post('/api/v1/users/signup')
-  //     .set('Content-Type', 'application/json')
-  //     .send({
-  //       firstName: 'harley',
-  //       lastName: 'davidson',
-  //       emailAddress: 'harley@gmail.com',
-  //       password: 'password',
-  //       password_confirmation: 'password'
-  //     })
-  //     .end((err, res) => {
-  //       // expect(err).to.be.null;
-  //       expect(res).to.have.status(400);
-  //       done();
-  //     });
-  // });
 });

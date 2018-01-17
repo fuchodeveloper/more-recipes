@@ -105,10 +105,8 @@ const usersController = {
           ['id', 'firstName', 'lastName', 'emailAddress']
         );
         const myToken = jwt.sign(userDetails, secret, { expiresIn: 86400 });
-        const decoded = jwt.verify(myToken, secret);
         return response.status(200).send({
           message: 'Log in successful',
-          user: decoded,
           token: myToken,
         });
       })
