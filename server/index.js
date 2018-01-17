@@ -5,7 +5,6 @@ import webpack from 'webpack';
 import path from 'path';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import swaggerJSDoc from 'swagger-jsdoc';
 import webpackConfiguration from '../webpack.config';
 import webpackConfigurationProd from '../webpack.config.prod';
 import auth from './routes/auth';
@@ -17,39 +16,6 @@ import users from './routes/users';
 
 const app = express();
 const compiler = webpack(webpackConfiguration);
-
-// swagger definition
-const swaggerDefinition = {
-  info: {
-    title: 'More recipes API documentation',
-    version: '1.0.0',
-    description: `API documentation for more-recipes.
-     More-Recipes provides a platform for users to
-      share the awesome and exciting recipe ideas
-       they have invented or learnt`,
-  },
-  host: parseInt(process.env.PORT, 10) || 8000,
-  basePath: '/',
-};
-
-// options for the swagger docs
-const options = {
-  // import swaggerDefinitions
-  swaggerDefinition,
-  // path to the API docs
-  apis: ['./server/docs.js'],
-};
-
-// initialize swagger-jsdoc
-const swaggerSpec = swaggerJSDoc(options);
-
-// serve swagger
-app.get('/swagger.json', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(swaggerSpec);
-});
-
-app.use(express.static('server/api'));
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 
@@ -78,7 +44,10 @@ if (process.env.NODE_ENV === 'production') {
   app.use(webpackMiddleware(webpack(webpackConfigurationProd)));
 }
 
-app.use('/api-docs', express.static(path.join(__dirname, '/docs')));
+app.use(
+  '/api-docs',
+  express.static(path.join(path.dirname(__dirname), 'docs'))
+);
 
 app.get('/*', (request, response) => {
   response.sendFile(path.join(__dirname, '../dist/index.html'));

@@ -32,6 +32,7 @@ import requireAuth from './utils/requireAuth';
 import NotFound from './components/errors/NotFound';
 import Header from './components/navigation/Header';
 import Footer from './components/navigation/Footer';
+import ErrorBoundary from './components/errors/ErrorBoundary';
 
 const Root = () => {
   const store = createStore(
@@ -60,24 +61,26 @@ const Root = () => {
     <Provider store={store}>
       <Router history={browserHistory}>
         <div>
-          <Header />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/recipes/:id" component={RecipeDetails} />
-            <Route path="/search" component={RecipeSearchPage} />
-            <Route path="/add" component={requireAuth(AddRecipePage)} />
-            <Route path="/:name/recipes" component={requireAuth(MyRecipesPage)} />
-            <Route path="/favorites" component={requireAuth(FavoriteRecipesPage)} />
-            <Route path="/profile" component={requireAuth(ProfilePage)} />
-            <Route path="/edit_recipe/:id" component={requireAuth(UpdateRecipePage)} />
-            <Route path="/categories" component={requireAuth(CategoriesPage)} />
-            <Route path="/category/breakfast" component={requireAuth(Category)} />
-            <Route path="/votes" component={MostUpvotesPage} />
-            <Route component={NotFound} />
-          </Switch>
-          <Footer />
+          <ErrorBoundary>
+            <Header />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/signup" component={SignUp} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/recipes/:id" component={RecipeDetails} />
+              <Route path="/search" component={RecipeSearchPage} />
+              <Route path="/add" component={requireAuth(AddRecipePage)} />
+              <Route path="/:name/recipes" component={requireAuth(MyRecipesPage)} />
+              <Route path="/favorites" component={requireAuth(FavoriteRecipesPage)} />
+              <Route path="/profile" component={requireAuth(ProfilePage)} />
+              <Route path="/edit_recipe/:id" component={requireAuth(UpdateRecipePage)} />
+              <Route path="/categories" component={requireAuth(CategoriesPage)} />
+              <Route path="/category/breakfast" component={requireAuth(Category)} />
+              <Route path="/votes" component={MostUpvotesPage} />
+              <Route path="*" component={NotFound} />
+            </Switch>
+            <Footer />
+          </ErrorBoundary>
         </div>
       </Router>
     </Provider>
