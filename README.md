@@ -35,7 +35,7 @@ More-recipes API: <a href="https://more-recipes-application.herokuapp.com">here<
 
 * Front-end: React/Redux + SASS/Bootstrap
 * Back-end: Expressjs + Sequelize
-* Libraries: jsonwebtoken, Babel, eslint, Mocha/Chai + chai-http
+* Libraries: jsonwebtoken, Babel, eslint, Mocha/Chai + chai-http, jest, enzyme
 * System Dependencies: Node + PostgreSQL
 
 ### Folder Structure
@@ -51,11 +51,11 @@ More-recipes API: <a href="https://more-recipes-application.herokuapp.com">here<
 * Navigate into the application root directory: `cd more-recipes`
 * Setup PostgresSQL on your local machine or Use [ElephantSql](https://www.elephantsql.com/)
 * Run `$ npm install` to install all dependencies
-* Install sequelize-cli, Run $ npm install -g sequelize-cli (NB: May require sudo priviledges)
+* Install sequelize-cli, Run `$ npm install -g sequelize-cli` (NB: May require sudo priviledges)
 * Create a `.env` file in the root directory using the sample `.env.sample` file
 * setup your database configurations according to settings in server/config/config.js
 * Run `$ sequelize db:migrate`
-* Run tests using `npm run test:dev`
+* Run tests using `$ npm run test:dev`
 
 ### How to Demo/Run the App
 
@@ -154,15 +154,19 @@ This project is open for contributions. All contributions must adhere to the Air
 * [Javascript](http://airbnb.io/javascript/)
 * [React](https://github.com/airbnb/javascript/tree/master/react)
 
+
+### Wiki
+Visit the [wiki here](https://github.com/fuchodeveloper/more-recipes/wiki) for more information about the conventions used in this project
+
 ### To get started:
 
 * Raise an Issue [here](https://github.com/fuchodeveloper/more-recipes/issues)
 * Fork the repository
 * Create a branch the feature: `git checkout -b my-new-feature`
 * Add your changes `git add .`
-* Commit your changes: `git commit -am 'Added some features'`
+* Commit your changes: `git commit -m 'Added some features'`
 * Push to the branch: `git push origin my-new-feature`
-* Submit a PR (pull request) to the [develop branch](https://github.com/fuchodeveloper/more-recipes/tree/develop)
+* Submit a PR (pull request) to the [develop branch](https://github.com/fuchodeveloper/more-recipes)
 
 ### Author(s)
 

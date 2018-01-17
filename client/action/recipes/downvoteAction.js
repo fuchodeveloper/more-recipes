@@ -27,9 +27,10 @@ const downvoteRecipe = param =>
       alertify.success(response.data.message);
       return dispatch(downvoteRecipeActionCreator(response.data.recipe));
     })
-    .catch((error) => {
+    .catch(() => {
+      alertify.delay(1000);
       alertify.logPosition('bottom right');
-      alertify.error(error.message);
+      alertify.error('Please login to downvote recipe');
     });
 
 

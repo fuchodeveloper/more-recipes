@@ -18,7 +18,6 @@ describe('Recipes reducer', () => {
       recipes
     };
 
-    // expect(getAllRecipes({}, { type: GET_ALL_RECIPES, recipes: getAllRecipes })).toEqual({});
     const newState = recipesReducer(initialState, action);
 
     expect(newState.recipes).toEqual(recipes.recipes);
@@ -45,3 +44,4 @@ describe('Recipes reducer', () => {
     done();
   });
 });
+

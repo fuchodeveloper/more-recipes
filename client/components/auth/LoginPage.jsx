@@ -13,7 +13,7 @@ import login from '../../action/authentication/loginAction';
    *
    * @extends {React.Component}
    */
-class LoginPage extends React.Component {
+export class LoginPage extends React.Component {
   /**
    * @description Creates an instance of LoginForm.
    *
@@ -104,13 +104,13 @@ class LoginPage extends React.Component {
         <div className="container margin-top-70">
 
           <div className="margin-top-bottom-auto">
-            <h2 className="text-center">Welcome Back</h2>
+            <h2 className="text-center welcome-back">Welcome Back</h2>
           </div>
 
           <div className="col-md-5 card mx-auto p-4">
             <div className="mx-auto">
 
-              <form onSubmit={this.onSubmit}>
+              <form onSubmit={this.onSubmit} id="loginForm">
                 <div className="row">
 
                   <div className="col-md-12 mb-2">
@@ -185,9 +185,6 @@ LoginPage.propTypes = {
   auth: PropTypes.bool
 };
 
-LoginPage.contextTypes = {
-  router: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
   errors: state.auth.error,
