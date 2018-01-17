@@ -23,7 +23,6 @@ const myRecipesAction = () => (dispatch) => {
       ]));
     })
     .catch((error) => {
-      console.log(error);
       dispatch(myRecipesActionCreatorError(error.data));
     });
 };

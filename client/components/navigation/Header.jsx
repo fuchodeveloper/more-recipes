@@ -11,10 +11,11 @@ import logoutAction from '../../action/authentication/logoutAction';
  * @class Header
  * @extends {React.Component}
  */
-class Header extends React.Component {
+export class Header extends React.Component {
   /**
    * Creates an instance of Header.
-   * @param {any} props
+   * @param {Object} props
+   *
    * @memberof Header
    */
   constructor(props) {
@@ -25,9 +26,11 @@ class Header extends React.Component {
   /**
  * @description handle user log out
  *
- * @param {any} event
+ * @param {Object} event
+ *
  * @memberof Header
- * @returns {void}
+ *
+ * @returns {undefined}
  */
   logout(event) {
     event.preventDefault();
@@ -37,7 +40,8 @@ class Header extends React.Component {
   /**
    * @description Render the JSX template
    *
-   * @returns {html} html
+   * @returns {JSX} render JSX template
+   *
    * @memberof Header
    */
   render() {

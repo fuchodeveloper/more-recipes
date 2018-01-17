@@ -17,6 +17,14 @@ const testData = {
     passwordConfirmation: 'password1'
   },
 
+  favoriteNewUser: {
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    emailAddress: faker.internet.email(),
+    password: 'password1',
+    passwordConfirmation: 'password1'
+  },
+
   newRecipe: {
     userId: null,
     recipeName: faker.name.findName(),

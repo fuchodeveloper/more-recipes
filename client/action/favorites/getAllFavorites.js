@@ -35,7 +35,7 @@ const getAllFavorites = (userId, page) => (dispatch) => {
     .catch(() => {
       alertify.delay(2000);
       alertify.logPosition('bottom right');
-      // alertify.error(error.data.);
+      alertify.error('no favorite recipes found');
     });
 };
 

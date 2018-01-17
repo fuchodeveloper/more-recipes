@@ -58,7 +58,7 @@ const favoritesController = {
               recipeId: request.params.id,
               userId: request.decoded.id
             })
-              .then(() => response.status(200).json({
+              .then(() => response.status(201).json({
                 favorite: recipe.favoriteCount,
                 favorited: true,
                 message: messageText
@@ -88,7 +88,7 @@ const favoritesController = {
         }
         return response.status(200).send({ isFound });
       })
-      .catch(error => response.status(400).json({ error: error.message }));
+      .catch(error => response.status(500).json({ error: error.message }));
   },
 
   getAllFavorites(request, response) {
@@ -111,7 +111,7 @@ const favoritesController = {
         }
         return response.status(200).json({ favorites: favoritesFound });
       })
-      .catch(error => response.status(400).json({ error: error.message }));
+      .catch(error => response.status(500).json({ error: error.message }));
   }
 };
 

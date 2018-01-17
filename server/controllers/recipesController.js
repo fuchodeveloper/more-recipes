@@ -10,7 +10,7 @@ const { Recipes, Reviews, User } = db;
 const recipeController = {
 
   /**
-   * Create a new recipe
+   * @description Create a new recipe
    *
    * @param {Object} request - HTTP Request
    * @param {Object} response - HTTP Response
@@ -44,9 +44,10 @@ const recipeController = {
   },
 
   /**
-   * Get a single recipe
-   * @param {any} request - HTTP Request
-   * @param {any} response - HTTP Response
+   * @description Get a single recipe
+   * @param {Object} request - HTTP Request
+   * @param {Object} response - HTTP Response
+   *
    * @returns {object} json - Returned object
    */
   getRecipe(request, response) {
@@ -163,10 +164,12 @@ const recipeController = {
   },
 
   /**
-   * Delete a recipe
-   * @param {any} request - HTTP Request
-   * @param {any} response - HTTP Response
-   * @returns {json} Returned json
+   * @description Delete a recipe
+   *
+   * @param {Object} request - HTTP Request
+   * @param {Object} response - HTTP Response
+   *
+   * @returns {String} message
    */
   deleteRecipe(request, response) {
     if (!request.params.id) {
@@ -201,10 +204,12 @@ const recipeController = {
   },
 
   /**
-   * Update a recipe
-   * @param {any} request - HTTP Request
-   * @param {any} response - HTTP Response
-   * @returns {json} Returned json
+   * @description Update a recipe
+   *
+   * @param {Object} request - HTTP Request
+   * @param {Object} response - HTTP Response
+   *
+   * @returns {Object} recipe
    */
   updateRecipe(request, response) {
     if (!request.params.id) {
@@ -261,11 +266,12 @@ const recipeController = {
         .json({ error: error.message }));
   },
   /**
- * Search for a recipe
+ * @description Search for a recipe
  *
- * @param {any} request - HTTP Request
- * @param {any} response - HTTP Response
- * @returns {object} Returned object
+ * @param {Object} request - HTTP Request
+ * @param {Object} response - HTTP Response
+ *
+ * @returns {Object} recipes
  */
   searchRecipes(request, response) {
     return Recipes

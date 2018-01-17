@@ -9,11 +9,11 @@ const router = express.Router();
  */
 router.post(
   '/:id/upvote',
-  authorization.verifyUser, votesController.upVote
+  authorization.verifyToken, votesController.upVote
 );
 router.post(
   '/:id/downvote',
-  authorization.verifyUser, votesController.downVote
+  authorization.verifyToken, votesController.downVote
 );
 
 export default router;

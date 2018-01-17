@@ -32,7 +32,7 @@ const authourization = {
             req.decoded = decoded;
             return next();
           })
-          .catch(err => res.status(404).json({ error: err.message }));
+          .catch(err => res.status(400).json({ error: err.message }));
       });
     } else {
       res.status(403).json({
