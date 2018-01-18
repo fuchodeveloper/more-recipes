@@ -11,7 +11,7 @@ const MyRecipesDetail = props => (
         <p className="card-text">{`${props.details.recipeDirection.slice(0, 100)}...`}</p>
         <div className="card-footer custom-card-footer-bg">
           <p className="card-text"><small className="text-muted">{props.details.views} <i className="fa fa-eye" aria-hidden="true" /> . {props.details.upVotes} <i className="fa fa-thumbs-up" aria-hidden="true" /> . {props.details.favoriteCount} <i className="fa fa-star" aria-hidden="true" /></small></p>
-          <Link to={`/recipes/${props.details.id}`} className="btn btn-primary btn-primary-color">View Recipe</Link> &nbsp; <Link to={`/edit_recipe/${props.details.id}`} className="btn btn-light">Edit Recipe</Link>
+          <Link to={`/recipes/${props.details.id}`} className="btn btn-primary btn-primary-color">View Recipe</Link> &nbsp; <Link to={`/update/${props.details.id}`} className="btn btn-light">Edit Recipe</Link>
         </div>
       </div>
     </div>
