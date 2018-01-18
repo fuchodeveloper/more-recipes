@@ -243,6 +243,15 @@
                   <li>
                     <a href="#get-all-recipes" class="toc-h2 toc-link" data-title="Recipes">Get All recipes</a>
                   </li>
+                  <li>
+                    <a href="#get-a-recipe" class="toc-h2 toc-link" data-title="Recipes">Get a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#upvote-a-recipe" class="toc-h2 toc-link" data-title="Recipes">Upvote a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#downvote-a-recipe" class="toc-h2 toc-link" data-title="Recipes">Downvote a recipe</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -336,25 +345,202 @@
 <p><code>POST https://more-recipes-application.herokuapp.com/api/v1/users/signin</code></p>
 <h1 id='recipes'>Recipes</h1><h2 id='get-all-recipes'>Get All recipes</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes</span>
 </code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>GET</strong> <code>/api/v1/recipes</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
 <blockquote>
+<p>Response:</p>
+
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pageCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
     </span><span class="s2">"recipes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"banana bread"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1 cup (150g) plain (all purpose) flour 2 over ripe bananas 125g (1 stick) butter 4 eggs ¼ cup sugar 1 teaspoon baking soda ½ teaspoon yeast ½ teaspoon salt 1 tin peak filled evaporated milk ¼ cup roasted groundnuts and cashew nuts"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeDirection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"use very ripe but firm bananas.</span><span class="se">\n</span><span class="s2">peak milk works well with this recipe because it is uper creamy.</span><span class="se">\n</span><span class="s2">the eggs should be at room temperature. which means that before you make the banana bread, bring the eggs out of the fridge long before you will make the cake. if it is winter where you live, bring them out the night before.</span><span class="se">\n</span><span class="s2">peak filled evaporated milk had a unique rich creamy flavour that works well with the vanilla and butterscotch flavours."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516029780/oguznkcwbx05b8dqsrct.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-15T15:23:46.123Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-15T15:23:46.123Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
             </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"recipeQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"recipeIngredient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tomatoes"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"recipeDirection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pour the chicken stock and the tomato stew into a sizeable pot and leave to boil."</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"how to cook nigerian jollof rice"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice 2-3 cups tomato stew chicken (whole chicken, drumsticks or chicken breast) pepper and salt (to taste) 2 medium onions 3 knorr cubes 2 teaspoons thyme 2 teaspoons curry powder (nigerian curry powder)"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeDirection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prepare the tomato stew. visit the tomato stew page for details on how to do that. it is advisable to prepare tomato stew before hand and keep in the freezer. this is so that whenever you want to cook any jollof rice related dish, it is just a matter of adding it to your cooking.</span><span class="se">\n</span><span class="s2">if you will use whole chicken then wash and cut it into pieces. cook with the thyme, knorr cubes and 2 bulbs of onions (chopped). the cooking time depends on the type of chicken. the rooster or cockerel cooks much faster than the hen but the hen is definitely tastier. when done, grill it in an oven. you may also fry it. this is to give it a golden look which is more presentable especially if you have guests for dinner.</span><span class="se">\n</span><span class="s2">parboil the rice using the method detailed in parboiling rice for cooking jollof rice. rinse the parboiled rice and put in a sieve to drain."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516027828/oekpqjhvnxcvom0w7edw.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-15T14:50:41.129Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-15T14:50:46.952Z"</span><span class="w">
         </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves all available recipes properly paginated.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET https://more-recipes-application.herokuapp.com/api/v1/recipes</code></p>
+
+<hr>
+<h2 id='get-a-recipe'>Get a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes/:id</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>GET</strong> <code>/api/v1/recipes/:id</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"how to cook nigerian jollof rice"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ingredient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice 2-3 cups tomato stew chicken (whole chicken, drumsticks or chicken breast) pepper and salt (to taste) 2 medium onions 3 knorr cubes 2 teaspoons thyme 2 teaspoons curry powder (nigerian curry powder)"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeDirection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prepare the tomato stew. visit the tomato stew page for details on how to do that. it is advisable to prepare tomato stew before hand and keep in the freezer. this is so that whenever you want to cook any jollof rice related dish, it is just a matter of adding it to your cooking.</span><span class="se">\n</span><span class="s2">if you will use whole chicken then wash and cut it into pieces. cook with the thyme, knorr cubes and 2 bulbs of onions (chopped). the cooking time depends on the type of chicken. the rooster or cockerel cooks much faster than the hen but the hen is definitely tastier. when done, grill it in an oven. you may also fry it. this is to give it a golden look which is more presentable especially if you have guests for dinner.</span><span class="se">\n</span><span class="s2">parboil the rice using the method detailed in parboiling rice for cooking jollof rice. rinse the parboiled rice and put in a sieve to drain."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516027828/oekpqjhvnxcvom0w7edw.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-15T14:50:41.129Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-18T03:20:07.492Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Reviews"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves a single recipe.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET https://more-recipes-application.herokuapp.com/api/v1/recipes/:id</code></p>
+
+<hr>
+<h2 id='upvote-a-recipe'>Upvote a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes/:id/upvote</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>POST</strong> <code>/api/v1/recipes/:id/upvote</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>201:Created</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+     </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"how to cook nigerian jollof rice"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ingredient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice 2-3 cups tomato stew chicken (whole chicken, drumsticks or chicken breast) pepper and salt (to taste) 2 medium onions 3 knorr cubes 2 teaspoons thyme 2 teaspoons curry powder (nigerian curry powder)"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeDirection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prepare the tomato stew. visit the tomato stew page for details on how to do that. it is advisable to prepare tomato stew before hand and keep in the freezer. this is so that whenever you want to cook any jollof rice related dish, it is just a matter of adding it to your cooking.</span><span class="se">\n</span><span class="s2">if you will use whole chicken then wash and cut it into pieces. cook with the thyme, knorr cubes and 2 bulbs of onions (chopped). the cooking time depends on the type of chicken. the rooster or cockerel cooks much faster than the hen but the hen is definitely tastier. when done, grill it in an oven. you may also fry it. this is to give it a golden look which is more presentable especially if you have guests for dinner.</span><span class="se">\n</span><span class="s2">parboil the rice using the method detailed in parboiling rice for cooking jollof rice. rinse the parboiled rice and put in a sieve to drain."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516027828/oekpqjhvnxcvom0w7edw.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">29</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-15T14:50:41.129Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-18T08:46:37.837Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipe upvoted"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint is used to upvote a recipe.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>GET https://more-recipes-application.herokuapp.com/api/v1/recipes/:id/upvote</code></p>
+
+<hr>
+<h2 id='downvote-a-recipe'>Downvote a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes/:id/downvote</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>POST</strong> <code>/api/v1/recipes/:id/downvote</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>201:Created</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"how to cook nigerian jollof rice"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ingredient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice 2-3 cups tomato stew chicken (whole chicken, drumsticks or chicken breast) pepper and salt (to taste) 2 medium onions 3 knorr cubes 2 teaspoons thyme 2 teaspoons curry powder (nigerian curry powder)"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeDirection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prepare the tomato stew. visit the tomato stew page for details on how to do that. it is advisable to prepare tomato stew before hand and keep in the freezer. this is so that whenever you want to cook any jollof rice related dish, it is just a matter of adding it to your cooking.</span><span class="se">\n</span><span class="s2">if you will use whole chicken then wash and cut it into pieces. cook with the thyme, knorr cubes and 2 bulbs of onions (chopped). the cooking time depends on the type of chicken. the rooster or cockerel cooks much faster than the hen but the hen is definitely tastier. when done, grill it in an oven. you may also fry it. this is to give it a golden look which is more presentable especially if you have guests for dinner.</span><span class="se">\n</span><span class="s2">parboil the rice using the method detailed in parboiling rice for cooking jollof rice. rinse the parboiled rice and put in a sieve to drain."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516027828/oekpqjhvnxcvom0w7edw.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">29</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-15T14:50:41.129Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-18T08:51:16.777Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipe downvoted"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint is used to upvote a recipe.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>GET https://more-recipes-application.herokuapp.com/api/v1/recipes/:id/downvote</code></p>
 <h1 id='errors'>Errors</h1>
 <p>The more recipes API uses the following error codes:</p>
 
