@@ -14,7 +14,6 @@ export const profileActionCreatorError = error => ({
 });
 
 const profileAction = id => (dispatch) => {
-  // debugger;
   dispatch(setFetching());
   axios.get(`/api/v1/profile/${id}`)
     .then((response) => {

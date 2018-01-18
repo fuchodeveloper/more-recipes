@@ -39,8 +39,7 @@ describe('Recipe controller', () => {
     chai.request(app)
       .post('/api/v1/recipes')
       .set('Content-Type', 'application/json')
-      .set('x-access-token', `ejhs54nsofskalhdfkgnasflgnklsf;ag 
-      sfgjoE9EUR0Q3NFKSNDSI`)
+      .set('x-access-token', `ejhs54nsofskalhdfkgnasflgnklsf;agsfgjoE9EUR0Q3NFKSNDSI`)
       .send(testData.newRecipe)
       .end((err, res) => {
         expect(res).to.have.status(401);

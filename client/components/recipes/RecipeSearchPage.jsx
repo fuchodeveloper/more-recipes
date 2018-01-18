@@ -4,18 +4,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import recipeSearch from '../../action/recipes/recipeSearchAction';
 import RecipeSearchResult from './RecipeSearchResult';
-import recipePlaceholder from '../../assets/img/recipe_placeholder.png';
-
 /**
  * @description recipe search class
  *
  * @class RecipeSearchPage
+ *
  * @extends {Component}
  */
 class RecipeSearchPage extends Component {
   /**
    * Creates an instance of RecipeSearchPage.
+   *
    * @param {any} props
+   *
    * @memberof RecipeSearchPage
    */
   constructor(props) {
@@ -33,7 +34,9 @@ class RecipeSearchPage extends Component {
  * @description lifecycle method used to update state
  *
  * @param {any} nextProps
+ *
  * @memberof RecipeSearchPage
+ *
  * @returns {void}
  */
   componentWillReceiveProps(nextProps) {
@@ -43,7 +46,9 @@ class RecipeSearchPage extends Component {
  * @description handle input change
  *
  * @param {any} event
+ *
  * @memberof RecipeSearchPage
+ *
  * @returns {void}
  */
   onChange(event) {
@@ -56,7 +61,9 @@ class RecipeSearchPage extends Component {
  * @description handle form submission
  *
  * @param {any} event
+ *
  * @memberof RecipeSearchPage
+ *
  * @returns {void}
  */
   onSubmit(event) {
@@ -68,6 +75,7 @@ class RecipeSearchPage extends Component {
  * @description render JSX template
  *
  * @returns {html} html
+ *
  * @memberof RecipeSearchPage
  */
   render() {
@@ -101,20 +109,6 @@ class RecipeSearchPage extends Component {
                 />
 
               </div>
-
-
-              {
-                isEmpty(this.props.searchResult) ?
-                  <div className="text-center mt-5">
-                    <img
-                      src={recipePlaceholder}
-                      width="50%"
-                      max-height="50%"
-                      alt="No recipe"
-                    />
-                  </div>
-                : ''
-              }
 
             </form>
             <div className="margin-top-50 margin-bottom-50" />
