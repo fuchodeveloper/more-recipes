@@ -21,13 +21,13 @@ describe('Recipe favorites', () => {
 });
 
 describe('Recipe controller', () => {
-  it('should return 500 if request cannot be fulfilled', (done) => {
+  it('should return 400 if request cannot be fulfilled', (done) => {
     chai.request(app)
       .post(`/api/v1/users/${'wrong'}/recipes`)
       .set('Content-Type', 'application/json')
       .set('x-access-token', userToken)
       .end((err, res) => {
-        expect(res).to.have.status(500);
+        expect(res).to.have.status(400);
         done();
       });
   });
@@ -56,15 +56,5 @@ describe('Recipe controller', () => {
       });
   });
 
-  it('should return 201 if a favorite is successfully created', (done) => {
-    chai.request(app)
-      .post(`/api/v1/users/${''}/recipes`)
-      .set('Content-Type', 'application/json')
-      .set('x-access-token', userToken)
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        done();
-      });
-  });
 });
 

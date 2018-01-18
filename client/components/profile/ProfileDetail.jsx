@@ -61,7 +61,7 @@ const ProfileDetail = props => (
         {/* Password details */}
         <div className="row">
           <div className="col-md-6 mb-3">
-            <label htmlFor="assword">Old Password</label>
+            <label htmlFor="assword">Current Password</label>
             <input
               type="password"
               className="form-control text-muted"
@@ -92,23 +92,6 @@ const ProfileDetail = props => (
             />
 
           </div>
-
-          {/* <div className="col-md-12 mb-3">
-                <label htmlFor="confirmPassword">Confirm Password</label>
-                <input
-                  type="password"
-                  className="form-control text-muted"
-                  id="confirmPassword"
-                  name="newPassword"
-                  value={props.newPassword}
-                  onChange={ props.onChange }
-                  placeholder="******"
-                  required
-                />
-                <div className="invalid-feedback">
-                    Please check input again
-                </div>
-            </div> */}
 
         </div>
 

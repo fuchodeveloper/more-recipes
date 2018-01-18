@@ -129,7 +129,9 @@ FavoriteRecipesPage.defaultProps = {
 
 FavoriteRecipesPage.propTypes = {
   id: PropTypes.number,
-  user: PropTypes.shape({}).isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number
+  }).isRequired,
   getAllFavoritesProps: PropTypes.func.isRequired,
   favorites: PropTypes.objectOf(String).isRequired,
   isFetching: PropTypes.bool

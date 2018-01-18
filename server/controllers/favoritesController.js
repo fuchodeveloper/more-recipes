@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import db from '../models/';
 
 const { Favorites, Recipes } = db;
@@ -17,7 +18,7 @@ const favoritesController = {
       return response.status(400).json({ error: 'Recipe id is required.' });
     }
 
-    if (Number.isNaN(request.params.id)) {
+    if (isNaN(request.params.id)) {
       return response.status(400).json({ error: 'Recipe id is invalid!' });
     }
 
@@ -75,7 +76,7 @@ const favoritesController = {
       return response.status(400).json({ error: 'Recipe id is required.' });
     }
 
-    if (Number.isNaN(request.params.id)) {
+    if (isNaN(request.params.id)) {
       return response.status(400).json({ error: 'Recipe id is invalid!' });
     }
 
@@ -96,7 +97,7 @@ const favoritesController = {
       return response.status(400).json({ error: 'Recipe id is required.' });
     }
 
-    if (Number.isNaN(request.params.id)) {
+    if (isNaN(request.params.id)) {
       return response.status(400).json({ error: 'Recipe id is invalid!' });
     }
 

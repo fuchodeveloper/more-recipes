@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,21 +14,27 @@ import myRecipesAction from '../../action/recipes/myRecipesActions';
  * @extends {React.Component}
  */
 class MyRecipesPage extends React.Component {
+  /**
+   * @description Creates an instance of MyRecipesPage.
+   *
+   * @param {Object} props
+   *
+   * @memberof MyRecipesPage
+   */
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
-      details: {},
-      errors: {},
-      favoriteCount: 0,
-      cloudinaryRecipeImage: '',
       recipes: ''
     }; // Initialize the state
   }
 
 
   /**
-   *  GET all recipes for authenticated user using API endpoint
+   * @description GET all recipes for authenticated user using API endpoint
+   *
+   * @memberof MyRecipesPage
+   *
+   * @returns {undefined}
    */
   componentDidMount() {
     this.props.myRecipesActionProps();
@@ -125,15 +132,23 @@ class MyRecipesPage extends React.Component {
 }
 
 /**
- * function mapStateToProps
+ * @description function mapStateToProps
  *
- * @param {object} state
+ * @param {Object} state
+ *
  * @returns {object} recipes
  */
 const mapStateToProps = state => ({
   recipes: state.recipes.recipes
 });
 
+/**
+ * @description dispatch myRecipesActionProps
+ *
+ * @param {dispatch} dispatch
+ *
+ * @returns {action} action
+ */
 const mapDispatchToProps = dispatch => ({
   myRecipesActionProps: () => dispatch(myRecipesAction())
 });

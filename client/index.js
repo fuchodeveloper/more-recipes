@@ -19,8 +19,6 @@ import FavoriteRecipesPage from './components/favorites/FavoriteRecipesPage';
 import MostUpvotesPage from './components/most-upvotes/MostUpvotesPage';
 import ProfilePage from './components/profile/ProfilePage';
 import RecipeSearchPage from './components/recipes/RecipeSearchPage';
-import CategoriesPage from './components/categories/CategoriesPage';
-import Category from './components/categories/Category';
 import rootReducer from './rootReducer';
 import LoginPage from './components/auth/LoginPage';
 import './assets/scss/main.scss';
@@ -73,9 +71,7 @@ const Root = () => {
               <Route path="/:name/recipes" component={requireAuth(MyRecipesPage)} />
               <Route path="/favorites" component={requireAuth(FavoriteRecipesPage)} />
               <Route path="/profile" component={requireAuth(ProfilePage)} />
-              <Route path="/edit_recipe/:id" component={requireAuth(UpdateRecipePage)} />
-              <Route path="/categories" component={requireAuth(CategoriesPage)} />
-              <Route path="/category/breakfast" component={requireAuth(Category)} />
+              <Route path="/update/:id" component={requireAuth(UpdateRecipePage)} />
               <Route path="/votes" component={MostUpvotesPage} />
               <Route path="*" component={NotFound} />
             </Switch>

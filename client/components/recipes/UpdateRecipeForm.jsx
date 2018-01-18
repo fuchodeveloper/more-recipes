@@ -39,14 +39,15 @@ class UpdateRecipeForm extends React.Component {
 
   /**
    * Handle change events
-   * @param {e} e
+   * 
+   * @param {event} event
    */
-  onChange(e) {
+  onChange(event) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onSubmit(e) {
-    e.preventDefault();
+  onSubmit(event) {
+    event.preventDefault();
 
     /**
      * Id of the recipe to be updated sent as param

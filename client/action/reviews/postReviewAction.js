@@ -14,9 +14,9 @@ const postRecipeReview = (param, userReview) => (dispatch) => {
       alertify.success(response.data.message);
       dispatch(postReviewAction(response.data.recipe));
     })
-    .catch((error) => {
+    .catch(() => {
       alertify.logPosition('bottom right');
-      alertify.error(error.message);
+      alertify.error('An error occurred. Please try again');
     });
 };
 

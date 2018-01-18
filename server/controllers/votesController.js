@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import db from '../models/';
 
 const {
@@ -20,10 +21,18 @@ const votesController = {
         .json({ error: 'Id of recipe is needed.' });
     }
 
+    if (isNaN(request.params.id)) {
+      return response.status(400).json({ error: 'Recipe id is invalid!' });
+    }
+
     Recipes.findById(request.params.id)
       .then((recipe) => {
         if (!recipe) {
           return response.status(404).json({ error: 'Recipe not found.' });
+        }
+
+        if (isNaN(request.params.id)) {
+          return response.status(400).json({ error: 'Recipe id is invalid!' });
         }
 
         let messageText;
@@ -139,7 +148,7 @@ const votesController = {
                   upVotes: recipe.upVotes === 0 ? 0 : recipe.upVotes - 1,
                   downVotes: recipe.downVotes + 1
                 })
-                  .then(recipeDecrem => response.status(200).json({
+                  .then(recipeDecrem => response.status(201).json({
                     recipe: recipeDecrem, message: messageText
                   }));
               } else if (vote.upvotes === 0 && vote.downvotes === 0) {

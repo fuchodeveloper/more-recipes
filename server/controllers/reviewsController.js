@@ -20,7 +20,7 @@ const reviewsController = {
 
     const validation = new Validator(body, rules);
     if (validation.fails()) {
-      return response.json({ error: validation.errors.all() });
+      return response.status(400).json({ error: 'review is required' });
     }
 
     User.findById(request.decoded.id)
@@ -42,7 +42,7 @@ const reviewsController = {
         }
 
         Reviews.create({
-          review: request.body.review,
+          review: request.body.review.trim(),
           recipeId: request.params.id,
           userId: request.decoded.id
         })

@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import Validator from 'validatorjs';
 import Sequelize from 'sequelize';
 import jwtDecode from 'jwt-decode';
@@ -176,7 +177,7 @@ const recipeController = {
       return response.status(400).json({ error: 'Recipe id is required.' });
     }
 
-    if (Number.isNaN(request.params.id)) {
+    if (isNaN(request.params.id)) {
       return response.status(400).json({ error: 'Recipe id is invalid!' });
     }
 
@@ -216,7 +217,7 @@ const recipeController = {
       return response.status(400).json({ error: 'Recipe id is required.' });
     }
 
-    if (Number.isNaN(request.params.id)) {
+    if (isNaN(request.params.id)) {
       return response.status(400).json({ error: 'Recipe id is invalid!' });
     }
     const { body } = request;
@@ -277,7 +278,7 @@ const recipeController = {
     return Recipes
       .findAll({
         where: {
-          recipeName: {
+          ingredient: {
             [Op.like]: `%${request.body.search.trim().toLowerCase()}%`
           }
         }
