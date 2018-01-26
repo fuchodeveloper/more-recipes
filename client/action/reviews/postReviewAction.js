@@ -12,7 +12,7 @@ const postRecipeReview = (param, userReview) => (dispatch) => {
     .then((response) => {
       alertify.logPosition('bottom right');
       alertify.success(response.data.message);
-      dispatch(postReviewAction(response.data.recipe));
+      dispatch(postReviewAction(response.data.recipe.Reviews));
     })
     .catch(() => {
       alertify.logPosition('bottom right');

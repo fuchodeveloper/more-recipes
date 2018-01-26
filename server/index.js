@@ -49,12 +49,18 @@ app.use(
   express.static(path.join(path.dirname(__dirname), 'docs'))
 );
 
-app.get('/*', (request, response) => {
-  response.sendFile(path.join(__dirname, '../dist/index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+  app.get('/*', (request, response) => {
+    response.sendFile(path.join(__dirname, '../dist/index.html'));
+  });
+} else if (process.env.NODE_ENV === 'development') {
+  app.get('/*', (request, response) => {
+    response.sendFile(path.join(__dirname, '../client/index.html'));
+  });
+}
 
-app.use(res => res.status(404).json({
-  message: '404: page not found'
+app.all('*', (req, res) => res.status(404).send({
+  message: 'Oops! 404. Page not Found',
 }));
 
 app.listen(port);

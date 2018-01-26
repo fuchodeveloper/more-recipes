@@ -10,23 +10,23 @@ const AllRecipes = props => (
         className="card-img-top"
         max-width="348px"
         height="231px"
-        src={props.details.recipeImage === ''
-        ? placeholderImage : props.details.recipeImage}
-        alt={props.details.recipeName}
+        src={props.details.image === ''
+        ? placeholderImage : props.details.image}
+        alt={props.details.name}
       />
       <div className="card-body">
-        <h4 className="card-title">{props.details.recipeName}</h4>
+        <h4 className="card-title">{props.details.name.slice(0, 20)}...</h4>
         <p className="card-text">
-          {`${props.details.recipeDirection.slice(0, 100)}...`}
+          {`${props.details.direction.slice(0, 100)}...`}
         </p>
         <div className="card-footer custom-card-footer-bg">
           <p className="card-text">
             <small className="text-muted">
-              {props.details.views}
+              {props.details.views} &nbsp;
               <i className="fa fa-eye" aria-hidden="true" /> .
-              {props.details.upVotes}
+              &nbsp;{props.details.upVotes}&nbsp;
               <i className="fa fa-thumbs-up" aria-hidden="true" /> .
-              {props.details.favoriteCount}
+              &nbsp;{props.details.favoriteCount} &nbsp;
               <i className="fa fa-star" aria-hidden="true" />
             </small>
           </p>
@@ -43,9 +43,9 @@ const AllRecipes = props => (
 
 AllRecipes.propTypes = {
   details: PropTypes.shape({
-    recipeImage: PropTypes.string.isRequired,
-    recipeName: PropTypes.string.isRequired,
-    recipeDirection: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    direction: PropTypes.string.isRequired,
     views: PropTypes.number.isRequired,
     id: PropTypes.number.isRequired,
     upVotes: PropTypes.number.isRequired,

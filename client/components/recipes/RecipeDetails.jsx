@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import noodles from '../../assets/img/noodles.jpg';
-import getRecipeDetails from '../../action/recipes/getRecipeDetails';
-import createFavorite from '../../action/favorites/createFavorite';
+import Capitalize from 'lodash.capitalize';
+import { BounceLoader } from 'react-spinners';
+import placeholderImage from '../../assets/img/noodles.jpg';
+import getRecipeAction from '../../action/recipes/getRecipeAction';
+import createFavoritesAction
+  from '../../action/favorites/createFavoritesAction';
 import upvoteRecipe from '../../action/recipes/upvoteAction';
 import postRecipeReview from '../../action/reviews/postReviewAction';
 import downvoteRecipe from '../../action/recipes/downvoteAction';
@@ -27,8 +30,8 @@ class RecipeDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviews: [],
-      review: ''
+      review: '',
+      loading: true
     }; // Initialize the state
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -42,25 +45,13 @@ class RecipeDetails extends React.Component {
  *
  * @memberof RecipeDetails
  *
- * @returns {undefined} calls recipeProps with the recipe id
+ * @returns {undefined} calls getRecipe with the recipe id
  */
-  componentDidMount() {
-    const param = this.props.match.params.id;
-    this.props.recipeProps(param);
-  }
-
-  /**
- * @description lifecycle method used to update state
- *
- * @param {Object} nextProps
- *
- * @memberof RecipeDetails
- *
- * @returns {undefined} recieves the updated props
- */
-  componentWillReceiveProps(nextProps) {
-    const reviews = nextProps.recipe.Reviews;
-    this.setState({ reviews });
+  componentWillMount() {
+    this.props.getRecipeAction(this.props.match.params.id)
+      .then(() => {
+        this.setState({ loading: false });
+      });
   }
 
   /**
@@ -130,9 +121,9 @@ class RecipeDetails extends React.Component {
  */
   createFavorite(event) {
     event.preventDefault();
-    const param = this.props.match.params.id;
+    const recipeId = this.props.match.params.id;
 
-    this.props.favoriteProps(param);
+    this.props.createFavoritesAction(recipeId);
   }
   /**
  * @description renders component to DOM
@@ -142,13 +133,23 @@ class RecipeDetails extends React.Component {
  *  @returns {JSX} JSX representation of component
  */
   render() {
-    const { isFetching, recipe } = this.props;
-
-    if (isFetching) {
+    if (this.state.loading) {
       return (
-        <h2 className="text-center">Loading...</h2>
+        <h2 className="text-center mt-5">
+          <span className="mt-5 d-inline-block">
+            <BounceLoader
+              color="#FF7055"
+              loading={this.state.loading}
+            />
+          </span>
+        </h2>
       );
     }
+    const { recipe } = this.props;
+
+    const ingredientsMap = recipe.ingredients.split(',').map((item, index) => (
+      <li key={index}>{Capitalize(item)}</li>
+    ));
 
     return (
       <div>
@@ -158,16 +159,18 @@ class RecipeDetails extends React.Component {
             <div
               className="jumbotron recipe-header-background"
               style={{
-              backgroundImage: `url(${recipe.recipeImage === ''
+              backgroundImage: `url(${recipe.image === ''
               ?
-              noodles : recipe.recipeImage})`
+              placeholderImage : recipe.image})`
             }}
             >
               <div className="container recipe-overlay-text">
-                <h1 className="display-3 recipe-title">
-                Recipe: {recipe.recipeName}
+                <h1
+                  className="display-2 recipe-title"
+                  style={{ marginTop: '10em' }}
+                >
+                Recipe: {recipe.name}
                 </h1>
-                <p className="recipe-author"><em>By: John Doe</em></p>
               </div>
             </div>
           </div>
@@ -176,28 +179,32 @@ class RecipeDetails extends React.Component {
             <div className="mb-4">
               <span className="recipe-title">Recipe Ingredients</span>
               <span className="float-right recipe-ratings-right text-muted">
-                {recipe.views}
+                {recipe.views}&nbsp;
                 <i className="fa fa-eye" aria-hidden="true" />
-                <span className="big-pipe">.</span>
-                {recipe.upVotes}
+                <span className="big-pipe"> . </span>
+                {recipe.upVotes}&nbsp;
                 <i className="fa fa-thumbs-up" aria-hidden="true" />
-                <span>.</span> {recipe.favoriteCount}
+                <span> .</span>
+                &nbsp; {recipe.favoriteCount}
                 <i className="fa fa-star" aria-hidden="true" />
               </span>
             </div>
 
             <div className="row">
               <div className="col-sm-6">
-                <p>
-                  {recipe.ingredient}
-                </p>
+                <ul className="p-4">
+                  {
+                    ingredientsMap
+                  }
+                </ul>
               </div>
 
               <div className="col-sm-6 float-right">
                 <img
-                  src={recipe.recipeImage === '' ? noodles : recipe.recipeImage}
+                  src={recipe.image === '' ?
+                  placeholderImage : recipe.image}
                   className="img img-fluid"
-                  alt={recipe.recipeName}
+                  alt={recipe.name}
                 />
                 <span className="text-muted form-text text-center">
                   <em>Food is ready</em>
@@ -208,7 +215,7 @@ class RecipeDetails extends React.Component {
             <div className="mt-5">
               <h3>Directions</h3>
               <p>
-                {recipe.recipeDirection}
+                {recipe.direction}
               </p>
             </div>
 
@@ -218,7 +225,21 @@ class RecipeDetails extends React.Component {
                 onClick={this.createFavorite}
                 className="font-awesome-fav"
               >
-                <i className="fa fa-heart-o fa-lg" /> Favorite
+                {
+                  !this.props.favorited ?
+                    <div style={{ display: 'inline' }}>
+                      <i className="fa fa-heart-o fa-lg" /> Favorite
+                    </div>
+                    :
+                    <div style={{ display: 'inline' }}>
+                      &nbsp;
+                      <span className="fa-stack fa-lg">
+                        <i className="fa fa-square-o fa-stack-2x" />
+                        <i className="fa fa-heart-o fa-stack-1x" />
+                      </span> Favorited
+                    </div>
+                }
+
               </a>
                 &nbsp;
             </div>
@@ -235,7 +256,8 @@ class RecipeDetails extends React.Component {
                 onClick={this.downVote}
                 className="font-awesome-thumb"
               >
-                <i className="fa fa-thumbs-down fa-lg" /> {recipe.downVotes}
+                <i className="fa fa-thumbs-down fa-lg" />
+                {recipe.downVotes}
               </a>
             </div>
 
@@ -243,16 +265,16 @@ class RecipeDetails extends React.Component {
               <h3 className="mb-4">Reviews</h3>
 
 
-              { Object.keys(this.state.reviews).length > 0 ?
-                <div>
+              { Object.keys(this.props.reviews).length > 0 ?
+                <div className="scroll col-md-8">
                   {
-                       Object
-                       .keys(this.state.reviews)
-                       .sort((a, b) => b - a)
-                       .map(key => (<RecipeReviews
-                         key={key}
-                         review={this.state.reviews[key]}
-                       />))
+                    Object
+                    .keys(this.props.reviews)
+                    .sort((a, b) => b - a)
+                    .map(key => (<RecipeReviews
+                      key={key}
+                      review={this.props.reviews[key]}
+                    />))
                   }
                 </div> : <i className="recipe-title">No reviews yet</i>
                 }
@@ -277,7 +299,7 @@ class RecipeDetails extends React.Component {
                       onChange={this.onChange}
                     />
                     <div className="invalid-feedback">
-                                Please add a review
+                      Please add a review
                     </div>
                   </div>
                 </div>
@@ -285,7 +307,7 @@ class RecipeDetails extends React.Component {
                 <button
                   className="btn btn-primary btn-primary-color"
                   type="submit"
-                >Submit form
+                >Add Review
                 </button>
               </form>
 
@@ -301,7 +323,7 @@ class RecipeDetails extends React.Component {
 }
 
 RecipeDetails.propTypes = {
-  recipeProps: PropTypes.func.isRequired,
+  getRecipeAction: PropTypes.func.isRequired,
   receiveUpvote: PropTypes.func.isRequired,
   postReview: PropTypes.func.isRequired,
   match: PropTypes.shape({
@@ -313,24 +335,23 @@ RecipeDetails.propTypes = {
     Reviews: PropTypes.shape({}).isRequired
   }).isRequired,
   receiveDownvote: PropTypes.func.isRequired,
-  favoriteProps: PropTypes.func.isRequired,
-  isFetching: PropTypes.func.isRequired
+  createFavoritesAction: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  recipe: state.recipe,
+  recipe: state.recipesReducer.recipe,
+  favorited: state.recipesReducer.favorited,
   isFetching: state.isFetching,
-  review: state.review,
-  favorite: state.favorite
+  reviews: state.recipesReducer.reviews,
+  userid: state.auth.user.id,
 });
-
 const mapDispatchToProps = dispatch => ({
-  favoriteProps: param => dispatch(createFavorite(param)),
-  recipeProps: param => dispatch(getRecipeDetails(param)),
-  receiveUpvote: param => dispatch(upvoteRecipe(param)),
-  receiveDownvote: param => dispatch(downvoteRecipe(param)),
-  postReview: (param, userReview) =>
-    dispatch(postRecipeReview(param, userReview))
+  createFavoritesAction: param => dispatch(createFavoritesAction(param)),
+  getRecipeAction: recipeId => dispatch(getRecipeAction(recipeId)),
+  receiveUpvote: recipeId => dispatch(upvoteRecipe(recipeId)),
+  receiveDownvote: recipeId => dispatch(downvoteRecipe(recipeId)),
+  postReview: (recipeId, userReview) =>
+    dispatch(postRecipeReview(recipeId, userReview)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);

@@ -19,10 +19,16 @@ const authourization = {
   verifyToken(req, res, next) {
     const token =
     req.body.token || req.query.token || req.headers['x-access-token'];
+
+    if (!token) {
+      res.status(401).json({
+        error: 'No token provided'
+      });
+    }
     if (token) {
       jwt.verify(token, secret, (error, decoded) => {
         if (error) {
-          return res.status(401).json({ error });
+          return res.status(401).json({ error: 'Invalid credentials' });
         }
         User.findById(decoded.id)
           .then((user) => {
@@ -32,11 +38,7 @@ const authourization = {
             req.decoded = decoded;
             return next();
           })
-          .catch(err => res.status(400).json({ error: err.message }));
-      });
-    } else {
-      res.status(403).json({
-        error: 'Token not provided'
+          .catch(err => res.status(500).json({ error: err.message }));
       });
     }
   },
@@ -55,16 +57,35 @@ const authourization = {
     req.body.token || req.query.token || req.headers['x-access-token'];
     if (!token) {
       return res.status(401)
-        .json({ error: 'No token provided.' });
+        .json({ error: 'No token provided' });
     }
 
     jwt.verify(token, secret, (error, decoded) => {
       if (error) {
-        return res.status(401).json({ error: error.message });
+        return res.status(401).json({ error: 'Invalid credentials' });
       }
       req.decoded = decoded;
       return next();
     });
+  },
+
+  injectToken(req, res, next) {
+    const token =
+    req.body.token || req.query.token || req.headers['x-access-token'];
+
+    if (!token) {
+      return next();
+    }
+
+    if (token) {
+      jwt.verify(token, secret, (error, decoded) => {
+        if (error) {
+          return res.status(401).json({ error: 'Invalid credentials' });
+        }
+        req.decoded = decoded;
+        return next();
+      });
+    }
   }
 };
 

@@ -1,5 +1,7 @@
 scss:
   enabled: false
-
+exclude:
+  - "template/**"
 eslint:
   enabled: true
+  config: ./eslintrc

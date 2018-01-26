@@ -27,7 +27,7 @@ router.get(
 );
 
 // Get a particular recipe
-router.get('/:id', recipesController.getRecipe);
+router.get('/:id', authorization.injectToken, recipesController.getRecipe);
 
 // An authenticated user can delete their recipes
 router.delete(

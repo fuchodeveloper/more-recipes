@@ -1,5 +1,6 @@
-/* eslint-disable no-restricted-globals */
+import jwtDecode from 'jwt-decode';
 import db from '../models/';
+import validateId from '../validations/validateId';
 
 const { Favorites, Recipes } = db;
 
@@ -14,12 +15,12 @@ const favoritesController = {
    */
 
   create(request, response) {
-    if (!request.params.id) {
-      return response.status(400).json({ error: 'Recipe id is required.' });
-    }
-
-    if (isNaN(request.params.id)) {
-      return response.status(400).json({ error: 'Recipe id is invalid!' });
+    /**
+     * @description validate request id
+     */
+    const { error } = validateId(request.params.id);
+    if (error) {
+      return response.status(400).json({ error });
     }
 
     Favorites.findOne({
@@ -40,9 +41,12 @@ const favoritesController = {
               recipe.decrement('favoriteCount');
               favorite.destroy()
                 .then(() => response.status(200).json({
-                  favorite: recipe.favoriteCount,
-                  favorited: false,
-                  message: messageText
+                  favorite: {
+                    favoriteCount: recipe.favoriteCount,
+                    userId: recipe.userId,
+                    favorited: false,
+                    message: messageText
+                  }
                 }));
             });
         }
@@ -60,9 +64,12 @@ const favoritesController = {
               userId: request.decoded.id
             })
               .then(() => response.status(201).json({
-                favorite: recipe.favoriteCount,
-                favorited: true,
-                message: messageText
+                favorite: {
+                  favoriteCount: recipe.favoriteCount,
+                  userId: recipe.userId,
+                  favorited: true,
+                  message: messageText
+                }
               }));
           });
       })
@@ -72,12 +79,12 @@ const favoritesController = {
   },
 
   getFavoriteCount(request, response) {
-    if (!request.params.id) {
-      return response.status(400).json({ error: 'Recipe id is required.' });
-    }
-
-    if (isNaN(request.params.id)) {
-      return response.status(400).json({ error: 'Recipe id is invalid!' });
+    /**
+     * @description validate request id
+     */
+    const { error } = validateId(request.params.id);
+    if (error) {
+      return response.status(400).json({ error });
     }
 
     Favorites.count({
@@ -89,29 +96,58 @@ const favoritesController = {
         }
         return response.status(200).send({ isFound });
       })
-      .catch(error => response.status(500).json({ error: error.message }));
+      .catch(serverError => response.status(500)
+        .json({ error: serverError.message }));
   },
 
   getAllFavorites(request, response) {
-    if (!request.params.id) {
-      return response.status(400).json({ error: 'Recipe id is required.' });
+    /**
+     * @description validate request id
+     */
+    const { error } = validateId(request.params.id);
+    if (error) {
+      return response.status(400).json({ error });
     }
 
-    if (isNaN(request.params.id)) {
-      return response.status(400).json({ error: 'Recipe id is invalid!' });
-    }
+    const page = request.query.page || 1;
+    const limit = request.query.limit || 9;
+    const offset = (page - 1) * limit;
 
-    Favorites.findAll({
-      distinct: 'recipeId',
-      where: { userId: request.params.id },
-      include: [{ model: Recipes }]
-    })
-      .then((favoritesFound) => {
-        if (favoritesFound.length === 0) {
+    return Favorites
+      .findAndCountAll({
+        limit,
+        offset,
+        where: { userId: request.params.id },
+        include: [{ model: Recipes }]
+      })
+      .then((recipes) => {
+        if (recipes.length === 0) {
           return response.status(404).json({ error: 'No favorites found.' });
         }
-        return response.status(200).json({ favorites: favoritesFound });
+
+        const totalCount = recipes.count;
+        const pageCount = Math.ceil(totalCount / limit);
+        const pageSize = recipes.rows.length;
+
+        return response.status(200)
+          .json({
+            page, pageCount, pageSize, totalCount, recipes: recipes.rows
+          });
       })
+      .catch(serverError => response.status(500)
+        .json({ error: serverError.message }));
+  },
+
+  getFavoriteIds(request, response) {
+    const userDecodedToken = jwtDecode(request.decoded);
+    const { id } = userDecodedToken;
+    Favorites.findOne({
+      where: {
+        userId: id,
+        recipeId: request.params.id
+      }
+    })
+      .then(favoritesId => response.status(200).json({ favoritesId }))
       .catch(error => response.status(500).json({ error: error.message }));
   }
 };

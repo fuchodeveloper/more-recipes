@@ -5,9 +5,11 @@ import { ADD_FAVORITE_SUCCESS } from '../types';
 /**
  * Create a favorite
  *
- * @export
- * @param {any} recipeId
- * @returns {object} favorite
+ * @export createFavoriteActionCreator
+ *
+ * @param {Object} recipeId
+ *
+ * @returns {Object} favorite
  */
 
 export const createFavoriteActionCreator = favorite => ({
@@ -15,12 +17,12 @@ export const createFavoriteActionCreator = favorite => ({
   favorite
 });
 
-const createFavorite = recipeId =>
+const createFavoriteAction = recipeId =>
   dispatch => axios.post(`/api/v1/users/${recipeId}/recipes`)
     .then((response) => {
       alertify.delay(900);
       alertify.logPosition('bottom right');
-      alertify.success(response.data.message);
+      alertify.success(response.data.favorite.message);
       return dispatch(createFavoriteActionCreator(response.data.favorite));
     })
     .catch(() => {
@@ -30,4 +32,4 @@ const createFavorite = recipeId =>
     });
 
 
-export default createFavorite;
+export default createFavoriteAction;

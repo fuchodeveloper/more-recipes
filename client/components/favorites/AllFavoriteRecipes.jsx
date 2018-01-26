@@ -7,6 +7,7 @@ import placeholderImage from '../../assets/img/noodles.jpg';
  * @description stateless component for all favorited recipes
  *
  * @param {Object} props
+ *
  * @returns {JSX} JSX template
  */
 const AllFavoriteRecipes = props => (
@@ -16,18 +17,18 @@ const AllFavoriteRecipes = props => (
         className="card-img-top"
         max-width="348px"
         height="231px"
-        src={props.details.Recipe.recipeImage === ''
+        src={props.details.Recipe.image === ''
           ? placeholderImage
           :
-            props.details.Recipe.recipeImage}
-        alt={props.details.Recipe.recipeName}
+            props.details.Recipe.image}
+        alt={props.details.Recipe.name}
       />
       <div className="card-body">
         <h4 className="card-title favorite-recipe-title">
-          <strong>{props.details.Recipe.recipeName}</strong>
+          <strong>{props.details.Recipe.name}</strong>
         </h4>
         <p className="card-text recipe-font-family">
-          {`${props.details.Recipe.recipeDirection.slice(0, 100)}...`}
+          {`${props.details.Recipe.direction.slice(0, 100)}...`}
         </p>
         <div className="card-footer custom-card-footer-bg">
           <p className="card-text">

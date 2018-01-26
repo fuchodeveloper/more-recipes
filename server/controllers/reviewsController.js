@@ -1,5 +1,6 @@
 import Validator from 'validatorjs';
 import db from '../models/';
+import validateId from '../validations/validateId';
 
 const { Recipes, User, Reviews } = db;
 
@@ -13,6 +14,10 @@ const reviewsController = {
    * @returns {Object} recipe
    */
   create(request, response) {
+    /**
+     * @description validate request id
+     */
+    validateId(request.params.id, response);
     const { body } = request;
     const rules = {
       review: 'required|min:3'
@@ -31,7 +36,7 @@ const reviewsController = {
           });
         }
       })
-      .catch(error => response.status(400).json(error.message));
+      .catch(error => response.status(500).json(error.message));
 
     return Recipes.findById(request.params.id)
       .then((recipe) => {
@@ -71,7 +76,7 @@ const reviewsController = {
             error: error.message
           }));
       })
-      .catch(error => response.status(400).json({
+      .catch(error => response.status(500).json({
         error: error.message
       }));
   },
@@ -80,7 +85,7 @@ const reviewsController = {
    * @description Get a review
    *
    * @param {Object} request - HTTP request
-   * @param {any} response - HTTP response
+   * @param {Object} response - HTTP response
    *
    * @returns {Object} review - the requested review object
    */
@@ -111,7 +116,7 @@ const reviewsController = {
         }
       })
       .then(review => response.status(200).json({ message: review }))
-      .catch(error => response.status(400).json(error.message));
+      .catch(error => response.status(500).json(error.message));
   }
 };
 

@@ -40,6 +40,7 @@ export const setCurrentUserError = error => ({
  * @description log in user into the application
  *
  * @export  signupAction
+ *
  * @param   {object} userDetails -
  *          the details supplied by the user to be used for authentication
  *
@@ -47,7 +48,7 @@ export const setCurrentUserError = error => ({
  */
 const loginAction = userDetails => (dispatch) => {
   dispatch(setFetching());
-  return axios.post('/api/v1/users/signin', userDetails)
+  axios.post('/api/v1/users/signin', userDetails)
     .then((response) => {
       const { token, message } = response.data;
       alertify.delay(2000);

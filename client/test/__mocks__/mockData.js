@@ -31,9 +31,9 @@ const mockData = {
       {
         id: 1,
         userId: 21,
-        recipeName: 'how to cook nigerian jollof rice',
+        name: 'how to cook nigerian jollof rice',
         favoriteCount: 0,
-        ingredient: `3¾ cups (750g) long grain parboiled rice 2-3 cups 
+        ingredients: `3¾ cups (750g) long grain parboiled rice 2-3 cups 
         tomato stew chicken (whole chicken, 
           drumsticks or chicken breast) pepper and 
         salt (to taste) 2 medium onions 
@@ -59,7 +59,7 @@ const mockData = {
           \nparboil the rice using the method detailed
            in parboiling rice for cooking jollof rice.
             rinse the parboiled rice and put in a sieve to drain.`,
-        recipeImage: `http://res.cloudinary.com/fuchodeveloper/image/
+        image: `http://res.cloudinary.com/fuchodeveloper/image/
         upload/v1516027828/oekpqjhvnxcvom0w7edw.jpg`,
         views: 1,
         upVotes: 0,
@@ -75,9 +75,9 @@ const mockData = {
     recipe: {
       id: 1,
       userId: 21,
-      recipeName: 'how to cook nigerian jollof rice',
+      name: 'how to cook nigerian jollof rice',
       favoriteCount: 0,
-      ingredient: `3¾ cups (750g) long grain parboiled rice
+      ingredients: `3¾ cups (750g) long grain parboiled rice
        2-3 cups tomato stew chicken (whole chicken, 
         drumsticks or chicken breast) pepper and 
         salt (to taste) 2 medium onions 3 knorr 
@@ -101,7 +101,7 @@ const mockData = {
               for dinner.\nparboil the rice using the method 
               detailed in parboiling rice for cooking jollof rice
               . rinse the parboiled rice and put in a sieve to drain.`,
-      recipeImage: `http://res.cloudinary.com/fuchodeveloper/
+      image: `http://res.cloudinary.com/fuchodeveloper/
       image/upload/v1516027828/oekpqjhvnxcvom0w7edw.jpg`,
       views: 1,
       upVotes: 0,

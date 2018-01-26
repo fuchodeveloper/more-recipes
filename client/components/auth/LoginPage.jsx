@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
-import validateInput from '../shared/validations/login';
+import validateInput from '../../validations/login';
 import login from '../../action/authentication/loginAction';
 
 /**

@@ -58,9 +58,7 @@ const usersController = {
               message: 'Signup successful',
               token: authToken
             });
-          })
-          .catch(() => response.status(400)
-            .json({ error: 'Signup failed. Try again.' }));
+          });
       }).catch(() => response.status(500)
         .json({ error: 'There was a problem registering the user.' }));
   },
@@ -96,7 +94,8 @@ const usersController = {
           const confirmPassword =
           bcrypt.compareSync((request.body.password), user.password);
           if (confirmPassword === false) {
-            return response.status(401).json({ error: 'Wrong email/password' });
+            return response.status(403)
+              .json({ error: 'Wrong email or password' });
           }
         }
 
@@ -144,14 +143,12 @@ const usersController = {
     };
 
     if (isNotValid()) {
-      return res.json({ errors: isNotValid() });
+      return res.status(400).json({ errors: isNotValid() });
     }
 
     const { firstName } = req.body;
     const { lastName } = req.body;
     const { emailAddress } = req.body;
-    const { password } = req.body;
-    const { newPassword } = req.body;
 
     return User.findOne({
       where: {
@@ -163,19 +160,10 @@ const usersController = {
           return res.status(404).json({ error: 'No user found.' });
         }
 
-        const comparePassword = bcrypt.compareSync(password, user.password);
-
-        if (comparePassword === false) {
-          return res.status(401).json({ error: 'Incorrect old password' });
-        }
-
-        const newUpdatedPassword = bcrypt.hashSync(newPassword);
-
         return user.update({
           firstName: firstName ? firstName.trim() : user.firstName,
           lastName: lastName ? lastName.trim() : user.lastName,
           emailAddress: emailAddress ? emailAddress.trim() : user.emailAddress,
-          password: newUpdatedPassword
         }, { where: { id: req.decoded.id } })
           .then((userData) => {
             User.findOne({
@@ -186,9 +174,7 @@ const usersController = {
             })
               .then(updatedUser => res.status(200).json({ user: updatedUser }))
               .catch(error => res.status(404).json({ error: error.message }));
-          })
-          .catch(error => res.status(400)
-            .json({ error: error.message }));
+          });
       })
       .catch(error => res.status(500).json({ error: error.message }));
   }

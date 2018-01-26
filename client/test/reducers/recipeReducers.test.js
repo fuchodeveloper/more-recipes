@@ -1,7 +1,7 @@
 import expect from 'expect';
 import { GET_ALL_RECIPES, RECEIVE_RECIPE } from '../../action/types';
 import recipesReducer from '../../reducers/recipes/getAllRecipes';
-import singleRecipeReducer from '../../reducers/recipes/getRecipeDetails';
+import singleRecipeReducer from '../../reducers/recipes/recipesReducer';
 import mockData from '../__mocks__/mockData';
 
 describe('Recipes reducer', () => {

@@ -9,7 +9,7 @@ export default (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.INTEGER
     },
-    recipeName: {
+    name: {
       type: DataTypes.STRING,
       trim: true
     },
@@ -17,13 +17,13 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    ingredient: {
+    ingredients: {
       type: DataTypes.STRING
     },
-    recipeDirection: {
+    direction: {
       type: DataTypes.TEXT
     },
-    recipeImage: {
+    image: {
       type: DataTypes.STRING
     },
     views: {
@@ -63,10 +63,6 @@ export default (sequelize, DataTypes) => {
     });
 
     Recipe.hasMany(models.Votes, {
-      foreignKey: 'recipeId'
-    });
-
-    Recipe.hasMany(models.downvotes, {
       foreignKey: 'recipeId'
     });
   };

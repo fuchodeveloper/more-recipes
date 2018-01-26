@@ -5,7 +5,7 @@ import ReactPaginate from 'react-paginate';
 import isEmpty from 'lodash/isEmpty';
 import AllRecipes from './recipes/AllRecipes';
 import recipeSearch from '../action/recipes/recipeSearchAction';
-import getAllRecipes from '../action/recipes/getAllRecipes';
+import getAllRecipesAction from '../action/recipes/getAllRecipesAction';
 
 /**
  * @description class to display all recipes
@@ -58,7 +58,7 @@ class Home extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       recipes: nextProps.recipes,
-      pageCount: nextProps.pageCount.pageCount
+      pageCount: nextProps.pageCount
     });
   }
 
@@ -75,8 +75,10 @@ class Home extends Component {
   /**
  * function to handle page number change
  *
- * @param {any} current
+ * @param {Number} current
+ *
  * @memberof Home
+ *
  * @returns {undefined}
  */
   onPageChange(current) {
@@ -116,8 +118,8 @@ class Home extends Component {
   /**
  * @description Render the JSX template
  *
- *
  * @memberof Home
+ *
  * @returns  {JSX} JSX representation of component
  */
   render() {
@@ -148,10 +150,11 @@ class Home extends Component {
               <div className="input-group mt-2 mb-2 p-1">
 
                 <input
+                  id="searchQuery"
                   type="text"
                   className="form-control p-3"
                   placeholder="Try: 'Jollof Rice' "
-                  aria-describedby="basic-addon2"
+                  aria-describedby="searchQuery"
                   name="searchQuery"
                   value={this.state.searchQuery}
                   onFocus={this.onFocus}
@@ -281,17 +284,15 @@ Home.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({
-  recipes, isFetching, searchResult, pageCount
-}) => ({
-  recipes,
-  isFetching,
-  searchResult,
-  pageCount
+const mapStateToProps = state => ({
+  recipes: state.recipesReducer.recipes,
+  isFetching: state.isFetching,
+  searchResult: state.searchResult,
+  pageCount: state.recipesReducer.pageCount
 });
 
 const mapDispatchToProps = dispatch => ({
-  recipeProps: pageCount => dispatch(getAllRecipes(pageCount)),
+  recipeProps: pageCount => dispatch(getAllRecipesAction(pageCount)),
   recipeSearch: searchContent => dispatch(recipeSearch(searchContent))
 });
 

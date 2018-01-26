@@ -5,8 +5,8 @@
   "main": "./server/index.js",
   "directories": {},
   "scripts": {
-    "test": "nyc mocha --compilers js:babel-core/register ./server/test/*.spec.js",
-    "test:dev": "NODE_ENV=test_dev nyc mocha --compilers js:babel-core/register ./server/test/*.spec.js",
+    "test": "nyc mocha --compilers js:babel-core/register --timeout=5000 ./server/test/index.spec.js",
+    "test:dev": "NODE_ENV=test_dev nyc mocha --compilers js:babel-core/register ./server/test/index.spec.js",
     "test:client": "jest /client --coverage",
     "test:watch": "npm run test:client -- --watch",
     "start": "NODE_ENV=production node ./dist/index.js",
@@ -19,7 +19,8 @@
     "eslint": "eslint --fix client server --ext=js,jsx",
     "migration": "NODE_ENV=production sequelize db:migrate",
     "migration:dev": "NODE_ENV=test_dev sequelize db:migrate",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "test-e2e": "nightwatch "
   },
   "author": "Fredrick Mgbeoma",
   "license": "ISC",
@@ -38,6 +39,7 @@
     "eslint-plugin-react": "^7.4.0",
     "jest": "^22.0.6",
     "moxios": "^0.4.0",
+    "nightwatch": "^0.9.19",
     "react-test-renderer": "^16.2.0",
     "redux-devtools": "^3.4.0",
     "redux-mock-store": "^1.4.0"
