@@ -58,44 +58,6 @@ const ProfileDetail = props => (
           </div>
         </div>
 
-        {/* Password details */}
-        <div className="row">
-          <div className="col-md-6 mb-3">
-            <label htmlFor="assword">Current Password</label>
-            <input
-              type="password"
-              className="form-control text-muted"
-              id="password"
-              name="password"
-              value={props.password}
-              placeholder="******"
-              onChange={props.onChange}
-              required
-            />
-
-            {/* { props.errors && <span className="form-text">
-          { props.errors }</span> }
-          */}
-          </div>
-
-          <div className="col-md-6 mb-3">
-            <label htmlFor="newPassword">New Password</label>
-            <input
-              type="password"
-              className="form-control text-muted"
-              id="newPassword"
-              name="newPassword"
-              value={props.newPassword}
-              onChange={props.onChange}
-              placeholder="******"
-              required
-            />
-
-          </div>
-
-        </div>
-
-
         <button
           className="btn btn-primary btn-primary-color"
           type="submit"
@@ -104,13 +66,13 @@ const ProfileDetail = props => (
         </button>
       </form>
     </div>
+
+
     <br />
   </div>
 );
 
 ProfileDetail.propTypes = {
-  password: PropTypes.string.isRequired,
-  newPassword: PropTypes.string.isRequired,
   emailAddress: PropTypes.string.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,

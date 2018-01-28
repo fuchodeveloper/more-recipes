@@ -4,7 +4,6 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import expect from 'expect';
 import { LoginPage } from '../../../components/auth/LoginPage';
-// import mockLocalStorage from '../../__mocks__/mockLocalStorage';
 
 configure({ adapter: new Adapter() });
 

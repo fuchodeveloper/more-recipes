@@ -7,10 +7,10 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     upvotes: {
-      type: DataTypes.INTEGER
+      type: DataTypes.BOOLEAN
     },
     downvotes: {
-      type: DataTypes.INTEGER
+      type: DataTypes.BOOLEAN
     }
   });
 

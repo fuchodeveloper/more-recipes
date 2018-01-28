@@ -20,5 +20,11 @@ router.get(
   favoritesController.getFavoriteCount
 );
 
+router.get(
+  '/favorites/:id/identifiers',
+  authorization.injectToken,
+  favoritesController.getFavoriteIds
+);
+
 export default router;
 

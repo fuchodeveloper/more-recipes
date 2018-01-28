@@ -66,13 +66,11 @@ export class Header extends React.Component {
           </a>
 
           <div
-            className="dropdown-menu main-nav-menu width-5"
+            className="dropdown-menu main-nav-menu width-5 dropdown-menu-right"
             aria-labelledby="dropdownMenuLink"
-            style={{ left: '-10px' }}
           >
             <Link className="dropdown-item" to="/profile">Profile</Link>
             <Link className="dropdown-item" to="/add">Add Recipe</Link>
-            <Link className="dropdown-item" to="/categories">Categories</Link>
             <Link className="dropdown-item" to="/favorites">
             Favorite Recipes
             </Link>
@@ -105,11 +103,11 @@ export class Header extends React.Component {
         <nav
           className="navbar navbar-expand-lg navbar-light bg-light fixed-top"
         >
-          <a
+          <Link
             className="navbar-brand navbar-brand-color"
-            href="/"
+            to="/"
           >More Recipes
-          </a>
+          </Link>
           <button
             className="navbar-toggler hamburger-color-primary"
             type="button"

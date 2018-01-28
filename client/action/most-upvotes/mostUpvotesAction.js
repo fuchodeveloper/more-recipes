@@ -1,41 +1,55 @@
 import axios from 'axios';
 import { batchActions } from 'redux-batched-actions';
-import { GET_MOST_UPVOTES, GET_MOST_UPVOTES_ERROR } from '../types';
+import {
+  GET_MOST_UPVOTES,
+  GET_MOST_UPVOTES_ERROR,
+  GET_MOST_UPVOTES_COUNT
+} from '../types';
 import { setFetching, unsetFetching } from '../fetching';
 
 /**
- * Most recipe upvotes action creator
+ * @description Most recipe upvotes action creator
  *
  * @param {object} recipes
+ *
  * @returns {object} recipes
  */
-const mostUpvotesActionCreator = recipes => ({
+export const mostUpvotesActionCreator = recipes => ({
   type: GET_MOST_UPVOTES,
   recipes
 });
 
-const mostUpvotesError = error => ({
+export const mostUpvotesError = error => ({
   type: GET_MOST_UPVOTES_ERROR,
   error
 });
 
+export const mostUpvotesPageCount = pageCount => ({
+  type: GET_MOST_UPVOTES_COUNT,
+  pageCount
+});
+
 /**
- * GET most upvoted recipes
+ * @description GET most upvoted recipes
  *
  * @export mostUpvotes
- * @returns {object} obj
+ *
+ * @param {Number} page
+ *
+ * @returns {object} object
  */
-const mostUpvotes = () => (dispatch) => {
+const mostUpvotes = page => (dispatch) => {
   dispatch(setFetching());
-  axios.get('/api/v1/recipes/?sort=upvotes&order=desc')
+  axios.get(`/api/v1/recipes?page=${page}&sort=upvotes&order=desc`)
     .then((response) => {
       dispatch(batchActions([
         mostUpvotesActionCreator(response.data.recipes),
+        mostUpvotesPageCount(response.data.pageCount),
         unsetFetching(),
       ]));
     })
-    .catch((error) => {
-      dispatch(mostUpvotesError(error));
+    .catch((serverError) => {
+      dispatch(mostUpvotesError(serverError.response.data.error));
     });
 };
 

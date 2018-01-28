@@ -14,7 +14,9 @@ import updateProfileAction from '../../action/profile/updateProfileAction';
 class ProfilePage extends Component {
   /**
    * @description Creates an instance of ProfilePage.
-   * @param {any} props
+   *
+   * @param {Object} props
+   *
    * @memberof ProfilePage
    */
   constructor(props) {
@@ -23,9 +25,7 @@ class ProfilePage extends Component {
       profile: '',
       firstName: '',
       lastName: '',
-      emailAddress: '',
-      password: '',
-      newPassword: ''
+      emailAddress: ''
     };
 
     this.onChange = this.onChange.bind(this);
@@ -35,7 +35,7 @@ class ProfilePage extends Component {
  * @description lifecycle method for profile page component
  *
  * @memberof ProfilePage
- * @returns {void}
+ * @returns {undefined}
  */
   componentDidMount() {
     const id = this.props.login;
@@ -43,27 +43,31 @@ class ProfilePage extends Component {
   }
 
   /**
-   * @description lifecycle method used to update state on receiving new props
+   * @description lifecycle method used to update state on
+   * receiving new props
    *
-   * @param {any} nextProps
+   * @param {Object} nextProps
+   *
    * @memberof ProfilePage
-   * @returns {void}
+   *
+   * @returns {undefined}
    */
   componentWillReceiveProps(nextProps) {
-    const { profile } = nextProps;
     const { firstName } = nextProps.profile;
     const { lastName } = nextProps.profile;
     const { emailAddress } = nextProps.profile;
 
     this.setState({
-      profile, firstName, lastName, emailAddress
+      firstName, lastName, emailAddress
     });
   }
 
   /**
    * @description Handle change events
-   * @param {event} event
-   * @returns {void}
+   *
+   * @param {Object} event
+   *
+   * @returns {undefined}
    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -72,21 +76,23 @@ class ProfilePage extends Component {
   /**
  * @description handle form submission
  *
- * @param {any} event
+ * @param {Object} event
+ *
  * @memberof ProfilePage
- * @returns {void}
+ *
+ * @returns {undefined}
  */
   onSubmit(event) {
     event.preventDefault();
     this.props.updateProfile(this.state);
-    this.setState({ password: '', newPassword: '' });
   }
 
   /**
  * @description render the profile page template
  *
  * @memberof ProfilePage
- * @returns {dom} DomELement
+ *
+ * @returns {JSX} DomELement
  */
   render() {
     return (
@@ -101,11 +107,10 @@ class ProfilePage extends Component {
           emailAddress={this.state.emailAddress}
           password={this.state.password}
           newPassword={this.state.newPassword}
-          // errors={this.state.errors}
         />
 
         <div className="clearfix m-5" />
-        
+
       </div>
     );
   }
@@ -124,7 +129,7 @@ ProfilePage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile,
+  profile: state.profile.profile,
   login: state.auth.user.id
 });
 
@@ -136,6 +141,3 @@ const mapDispatchToProps = dispatch => ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
-/** *****************************
- * FIX PROPTYPE VALIDATION ERROR
- */

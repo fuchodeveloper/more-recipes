@@ -16,20 +16,20 @@ module.exports = {
         as: 'userId'
       }
     },
-    recipeName: {
+    name: {
       type: Sequelize.STRING
     },
     favoriteCount: {
       type: Sequelize.INTEGER,
       defaultValue: 0
     },
-    ingredient: {
+    ingredients: {
       type: Sequelize.TEXT
     },
-    recipeDirection: {
+    direction: {
       type: Sequelize.TEXT
     },
-    recipeImage: {
+    image: {
       type: Sequelize.STRING
     },
     views: {

@@ -230,3 +230,10 @@ a:hover, a:visited, a:link, a:active
     @extend .user-profile-card;
     background-color: rgba(0, 0, 0, 0.01);
 }
+
+/* scrollable div */
+.scroll {
+  background-color: #d3d3d33f;
+  overflow-y: scroll;
+  max-height: 15em;
+}

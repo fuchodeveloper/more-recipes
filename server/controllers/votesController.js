@@ -1,5 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import db from '../models/';
+import validateId from '../validations/validateId';
 
 const {
   Recipes, Votes
@@ -16,26 +17,22 @@ const votesController = {
    * @returns {object} recipe
    */
   upVote(request, response) {
-    if (!request.params.id) {
-      return response.status(400)
-        .json({ error: 'Id of recipe is needed.' });
+    /**
+     * @description validate request id
+     */
+    const { error } = validateId(request.params.id);
+    if (error) {
+      return response.status(400).json({ error });
     }
 
-    if (isNaN(request.params.id)) {
-      return response.status(400).json({ error: 'Recipe id is invalid!' });
-    }
-
-    Recipes.findById(request.params.id)
+    return Recipes.findById(request.params.id)
       .then((recipe) => {
         if (!recipe) {
           return response.status(404).json({ error: 'Recipe not found.' });
         }
 
-        if (isNaN(request.params.id)) {
-          return response.status(400).json({ error: 'Recipe id is invalid!' });
-        }
-
         let messageText;
+        const upvoteFalse = 0;
 
         Votes.findOne({
           where:
@@ -43,52 +40,73 @@ const votesController = {
         })
           .then((vote) => {
             if (vote) {
-              if (vote.upvotes === 1 && vote.downvotes === 0) {
+              if (vote.upvotes === true && vote.downvotes === false) {
                 vote.updateAttributes({
-                  upvotes: 0
+                  upvotes: false
                 });
 
                 messageText = 'Upvote removed';
                 recipe.updateAttributes({
-                  upVotes: recipe.upVotes === 0 ? 0 : recipe.upVotes - 1
+                  upVotes: recipe.upVotes === upvoteFalse ? upvoteFalse
+                    : recipe.upVotes - 1
                 })
-                  .then(recipeDecrem => response.status(200).json({
-                    recipe: recipeDecrem, message: messageText
+                  .then(upvoteResponse => response.status(200).json({
+                    recipe: {
+                      upVotes: upvoteResponse.upVotes,
+                      downVotes: upvoteResponse.downVotes,
+                      message: messageText
+                    }
                   }));
-              } else if (vote.upvotes === 0 && vote.downvotes === 1) {
+              } else
+              if (vote.upvotes === false && vote.downvotes === true) {
                 vote.updateAttributes({
-                  downvotes: 0,
-                  upvotes: 1
+                  downvotes: false,
+                  upvotes: true
                 });
                 messageText = 'Recipe upvoted';
                 recipe.updateAttributes({
-                  downVotes: recipe.downVotes === 0 ? 0 : recipe.downVotes - 1,
+                  downVotes: recipe.downVotes === upvoteFalse ? upvoteFalse
+                    : recipe.downVotes - 1,
                   upVotes: recipe.upVotes + 1
                 })
-                  .then(recipeDecrem => response.status(200).json({
-                    recipe: recipeDecrem, message: messageText
+                  .then(upvoteResponse => response.status(201).json({
+                    recipe: {
+                      upVotes: upvoteResponse.upVotes,
+                      downVotes: upvoteResponse.downVotes,
+                      message: messageText
+                    }
                   }));
-              } else if (vote.upvotes === 0 && vote.downvotes === 0) {
+              } else
+              if (vote.upvotes === false && vote.downvotes === false) {
                 vote.updateAttributes({
-                  upvotes: 1
+                  upvotes: true
                 });
 
                 messageText = 'Recipe upvoted';
                 recipe.increment('upVotes')
-                  .then(recipeDecrem => response.status(200).json({
-                    recipe: recipeDecrem,
-                    message: messageText
+                  .then(upvoteResponse => response.status(200).json({
+                    recipe: {
+                      upVotes: upvoteResponse.upVotes,
+                      downVotes: upvoteResponse.downVotes,
+                      message: messageText
+                    }
                   }));
               }
             } else {
-              recipe.increment('upVotes').then((recipeDecrem) => {
+              recipe.increment('upVotes').then((upvoteResponse) => {
                 messageText = 'Recipe upvoted';
                 return Votes.create({
                   recipeId: request.params.id,
                   userId: request.decoded.id,
-                  upvotes: +1
+                  upvotes: true
                 }).then(() => response.status(201)
-                  .json({ recipe: recipeDecrem, message: messageText }));
+                  .json({
+                    recipe: {
+                      upVotes: upvoteResponse.upVotes,
+                      downVotes: upvoteResponse.downVotes,
+                      message: messageText
+                    }
+                  }));
               });
             }
           });
@@ -107,9 +125,12 @@ const votesController = {
  * @returns {Object} recipe
  */
   downVote(request, response) {
-    if (!request.params.id) {
-      return response.status(400)
-        .json({ error: 'Id of recipe is needed.' });
+    /**
+     * @description validate request id
+     */
+    const { error } = validateId(request.params.id);
+    if (error) {
+      return response.status(400).json({ error });
     }
 
     Recipes.findById(request.params.id)
@@ -119,6 +140,7 @@ const votesController = {
         }
 
         let messageText;
+        const upvoteFalse = 0;
 
         Votes.findOne({
           where:
@@ -126,52 +148,71 @@ const votesController = {
         })
           .then((vote) => {
             if (vote) {
-              if (vote.upvotes === 0 && vote.downvotes === 1) {
+              if (vote.upvotes === false && vote.downvotes === true) {
                 vote.updateAttributes({
-                  downvotes: 0
+                  downvotes: false
                 });
 
-                messageText = 'recipe downvoted';
+                messageText = 'Downvote removed';
                 recipe.updateAttributes({
-                  downVotes: recipe.downVotes === 0 ? 0 : recipe.downVotes - 1
+                  downVotes: recipe.downVotes === upvoteFalse ? upvoteFalse
+                    : recipe.downVotes - 1
                 })
-                  .then(recipeDecrem => response.status(200).json({
-                    recipe: recipeDecrem, message: messageText
+                  .then(downvoteResponse => response.status(200).json({
+                    recipe: {
+                      upVotes: downvoteResponse.upVotes,
+                      downVotes: downvoteResponse.downVotes,
+                      message: messageText
+                    }
                   }));
-              } else if (vote.upvotes === 1 && vote.downvotes === 0) {
+              } else if (vote.upvotes === true && vote.downvotes === false) {
                 vote.updateAttributes({
-                  upvotes: 0,
-                  downvotes: 1
+                  upvotes: false,
+                  downvotes: true
                 });
                 messageText = 'Recipe downvoted';
                 recipe.updateAttributes({
-                  upVotes: recipe.upVotes === 0 ? 0 : recipe.upVotes - 1,
+                  upVotes: recipe.upVotes === upvoteFalse ? upvoteFalse
+                    : recipe.upVotes - 1,
                   downVotes: recipe.downVotes + 1
                 })
-                  .then(recipeDecrem => response.status(201).json({
-                    recipe: recipeDecrem, message: messageText
+                  .then(downvoteResponse => response.status(201).json({
+                    recipe: {
+                      upVotes: downvoteResponse.upVotes,
+                      downVotes: downvoteResponse.downVotes,
+                      message: messageText
+                    }
                   }));
-              } else if (vote.upvotes === 0 && vote.downvotes === 0) {
+              } else if (vote.upvotes === false && vote.downvotes === false) {
                 vote.updateAttributes({
-                  downvotes: 1
+                  downvotes: true
                 });
 
                 messageText = 'Recipe downvoted';
                 recipe.increment('downVotes')
-                  .then(recipeDecrem => response.status(200).json({
-                    recipe: recipeDecrem,
-                    message: messageText
+                  .then(downvoteResponse => response.status(200).json({
+                    recipe: {
+                      upVotes: downvoteResponse.upVotes,
+                      downVotes: downvoteResponse.downVotes,
+                      message: messageText
+                    }
                   }));
               }
             } else {
-              recipe.increment('downVotes').then((recipeDecrem) => {
+              recipe.increment('downVotes').then((downvoteResponse) => {
                 messageText = 'Recipe downvoted';
                 return Votes.create({
                   recipeId: request.params.id,
                   userId: request.decoded.id,
-                  downvotes: +1
+                  downvotes: true
                 }).then(() => response.status(201)
-                  .json({ recipe: recipeDecrem, message: messageText }));
+                  .json({
+                    recipe: {
+                      upVotes: downvoteResponse.upVotes,
+                      downVotes: downvoteResponse.downVotes,
+                      message: messageText
+                    }
+                  }));
               });
             }
           });

@@ -1,18 +1,18 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-const validateInput = (data) => {
+const validateInput = (formInput) => {
   const errors = {};
 
-  if (validator.isEmpty(data.emailAddress.trim())) {
+  if (validator.isEmpty(formInput.emailAddress.trim())) {
     errors.emailAddress = 'Email field is required';
   }
 
-  if (validator.isEmpty(data.password)) {
+  if (validator.isEmpty(formInput.password)) {
     errors.password = 'Password field is required';
   }
 
-  if (data.password.length < 6) {
+  if (formInput.password.length < 6) {
     errors.password = 'Password must be greater than 6 characters';
   }
 

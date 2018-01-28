@@ -1,32 +1,36 @@
 import axios from 'axios';
 import alertify from 'alertify.js';
-import { GET_UPVOTE } from '../types';
+import { UPVOTE_RECIPE } from '../types';
 
 /**
  * upvote recipe action creator
  *
  * @export upvoteRecipeAction
- * @param {any} recipe
- * @returns {object} object
+ *
+ * @param {Object} recipe
+ *
+ * @returns {object} recipe
  */
 export const upvoteRecipeAction = recipe => ({
-  type: GET_UPVOTE,
+  type: UPVOTE_RECIPE,
   recipe
 });
 
 /**
- * Authenticated user can upvote a recipe
+ * @description Authenticated user can upvote a recipe
  *
  * @export upvoteRecipe
- * @param {any} param
- * @returns {null} null
+ *
+ * @param {Integer} id
+ *
+ * @returns {Object} dispatch
  */
-const upvoteRecipe = param =>
-  dispatch => axios.post(`/api/v1/recipes/${param}/upvote`)
+const upvoteRecipe = id => dispatch =>
+  axios.post(`/api/v1/recipes/${id}/upvote`)
     .then((response) => {
       alertify.delay(900);
       alertify.logPosition('bottom right');
-      alertify.success(response.data.message);
+      alertify.success(response.data.recipe.message);
       return dispatch(upvoteRecipeAction(response.data.recipe));
     })
     .catch(() => {

@@ -1,32 +1,81 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import mostUpvotes from '../../action/most-upvotes/mostUpvotesAction';
+import ReactPaginate from 'react-paginate';
+import mostUpvotesAction from '../../action/most-upvotes/mostUpvotesAction';
 import AllMostUpvotes from './AllMostUpvotes';
-
+/**
+ * @description most upvotes class
+ *
+ * @class MostUpvotesPage
+ *
+ * @extends {React.Component}
+ */
 class MostUpvotesPage extends React.Component {
+  /**
+   * @description Creates an instance of MostUpvotesPage.
+   *
+   * @param {Object} props
+   *
+   * @memberof MostUpvotesPage
+   */
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
       recipes: '',
-      errors: '',
-      cloudinaryRecipeImage: ''
+      pageCount: ''
     }; // Initialize the state
+    this.onPageChange = this.onPageChange.bind(this);
   }
-
+  /**
+ * @description componentDidMount lifecycle
+ *
+ * @memberof MostUpvotesPage
+ *
+ * @returns {undefined}
+ */
   componentDidMount() {
-    this.props.sortedRecipesProps();
+    this.props.mostUpvotesAction(this.state.pageCount);
   }
-
+  /**
+ * @description componentWillRecieveProps
+ *
+ * @param {Object} nextProps
+ *
+ * @memberof MostUpvotesPage
+ *
+ * @returns {undefined}
+ */
   componentWillReceiveProps(nextProps) {
     const { recipes } = nextProps;
-    this.setState({ recipes });
+    const { pageCount } = nextProps;
+    this.setState({ recipes, pageCount });
   }
 
+  /**
+ * @description function to handle page number change
+ *
+ * @param {Number} current
+ *
+ * @memberof MostUpvotesPage
+ *
+ * @returns {undefined}
+ */
+  onPageChange(current) {
+    current.selected += 1;
+    this.props.mostUpvotesAction(current.selected);
+  }
+
+  /**
+ * @description render MostUpvotesPage template
+ *
+ *
+ * @memberof MostUpvotesPage
+ *
+ * @returns  {JSX} JSX representation of component
+ */
   render() {
     const { isFetching } = this.props;
-    console.log(this.state.recipes);
 
     if (isFetching) {
       return (
@@ -41,7 +90,9 @@ class MostUpvotesPage extends React.Component {
           <div className="container margin-top-70">
 
             <div>
-              <h1 className="text-center p-4 center-hero-title">Most Upvoted Recipes</h1>
+              <h1 className="text-center p-4 center-hero-title">
+              Most Upvoted Recipes
+              </h1>
             </div>
 
             <div className="margin-top-50 margin-bottom-50" />
@@ -50,9 +101,33 @@ class MostUpvotesPage extends React.Component {
               {
               Object
                 .keys(this.state.recipes)
-                .map(key => <AllMostUpvotes key={key} details={this.state.recipes[key]} />)
+                .map(key => (<AllMostUpvotes
+                  key={key}
+                  details={this.state.recipes[key]}
+                />))
             }
 
+            </div>
+
+            <div className="row">
+              <ReactPaginate
+                pageCount={parseInt(this.state.pageCount, 10)}
+                pageRangeDisplayed={5}
+                marginPagesDisplayed={3}
+                previousLabel="Previous"
+                nextLabel="Next"
+                breakClassName="text-center"
+                initialPage={0}
+                containerClassName="container pagination justify-content-center"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                activeClassName="page-item active"
+                previousClassName="page-item"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                previousLinkClassName="page-link"
+                onPageChange={this.onPageChange}
+              />
             </div>
 
           </div>
@@ -69,7 +144,9 @@ class MostUpvotesPage extends React.Component {
         <div className="container margin-top-70">
 
           <div>
-            <h1 className="text-center p-4 center-hero-title">Most Upvoted Recipes</h1>
+            <h1 className="text-center p-4 center-hero-title">
+            Most Upvoted Recipes
+            </h1>
           </div>
 
           <div className="margin-top-50 margin-bottom-50" />
@@ -88,16 +165,13 @@ class MostUpvotesPage extends React.Component {
   }
 }
 
-// MostUpvotesPage.propTypes = {
-//   mostUpvotes: PropTypes.func.isRequired
-// };
-
 const mapStateToProps = state => ({
-  recipes: state.recipes.recipes
+  pageCount: state.recipesReducer.pageCount,
+  recipes: state.recipesReducer.recipes
 });
 
 const mapDispatchToProps = dispatch => ({
-  sortedRecipesProps: () => dispatch(mostUpvotes())
+  mostUpvotesAction: pageCount => dispatch(mostUpvotesAction(pageCount))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MostUpvotesPage);

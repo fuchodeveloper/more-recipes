@@ -15,16 +15,18 @@ export const downvoteRecipeActionCreator = recipe => ({
 /**
  * Authenticated user can downvote a recipe
  *
- * @export func
- * @param {integer} param
+ * @export downvoteRecipe
+ *
+ * @param {Number} id
+ *
  * @returns {object} object
  */
-const downvoteRecipe = param =>
-  dispatch => axios.post(`/api/v1/recipes/${param}/downvote`)
+const downvoteRecipe = id =>
+  dispatch => axios.post(`/api/v1/recipes/${id}/downvote`)
     .then((response) => {
       alertify.delay(900);
       alertify.logPosition('bottom right');
-      alertify.success(response.data.message);
+      alertify.success(response.data.recipe.message);
       return dispatch(downvoteRecipeActionCreator(response.data.recipe));
     })
     .catch(() => {

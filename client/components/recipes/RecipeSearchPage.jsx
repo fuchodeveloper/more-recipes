@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import recipeSearch from '../../action/recipes/recipeSearchAction';
+import ReactPaginate from 'react-paginate';
+import recipeSearchAction from '../../action/recipes/recipeSearchAction';
 import RecipeSearchResult from './RecipeSearchResult';
+
 /**
  * @description recipe search class
  *
@@ -15,7 +16,7 @@ class RecipeSearchPage extends Component {
   /**
    * Creates an instance of RecipeSearchPage.
    *
-   * @param {any} props
+   * @param {Object} props
    *
    * @memberof RecipeSearchPage
    */
@@ -23,53 +24,70 @@ class RecipeSearchPage extends Component {
     super(props);
     this.state = {
       searchQuery: '',
-      searchResult: {},
-      touched: false,
+      recipes: {},
+      pageCount: ''
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onPageChange = this.onPageChange.bind(this);
   }
   /**
  * @description lifecycle method used to update state
  *
- * @param {any} nextProps
+ * @param {Object} nextProps
  *
  * @memberof RecipeSearchPage
  *
  * @returns {void}
  */
   componentWillReceiveProps(nextProps) {
-    this.setState({ searchResult: nextProps.searchResult });
+    const { recipes } = nextProps;
+    const { pageCount } = nextProps;
+    this.setState({ recipes, pageCount });
   }
+
+  /**
+ * function to handle page number change
+ *
+ * @param {Number} current
+ *
+ * @memberof MyRecipesPage
+ *
+ * @returns {undefined}
+ */
+  onPageChange(current) {
+    current.selected += 1;
+    this.props.recipeSearchAction(current.selected);
+  }
+
   /**
  * @description handle input change
  *
- * @param {any} event
+ * @param {Object} event
  *
  * @memberof RecipeSearchPage
  *
- * @returns {void}
+ * @returns {undefined}
  */
   onChange(event) {
     event.preventDefault();
-
-    this.setState({ touched: true });
     this.setState({ [event.target.name]: event.target.value });
   }
+
   /**
  * @description handle form submission
  *
- * @param {any} event
+ * @param {Object} event
  *
  * @memberof RecipeSearchPage
  *
- * @returns {void}
+ * @returns {undefined}
  */
   onSubmit(event) {
     event.preventDefault();
-    this.props.recipeSearch(this.state.searchQuery);
-    this.setState({ searchResult: {} });
+    this.props.recipeSearchAction(this.state.searchQuery, this.state.pageCount);
+    this.setState({ recipes: {} });
   }
   /**
  * @description render JSX template
@@ -79,6 +97,7 @@ class RecipeSearchPage extends Component {
  * @memberof RecipeSearchPage
  */
   render() {
+    const containerClassName = 'container pagination justify-content-center';
     return (
       <div>
         <div>
@@ -87,14 +106,18 @@ class RecipeSearchPage extends Component {
 
             <div />
             <form onSubmit={this.onSubmit} >
+              <div className="display-5" id="search-header">
+                Search for your favorite recipes
+              </div>
 
               <div className="input-group mt-2 mb-2 p-1">
 
                 <input
                   type="text"
+                  id="searchQuery"
                   className="form-control p-3"
                   placeholder="Try: 'Jollof Rice' "
-                  aria-describedby="basic-addon2"
+                  aria-describedby="searchQuery"
                   name="searchQuery"
                   value={this.state.searchQuery}
                   onChange={this.onChange}
@@ -115,17 +138,36 @@ class RecipeSearchPage extends Component {
 
             <div>
               <div className="row">
-                { !isEmpty(this.state.searchResult) ?
-                    Object
-                      .keys(this.state.searchResult)
-                      .map(key => (<RecipeSearchResult
-                        key={key}
-                        details={this.state.searchResult[key]}
-                      />))
-                    :
-                    this.state.touched && <div><h1>No recipe found</h1></div>
-                    }
+                {
+                  Object
+                  .keys(this.state.recipes)
+                  .map(key => (<RecipeSearchResult
+                    key={key}
+                    details={this.state.recipes[key]}
+                  />))
+                }
+              </div>
 
+              <div className="row">
+                <ReactPaginate
+                  pageCount={parseInt(this.state.pageCount, 10)}
+                  pageRangeDisplayed={5}
+                  marginPagesDisplayed={3}
+                  previousLabel="Previous"
+                  nextLabel="Next"
+                  breakClassName="text-center"
+                  initialPage={0}
+                  containerClassName={containerClassName}
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  activeClassName="page-item active"
+                  previousClassName="page-item"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  previousLinkClassName="page-link"
+                  onPageChange={this.onPageChange}
+                  disableInitialCallback
+                />
               </div>
 
             </div>
@@ -139,16 +181,19 @@ class RecipeSearchPage extends Component {
 }
 
 RecipeSearchPage.propTypes = {
-  searchResult: PropTypes.shape({}).isRequired,
-  recipeSearch: PropTypes.func.isRequired,
+  recipes: PropTypes.shape({}).isRequired,
+  recipeSearchAction: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ searchResult }) => ({
-  searchResult
+const mapStateToProps = state => ({
+  recipes: state.recipesReducer.recipes
 });
 
 const mapDispatchToProps = dispatch => ({
-  recipeSearch: searchContent => dispatch(recipeSearch(searchContent))
+  recipeSearchAction: searchQuery => dispatch(recipeSearchAction(searchQuery))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeSearchPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RecipeSearchPage);

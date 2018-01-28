@@ -1,50 +1,62 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import testData from './helper/testData';
+import mock from './helper/mock';
 import app from '../index';
+import db from '../models';
 
 chai.use(chaiHttp);
 
+const { User } = db;
+
+let userToken;
+
+const doBeforeAll = () => {
+  before((done) => {
+    User.destroy({
+      force: true,
+      cascade: true,
+      truncate: true,
+      restartIdentity: true
+    });
+    done();
+  });
+};
+
+const doBeforeEach = () => {
+  beforeEach((done) => {
+    db.sequelize.sync();
+    done();
+  });
+};
 
 describe('User authentication', () => {
-  it('should return 201 if user is created', (done) => {
+  doBeforeAll();
+  doBeforeEach();
+  it('should return token and message if user is created', (done) => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .set('Content-Type', 'application/json')
-      .send(testData.newUser)
+      .send(mock.newUser)
       .end((err, res) => {
-        expect(res).to.have.status(201);
+        userToken = res.body.token;
+        expect(res.body.message).to.equal('Signup successful');
+        expect(res.body).to.have.property('token');
         done();
       });
   });
 
-  it('should return 409 if user already exists', (done) => {
+  it('should return validation error if first name is empty', (done) => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .set('Content-Type', 'application/json')
-      .send(testData.newUser)
+      .send(mock.noFirsnameNewUser)
       .end((err, res) => {
-        expect(res).to.have.status(409);
+        expect(res.body.error.firstName).to
+          .equal('First name must be greater than 3 characters');
+        expect(res).to.have.status(400);
         done();
       });
   });
-
-  it('should return 200 if user sign in is successful', (done) => {
-    const user = {
-      emailAddress: testData.newUser.emailAddress,
-      password: 'password'
-    };
-
-    chai.request(app)
-      .post('/api/v1/users/signin')
-      .set('Content-Type', 'application/json')
-      .send(user)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        done();
-      });
-  });
-
 
   it(`should return 404 if user attempting to sign in
    does not exist`, (done) => {
@@ -58,24 +70,102 @@ describe('User authentication', () => {
         .set('Content-Type', 'application/json')
         .send(user)
         .end((err, res) => {
+          expect(res.body.error).to
+            .equal('Authentication failed. No user found.');
           expect(res).to.have.status(404);
           done();
         });
     });
 
-  it('should return 401 if user attempts using wrong password', (done) => {
-    const user = {
-      emailAddress: testData.newUser.emailAddress,
-      password: 'passworddddddd'
-    };
-
+  it('should return 409 if user already exists', (done) => {
     chai.request(app)
-      .post('/api/v1/users/signin')
+      .post('/api/v1/users/signup')
       .set('Content-Type', 'application/json')
-      .send(user)
+      .send(mock.newUser)
       .end((err, res) => {
-        expect(res).to.have.status(401);
+        expect(res.body.error).to.equal('User already exists. Try again.');
+        expect(res).to.have.status(409);
         done();
       });
   });
+
+  it(`should return validation error if signin email address provided
+  is invalid`, (done) => {
+      const user = {
+        emailAddress: 'dff@sdfsdf',
+        password: 'password'
+      };
+
+      chai.request(app)
+        .post('/api/v1/users/signin')
+        .set('Content-Type', 'application/json')
+        .send(user)
+        .end((err, res) => {
+          expect(res.body.error.emailAddress).to.equal('Email is invalid');
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+
+  it(`should return success 
+  message and token if user signin is successful`, (done) => {
+      const user = {
+        emailAddress: mock.newUser.emailAddress,
+        password: 'password'
+      };
+
+      chai.request(app)
+        .post('/api/v1/users/signin')
+        .set('Content-Type', 'application/json')
+        .send(user)
+        .end((err, res) => {
+          expect(res.body.message).to.equal('Log in successful');
+          expect(res.body).to.have.property('token');
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+
+  it(`should return wrong email or password error 
+  is email or password provided is wrong`, (done) => {
+      const user = {
+        emailAddress: mock.newUser.emailAddress,
+        password: 'passworddddddd'
+      };
+
+      chai.request(app)
+        .post('/api/v1/users/signin')
+        .set('Content-Type', 'application/json')
+        .send(user)
+        .end((err, res) => {
+          expect(res.body.error).to.equal('Wrong email or password');
+          expect(res).to.have.status(403);
+          done();
+        });
+    });
+
+  it(`should return error message if update user profile 
+  validation fails`, (done) => {
+      const user = {
+        firstName: 'j',
+        lastName: 'D',
+        emailAddress: 'johndoe007@gmail.com',
+        password: 'password',
+        passwordConfirmation: 'password'
+      };
+
+      chai.request(app)
+        .post('/api/v1/users/update')
+        .set('Content-Type', 'application/json')
+        .set('x-access-token', userToken)
+        .send(user)
+        .end((err, res) => {
+          expect(res.body.errors.firstName).to
+            .equal('First name must be greater than 3 characters');
+          expect(res.body.errors.lastName).to
+            .equal('Last name must be greater than 3 characters');
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
 });

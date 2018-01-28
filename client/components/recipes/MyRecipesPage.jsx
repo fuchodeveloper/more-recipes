@@ -1,16 +1,19 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import alertify from 'alertify.js';
+import ReactPaginate from 'react-paginate';
 import { BounceLoader } from 'react-spinners';
 import MyRecipesDetail from './MyRecipesDetail';
 import myRecipesAction from '../../action/recipes/myRecipesActions';
+import deleteRecipeAction from '../../action/recipes/deleteRecipeAction';
 
 /**
  *
  *
  * @class MyRecipesPage
+ *
  * @extends {React.Component}
  */
 class MyRecipesPage extends React.Component {
@@ -24,8 +27,12 @@ class MyRecipesPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipes: ''
+      recipes: '',
+      pageCount: ''
     }; // Initialize the state
+
+    this.onPageChange = this.onPageChange.bind(this);
+    this.onConfirm = this.onConfirm.bind(this);
   }
 
 
@@ -37,14 +44,65 @@ class MyRecipesPage extends React.Component {
    * @returns {undefined}
    */
   componentDidMount() {
-    this.props.myRecipesActionProps();
+    this.props.myRecipesAction(this.state.pageCount);
   }
-
+  /**
+ * @description Component lifecycle method
+ *
+ * @param {Object} nextProps
+ *
+ * @memberof MyRecipesPage
+ *
+ * @returns {undefined}
+ */
   componentWillReceiveProps(nextProps) {
     const { recipes } = nextProps;
-    this.setState({ recipes });
+    const { pageCount } = nextProps;
+    this.setState({ recipes, pageCount });
   }
 
+
+  /**
+ * function to handle page number change
+ *
+ * @param {Number} current
+ *
+ * @memberof MyRecipesPage
+ *
+ * @returns {undefined}
+ */
+  onPageChange(current) {
+    current.selected += 1;
+    this.props.myRecipesAction(current.selected);
+  }
+
+  /**
+ * @description confirm recipe deletion
+ *
+ * @param {Object} event
+ *
+ * @memberof MyRecipesPage
+ *
+ * @returns {undefined}
+ */
+  onConfirm(event) {
+    event.preventDefault();
+    const id = event.target.getAttribute('data-id');
+    alertify.confirm('Do you really want to delete this recipe', () => {
+      // user clicked "ok"
+      this.props.deleteRecipeAction(id);
+    }, () => {
+      // user clicked "cancel"
+    });
+  }
+
+  /**
+ * @description renders component to DOM
+ *
+ * @memberof MyRecipesPage
+ *
+ *  @returns {JSX} JSX representation of component
+ */
   render() {
     const { isFetching } = this.props;
 
@@ -77,26 +135,35 @@ class MyRecipesPage extends React.Component {
             <div className="row">
               {Object
               .keys(this.state.recipes)
-              .map(key => <MyRecipesDetail key={key} details={this.state.recipes[key]} />)
+              .map(key => (<MyRecipesDetail
+                key={key}
+                details={this.state.recipes[key]}
+                onConfirm={this.onConfirm}
+              />))
             }
 
             </div>
 
-            {/* Bottom Navigation */}
-            <nav aria-label="Page navigation example">
-              <ul className="pagination justify-content-center">
-                <li className="page-item disabled">
-                  <a className="page-link" href="#" tabIndex="-1">Previous</a>
-                </li>
-                <li className="page-item"><a className="page-link" href="#">1</a></li>
-                <li className="page-item"><a className="page-link" href="#">2</a></li>
-                <li className="page-item"><a className="page-link" href="#">3</a></li>
-                <li className="page-item">
-                  <a className="page-link" href="#">Next</a>
-                </li>
-              </ul>
-            </nav>
-
+            <div className="row">
+              <ReactPaginate
+                pageCount={parseInt(this.state.pageCount, 10)}
+                pageRangeDisplayed={5}
+                marginPagesDisplayed={3}
+                previousLabel="Previous"
+                nextLabel="Next"
+                breakClassName="text-center"
+                initialPage={0}
+                containerClassName="container pagination justify-content-center"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                activeClassName="page-item active"
+                previousClassName="page-item"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                previousLinkClassName="page-link"
+                onPageChange={this.onPageChange}
+              />
+            </div>
 
           </div>
 
@@ -116,12 +183,18 @@ class MyRecipesPage extends React.Component {
 
           <div className="margin-top-50 margin-bottom-50" />
 
-          <div className="">
-            <h2 className="text-center"><i className="recipe-title">You have not created any recipes</i></h2>
+          <div>
+            <h2 className="text-center"><i className="recipe-title">
+            You have not created any recipes
+                                        </i>
+            </h2>
             <div className="text-center">
-              <Link to="/add" className="btn btn-primary btn-primary-color">Create a recipe</Link>
+              <Link to="/add" className="btn btn-primary btn-primary-color">
+              Create a recipe
+              </Link>
             </div>
           </div>
+          <div className="clearfix mt-4" />
 
           <div className="clearfix m-5" />
 
@@ -139,7 +212,8 @@ class MyRecipesPage extends React.Component {
  * @returns {object} recipes
  */
 const mapStateToProps = state => ({
-  recipes: state.recipes.recipes
+  recipes: state.recipesReducer.recipes,
+  pageCount: state.recipesReducer.pageCount
 });
 
 /**
@@ -147,10 +221,11 @@ const mapStateToProps = state => ({
  *
  * @param {dispatch} dispatch
  *
- * @returns {action} action
+ * @returns {dispatch} - dispatch myRecipesAction and deleteRecipeAction
  */
 const mapDispatchToProps = dispatch => ({
-  myRecipesActionProps: () => dispatch(myRecipesAction())
+  myRecipesAction: pageCount => dispatch(myRecipesAction(pageCount)),
+  deleteRecipeAction: recipeId => dispatch(deleteRecipeAction(recipeId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyRecipesPage);
