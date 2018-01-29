@@ -66,7 +66,7 @@ class UpdateRecipePage extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {
       name, image, ingredients, direction
-    } = nextProps.recipe;
+    } = nextProps.recipe.recipe;
     this.setState({
       name, image, ingredients, direction
     });
