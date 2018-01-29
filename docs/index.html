@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>More Recipes API Reference</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -252,6 +252,53 @@
                   <li>
                     <a href="#downvote-a-recipe" class="toc-h2 toc-link" data-title="Recipes">Downvote a recipe</a>
                   </li>
+                  <li>
+                    <a href="#create-a-recipe" class="toc-h2 toc-link" data-title="Recipes">Create a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#update-a-recipe" class="toc-h2 toc-link" data-title="Recipes">Update a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#view-all-recipes-created-by-user" class="toc-h2 toc-link" data-title="Recipes">View all recipes created by user</a>
+                  </li>
+                  <li>
+                    <a href="#search-for-recipe" class="toc-h2 toc-link" data-title="Recipes">Search for recipe</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-recipe" class="toc-h2 toc-link" data-title="Recipes">Delete a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#create-review-for-a-recipe" class="toc-h2 toc-link" data-title="Recipes">Create review for a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#get-reviews-for-a-recipe" class="toc-h2 toc-link" data-title="Recipes">Get reviews for a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#favorite-a-recipe" class="toc-h2 toc-link" data-title="Recipes">Favorite a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#unfavorite-a-recipe" class="toc-h2 toc-link" data-title="Recipes">Unfavorite a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#get-user-39-s-favorited-recipes" class="toc-h2 toc-link" data-title="Recipes">Get user's favorited recipes</a>
+                  </li>
+                  <li>
+                    <a href="#get-favorites-count-of-a-recipe" class="toc-h2 toc-link" data-title="Recipes">Get favorites count of a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#get-all-recipes-sorted-according-to-most-upvoted" class="toc-h2 toc-link" data-title="Recipes">Get all recipes sorted according to most upvoted</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#profile" class="toc-h1 toc-link" data-title="Profile">Profile</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#update-user-profile" class="toc-h2 toc-link" data-title="Profile">Update user profile</a>
+                  </li>
+                  <li>
+                    <a href="#get-user-profile" class="toc-h2 toc-link" data-title="Profile">Get user profile</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -263,7 +310,7 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1><h3 id='more-recipes-api-documentation'>More-recipes API Documentation</h3>
-<p>Welcome to the More Recipes API! You can use our API documentation as a guide to access more-recipes API endpoints, which give you access to available recipes.</p>
+<p>Welcome to the More Recipes API! You can use our API documentation as a guide to access more-recipes API endpoints, which gives you access to available recipes.</p>
 
 <p>More-Recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.  Suppose a user comes up with a recipe,  he/she can post it on More-Recipes and  get feedback in form of reviews and votes from other users who explore that recipe. Users can also keep a list of their favorite recipes on the application.</p>
 
@@ -431,21 +478,44 @@
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"recipeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"how to cook nigerian jollof rice"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">129</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new lorem ipsum dourmbvbv"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"ingredient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice 2-3 cups tomato stew chicken (whole chicken, drumsticks or chicken breast) pepper and salt (to taste) 2 medium onions 3 knorr cubes 2 teaspoons thyme 2 teaspoons curry powder (nigerian curry powder)"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"recipeDirection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prepare the tomato stew. visit the tomato stew page for details on how to do that. it is advisable to prepare tomato stew before hand and keep in the freezer. this is so that whenever you want to cook any jollof rice related dish, it is just a matter of adding it to your cooking.</span><span class="se">\n</span><span class="s2">if you will use whole chicken then wash and cut it into pieces. cook with the thyme, knorr cubes and 2 bulbs of onions (chopped). the cooking time depends on the type of chicken. the rooster or cockerel cooks much faster than the hen but the hen is definitely tastier. when done, grill it in an oven. you may also fry it. this is to give it a golden look which is more presentable especially if you have guests for dinner.</span><span class="se">\n</span><span class="s2">parboil the rice using the method detailed in parboiling rice for cooking jollof rice. rinse the parboiled rice and put in a sieve to drain."</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516027828/oekpqjhvnxcvom0w7edw.jpg"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
         </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-15T14:50:41.129Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-18T03:20:07.492Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"Reviews"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-27T20:30:26.249Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T00:39:48.252Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Reviews"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nice"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"User"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">53</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I love it!!!"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"User"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bella"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">54</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Awesome recipe idea, thanks for sharing!"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"User"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"favorited"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves a single recipe.</p>
@@ -460,6 +530,7 @@
 <ul>
 <li>Endpoint: <strong>POST</strong> <code>/api/v1/recipes/:id/upvote</code></li>
 <li>Body <code>(application/json)</code></li>
+<li>Requires: <code>Authentication</code></li>
 </ul>
 
 <p>Response</p>
@@ -475,22 +546,11 @@
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-     </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"recipeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"how to cook nigerian jollof rice"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"ingredient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice 2-3 cups tomato stew chicken (whole chicken, drumsticks or chicken breast) pepper and salt (to taste) 2 medium onions 3 knorr cubes 2 teaspoons thyme 2 teaspoons curry powder (nigerian curry powder)"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"recipeDirection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prepare the tomato stew. visit the tomato stew page for details on how to do that. it is advisable to prepare tomato stew before hand and keep in the freezer. this is so that whenever you want to cook any jollof rice related dish, it is just a matter of adding it to your cooking.</span><span class="se">\n</span><span class="s2">if you will use whole chicken then wash and cut it into pieces. cook with the thyme, knorr cubes and 2 bulbs of onions (chopped). the cooking time depends on the type of chicken. the rooster or cockerel cooks much faster than the hen but the hen is definitely tastier. when done, grill it in an oven. you may also fry it. this is to give it a golden look which is more presentable especially if you have guests for dinner.</span><span class="se">\n</span><span class="s2">parboil the rice using the method detailed in parboiling rice for cooking jollof rice. rinse the parboiled rice and put in a sieve to drain."</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516027828/oekpqjhvnxcvom0w7edw.jpg"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">29</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
         </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-15T14:50:41.129Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-18T08:46:37.837Z"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipe upvoted"</span><span class="w">
+        </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipe upvoted"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint is used to upvote a recipe.</p>
@@ -512,6 +572,7 @@
 <ul>
 <li>Status: <code>201:Created</code></li>
 <li>Body <code>(application/json)</code></li>
+<li>Requires: <code>Authentication</code></li>
 </ul>
 
 <blockquote>
@@ -521,26 +582,783 @@
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"recipeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"how to cook nigerian jollof rice"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"ingredient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice 2-3 cups tomato stew chicken (whole chicken, drumsticks or chicken breast) pepper and salt (to taste) 2 medium onions 3 knorr cubes 2 teaspoons thyme 2 teaspoons curry powder (nigerian curry powder)"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"recipeDirection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prepare the tomato stew. visit the tomato stew page for details on how to do that. it is advisable to prepare tomato stew before hand and keep in the freezer. this is so that whenever you want to cook any jollof rice related dish, it is just a matter of adding it to your cooking.</span><span class="se">\n</span><span class="s2">if you will use whole chicken then wash and cut it into pieces. cook with the thyme, knorr cubes and 2 bulbs of onions (chopped). the cooking time depends on the type of chicken. the rooster or cockerel cooks much faster than the hen but the hen is definitely tastier. when done, grill it in an oven. you may also fry it. this is to give it a golden look which is more presentable especially if you have guests for dinner.</span><span class="se">\n</span><span class="s2">parboil the rice using the method detailed in parboiling rice for cooking jollof rice. rinse the parboiled rice and put in a sieve to drain."</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516027828/oekpqjhvnxcvom0w7edw.jpg"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">29</span><span class="p">,</span><span class="w">
         </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-15T14:50:41.129Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-18T08:51:16.777Z"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipe downvoted"</span><span class="w">
+        </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipe downvoted"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint is used to upvote a recipe.</p>
 <h3 id='http-request-6'>HTTP Request</h3>
 <p><code>GET https://more-recipes-application.herokuapp.com/api/v1/recipes/:id/downvote</code></p>
+
+<hr>
+<h2 id='create-a-recipe'>Create a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>POST</strong> <code>/api/v1/recipes</code></li>
+<li>Body <code>(application/json)</code></li>
+<li>Requires: <code>Authentication</code></li>
+</ul>
+
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"How to cook Nigerian Jollof Rice"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice,
+        2-3 cups Tomato Stew,
+        Chicken (whole chicken, drumsticks or chicken breast),
+        Pepper and salt (to taste),
+        2 medium onions,
+        3 Knorr cubes,
+        2 teaspoons thyme,
+        2 teaspoons curry powder (Nigerian curry powder)"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Put the rice in a pot and pour water up to the        level of the beans and start cooking.
+        Note: If you have a pressure cooker, beans is one of the staple foods you will want to use it for. It reduces the cooking time considerably.
+        Cook till tender, adding more water from time to time, if necessary. Always keep the water at the same level as the beans so that when the beans is done, you will not have too much water in the porridge."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"image"</span><span class="p">:</span><span class="w">    </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1510581158/xs20xuqemntwq7eqhact.jpg"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Response</p>
+
+<ul>
+<li>Status: <code>201:Created</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipe created successfully "</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">138</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"how to cook nigerian jollof rice"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice,</span><span class="se">\n</span><span class="s2">2-3 cups tomato stew,</span><span class="se">\n</span><span class="s2">chicken (whole chicken, drumsticks or chicken breast),</span><span class="se">\n</span><span class="s2">pepper and salt (to taste),</span><span class="se">\n</span><span class="s2">2 medium onions,</span><span class="se">\n</span><span class="s2">3 knorr cubes,</span><span class="se">\n</span><span class="s2">2 teaspoons thyme,</span><span class="se">\n</span><span class="s2">2 teaspoons curry powder (nigerian curry powder)"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put the rice in a pot and pour water up to the level of the beans and start cooking.</span><span class="se">\n</span><span class="s2">note: if you have a pressure cooker, beans is one of the staple foods you will want to use it for. it reduces the cooking time considerably.</span><span class="se">\n</span><span class="s2">cook till tender, adding more water from time to time, if necessary. always keep the water at the same level as the beans so that when the beans is done, you will not have too much water in the porridge.</span><span class="se">\n\n</span><span class="s2">read more at http://www.allnigerianrecipes.com/beans/beans-porridge.html#mccx8hmkcoi4c60t.99"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1510581158/xs20xuqemntwq7eqhact.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T00:52:21.769Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T00:52:21.769Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint is used to create a recipe.</p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>POST https://more-recipes-application.herokuapp.com/api/v1/recipes</code></p>
+
+<hr>
+<h2 id='update-a-recipe'>Update a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes/:id</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>POST</strong> <code>/api/v1/recipes/:id</code></li>
+<li>Body <code>(application/json)</code></li>
+<li>Requires: <code>Authentication and Authorization</code></li>
+</ul>
+
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"How to cook party rice"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice,
+        2-3 cups Tomato Stew,
+        Chicken (whole chicken, drumsticks or chicken breast),
+        Pepper and salt (to taste),
+        2 medium onions,
+        3 Knorr cubes,
+        2 teaspoons thyme,
+        2 teaspoons curry powder (Nigerian curry powder)"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Put the rice in a pot and pour water up to the        level of the beans and start cooking.
+        Note: If you have a pressure cooker, beans is one of the staple foods you will want to use it for. It reduces the cooking time considerably.
+        Cook till tender, adding more water from time to time, if necessary. Always keep the water at the same level as the beans so that when the beans is done, you will not have too much water in the porridge."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"image"</span><span class="p">:</span><span class="w">    </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1510581158/xs20xuqemntwq7eqhact.jpg"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipe updated"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="mi">1</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint is used to update a recipe.</p>
+<h3 id='http-request-8'>HTTP Request</h3>
+<p><code>POST https://more-recipes-application.herokuapp.com/api/v1/recipes/:id</code></p>
+
+<hr>
+<h2 id='view-all-recipes-created-by-user'>View all recipes created by user</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes/userRecipes</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>GET</strong> <code>/api/v1/recipes/userRecipes</code></li>
+<li>Body <code>(application/json)</code></li>
+<li>Requires: <code>Authentication</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pageCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">129</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new lorem ipsum dourmbvbv"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-27T20:30:26.249Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-27T21:31:45.135Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">128</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new lorem ipsum dourm"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. donec sollicitudin molestie malesuada. curabitur non nulla sit amet nisl tempus convallis quis ac lectus."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-27T20:29:29.194Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-27T20:29:33.071Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">127</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new lorem ipsum dourm"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pellentesque in ipsum id orci porta dapibus. praesent sapien massa, convallis a pellentesque nec, egestas non nisi. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. proin eget tortor risus. proin eget tortor risus."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pellentesque in ipsum id orci porta dapibus. praesent sapien massa, convallis a pellentesque nec, egestas non nisi. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. proin eget tortor risus. proin eget tortor risus.pellentesque in ipsum id orci porta dapibus. praesent sapien massa, convallis a pellentesque nec, egestas non nisi. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. proin eget tortor risus. proin eget tortor risus."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-27T07:43:33.813Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-27T20:26:38.930Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">125</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lorem ipsum dourm"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pellentesque in ipsum id orci porta dapibus. praesent sapien massa, convallis a pellentesque nec, egestas non nisi. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. proin eget tortor risus. proin eget tortor risus."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pellentesque in ipsum id orci porta dapibus. praesent sapien massa, convallis a pellentesque nec, egestas non nisi. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. proin eget tortor risus. proin eget tortor risus.pellentesque in ipsum id orci porta dapibus. praesent sapien massa, convallis a pellentesque nec, egestas non nisi. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. proin eget tortor risus. proin eget tortor risus."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">89</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-27T07:43:07.877Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-27T22:51:16.321Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">   </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allows an authenticated user to view all recipes created by the user.</p>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>POST https://more-recipes-application.herokuapp.com/api/v1/recipes/userRecipes</code></p>
+
+<hr>
+<h2 id='search-for-recipe'>Search for recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes/search</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>POST</strong> <code>/api/v1/recipes/search</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"searchQuery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jollof"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pageCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">138</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"how to cook party rice"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice,</span><span class="se">\n</span><span class="s2">2-3 cups tomato stew,</span><span class="se">\n</span><span class="s2">chicken (whole chicken, drumsticks or chicken breast),</span><span class="se">\n</span><span class="s2">pepper and salt (to taste),</span><span class="se">\n</span><span class="s2">2 medium onions,</span><span class="se">\n</span><span class="s2">3 knorr cubes,</span><span class="se">\n</span><span class="s2">2 teaspoons thyme,</span><span class="se">\n</span><span class="s2">2 teaspoons curry powder (nigerian curry powder)"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put the beans in a pot and pour water up to the level of the beans and start cooking.</span><span class="se">\n</span><span class="s2">note: if you have a pressure cooker, beans is one of the staple foods you will want to use it for. it reduces the cooking time considerably.</span><span class="se">\n</span><span class="s2">cook till tender, adding more water from time to time, if necessary. always keep the water at the same level as the beans so that when the beans is done, you will not have too much water in the porridge.</span><span class="se">\n\n</span><span class="s2">read more at http://www.allnigerianrecipes.com/beans/beans-porridge.html#mccx8hmkcoi4c60t.99"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1510581158/xs20xuqemntwq7eqhact.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T00:52:21.769Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T08:24:25.330Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">137</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"how to cook nigerian jollof rice"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice,</span><span class="se">\n</span><span class="s2">2-3 cups tomato stew,</span><span class="se">\n</span><span class="s2">chicken (whole chicken, drumsticks or chicken breast),</span><span class="se">\n</span><span class="s2">pepper and salt (to taste),</span><span class="se">\n</span><span class="s2">2 medium onions,</span><span class="se">\n</span><span class="s2">3 knorr cubes,</span><span class="se">\n</span><span class="s2">2 teaspoons thyme,</span><span class="se">\n</span><span class="s2">2 teaspoons curry powder (nigerian curry powder)"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pour the chicken stock and the tomato stew into a sizeable pot and leave to boil.</span><span class="se">\n</span><span class="s2">add the drained parboiled rice, curry powder, salt and pepper to taste. the water level should be the same level of the rice. this is to ensure that all the water dries up by the time the rice is cooked.</span><span class="se">\n</span><span class="s2">cover the pot and leave to cook on low to medium heat. this way the rice does not burn before the water dries up."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1517184699/w8eo6wwnpmakf4knwsjo.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-28T07:53:12.635Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T00:50:32.793Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint is used to search for recipes using the recipe name or ingredients.</p>
+<h3 id='http-request-10'>HTTP Request</h3>
+<p><code>POST https://more-recipes-application.herokuapp.com/api/v1/recipes/search</code></p>
+
+<hr>
+<h2 id='delete-a-recipe'>Delete a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes/search</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>DELETE</strong> <code>/api/v1/recipes/:id</code></li>
+<li>Body <code>(application/json)</code></li>
+<li>Requires: <code>Authentication and Authorization</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipe deleted"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"138"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allows a user to delete a recipe created by them.</p>
+<h3 id='http-request-11'>HTTP Request</h3>
+<p><code>POST https://more-recipes-application.herokuapp.com/api/v1/recipes/:id</code></p>
+
+<hr>
+<h2 id='create-review-for-a-recipe'>Create review for a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes/:id/reviews</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>POST</strong> <code>/api/v1/recipes/:id/reviews</code></li>
+<li>Body <code>(application/json)</code></li>
+<li>Requires: <code>Authentication</code></li>
+</ul>
+
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"An amazing recipe idea"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Response</p>
+
+<ul>
+<li>Status: <code>201:Created</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Review created."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">137</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"how to cook nigerian jollof rice"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3¾ cups (750g) long grain parboiled rice,</span><span class="se">\n</span><span class="s2">2-3 cups tomato stew,</span><span class="se">\n</span><span class="s2">chicken (whole chicken, drumsticks or chicken breast),</span><span class="se">\n</span><span class="s2">pepper and salt (to taste),</span><span class="se">\n</span><span class="s2">2 medium onions,</span><span class="se">\n</span><span class="s2">3 knorr cubes,</span><span class="se">\n</span><span class="s2">2 teaspoons thyme,</span><span class="se">\n</span><span class="s2">2 teaspoons curry powder (nigerian curry powder)"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pour the chicken stock and the tomato stew into a sizeable pot and leave to boil.</span><span class="se">\n</span><span class="s2">add the drained parboiled rice, curry powder, salt and pepper to taste. the water level should be the same level of the rice. this is to ensure that all the water dries up by the time the rice is cooked.</span><span class="se">\n</span><span class="s2">cover the pot and leave to cook on low to medium heat. this way the rice does not burn before the water dries up."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1517184699/w8eo6wwnpmakf4knwsjo.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-28T07:53:12.635Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T12:00:06.262Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Reviews"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"An amazing recipe idea"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"User"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allows an authenticated user to add a review to a recipe</p>
+<h3 id='http-request-12'>HTTP Request</h3>
+<p><code>POST https://more-recipes-application.herokuapp.com/api/v1/recipes/:id/reviews</code></p>
+
+<hr>
+<h2 id='get-reviews-for-a-recipe'>Get reviews for a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes/:id/reviews</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>GET</strong> <code>/api/v1/recipes/:id/reviews</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">137</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"An amazing recipe idea"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T12:00:54.696Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T12:00:54.696Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"User"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allows a user to get all the reviews for a recipe.</p>
+<h3 id='http-request-13'>HTTP Request</h3>
+<p><code>GET https://more-recipes-application.herokuapp.com/api/v1/recipes/:id/reviews</code></p>
+
+<hr>
+<h2 id='favorite-a-recipe'>Favorite a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/users/:id/recipes </span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>POST</strong> <code>/api/v1/users/:id/recipes</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>201:Created</code></li>
+<li>Body <code>(application/json)</code></li>
+<li>Requires: <code>Authentication</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"favorite"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"favorited"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipe favorited"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allows an authenticted user to favorite a recipe.</p>
+<h3 id='http-request-14'>HTTP Request</h3>
+<p><code>POST https://more-recipes-application.herokuapp.com/api/v1/users/:id/recipes</code></p>
+
+<hr>
+<h2 id='unfavorite-a-recipe'>Unfavorite a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/users/:userId/recipes </span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>POST</strong> <code>/api/v1/users/:userId/recipes</code></li>
+<li>Body <code>(application/json)</code></li>
+<li>Requires: <code>Authentication</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"favorite"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"favorited"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Favorite removed"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allows an authenticated user to un-favorite a recipe the user had favorited earlier.</p>
+<h3 id='http-request-15'>HTTP Request</h3>
+<p><code>POST https://more-recipes-application.herokuapp.com/api/v1/users/:userId/recipes</code></p>
+
+<hr>
+<h2 id='get-user-39-s-favorited-recipes'>Get user&#39;s favorited recipes</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/users/:userId/recipes </span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>GET</strong> <code>/api/v1/users/:userId/recipes</code></li>
+<li>Body <code>(application/json)</code></li>
+<li>Requires: <code>Authentication</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pageCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">75</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">133</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T10:37:18.677Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T10:37:18.677Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">133</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lorem ipsum dourm"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. nulla quis lorem ut libero malesuada feugiat. pellentesque in ipsum id orci porta dapibus. cras ultricies ligula sed magna dictum porta."</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. nulla quis lorem ut libero malesuada feugiat. pellentesque in ipsum id orci porta dapibus. cras ultricies ligula sed magna dictum porta.curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. nulla quis lorem ut libero malesuada feugiat. pellentesque in ipsum id orci porta dapibus. cras ultricies ligula sed magna dictum porta."</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-28T06:56:42.165Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T10:37:18.676Z"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">73</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">136</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-28T20:51:15.107Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-28T20:51:15.107Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">136</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lorem ipsum dourm"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. nulla quis lorem ut libero malesuada feugiat. pellentesque in ipsum id orci porta dapibus. cras ultricies ligula sed magna dictum porta."</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. nulla quis lorem ut libero malesuada feugiat. pellentesque in ipsum id orci porta dapibus. cras ultricies ligula sed magna dictum porta.curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. nulla quis lorem ut libero malesuada feugiat. pellentesque in ipsum id orci porta dapibus. cras ultricies ligula sed magna dictum porta."</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-28T06:57:22.848Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-29T10:47:46.522Z"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allows an authenticated user to get all their favorited recipes.</p>
+<h3 id='http-request-16'>HTTP Request</h3>
+<p><code>POST https://more-recipes-application.herokuapp.com/api/v1/users/:userId/recipes</code></p>
+
+<hr>
+<h2 id='get-favorites-count-of-a-recipe'>Get favorites count of a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/favorites/:id </span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>GET</strong> <code>/api/v1/favorites/:id</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"isFound"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allows a user to get the favorites count of a recipe.</p>
+<h3 id='http-request-17'>HTTP Request</h3>
+<p><code>GET https://more-recipes-application.herokuapp.com/api/v1/favorites/:id</code></p>
+
+<hr>
+<h2 id='get-all-recipes-sorted-according-to-most-upvoted'>Get all recipes sorted according to most upvoted</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes/?sort=upvotes&amp;order=desc</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>GET</strong> <code>/api/v1/recipes/?sort=upvotes&amp;order=desc</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pageCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">129</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new lorem ipsum dourmbvbv"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. sed porttitor lectus nibh. vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-27T20:30:26.249Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-27T21:31:45.135Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lorem ipsum dourm"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. nulla quis lorem ut libero malesuada feugiat. pellentesque in ipsum id orci porta dapibus. cras ultricies ligula sed magna dictum porta."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. nulla quis lorem ut libero malesuada feugiat. pellentesque in ipsum id orci porta dapibus. cras ultricies ligula sed magna dictum porta.curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. nulla quis lorem ut libero malesuada feugiat. pellentesque in ipsum id orci porta dapibus. cras ultricies ligula sed magna dictum porta."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-28T06:56:08.598Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-28T06:56:08.598Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">131</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lorem ipsum dourm"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"favoriteCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. nulla quis lorem ut libero malesuada feugiat. pellentesque in ipsum id orci porta dapibus. cras ultricies ligula sed magna dictum porta."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. nulla quis lorem ut libero malesuada feugiat. pellentesque in ipsum id orci porta dapibus. cras ultricies ligula sed magna dictum porta.curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. nulla quis lorem ut libero malesuada feugiat. pellentesque in ipsum id orci porta dapibus. cras ultricies ligula sed magna dictum porta."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"views"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downVotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeOwnerView"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-28T06:56:18.160Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-28T06:56:18.160Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allows a user retrieve recipes sorted according to the most upvoted.</p>
+<h3 id='http-request-18'>HTTP Request</h3>
+<p><code>GET https://more-recipes-application.herokuapp.com/api/v1/recipes/?sort=upvotes&amp;order=desc</code></p>
+
+<hr>
+<h1 id='profile'>Profile</h1><h2 id='update-user-profile'>Update user profile</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/users/update</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>POST</strong> <code>/api/v1/users/update</code></li>
+<li>Body <code>(application/json)</code></li>
+<li>Requires: <code>Authentication and Authorization</code></li>
+</ul>
+
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"doe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"emailAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@gmail.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"doe"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"emailAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@gmail.com"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allows an authenticated user to update their first name, last name and email address on their profile</p>
+<h3 id='http-request-19'>HTTP Request</h3>
+<p><code>POST https://more-recipes-application.herokuapp.com/api/v1/users/update</code></p>
+
+<hr>
+<h2 id='get-user-profile'>Get user profile</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/profile/:userId</span>
+</code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: <strong>GET</strong> <code>/api/v1/profile/:userId</code></li>
+<li>Body <code>(application/json)</code></li>
+<li>Requires: <code>Authentication</code></li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200:OK</code></li>
+<li>Body <code>(application/json)</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"doe"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"emailAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@gmail.com"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint allows an authenticated user to view their profile</p>
+<h3 id='http-request-20'>HTTP Request</h3>
+<p><code>GET https://more-recipes-application.herokuapp.com/api/v1/profile/:userId</code></p>
+
+<hr>
 <h1 id='errors'>Errors</h1>
 <p>The more recipes API uses the following error codes:</p>
 
@@ -573,6 +1391,10 @@
 <tr>
 <td>406</td>
 <td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
+</tr>
+<tr>
+<td>409</td>
+<td>Conflict -- You attempted to create a resource that already exists.</td>
 </tr>
 <tr>
 <td>410</td>

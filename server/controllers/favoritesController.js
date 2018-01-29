@@ -118,7 +118,7 @@ const favoritesController = {
       .findAndCountAll({
         limit,
         offset,
-        where: { userId: request.params.id },
+        where: { userId: request.decoded.id },
         include: [{ model: Recipes }]
       })
       .then((recipes) => {
