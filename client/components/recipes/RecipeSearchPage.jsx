@@ -58,7 +58,7 @@ class RecipeSearchPage extends Component {
  */
   onPageChange(current) {
     current.selected += 1;
-    this.props.recipeSearchAction(current.selected);
+    this.props.recipeSearchAction(this.state.searchQuery, current.selected);
   }
 
   /**
@@ -171,7 +171,7 @@ class RecipeSearchPage extends Component {
               </div>
 
             </div>
-
+            <div className="clearfix m-5" />
           </div>
 
         </div>
@@ -186,11 +186,13 @@ RecipeSearchPage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  recipes: state.recipesReducer.recipes
+  recipes: state.recipesReducer.recipes,
+  pageCount: state.recipesReducer.pageCount
 });
 
 const mapDispatchToProps = dispatch => ({
-  recipeSearchAction: searchQuery => dispatch(recipeSearchAction(searchQuery))
+  recipeSearchAction: (searchQuery, pageCount) =>
+    dispatch(recipeSearchAction(searchQuery, pageCount))
 });
 
 export default connect(

@@ -109,7 +109,8 @@ const favoritesController = {
       return response.status(400).json({ error });
     }
 
-    const page = request.query.page || 1;
+    const page = Number.isInteger(parseInt(request.query.page, 10))
+  && request.query.page > 0 ? request.query.page : 1;
     const limit = request.query.limit || 9;
     const offset = (page - 1) * limit;
 

@@ -18,7 +18,7 @@ export const recipeSearchActionCreator = recipes => ({
 });
 
 export const recipeSearchCount = pageCount => ({
-  get: GET_MY_RECIPES_PAGE_COUNT,
+  type: GET_MY_RECIPES_PAGE_COUNT,
   pageCount
 });
 
@@ -31,7 +31,7 @@ const recipeSearchAction = (searchQuery, page) =>
           alertify.logPosition('bottom right');
           alertify.error(message);
         }
-        dispatch(recipeSearchActionCreator(response.data.recipes));
+
         dispatch(batchActions([
           recipeSearchActionCreator(response.data.recipes),
           recipeSearchCount(response.data.pageCount)
