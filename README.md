@@ -1,12 +1,11 @@
-<p align="center">
+<p align="left">
     <img src="https://fuchodeveloper.github.io/assets/images/logo.png" alt='more recipes logo'/>
 </p>
 
-<p align="center">
-    <img src="https://travis-ci.org/fuchodeveloper/more-recipes.svg?branch=develop" alt="travis ci build test badge" />
-    <a href='https://coveralls.io/github/fuchodeveloper/more-recipes?branch=develop'><img src='https://coveralls.io/repos/github/fuchodeveloper/more-recipes/badge.svg?branch=develop' alt='Coverage Status' /></a>
-    <a href="https://codeclimate.com/github/fuchodeveloper/more-recipes"><img src="https://codeclimate.com/github/fuchodeveloper/more-recipes/badges/gpa.svg" /></a>
-</p>
+[![Build Status](https://travis-ci.org/fuchodeveloper/more-recipes.svg?branch=develop)](https://travis-ci.org/fuchodeveloper/more-recipes)
+[![Coverage Status](https://coveralls.io/repos/github/fuchodeveloper/more-recipes/badge.svg?branch=develop)](https://coveralls.io/github/fuchodeveloper/more-recipes?branch=develop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d85f917ceb5a18c031ea/maintainability)](https://codeclimate.com/github/fuchodeveloper/more-recipes/maintainability)
+
 
 # More-recipes 
 More-Recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.  Suppose a user comes up with a recipe,  he/she can post it on More-Recipes and  get feedback in form of reviews and votes from other users who explore that recipe. Users can also keep a list of their favorite recipes on the application.
