@@ -21,10 +21,10 @@ export const recipePageDetails = pageCount => ({
 
 const getAllRecipesAction = page => (dispatch) => {
   dispatch(setFetching());
-  axios.get(`/api/v1/recipes?page=${page}`)
+  return axios.get(`/api/v1/recipes?page=${page}`)
     .then((response) => {
       dispatch(batchActions([
-        receiveRecipes(response.data.recipes),
+        dispatch(receiveRecipes(response.data.recipes)),
         recipePageDetails(response.data.pageCount),
         unsetFetching(),
       ]));

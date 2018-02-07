@@ -4,7 +4,7 @@ import validateId from '../validations/validateId';
 
 const { Recipes, User, Reviews } = db;
 
-const reviewsController = {
+const ReviewsController = {
   /**
    * @description Create a review for a recipe
    *
@@ -120,4 +120,4 @@ const reviewsController = {
   }
 };
 
-export default reviewsController;
+export default ReviewsController;

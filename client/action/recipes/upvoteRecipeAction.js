@@ -11,7 +11,7 @@ import { UPVOTE_RECIPE } from '../types';
  *
  * @returns {object} recipe
  */
-export const upvoteRecipeAction = recipe => ({
+export const upvoteRecipeActionCreator = recipe => ({
   type: UPVOTE_RECIPE,
   recipe
 });
@@ -21,17 +21,17 @@ export const upvoteRecipeAction = recipe => ({
  *
  * @export upvoteRecipe
  *
- * @param {Integer} id
+ * @param {Number} id
  *
- * @returns {Object} dispatch
+ * @returns {Object} dispatch recipe upvote
  */
-const upvoteRecipe = id => dispatch =>
+const upvoteRecipeAction = id => dispatch =>
   axios.post(`/api/v1/recipes/${id}/upvote`)
     .then((response) => {
       alertify.delay(900);
       alertify.logPosition('bottom right');
       alertify.success(response.data.recipe.message);
-      return dispatch(upvoteRecipeAction(response.data.recipe));
+      return dispatch(upvoteRecipeActionCreator(response.data.recipe));
     })
     .catch(() => {
       alertify.delay(1000);
@@ -39,4 +39,4 @@ const upvoteRecipe = id => dispatch =>
       alertify.error('Please login to upvote recipe');
     });
 
-export default upvoteRecipe;
+export default upvoteRecipeAction;

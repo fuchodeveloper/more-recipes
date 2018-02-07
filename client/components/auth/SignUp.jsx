@@ -13,7 +13,7 @@ import signupAction from '../../action/authentication/signupAction';
  *
  * @extends {Component}
  */
-class SignUp extends Component {
+export class SignUp extends Component {
   /**
    * @description Creates an instance of SignUp.
    *
@@ -62,7 +62,7 @@ class SignUp extends Component {
  *
  * @memberof SignUp
  *
- * @returns {void}
+ * @returns {undefined} calls the signupProps
  */
   onSubmit(event) {
     event.preventDefault();
@@ -78,7 +78,7 @@ class SignUp extends Component {
  *
  * @memberof SignUp
  *
- * @returns {void}
+ * @returns {undefined} returns validation state errors
  */
   isValid() {
     const { errors, isValid } = validateInput(this.state);
@@ -113,7 +113,11 @@ class SignUp extends Component {
               <form onSubmit={this.onSubmit}>
                 <div className="row">
                   <div className="col-md-12 mb-3">
-                    <label htmlFor="firstName" className="forms-label-color">First Name</label>
+                    <label
+                      htmlFor="firstName"
+                      className="forms-label-color"
+                    >First Name
+                    </label>
                     <input
                       value={this.firstName}
                       type="text"
@@ -123,11 +127,18 @@ class SignUp extends Component {
                       onChange={this.onChange}
                       required
                     />
-                    { this.state.errors.firstName && <span className="text-danger form-text">{ this.state.errors.firstName }</span> }
+                    { this.state.errors.firstName &&
+                    <span className="text-danger form-text">
+                      { this.state.errors.firstName }
+                    </span> }
                   </div>
 
                   <div className="col-md-12 mb-3">
-                    <label htmlFor="firstName" className="forms-label-color">Last Name</label>
+                    <label
+                      htmlFor="firstName"
+                      className="forms-label-color"
+                    >Last Name
+                    </label>
                     <input
                       value={this.lastName}
                       type="text"
@@ -173,7 +184,7 @@ class SignUp extends Component {
                     <input
                       value={this.passwordConfirmation}
                       type="password"
-                      id="confirmPassword"
+                      id="passwordConfirmation"
                       name="passwordConfirmation"
                       className="form-control"
                       onChange={this.onChange}
@@ -186,7 +197,12 @@ class SignUp extends Component {
                   <div className="col-md-12 mb-2">
                     <label className="forms-label-color" />
                     <div className="form-group">
-                      <button className="btn btn-primary btn-lg btn-primary-color" disabled="">Sign up</button>
+                      <button
+                        className="btn btn-primary btn-lg btn-primary-color"
+                        disabled=""
+                        id="signup-submit"
+                      >Sign up
+                      </button>
                     </div>
                     <p className="small text-muted mt-3 text-center">
                     Already have an account? <Link to="/login">Sign in</Link>
@@ -206,17 +222,15 @@ class SignUp extends Component {
 }
 
 SignUp.defaultProps = {
-  auth: false
+  auth: false,
+  signupProps: () => {}
 };
 
 SignUp.propTypes = {
-  signupProps: PropTypes.func.isRequired,
+  signupProps: PropTypes.func,
   auth: PropTypes.bool
 };
 
-SignUp.contextTypes = {
-  router: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
   errors: state.auth.error,

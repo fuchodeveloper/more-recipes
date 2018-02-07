@@ -35,9 +35,9 @@ const recipeController = {
       image: request.body.image
     })
       .then(recipe => response.status(201)
-        .json({ message: 'Recipe created successfully ', recipe }))
-      .catch(error => response.status(500)
-        .json({ error: error.message }));
+        .json({ message: 'Recipe created successfully', recipe }))
+      .catch(() => response.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   },
 
   /**
@@ -85,10 +85,10 @@ const recipeController = {
 
               if (request.decoded.id === recipe.userId &&
                 recipe.recipeOwnerView === false) {
-                return recipe
+                recipe
                   .update({ views: recipe.views + 1, recipeOwnerView: true });
               } else if (request.decoded.id !== recipe.userId) {
-                return recipe
+                recipe
                   .update({ views: recipe.views + 1 });
               }
 
@@ -101,8 +101,8 @@ const recipeController = {
             .json({ recipe, favorited: false });
         }
       })
-      .catch(serverError => response.status(500)
-        .json({ error: serverError.message }));
+      .catch(() => response.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   },
 
   /**
@@ -145,7 +145,9 @@ const recipeController = {
             page, pageCount, pageSize, totalCount, recipes: recipes.rows
           });
       })
-      .catch(error => response.status(500).json(error.message));
+      .catch(() => response.status(500).json({
+        error: 'An unexpected error occurred'
+      }));
   },
 
   /**

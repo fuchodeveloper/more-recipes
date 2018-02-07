@@ -51,7 +51,7 @@ const signupAction = userDetails => (dispatch) => {
   return axios.post('/api/v1/users/signup', userDetails)
     .then((response) => {
       const { token, message } = response.data;
-      alertify.delay(2000);
+      alertify.delay(1000);
       alertify.logPosition('bottom right');
       alertify.success(message);
       localStorage.setItem('jwtToken', token);
@@ -62,7 +62,7 @@ const signupAction = userDetails => (dispatch) => {
       ]));
     })
     .catch((error) => {
-      alertify.delay(2000);
+      alertify.delay(1000);
       alertify.logPosition('bottom right');
       alertify.error(error.response.data.error);
       dispatch(batchActions([

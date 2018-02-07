@@ -3,9 +3,8 @@ import { mapKeys } from 'lodash';
 import {
   RECEIVE_RECIPE,
   UPVOTE_RECIPE, ADD_REVIEW,
-  GET_DOWNVOTE,
+  DOWNVOTE_RECIPE,
   ADD_FAVORITE_SUCCESS,
-  FAVORITE_ID,
   ADD_RECIPE,
   ADD_RECIPE_ERROR,
   UPDATE_RECIPE,
@@ -21,7 +20,8 @@ import {
   GET_SEARCHED_RECIPE,
   GET_SEARCHED_RECIPE_COUNT,
   GET_MY_RECIPES_FAIL,
-  GET_PAGE_DETAILS
+  GET_PAGE_DETAILS,
+  RECEIVE_RECIPE_ERROR
 } from '../../action/types';
 
 export const recipesReducer = (state = {}, action) => {
@@ -58,6 +58,12 @@ export const recipesReducer = (state = {}, action) => {
         reviews: mapKeys(action.recipe.recipe.Reviews, 'id'),
       };
 
+    case RECEIVE_RECIPE_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+
     case GET_SEARCHED_RECIPE:
       return {
         ...state,
@@ -80,7 +86,7 @@ export const recipesReducer = (state = {}, action) => {
         }
       };
 
-    case GET_DOWNVOTE:
+    case DOWNVOTE_RECIPE:
       return {
         ...state,
         recipe: {
@@ -125,12 +131,6 @@ export const recipesReducer = (state = {}, action) => {
         ...state,
         favorited: action.favorite.favorited,
         favorite: action.favorite
-      };
-
-    case FAVORITE_ID:
-      return {
-        ...state,
-        favoritesId: action.favoritesId
       };
 
     case GET_ALL_FAVORITES_PAGE_COUNT:

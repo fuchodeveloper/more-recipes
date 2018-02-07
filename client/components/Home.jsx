@@ -14,7 +14,7 @@ import getAllRecipesAction from '../action/recipes/getAllRecipesAction';
  *
  * @extends {Component}
  */
-class Home extends Component {
+export class Home extends Component {
   /**
    * @description Creates an instance of Home.
    *
@@ -43,7 +43,7 @@ class Home extends Component {
    * @returns {undefined}
    */
   componentDidMount() {
-    this.props.recipeProps(this.state.pageCount);
+    this.props.recipesAction(this.state.pageCount);
   }
 
   /**
@@ -83,7 +83,7 @@ class Home extends Component {
  */
   onPageChange(current) {
     current.selected += 1;
-    this.props.recipeProps(current.selected);
+    this.props.recipesAction(current.selected);
   }
 
   /**
@@ -210,6 +210,7 @@ class Home extends Component {
             <div className="input-group mt-2 mb-2 p-1">
 
               <input
+                id="searchQuery"
                 type="text"
                 className="form-control p-3"
                 placeholder="Try: 'Jollof Rice' "
@@ -230,7 +231,7 @@ class Home extends Component {
           <div className="margin-top-50 margin-bottom-50" />
 
           <div>
-            <h3 className="popular-text">Most popular recipes</h3>
+            <h3 className="popular-text">Most recent recipes</h3>
           </div>
 
           <div>
@@ -281,7 +282,7 @@ class Home extends Component {
 }
 
 Home.contextTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -292,20 +293,21 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  recipeProps: pageCount => dispatch(getAllRecipesAction(pageCount)),
+  recipesAction: pageCount => dispatch(getAllRecipesAction(pageCount)),
   recipeSearch: searchContent => dispatch(recipeSearch(searchContent))
 });
 
 Home.defaultProps = {
-  recipes: {},
-  children: null
+  recipes: [],
+  children: null,
+  pageCount: 1
 };
 
 Home.propTypes = {
-  recipeProps: PropTypes.func.isRequired,
+  recipesAction: PropTypes.func.isRequired,
   recipeSearch: PropTypes.func.isRequired,
-  recipes: PropTypes.shape({}),
-  pageCount: PropTypes.objectOf(PropTypes.number).isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.shape),
+  pageCount: PropTypes.number,
   children: PropTypes.node
 };
 

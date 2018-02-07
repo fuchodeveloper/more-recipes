@@ -230,6 +230,9 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#access-to-authenticated-routes" class="toc-h2 toc-link" data-title="Authentication">Access to authenticated routes</a>
+                  </li>
+                  <li>
                     <a href="#sign-up" class="toc-h2 toc-link" data-title="Authentication">Sign up</a>
                   </li>
                   <li>
@@ -317,9 +320,21 @@
 <p><em>NB: Code examples are represented on the right hand side of this documentation. These provide sample response for the provided endpoints</em></p>
 <h1 id='authentication'>Authentication</h1>
 <p>More recipes requires authentication to access the protected API routes. On successful sign up or sign in, a token is generated for the user to access protected routes.</p>
-<h2 id='sign-up'>Sign up</h2>
-<p>Request</p>
+<h3 id='access-to-authenticated-routes'>Access to authenticated routes</h3>
+<p>In order to access authenticated routes, you would need a token. This is generated on sign up or sign in using the API endpoint <code>/api/v1/users/signup</code>.</p>
 
+<p><em>NB: API endpoints requiring authentication are indicated in the request as such:</em></p>
+
+<p><code>Requires: Authentication</code></p>
+
+<p>More recipes expects for the token to be included in all API requests to protected routes on the server in a header that looks like the following:</p>
+
+<p><code>x-access-token</code>: <code>generated_token</code></p>
+
+<aside class="notice">
+You must replace <code>generated_token</code> with your personal API token.
+</aside>
+<h2 id='sign-up'>Sign up</h2><h3 id='request'>Request</h3>
 <ul>
 <li>Endpoint: <strong>POST</strong> <code>/api/v1/users/signup</code></li>
 <li>Body <code>(application/json)</code></li>
@@ -335,14 +350,36 @@
     </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"confirmPassword"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>Response</p>
-
+</span></code></pre><h3 id='response'>Response</h3>
 <ul>
 <li>Status: <code>201:Created</code></li>
 <li>Message: <code>Signup successful</code></li>
 <li>Body <code>(application/json)</code></li>
 </ul>
+<h3 id='sample-response-codes-and-messages'>Sample Response codes and messages</h3>
+<table><thead>
+<tr>
+<th>HTTP Status Code</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Signup successful</td>
+</tr>
+<tr>
+<td>400</td>
+<td>First name is required</td>
+</tr>
+<tr>
+<td>409</td>
+<td>User already exists. Try again.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>There was a problem registering the user.</td>
+</tr>
+</tbody></table>
 
 <blockquote>
 <p>Response:</p>
@@ -355,9 +392,7 @@
 <p>This endpoint is used to create a new user account.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://more-recipes-application.herokuapp.com/api/v1/users/signup</code></p>
-<h2 id='sign-in'>Sign in</h2>
-<p>Request</p>
-
+<h2 id='sign-in'>Sign in</h2><h3 id='request-2'>Request</h3>
 <ul>
 <li>Endpoint: <strong>POST</strong> <code>/api/v1/users/signin</code></li>
 <li>Body <code>(application/json)</code></li>
@@ -370,14 +405,40 @@
     </span><span class="s2">"emailAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@gmail.com"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>Response</p>
-
+</span></code></pre><h3 id='response-2'>Response</h3>
 <ul>
 <li>Status: <code>200:OK</code></li>
 <li>Message: <code>Signin successful</code></li>
 <li>Body <code>(application/json)</code></li>
 </ul>
+<h3 id='sample-response-codes-and-messages-2'>Sample Response codes and messages</h3>
+<table><thead>
+<tr>
+<th>HTTP Status Code</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>Log in successful</td>
+</tr>
+<tr>
+<td>400</td>
+<td>First name is required</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Authentication failed. No user found.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Wrong email or password</td>
+</tr>
+<tr>
+<td>500</td>
+<td>An unexpected error occurred.</td>
+</tr>
+</tbody></table>
 
 <blockquote>
 <p>Response:</p>
@@ -405,6 +466,22 @@
 <li>Status: <code>200:OK</code></li>
 <li>Body <code>(application/json)</code></li>
 </ul>
+<h3 id='sample-response-codes-and-messages-3'>Sample Response codes and messages</h3>
+<table><thead>
+<tr>
+<th>HTTP Status Code</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>Recipe object</td>
+</tr>
+<tr>
+<td>500</td>
+<td>An unexpected error occurred.</td>
+</tr>
+</tbody></table>
 
 <blockquote>
 <p>Response:</p>
@@ -470,6 +547,30 @@
 <li>Status: <code>200:OK</code></li>
 <li>Body <code>(application/json)</code></li>
 </ul>
+<h3 id='sample-response-codes-and-messages-4'>Sample Response codes and messages</h3>
+<table><thead>
+<tr>
+<th>HTTP Status Code</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>Recipe object</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Recipe id is required.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Recipe not found</td>
+</tr>
+<tr>
+<td>500</td>
+<td>An unexpected error occurred</td>
+</tr>
+</tbody></table>
 
 <blockquote>
 <p>Response:</p>
@@ -539,6 +640,30 @@
 <li>Status: <code>201:Created</code></li>
 <li>Body <code>(application/json)</code></li>
 </ul>
+<h3 id='sample-response-codes-and-messages-5'>Sample Response codes and messages</h3>
+<table><thead>
+<tr>
+<th>HTTP Status Code</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Recipe upvoted</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Recipe id is required.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Recipe not found</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Something went wrong</td>
+</tr>
+</tbody></table>
 
 <blockquote>
 <p>Response:</p>
@@ -555,7 +680,7 @@
 </span></code></pre>
 <p>This endpoint is used to upvote a recipe.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>GET https://more-recipes-application.herokuapp.com/api/v1/recipes/:id/upvote</code></p>
+<p><code>POST https://more-recipes-application.herokuapp.com/api/v1/recipes/:id/upvote</code></p>
 
 <hr>
 <h2 id='downvote-a-recipe'>Downvote a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes/:id/downvote</span>
@@ -575,6 +700,30 @@
 <li>Requires: <code>Authentication</code></li>
 </ul>
 
+<table><thead>
+<tr>
+<th>HTTP Status Code</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Recipe downvoted</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Recipe id is required.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Recipe not found</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Something went wrong</td>
+</tr>
+</tbody></table>
+
 <blockquote>
 <p>Response:</p>
 
@@ -588,7 +737,7 @@
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint is used to upvote a recipe.</p>
+<p>This endpoint is used to downvote a recipe.</p>
 <h3 id='http-request-6'>HTTP Request</h3>
 <p><code>GET https://more-recipes-application.herokuapp.com/api/v1/recipes/:id/downvote</code></p>
 
@@ -628,6 +777,26 @@
 <li>Status: <code>201:Created</code></li>
 <li>Body <code>(application/json)</code></li>
 </ul>
+<h3 id='sample-response-codes-and-messages-6'>Sample Response codes and messages</h3>
+<table><thead>
+<tr>
+<th>HTTP Status Code</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Recipe created successfully</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Recipe name is required</td>
+</tr>
+<tr>
+<td>500</td>
+<td>An unexpected error occurred.</td>
+</tr>
+</tbody></table>
 
 <blockquote>
 <p>Response:</p>
@@ -659,9 +828,7 @@
 
 <hr>
 <h2 id='update-a-recipe'>Update a recipe</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//more-recipes-application.herokuapp.com/api/v1/recipes/:id</span>
-</code></pre>
-<p>Request</p>
-
+</code></pre><h3 id='request-3'>Request</h3>
 <ul>
 <li>Endpoint: <strong>POST</strong> <code>/api/v1/recipes/:id</code></li>
 <li>Body <code>(application/json)</code></li>
@@ -686,9 +853,7 @@
         Cook till tender, adding more water from time to time, if necessary. Always keep the water at the same level as the beans so that when the beans is done, you will not have too much water in the porridge."</span><span class="p">,</span><span class="w">
     </span><span class="s2">"image"</span><span class="p">:</span><span class="w">    </span><span class="s2">"http://res.cloudinary.com/fuchodeveloper/image/upload/v1510581158/xs20xuqemntwq7eqhact.jpg"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>Response</p>
-
+</span></code></pre><h3 id='response-3'>Response</h3>
 <ul>
 <li>Status: <code>200:OK</code></li>
 <li>Body <code>(application/json)</code></li>

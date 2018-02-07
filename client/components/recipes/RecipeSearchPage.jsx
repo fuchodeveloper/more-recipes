@@ -12,7 +12,7 @@ import RecipeSearchResult from './RecipeSearchResult';
  *
  * @extends {Component}
  */
-class RecipeSearchPage extends Component {
+export class RecipeSearchPage extends Component {
   /**
    * Creates an instance of RecipeSearchPage.
    *
@@ -92,7 +92,7 @@ class RecipeSearchPage extends Component {
   /**
  * @description render JSX template
  *
- * @returns {html} html
+ * @returns {JSX} the search result
  *
  * @memberof RecipeSearchPage
  */
@@ -127,6 +127,7 @@ class RecipeSearchPage extends Component {
 
                 <input
                   type="submit"
+                  id="submit-search"
                   value="SEARCH"
                   className="btn btn-primary input-group-addon"
                 />

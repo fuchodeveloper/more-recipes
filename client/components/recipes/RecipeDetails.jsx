@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Capitalize from 'lodash.capitalize';
 import { BounceLoader } from 'react-spinners';
-import placeholderImage from '../../assets/img/noodles.jpg';
 import getRecipeAction from '../../action/recipes/getRecipeAction';
 import createFavoritesAction
   from '../../action/favorites/createFavoritesAction';
-import upvoteRecipe from '../../action/recipes/upvoteAction';
+import upvoteRecipe from '../../action/recipes/upvoteRecipeAction';
 import postRecipeReview from '../../action/reviews/postReviewAction';
-import downvoteRecipe from '../../action/recipes/downvoteAction';
+import downvoteRecipe from '../../action/recipes/downvoteRecipeAction';
 import RecipeReviews from './RecipeReviews';
 
 /**
@@ -19,7 +18,7 @@ import RecipeReviews from './RecipeReviews';
  *
  * @extends {React.Component}
  */
-class RecipeDetails extends React.Component {
+export class RecipeDetails extends React.Component {
   /**
    * @description Creates an instance of RecipeDetails.
    *
@@ -47,13 +46,23 @@ class RecipeDetails extends React.Component {
  *
  * @returns {undefined} calls getRecipe with the recipe id
  */
-  componentWillMount() {
-    this.props.getRecipeAction(this.props.match.params.id)
-      .then(() => {
-        this.setState({ loading: false });
-      });
+  componentDidMount() {
+    this.props.getRecipeAction(this.props.match.params.id);
   }
-
+  /**
+ * @description component lifecycle method to receive nextProps
+ *
+ * @param {Object} nextProps
+ *
+ * @memberof RecipeDetails
+ *
+ * @returns {undefined}
+ */
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.isFetching) {
+      this.setState({ loading: false });
+    }
+  }
   /**
  * @description handle input field change
  *
@@ -117,7 +126,7 @@ class RecipeDetails extends React.Component {
  *
  * @memberof RecipeDetails
  *
- * @returns {undefined}
+ * @returns {undefined} calls createFavorite props
  */
   createFavorite(event) {
     event.preventDefault();
@@ -140,15 +149,15 @@ class RecipeDetails extends React.Component {
             <BounceLoader
               color="#FF7055"
               loading={this.state.loading}
+              id="loader"
             />
           </span>
         </h2>
       );
     }
     const { recipe } = this.props;
-
     const ingredientsMap = recipe.ingredients.split(',').map((item, index) => (
-      <li key={index}>{Capitalize(item)}</li>
+      <li id="recipe-ingredients" key={index}>{Capitalize(item)}</li>
     ));
 
     return (
@@ -161,13 +170,15 @@ class RecipeDetails extends React.Component {
               style={{
               backgroundImage: `url(${recipe.image === ''
               ?
-              placeholderImage : recipe.image})`
+              'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+              + 'v1516760699/noodles_c6ltkq.jpg' : recipe.image})`
             }}
             >
               <div className="container recipe-overlay-text">
                 <h1
                   className="display-2 recipe-title"
                   style={{ marginTop: '10em' }}
+                  id="recipe-name"
                 >
                 Recipe: {recipe.name}
                 </h1>
@@ -202,9 +213,11 @@ class RecipeDetails extends React.Component {
               <div className="col-sm-6 float-right">
                 <img
                   src={recipe.image === '' ?
-                  placeholderImage : recipe.image}
+                  'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+                  + 'v1516760699/noodles_c6ltkq.jpg' : recipe.image}
                   className="img img-fluid"
                   alt={recipe.name}
+                  id="image"
                 />
                 <span className="text-muted form-text text-center">
                   <em>Food is ready</em>
@@ -228,14 +241,18 @@ class RecipeDetails extends React.Component {
                 {
                   !this.props.favorited ?
                     <div style={{ display: 'inline' }}>
-                      <i className="fa fa-heart-o fa-lg" /> Favorite
+                      <i className="fa fa-heart-o fa-lg" id="favorite-recipe" />
+                       &nbsp; Favorite
                     </div>
                     :
                     <div style={{ display: 'inline' }}>
                       &nbsp;
                       <span className="fa-stack fa-lg">
                         <i className="fa fa-square-o fa-stack-2x" />
-                        <i className="fa fa-heart-o fa-stack-1x" />
+                        <i
+                          className="fa fa-heart-o fa-stack-1x"
+                          id="favorited-recipe"
+                        />
                       </span> Favorited
                     </div>
                 }
@@ -247,7 +264,7 @@ class RecipeDetails extends React.Component {
             <div className="mt-5">
               <h3>Was this recipe helpful?</h3>
               <a href="#" onClick={this.upVote} className="font-awesome-thumb">
-                <i className="fa fa-thumbs-up fa-lg" />
+                <i className="fa fa-thumbs-up fa-lg" id="recipe-upvote" />
                 {recipe.upVotes} &nbsp;
               </a>
                    &nbsp;
@@ -256,7 +273,7 @@ class RecipeDetails extends React.Component {
                 onClick={this.downVote}
                 className="font-awesome-thumb"
               >
-                <i className="fa fa-thumbs-down fa-lg" />
+                <i className="fa fa-thumbs-down fa-lg" id="recipe-downvote" />
                 {recipe.downVotes}
               </a>
             </div>
@@ -307,6 +324,7 @@ class RecipeDetails extends React.Component {
                 <button
                   className="btn btn-primary btn-primary-color"
                   type="submit"
+                  id="recipe-review-submit"
                 >Add Review
                 </button>
               </form>
@@ -322,20 +340,33 @@ class RecipeDetails extends React.Component {
   }
 }
 
+RecipeDetails.defaultProps = {
+  recipe: {},
+  reviews: {},
+  id: 1,
+  favorited: false,
+  isFetching: false,
+  match: {
+    params: {}
+  }
+};
+
 RecipeDetails.propTypes = {
   getRecipeAction: PropTypes.func.isRequired,
   receiveUpvote: PropTypes.func.isRequired,
   postReview: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.number.isRequired
     })
-  }).isRequired,
-  recipe: PropTypes.shape({
-    Reviews: PropTypes.shape({}).isRequired
-  }).isRequired,
+  }),
+  id: PropTypes.number,
+  recipe: PropTypes.shape({}),
+  reviews: PropTypes.shape({}),
+  favorited: PropTypes.bool,
   receiveDownvote: PropTypes.func.isRequired,
-  createFavoritesAction: PropTypes.func.isRequired
+  createFavoritesAction: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool,
+
 };
 
 const mapStateToProps = state => ({
@@ -344,6 +375,7 @@ const mapStateToProps = state => ({
   isFetching: state.isFetching,
   reviews: state.recipesReducer.reviews,
   userid: state.auth.user.id,
+  error: state.recipesReducer.error
 });
 const mapDispatchToProps = dispatch => ({
   createFavoritesAction: param => dispatch(createFavoritesAction(param)),

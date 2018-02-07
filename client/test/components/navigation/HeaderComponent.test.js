@@ -9,6 +9,7 @@ configure({ adapter: new Adapter() });
 
 /**
  * @description function to setup props used in component
+ *
  * @returns {Object} props, enzymeWrapper
  */
 const setup = () => {
@@ -27,10 +28,16 @@ const setup = () => {
 };
 
 describe('<Header />', () => {
-  it('should check for the site brand name', () => {
+  describe('Header component', () => {
+    it('should render with right amount of elements', () => {
+      const { wrapper } = setup();
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
+  it('should be successfully rendered', () => {
     const { enzymeWrapper } = setup();
-    expect(enzymeWrapper.find('a').text()).toBe('More Recipes');
-    expect(enzymeWrapper.find('nav').hasClass('navbar')).toBe(true);
+    expect(enzymeWrapper.find('Link').length).toBe(3);
   });
 });
 

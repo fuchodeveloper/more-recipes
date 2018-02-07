@@ -14,7 +14,7 @@ import validateRecipe from '../../validations/validateRecipe';
  *
  * @extends {React.Component}
  */
-class AddRecipePage extends React.Component {
+export class AddRecipePage extends React.Component {
   /**
    * @description Creates an instance of AddRecipePage.
    *
@@ -172,7 +172,11 @@ class AddRecipePage extends React.Component {
               />
             </div>
 
-            <form encType="multipart/form-data" onSubmit={this.onSubmit}>
+            <form
+              encType="multipart/form-data"
+              onSubmit={this.onSubmit}
+              id="add-recipe-form"
+            >
               <br />
               <div className="upload text-center">
                 <button
@@ -223,7 +227,7 @@ class AddRecipePage extends React.Component {
                       cols="30"
                       rows="5"
                       name="ingredients"
-                      id="ingredient"
+                      id="ingredients"
                       className="form-control"
                       value={this.state.ingredients}
                       onChange={this.onChange}
@@ -266,6 +270,7 @@ class AddRecipePage extends React.Component {
                 <button
                   type="submit"
                   className="btn btn-primary btn-primary-color"
+                  id="recipe-submit"
                 >Submit
                 </button>
               </div>
@@ -285,7 +290,7 @@ AddRecipePage.propTypes = {
 };
 
 AddRecipePage.contextTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object
 };
 
 const mapStateToProps = state => ({

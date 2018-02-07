@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import noodles from '../../assets/img/noodles.jpg';
+import PropTypes from 'prop-types';
 
-const AllMostUpvotes = props => (
+export const AllMostUpvotes = props => (
   <div className="col-md-4 mb-5">
     <div className="card mt-1">
       <img
         className="card-img-top"
         max-width="348px"
         height="231px"
-        src={props.details.image === '' ? noodles : props.details.image}
+        src={props.details.image === '' ?
+        'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+              + 'v1516760699/noodles_c6ltkq.jpg' : props.details.image}
         alt={props.details.name}
       />
       <div className="card-body">
@@ -40,5 +42,24 @@ const AllMostUpvotes = props => (
     </div>
   </div>
 );
+
+AllMostUpvotes.defaultProps = {
+  details: {
+    favoriteCount: 0,
+    upVotes: 0
+  }
+};
+
+AllMostUpvotes.propTypes = {
+  details: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    direction: PropTypes.string.isRequired,
+    views: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+    upVotes: PropTypes.number,
+    favoriteCount: PropTypes.number,
+  })
+};
 
 export default AllMostUpvotes;
