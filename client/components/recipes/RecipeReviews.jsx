@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const RecipeReviews = props =>
+export const RecipeReviews = props =>
 
   /**
    * Get the review and the first name of the user who posted a review
@@ -15,10 +16,18 @@ const RecipeReviews = props =>
           <span className="text-muted">
             <em>{props.review.User.firstName} said:</em>
           </span>
-          <p>{props.review.review} </p>
+          <p id="new-review-body">{props.review.review} </p>
         </div>
         ) : 'no reviews' }
 
     </div>
   );
+
+RecipeReviews.propTypes = {
+  review: PropTypes.shape({
+    review: '',
+    User: {}
+  }).isRequired
+};
+
 export default RecipeReviews;

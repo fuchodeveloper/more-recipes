@@ -48,7 +48,7 @@ export const setCurrentUserError = error => ({
  */
 const loginAction = userDetails => (dispatch) => {
   dispatch(setFetching());
-  axios.post('/api/v1/users/signin', userDetails)
+  return axios.post('/api/v1/users/signin', userDetails)
     .then((response) => {
       const { token, message } = response.data;
       alertify.delay(2000);

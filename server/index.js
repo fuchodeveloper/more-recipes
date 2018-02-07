@@ -53,7 +53,8 @@ if (process.env.NODE_ENV === 'production') {
   app.get('/*', (request, response) => {
     response.sendFile(path.join(__dirname, '../dist/index.html'));
   });
-} else if (process.env.NODE_ENV === 'development') {
+} else if (process.env.NODE_ENV === 'development'
+  || process.env.NODE_ENV === 'test_dev') {
   app.get('/*', (request, response) => {
     response.sendFile(path.join(__dirname, '../client/index.html'));
   });

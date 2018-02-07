@@ -1,11 +1,11 @@
 import express from 'express';
-import usersController from '../controllers/usersController';
+import UsersController from '../controllers/UsersController';
 import authorization from '../middleware/tokenMiddleware';
 
 const router = express.Router();
 
-router.post('/signup', usersController.create);
-router.post('/signin', usersController.login);
-router.post('/update', authorization.verifyToken, usersController.updateUser);
+router.post('/signup', UsersController.create);
+router.post('/signin', UsersController.login);
+router.post('/update', authorization.verifyToken, UsersController.updateUser);
 
 export default router;

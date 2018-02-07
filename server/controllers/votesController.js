@@ -6,7 +6,7 @@ const {
   Recipes, Votes
 } = db;
 
-const votesController = {
+const VotesController = {
 
   /**
    * @description Upvote a recipe
@@ -84,7 +84,7 @@ const votesController = {
 
                 messageText = 'Recipe upvoted';
                 recipe.increment('upVotes')
-                  .then(upvoteResponse => response.status(200).json({
+                  .then(upvoteResponse => response.status(201).json({
                     recipe: {
                       upVotes: upvoteResponse.upVotes,
                       downVotes: upvoteResponse.downVotes,
@@ -190,7 +190,7 @@ const votesController = {
 
                 messageText = 'Recipe downvoted';
                 recipe.increment('downVotes')
-                  .then(downvoteResponse => response.status(200).json({
+                  .then(downvoteResponse => response.status(201).json({
                     recipe: {
                       upVotes: downvoteResponse.upVotes,
                       downVotes: downvoteResponse.downVotes,
@@ -222,4 +222,4 @@ const votesController = {
   }
 };
 
-export default votesController;
+export default VotesController;

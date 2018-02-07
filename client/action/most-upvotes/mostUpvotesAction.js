@@ -38,12 +38,12 @@ export const mostUpvotesPageCount = pageCount => ({
  *
  * @returns {object} object
  */
-const mostUpvotes = page => (dispatch) => {
+const mostUpvotesAction = page => (dispatch) => {
   dispatch(setFetching());
-  axios.get(`/api/v1/recipes?page=${page}&sort=upvotes&order=desc`)
+  return axios.get(`/api/v1/recipes?page=${page}&sort=upvotes&order=desc`)
     .then((response) => {
       dispatch(batchActions([
-        mostUpvotesActionCreator(response.data.recipes),
+        dispatch(mostUpvotesActionCreator(response.data.recipes)),
         mostUpvotesPageCount(response.data.pageCount),
         unsetFetching(),
       ]));
@@ -53,4 +53,4 @@ const mostUpvotes = page => (dispatch) => {
     });
 };
 
-export default mostUpvotes;
+export default mostUpvotesAction;

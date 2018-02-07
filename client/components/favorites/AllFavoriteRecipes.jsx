@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import placeholderImage from '../../assets/img/noodles.jpg';
-
 /**
  * @description stateless component for all favorited recipes
  *
@@ -18,7 +16,8 @@ const AllFavoriteRecipes = props => (
         max-width="348px"
         height="231px"
         src={props.details.Recipe.image === ''
-          ? placeholderImage
+          ? 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+          + 'v1516760699/noodles_c6ltkq.jpg'
           :
             props.details.Recipe.image}
         alt={props.details.Recipe.name}

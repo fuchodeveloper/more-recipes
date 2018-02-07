@@ -1,0 +1,274 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReceipeDetails component should render preloader 1`] = `
+<h2
+  className="text-center mt-5"
+>
+  <span
+    className="mt-5 d-inline-block"
+  >
+    <onlyUpdateForKeys(Loader)
+      color="#FF7055"
+      id="loader"
+      loading={true}
+      size={60}
+    />
+  </span>
+</h2>
+`;
+
+exports[`ReceipeDetails component should render the right amount of elements 1`] = `
+<div>
+  <div>
+    <div
+      className="overlay margin-top-50"
+    >
+      <div
+        className="jumbotron recipe-header-background"
+        style={
+          Object {
+            "backgroundImage": "url(https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg)",
+          }
+        }
+      >
+        <div
+          className="container recipe-overlay-text"
+        >
+          <h1
+            className="display-2 recipe-title"
+            id="recipe-name"
+            style={
+              Object {
+                "marginTop": "10em",
+              }
+            }
+          >
+            Recipe: 
+            jollof rice and beans
+          </h1>
+        </div>
+      </div>
+    </div>
+    <div
+      className="container"
+    >
+      <div
+        className="mb-4"
+      >
+        <span
+          className="recipe-title"
+        >
+          Recipe Ingredients
+        </span>
+        <span
+          className="float-right recipe-ratings-right text-muted"
+        >
+          59
+           
+          <i
+            aria-hidden="true"
+            className="fa fa-eye"
+          />
+          <span
+            className="big-pipe"
+          >
+             . 
+          </span>
+          0
+           
+          <i
+            aria-hidden="true"
+            className="fa fa-thumbs-up"
+          />
+          <span>
+             .
+          </span>
+            
+          0
+          <i
+            aria-hidden="true"
+            className="fa fa-star"
+          />
+        </span>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-sm-6"
+        >
+          <ul
+            className="p-4"
+          >
+            <li
+              id="recipe-ingredients"
+              key="0"
+            >
+              Rice and beans
+            </li>
+          </ul>
+        </div>
+        <div
+          className="col-sm-6 float-right"
+        >
+          <img
+            alt="jollof rice and beans"
+            className="img img-fluid"
+            id="image"
+            src="https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"
+          />
+          <span
+            className="text-muted form-text text-center"
+          >
+            <em>
+              Food is ready
+            </em>
+          </span>
+        </div>
+      </div>
+      <div
+        className="mt-5"
+      >
+        <h3>
+          Directions
+        </h3>
+        <p>
+          proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.
+        </p>
+      </div>
+      <div
+        className="mt-5 fav-link"
+      >
+        <a
+          className="font-awesome-fav"
+          href="#"
+          onClick={[Function]}
+        >
+          <div
+            style={
+              Object {
+                "display": "inline",
+              }
+            }
+          >
+            <i
+              className="fa fa-heart-o fa-lg"
+              id="favorite-recipe"
+            />
+              Favorite
+          </div>
+        </a>
+         
+      </div>
+      <div
+        className="mt-5"
+      >
+        <h3>
+          Was this recipe helpful?
+        </h3>
+        <a
+          className="font-awesome-thumb"
+          href="#"
+          onClick={[Function]}
+        >
+          <i
+            className="fa fa-thumbs-up fa-lg"
+            id="recipe-upvote"
+          />
+          0
+            
+        </a>
+         
+        <a
+          className="font-awesome-thumb"
+          href="#"
+          onClick={[Function]}
+        >
+          <i
+            className="fa fa-thumbs-down fa-lg"
+            id="recipe-downvote"
+          />
+          0
+        </a>
+      </div>
+      <div
+        className="mt-5"
+      >
+        <h3
+          className="mb-4"
+        >
+          Reviews
+        </h3>
+        <div
+          className="scroll col-md-8"
+        >
+          <RecipeReviews
+            key="id"
+            review={1}
+          />
+          <RecipeReviews
+            key="review"
+            review="Amazing recipe you got there!"
+          />
+          <RecipeReviews
+            key="User"
+            review={
+              Object {
+                "firstName": "johnny",
+              }
+            }
+          />
+        </div>
+      </div>
+      <div
+        className="mt-5 mb-2"
+      >
+        <h3>
+          Drop a review
+        </h3>
+        <form
+          onSubmit={[Function]}
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-md-6 mb-3"
+            >
+              <label
+                htmlFor="review-body"
+              />
+              <textarea
+                className="form-control"
+                cols="30"
+                id="review-body"
+                name="review"
+                onChange={[Function]}
+                placeholder="How awesome was this recipe?"
+                required={true}
+                rows="10"
+                value=""
+              />
+              <div
+                className="invalid-feedback"
+              >
+                Please add a review
+              </div>
+            </div>
+          </div>
+          <button
+            className="btn btn-primary btn-primary-color"
+            id="recipe-review-submit"
+            type="submit"
+          >
+            Add Review
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div
+    className="clearfix m-5"
+  />
+</div>
+`;

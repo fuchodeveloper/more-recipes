@@ -14,7 +14,7 @@ import validateRecipe from '../../validations/validateRecipe';
  *
  * @extends {React.Component}
  */
-class UpdateRecipePage extends React.Component {
+export class UpdateRecipePage extends React.Component {
   /**
    * @description Creates an instance of UpdateRecipePage.
    *
@@ -49,7 +49,7 @@ class UpdateRecipePage extends React.Component {
  *
  * @returns {undefined}
  */
-  componentWillMount() {
+  componentDidMount() {
     const { id } = this.props.match.params;
     this.props.getRecipe(id);
   }
@@ -246,7 +246,7 @@ class UpdateRecipePage extends React.Component {
                       cols="30"
                       rows="5"
                       name="ingredients"
-                      id="ingredient"
+                      id="ingredients"
                       className="form-control"
                       value={this.state.ingredients}
                       onChange={this.onChange}
@@ -288,6 +288,7 @@ class UpdateRecipePage extends React.Component {
               <div className="float-right p-1">
                 <input
                   type="submit"
+                  id="update-recipe-form"
                   className="btn btn-primary btn-primary-color"
                   value="Submit"
                 />
@@ -305,13 +306,14 @@ class UpdateRecipePage extends React.Component {
   }
 }
 
-UpdateRecipePage.propTypes = {
-  getRecipe: PropTypes.func.isRequired,
-  updateRecipe: PropTypes.func.isRequired
+UpdateRecipePage.defaultProps = {
+  getRecipe: () => {},
+  updateRecipe: () => {}
 };
 
-UpdateRecipePage.contextTypes = {
-  router: PropTypes.object.isRequired
+UpdateRecipePage.propTypes = {
+  getRecipe: PropTypes.func,
+  updateRecipe: PropTypes.func
 };
 
 const mapStateToProps = state => ({

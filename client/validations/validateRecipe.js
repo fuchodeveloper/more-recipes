@@ -13,7 +13,7 @@ const validateRecipe = (formInput) => {
   }
 
   if (validator.isEmpty(formInput.direction.trim())) {
-    errors.direction = 'Recipe direction is required';
+    errors.direction = 'Recipe ingredients is required';
   }
 
   if (formInput.name.length < 3) {

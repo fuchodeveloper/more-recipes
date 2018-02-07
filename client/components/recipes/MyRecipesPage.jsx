@@ -16,7 +16,7 @@ import deleteRecipeAction from '../../action/recipes/deleteRecipeAction';
  *
  * @extends {React.Component}
  */
-class MyRecipesPage extends React.Component {
+export class MyRecipesPage extends React.Component {
   /**
    * @description Creates an instance of MyRecipesPage.
    *
@@ -204,12 +204,22 @@ class MyRecipesPage extends React.Component {
   }
 }
 
+MyRecipesPage.defaultProps = {
+  recipes: {}
+};
+
+MyRecipesPage.propTypes = {
+  myRecipesAction: PropTypes.func.isRequired,
+  deleteRecipeAction: PropTypes.func.isRequired,
+  recipes: PropTypes.shape({})
+};
+
 /**
  * @description function mapStateToProps
  *
  * @param {Object} state
  *
- * @returns {object} recipes
+ * @returns {Object} recipes
  */
 const mapStateToProps = state => ({
   recipes: state.recipesReducer.recipes,

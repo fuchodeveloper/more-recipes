@@ -1,6 +1,6 @@
 import axios from 'axios';
 import alertify from 'alertify.js';
-import { GET_DOWNVOTE } from '../types';
+import { DOWNVOTE_RECIPE } from '../types';
 
 /**
  * Recipe doenvote action creator
@@ -8,7 +8,7 @@ import { GET_DOWNVOTE } from '../types';
  * @returns {recipe} recipe
  */
 export const downvoteRecipeActionCreator = recipe => ({
-  type: GET_DOWNVOTE,
+  type: DOWNVOTE_RECIPE,
   recipe
 });
 
@@ -21,7 +21,7 @@ export const downvoteRecipeActionCreator = recipe => ({
  *
  * @returns {object} object
  */
-const downvoteRecipe = id =>
+const downvoteRecipeAction = id =>
   dispatch => axios.post(`/api/v1/recipes/${id}/downvote`)
     .then((response) => {
       alertify.delay(900);
@@ -36,4 +36,4 @@ const downvoteRecipe = id =>
     });
 
 
-export default downvoteRecipe;
+export default downvoteRecipeAction;

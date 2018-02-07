@@ -139,7 +139,7 @@ describe('User authentication', () => {
         .send(user)
         .end((err, res) => {
           expect(res.body.error).to.equal('Wrong email or password');
-          expect(res).to.have.status(403);
+          expect(res).to.have.status(401);
           done();
         });
     });

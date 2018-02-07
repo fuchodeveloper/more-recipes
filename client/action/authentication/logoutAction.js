@@ -5,10 +5,10 @@ import setAuthorizationToken from '../../utils/setAuthorizationToken';
  * @description The set current user action creator
  *
  * @export  setCurrentUser
- * @param   {object} user - the user object
+ * @param   {Object} user - the user object
  *
- * @returns {object} user - the user details saved
- * @returns {string} type - the action type
+ * @returns {Object} user - the user details saved
+ * @returns {String} type - the action type
  */
 
 export const setCurrentUser = user => ({
@@ -17,18 +17,11 @@ export const setCurrentUser = user => ({
 });
 
 /**
- *
- *
- * @export logout
- * @returns {void}
- */
-
-/**
  * @description Log authenticated user out from app
  *
- * @export  logout
+ * @export logout function
  *
- * @returns {object} dispatch - the dispatch object returned
+ * @returns {Object} dispatch - the dispatch object returned
  */
 const logout = () => (dispatch) => {
   localStorage.removeItem('jwtToken');

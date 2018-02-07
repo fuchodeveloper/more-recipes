@@ -52,7 +52,7 @@ const updateRecipeAction = (recipeId, recipe) =>
         alertify.logPosition('bottom right');
         alertify.success(response.data.message);
         dispatch(batchActions([
-          updateRecipeActionCreator(response.data.recipe),
+          dispatch(updateRecipeActionCreator(response.data.recipe)),
           unsetFetching()
         ]));
       })

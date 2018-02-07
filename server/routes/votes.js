@@ -1,5 +1,5 @@
 import express from 'express';
-import votesController from '../controllers/votesController';
+import VotesController from '../controllers/VotesController';
 import authorization from '../middleware/tokenMiddleware';
 
 const router = express.Router();
@@ -9,11 +9,12 @@ const router = express.Router();
  */
 router.post(
   '/:id/upvote',
-  authorization.verifyToken, votesController.upVote
+  authorization.verifyToken, VotesController.upVote
 );
+
 router.post(
   '/:id/downvote',
-  authorization.verifyToken, votesController.downVote
+  authorization.verifyToken, VotesController.downVote
 );
 
 export default router;

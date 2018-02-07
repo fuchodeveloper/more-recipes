@@ -1,5 +1,5 @@
 import express from 'express';
-import reviewsController from '../controllers/reviewsController';
+import ReviewsController from '../controllers/ReviewsController';
 import authorization from '../middleware/tokenMiddleware';
 
 const router = express.Router();
@@ -10,8 +10,8 @@ const router = express.Router();
 
 router.post(
   '/:id/reviews',
-  authorization.verifyToken, reviewsController.create
+  authorization.verifyToken, ReviewsController.create
 );
-router.get('/:id/reviews', reviewsController.get);
+router.get('/:id/reviews', ReviewsController.get);
 
 export default router;

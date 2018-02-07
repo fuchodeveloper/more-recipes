@@ -1,10 +1,10 @@
 import path from 'path';
-import usersController from '../controllers/usersController';
-import recipesController from '../controllers/recipesController';
-import reviewsController from '../controllers/reviewsController';
+import UsersController from '../controllers/UsersController';
+import RecipesController from '../controllers/RecipesController';
+import ReviewsController from '../controllers/ReviewsController';
 import authorization from '../middleware/tokenMiddleware';
-import favoritesController from '../controllers/favoritesController';
-import votesController from '../controllers/votesController';
+import FavoritesController from '../controllers/FavoritesController';
+import VotesController from '../controllers/VotesController';
 
 const routes = (router) => {
   router.get('/', (request, response) => {
@@ -14,34 +14,34 @@ const routes = (router) => {
   /**
    * User signup and sign in routes
    */
-  router.post('/api/v1/users/signup', usersController.create);
-  router.post('/api/v1/users/signin', usersController.login);
+  router.post('/api/v1/users/signup', UsersController.create);
+  router.post('/api/v1/users/signin', UsersController.login);
 
   /**
    * Recipe routes
    */
   router.post(
     '/api/v1/recipes',
-    authorization.verifyToken, recipesController.createRecipe
+    authorization.verifyToken, RecipesController.createRecipe
   );
-  router.get('/api/v1/recipes/:id', recipesController.getRecipe);
-  router.get('/api/v1/recipes', recipesController.getAllRecipesPaginate);
+  router.get('/api/v1/recipes/:id', RecipesController.getRecipe);
+  router.get('/api/v1/recipes', RecipesController.getAllRecipesPaginate);
   router.delete(
     '/api/v1/recipes/:id',
-    authorization.verifyToken, recipesController.deleteRecipe
+    authorization.verifyToken, RecipesController.deleteRecipe
   );
   router.put(
     '/api/v1/recipes/:id',
-    authorization.verifyToken, recipesController.updateRecipe
+    authorization.verifyToken, RecipesController.updateRecipe
   );
 
   router.post(
     '/api/v1/recipes/:id/upvote',
-    authorization.verifyUser, votesController.upVote
+    authorization.verifyUser, VotesController.upVote
   );
   router.post(
     '/api/v1/recipes/:id/downvote',
-    authorization.verifyUser, votesController.downVote
+    authorization.verifyUser, VotesController.downVote
   );
 
   /**
@@ -49,11 +49,11 @@ const routes = (router) => {
    */
   router.post(
     '/api/v1/recipes/:id/reviews',
-    authorization.verifyToken, reviewsController.create
+    authorization.verifyToken, ReviewsController.create
   );
   router.get(
     '/api/v1/recipes/:id/reviews',
-    authorization.verifyToken, reviewsController.get
+    authorization.verifyToken, ReviewsController.get
   );
 
   /**
@@ -61,14 +61,14 @@ const routes = (router) => {
    */
   router.post(
     '/api/v1/users/:id/recipes',
-    authorization.verifyToken, favoritesController.create
+    authorization.verifyToken, FavoritesController.create
   );
   router.get(
     '/api/v1/users/:id/recipes',
-    authorization.verifyToken, favoritesController.getAll
+    authorization.verifyToken, FavoritesController.getAll
   );
 
-  router.get('/api/v1/favorites/:id', favoritesController.getFavoriteCount);
+  router.get('/api/v1/favorites/:id', FavoritesController.getFavoriteCount);
 };
 
 export default routes;

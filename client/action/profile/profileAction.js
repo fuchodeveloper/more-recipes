@@ -9,7 +9,7 @@ import { setFetching, unsetFetching } from '../fetching';
  *
  * @returns {Object} profile
  */
-const profileActionCreator = profile => ({
+export const profileActionCreator = profile => ({
   type: GET_PROFILE_SUCCESS,
   profile
 });
@@ -21,7 +21,7 @@ const profileActionCreator = profile => ({
  *
  * @returns {Object} error
  */
-const profileActionCreatorError = error => ({
+export const profileActionCreatorError = error => ({
   type: GET_PROFILE_FAIL,
   error
 });
@@ -34,12 +34,10 @@ const profileActionCreatorError = error => ({
  */
 const profileAction = id => (dispatch) => {
   dispatch(setFetching());
-  axios.get(`/api/v1/profile/${id}`)
+  return axios.get(`/api/v1/profile/${id}`)
     .then((response) => {
-      dispatch(batchActions([
-        profileActionCreator(response.data.user),
-        unsetFetching()
-      ]));
+      dispatch(profileActionCreator(response.data.user));
+      dispatch(unsetFetching());
     })
     .catch((error) => {
       dispatch(profileActionCreatorError(error));

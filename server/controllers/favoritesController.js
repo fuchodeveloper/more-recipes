@@ -4,7 +4,7 @@ import validateId from '../validations/validateId';
 
 const { Favorites, Recipes } = db;
 
-const favoritesController = {
+const FavoritesController = {
   /**
    * @description Favorite a recipe
    *
@@ -33,6 +33,7 @@ const favoritesController = {
         let messageText;
         if (favorite) {
           // destroy favorite and decrement recipes table
+
           messageText = 'Favorite removed';
           return Recipes.findOne({
             where: { id: request.params.id }
@@ -153,4 +154,4 @@ const favoritesController = {
   }
 };
 
-export default favoritesController;
+export default FavoritesController;

@@ -43,10 +43,10 @@ export const favoritesPageCount = pageCount => ({
  */
 const getAllFavoritesAction = (userId, page) => (dispatch) => {
   dispatch(setFetching());
-  axios.get(`/api/v1/users/${userId}/recipes?page=${page}`)
+  return axios.get(`/api/v1/users/${userId}/recipes?page=${page}`)
     .then((response) => {
       dispatch(batchActions([
-        getAllFavoritesActionCreator(response.data.recipes),
+        dispatch(getAllFavoritesActionCreator(response.data.recipes)),
         favoritesPageCount(response.data.pageCount),
         unsetFetching()
       ]));

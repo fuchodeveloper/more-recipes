@@ -6,7 +6,11 @@ const ProfileDetail = props => (
   <div className="container margin-top-70">
 
     <div>
-      <h1 className="text-center p-4 center-hero-text">My Profile</h1>
+      <h1
+        className="text-center p-4 center-hero-text"
+        id="myProfile"
+      >My Profile
+      </h1>
     </div>
 
     <div className="margin-top-50 margin-bottom-50" />
@@ -61,6 +65,7 @@ const ProfileDetail = props => (
         <button
           className="btn btn-primary btn-primary-color"
           type="submit"
+          id="profile-submit"
         >
           Save Changes
         </button>

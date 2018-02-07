@@ -1,20 +1,164 @@
 const mockData = {
   authResponse: {
     message: 'Log in successful',
-    user: {
-      id: 2,
-      firstName: 'mary',
-      lastName: 'doe',
-      emailAddress: 'marydoe@gmail.com',
-      iat: 1515777593,
-      exp: 1515863993
-    },
     token:
-    `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-    eyJpZCI6MiwiZmlyc3ROYW1lIjoibWFyeSIsImxhc3ROYW1lIjoiZG9lIiwiZW1haWxBZGRy
-    ZXNzIjoibWFyeWRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MTU3Nzc1
-    OTMsImV4cCI6MTUxNTg2Mzk5M30.
-    y6Ky5AX7JYAEuj_DXYfMaK20rlLqCVFFR4pcvhX0ZQg`
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiam9'
+    + 'obiIsImxhc3ROYW1lIjoiZG9lIiwiZW1haWxBZGRyZXNzIjoiam9obkBnbWFpbC5'
+    + 'jb20iLCJpYXQiOjE1MTc1ODk5MzQsImV4cCI6MTUxNzY3NjMzNH0.qzrmVXkP2G8'
+    + 'sQ2ukoONv-osraCuss6DZkZsDShAeKZw'
+  },
+
+
+  authProfile: {
+    firstName: 'john',
+    lastName: 'doe',
+    emailAddress: 'john@gmail.com'
+  },
+
+  match: {
+    params: {
+      id: 10
+    },
+  },
+
+  pageCount: 1,
+
+  addFavoriteResponse: {
+    favorite: {
+      favoriteCount: 2,
+      userId: 1,
+      favorited: true,
+      message: 'Recipe favorited'
+    }
+  },
+  updatedAuthProfile: {
+    user: {
+      firstName: 'johnny',
+      lastName: 'doey',
+      emailAddress: 'johnny@gmail.com'
+    }
+  },
+
+  addReview: {
+    review: 'An amazing recipe idea'
+  },
+
+  recipeReviews: {
+    statusCode: 201,
+    message: 'Review created.',
+    recipe: {
+      id: 1,
+      userId: 1,
+      name: 'jollof rice and beans',
+      favoriteCount: 1,
+      ingredients: 'rice and beans',
+      direction: 'proin eget tortor risus. nulla quis lorem ut libero'
+      + 'malesuada feugiat. curabitur non nulla  sit amet nisl tempus'
+      + ' convallis quis ac lectus. curabitur arcu erat,  accumsan id '
+      + 'imperdiet et, porttitor at sem. cras ultricies ligula sed magna'
+      + ' dictum porta.',
+      image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+      + 'v1516760699/noodles_c6ltkq.jpg',
+      views: 60,
+      upVotes: 0,
+      downVotes: 1,
+      recipeOwnerView: true,
+      createdAt: '2018-02-04T16:52:28.768Z',
+      updatedAt: '2018-02-06T06:25:22.663Z',
+      Reviews: [
+        {
+          id: 3,
+          review: 'An amazing recipe idea',
+          User: {
+            firstName: 'johnny'
+          }
+        }
+      ]
+    }
+  },
+
+  addRecipe: {
+    name: 'party rice and beans',
+    ingredients: 'local rice and beans',
+    direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada'
+      + ' feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac'
+      + ' lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at'
+      + ' sem. cras ultricies ligula sed magna dictum porta.',
+    image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+      + 'v1516760699/noodles_c6ltkq.jpg',
+  },
+
+  addRecipeResponse: {
+    message: 'Recipe created successfully',
+    recipe: {
+      favoriteCount: 0,
+      views: 0,
+      upVotes: 0,
+      downVotes: 0,
+      recipeOwnerView: false,
+      id: 4,
+      userId: 5,
+      name: 'how to cook nigerian jollof rice',
+      ingredients: '3¾ cups (750g) long grain parboiled rice,\n2-3 cups tomato stew,\nchicken (whole chicken, drumsticks or chicken breast),\npepper and salt (to taste),\n2 medium onions,\n3 knorr cubes,\n2 teaspoons thyme,\n2 teaspoons curry powder (nigerian curry powder)',
+      direction: 'put the rice in a pot and pour water up to the level of the beans and start cooking.\nnote: if you have a pressure cooker, beans is one of the staple foods you will want to use it for. it reduces the cooking time considerably.\ncook till tender, adding more water from time to time, if necessary. always keep the water at the same level as the beans so that when the beans is done, you will not have too much water in the porridge.',
+      image: 'http://res.cloudinary.com/fuchodeveloper/image/upload/v1510581158/xs20xuqemntwq7eqhact.jpg',
+      updatedAt: '2018-02-07T08:28:00.857Z',
+      createdAt: '2018-02-07T08:28:00.857Z'
+    }
+  },
+
+  updateRecipe: {
+    name: '',
+    ingredients: '',
+    direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada'
+      + ' feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac'
+      + ' lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at'
+      + ' sem. cras ultricies ligula sed magna dictum porta.',
+    image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+      + 'v1516760699/noodles_c6ltkq.jpg',
+  },
+
+  updateRecipeError: {
+    name: '',
+    ingredients: '',
+    direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada'
+      + ' feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac'
+      + ' lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at'
+      + ' sem. cras ultricies ligula sed magna dictum porta.',
+    image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+      + 'v1516760699/noodles_c6ltkq.jpg',
+  },
+
+  updatedRecipe: {
+    recipe: {
+      id: 1,
+      userId: 1,
+      name: 'party rice and beans',
+      favoriteCount: 1,
+      ingredients: 'local rice and beans',
+      direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada'
+      + ' feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac'
+      + ' lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at'
+      + ' sem. cras ultricies ligula sed magna dictum porta.',
+      image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+      + 'v1516760699/noodles_c6ltkq.jpg',
+      views: 60,
+      upVotes: 0,
+      downVotes: 1,
+      recipeOwnerView: true,
+      createdAt: '2018-02-04T16:52:28.768Z',
+      updatedAt: '2018-02-06T06:25:22.663Z',
+      Reviews: [
+        {
+          id: 1,
+          review: 'Amazing recipe you got there!',
+          User: {
+            firstName: 'johnny'
+          }
+        }
+      ]
+    },
+    favorited: false
   },
 
   signinData: {
@@ -22,96 +166,208 @@ const mockData = {
     password: 'password'
   },
 
+  signupDetails: {
+    firstName: 'mary',
+    lastName: 'bella',
+    emailAddress: 'mary@ymail.com',
+    password: 'password',
+    passwordConfirmation: 'password'
+  },
+
+  signupDetailsError: {
+    firstName: '',
+    lastName: '',
+    emailAddress: 'mary@ymail.com',
+    password: 'password',
+    passwordConfirmation: 'password'
+  },
+
   allRecipesData: {
-    page: 1,
-    pageCount: 1,
-    pageSize: 1,
-    totalCount: 1,
     recipes: [
       {
         id: 1,
-        userId: 21,
-        name: 'how to cook nigerian jollof rice',
+        userId: 1,
+        name: 'jollof rice and beans',
         favoriteCount: 0,
-        ingredients: `3¾ cups (750g) long grain parboiled rice 2-3 cups 
-        tomato stew chicken (whole chicken, 
-          drumsticks or chicken breast) pepper and 
-        salt (to taste) 2 medium onions 
-        3 knorr cubes 2 teaspoons thyme 2 teaspoons curry
-         powder (nigerian curry powder)',
-        recipeDirection: 'prepare the tomato 
-        stew. visit the tomato stew page for details on how 
-        to do that. it is advisable to prepare 
-        tomato stew before hand and keep in the freezer. 
-        this is so that whenever you want to cook 
-        any jollof rice related dish, it is just a 
-        matter of adding it to your cooking.\nif 
-        you will use whole chicken then wash and cut
-         it into pieces. cook with the thyme, knorr
-          cubes and 2 bulbs of onions (chopped). 
-         the cooking time depends on the type of 
-         chicken. the rooster or cockerel cooks much 
-         faster than the hen but the hen is definitely 
-         tastier. when done, grill it in an oven.
-          you may also fry it. this is to give it a 
-          golden look which is more presentable 
-          especially if you have guests for dinner.
-          \nparboil the rice using the method detailed
-           in parboiling rice for cooking jollof rice.
-            rinse the parboiled rice and put in a sieve to drain.`,
-        image: `http://res.cloudinary.com/fuchodeveloper/image/
-        upload/v1516027828/oekpqjhvnxcvom0w7edw.jpg`,
-        views: 1,
+        ingredients: 'rice and beans',
+        direction: 'proin eget tortor risus. nulla quis lorem ut libero'
+        + ' malesuada feugiat. curabitur non nulla  sit amet nisl tempus'
+        + 'convallis quis ac lectus. curabitur arcu erat,  accumsan id'
+        + ' imperdiet et, porttitor at sem. cras ultricies ligula sed magna'
+        + ' dictum porta.',
+        image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+        + 'v1516760699/noodles_c6ltkq.jpg',
+        views: 59,
         upVotes: 0,
         downVotes: 0,
         recipeOwnerView: true,
-        createdAt: '2018-01-15T14:50:41.129Z',
-        updatedAt: '2018-01-15T14:50:46.952Z'
+        createdAt: '2018-02-04T16:52:28.768Z',
+        updatedAt: '2018-02-06T02:55:06.389Z'
       }
     ]
   },
 
+  viewedRecipe: {
+    recipe: {
+      recipe: {
+        id: 1,
+        userId: 1,
+        name: 'jollof rice and beans',
+        favoriteCount: 2,
+        ingredients: 'rice and beans',
+        direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+        image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
+        views: 65,
+        upVotes: 0,
+        downVotes: 2,
+        recipeOwnerView: true,
+        createdAt: '2018-02-04T16:52:28.768Z',
+        updatedAt: '2018-02-07T09:43:12.801Z',
+        Reviews: [
+          {
+            id: 5,
+            review: 'NIce recipe',
+            User: {
+              firstName: 'donald'
+            }
+          }
+        ]
+      },
+      favorited: false
+    }
+  },
+
+  viewedRecipeResponse: {
+    id: 1,
+    userId: 1,
+    name: 'jollof rice and beans',
+    favoriteCount: 1,
+    ingredients: 'rice and beans',
+    direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+    image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
+    views: 60,
+    upVotes: 0,
+    downVotes: 1,
+    recipeOwnerView: true,
+    createdAt: '2018-02-04T16:52:28.768Z',
+    updatedAt: '2018-02-06T06:25:22.663Z',
+    Reviews: [
+      {
+        id: 1,
+        review: 'Amazing recipe you got there!',
+        User: {
+          firstName: 'johnny'
+        }
+      }
+    ],
+    favorited: false
+  },
+
+  upvotedRecipe: {
+    recipe: {
+      upVotes: 1,
+      downVotes: 0,
+      message: 'Recipe upvoted'
+    }
+  },
+
+  downvotedRecipe: {
+    recipe: {
+      upVotes: 0,
+      downVotes: 1,
+      message: 'Recipe downvoted'
+    }
+  },
+
+  reviews: {
+    id: 1,
+    review: 'Amazing recipe you got there!',
+    User: {
+      firstName: 'johnny'
+    }
+  },
+
   singleRecipeData: {
     recipe: {
-      id: 1,
-      userId: 21,
-      name: 'how to cook nigerian jollof rice',
-      favoriteCount: 0,
-      ingredients: `3¾ cups (750g) long grain parboiled rice
-       2-3 cups tomato stew chicken (whole chicken, 
-        drumsticks or chicken breast) pepper and 
-        salt (to taste) 2 medium onions 3 knorr 
-        cubes 2 teaspoons thyme 2 teaspoons
-         curry powder (nigerian curry powder)',
-      recipeDirection: 'prepare the tomato stew.
-       visit the tomato stew page for details on 
-       how to do that. it is advisable to prepare 
-       tomato stew before hand and keep in the freezer
-       . this is so that whenever you want to cook any
-        jollof rice related dish, it is just a matter 
-        of adding it to your cooking.\nif you will use 
-        whole chicken then wash and cut it into pieces.
-         cook with the thyme, knorr cubes and 2 bulbs of
-          onions (chopped). the cooking time depends on the
-           type of chicken. the rooster or cockerel cooks 
-           much faster than the hen but the hen is definitely
-            tastier. when done, grill it in an oven. you may 
-            also fry it. this is to give it a golden look which
-             is more presentable especially if you have guests
-              for dinner.\nparboil the rice using the method 
-              detailed in parboiling rice for cooking jollof rice
-              . rinse the parboiled rice and put in a sieve to drain.`,
-      image: `http://res.cloudinary.com/fuchodeveloper/
-      image/upload/v1516027828/oekpqjhvnxcvom0w7edw.jpg`,
-      views: 1,
-      upVotes: 0,
-      downVotes: 0,
-      recipeOwnerView: true,
-      createdAt: '2018-01-15T14:50:41.129Z',
-      updatedAt: '2018-01-15T14:50:46.952Z',
-      Reviews: []
-    }
+      recipe: {
+        id: 1,
+        userId: 1,
+        name: 'jollof rice and beans',
+        favoriteCount: 0,
+        ingredients: 'rice and beans',
+        direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+        image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
+        views: 59,
+        upVotes: 0,
+        downVotes: 0,
+        recipeOwnerView: true,
+        createdAt: '2018-02-04T16:52:28.768Z',
+        updatedAt: '2018-02-06T02:55:06.389Z',
+        Reviews: [
+          {
+            id: 1,
+            review: 'Amazing recipe you got there!',
+            User: {
+              firstName: 'johnny'
+            }
+          }
+        ]
+      },
+      favorited: false
+    },
+    favorited: false
+  },
+
+  searchRecipeQuery: {
+    searchQuery: 'rice'
+  },
+
+  searchRecipes: {
+    recipes: [
+      {
+        id: 1,
+        userId: 1,
+        name: 'jollof rice and beans',
+        favoriteCount: 0,
+        ingredients: 'rice and beans',
+        direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+        image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
+        views: 59,
+        upVotes: 0,
+        downVotes: 0,
+        recipeOwnerView: true,
+        createdAt: '2018-02-04T16:52:28.768Z',
+        updatedAt: '2018-02-06T02:55:06.389Z'
+      }
+    ]
+  },
+
+  myRecipes: {
+    recipes: [
+      {
+        id: 1,
+        userId: 1,
+        name: 'jollof rice and beans',
+        favoriteCount: 0,
+        ingredients: 'rice and beans',
+        direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+        image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
+        views: 59,
+        upVotes: 0,
+        downVotes: 0,
+        recipeOwnerView: true,
+        createdAt: '2018-02-04T16:52:28.768Z',
+        updatedAt: '2018-02-06T02:55:06.389Z'
+      }
+    ]
+  },
+
+  user: {
+    firstName: 'johnny',
+    lastName: 'doey',
+    emailAddress: 'johnyy@gmail.com'
   }
+
 
 };
 

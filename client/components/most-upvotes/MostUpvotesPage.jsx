@@ -11,7 +11,7 @@ import AllMostUpvotes from './AllMostUpvotes';
  *
  * @extends {React.Component}
  */
-class MostUpvotesPage extends React.Component {
+export class MostUpvotesPage extends React.Component {
   /**
    * @description Creates an instance of MostUpvotesPage.
    *
@@ -164,6 +164,10 @@ class MostUpvotesPage extends React.Component {
     );
   }
 }
+
+mostUpvotesAction.defaultProps = {
+  mostUpvotesAction: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
   pageCount: state.recipesReducer.pageCount,

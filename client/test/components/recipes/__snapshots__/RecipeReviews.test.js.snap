@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecipeReviews component should render the right amount of elements 1`] = `
+<div>
+  no reviews
+</div>
+`;

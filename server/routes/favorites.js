@@ -1,5 +1,5 @@
 import express from 'express';
-import favoritesController from '../controllers/favoritesController';
+import FavoritesController from '../controllers/FavoritesController';
 import authorization from '../middleware/tokenMiddleware';
 
 const router = express.Router();
@@ -9,21 +9,21 @@ const router = express.Router();
  */
 router.post(
   '/users/:id/recipes',
-  authorization.verifyToken, favoritesController.create
+  authorization.verifyToken, FavoritesController.create
 );
 router.get(
   '/users/:id/recipes',
-  authorization.verifyToken, favoritesController.getAllFavorites
+  authorization.verifyToken, FavoritesController.getAllFavorites
 );
 router.get(
   '/favorites/:id',
-  favoritesController.getFavoriteCount
+  FavoritesController.getFavoriteCount
 );
 
 router.get(
   '/favorites/:id/identifiers',
   authorization.injectToken,
-  favoritesController.getFavoriteIds
+  FavoritesController.getFavoriteIds
 );
 
 export default router;

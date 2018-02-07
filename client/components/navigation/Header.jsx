@@ -69,12 +69,16 @@ export class Header extends React.Component {
             className="dropdown-menu main-nav-menu width-5 dropdown-menu-right"
             aria-labelledby="dropdownMenuLink"
           >
-            <Link className="dropdown-item" to="/profile">Profile</Link>
-            <Link className="dropdown-item" to="/add">Add Recipe</Link>
+            <Link className="dropdown-item" to="/profile" id="profile">Profile</Link>
+            <Link className="dropdown-item" to="/add" id="add">Add Recipe</Link>
             <Link className="dropdown-item" to="/favorites">
             Favorite Recipes
             </Link>
-            <Link className="dropdown-item" to={`/${firstName}/recipes`}>
+            <Link
+              className="dropdown-item"
+              to={`/${firstName}/recipes`}
+              id="my-recipes"
+            >
             My Recipes
             </Link>
             <Link className="dropdown-item" to="/votes">
@@ -93,8 +97,18 @@ export class Header extends React.Component {
      */
     const guestLinks = (
       <div className="navbar-nav ml-auto main-nav-menu">
-        <Link className="nav-item nav-link" to="/signup">Sign Up</Link>
-        <Link className="nav-item nav-link" to="/login">Sign In</Link>
+        <Link
+          className="nav-item nav-link"
+          to="/signup"
+          id="signup"
+        >Sign Up
+        </Link>
+        <Link
+          className="nav-item nav-link"
+          to="/login"
+          id="signin"
+        >Sign In
+        </Link>
       </div>
     );
 
