@@ -5,9 +5,13 @@
 
   <testsuite name="homePage.test"
     errors="0" failures="0" hostname="" id="" package="homePage.test" skipped="0"
-    tests="1" time="4.385" timestamp="Sun, 04 Feb 2018 16:52:17 GMT">
+    tests="1" time="52.67" timestamp="Sun, 11 Feb 2018 09:54:14 GMT">
   
-    <testcase name="Should display homepage and check for available elements" classname="homePage.test" time="4.385" assertions="6">
+    <testcase name="Should display homepage and check for available elements" classname="homePage.test" time="52.67" assertions="8">
+
+    
+
+    
 
     
 

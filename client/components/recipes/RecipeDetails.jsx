@@ -203,7 +203,11 @@ export class RecipeDetails extends React.Component {
 
             <div className="row">
               <div className="col-sm-6">
-                <ul className="p-4">
+                <ul
+                  className="p-4"
+                  id="ingredients-list"
+                  style={{ wordWrap: 'break-word' }}
+                >
                   {
                     ingredientsMap
                   }
@@ -217,7 +221,7 @@ export class RecipeDetails extends React.Component {
                   + 'v1516760699/noodles_c6ltkq.jpg' : recipe.image}
                   className="img img-fluid"
                   alt={recipe.name}
-                  id="image"
+                  id="recipe-image"
                 />
                 <span className="text-muted form-text text-center">
                   <em>Food is ready</em>
@@ -225,9 +229,10 @@ export class RecipeDetails extends React.Component {
               </div>
             </div>
 
+            <div className="clearfix" />
             <div className="mt-5">
               <h3>Directions</h3>
-              <p>
+              <p id="direction" style={{ wordWrap: 'break-word' }}>
                 {recipe.direction}
               </p>
             </div>
@@ -279,7 +284,7 @@ export class RecipeDetails extends React.Component {
             </div>
 
             <div className="mt-5">
-              <h3 className="mb-4">Reviews</h3>
+              <h3 className="mb-4" id="reviews-title">Reviews</h3>
 
 
               { Object.keys(this.props.reviews).length > 0 ?

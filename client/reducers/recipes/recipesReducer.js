@@ -21,7 +21,16 @@ import {
   GET_SEARCHED_RECIPE_COUNT,
   GET_MY_RECIPES_FAIL,
   GET_PAGE_DETAILS,
-  RECEIVE_RECIPE_ERROR
+  RECEIVE_RECIPE_ERROR,
+  GET_MOST_UPVOTES_ERROR,
+  ADD_FAVORITE_FAIL,
+  DELETE_RECEIPE_FAIL,
+  GET_ALL_FAVORITES_FAIL,
+  UPDATE_PROFILE_FAIL,
+  DOWNVOTE_RECIPE_ERROR,
+  GET_ALL_RECIPES_ERROR,
+  GET_SEARCHED_RECIPE_ERROR,
+  ADD_REVIEW_FAIL
 } from '../../action/types';
 
 export const recipesReducer = (state = {}, action) => {
@@ -59,6 +68,60 @@ export const recipesReducer = (state = {}, action) => {
       };
 
     case RECEIVE_RECIPE_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+
+    case ADD_FAVORITE_FAIL:
+      return {
+        ...state,
+        error: action.error
+      };
+
+    case GET_MOST_UPVOTES_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+
+    case DELETE_RECEIPE_FAIL:
+      return {
+        ...state,
+        error: action.error
+      };
+
+    case DOWNVOTE_RECIPE_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+
+    case GET_ALL_FAVORITES_FAIL:
+      return {
+        ...state,
+        error: action.error
+      };
+
+    case UPDATE_PROFILE_FAIL:
+      return {
+        ...state,
+        error: action.error
+      };
+
+    case GET_ALL_RECIPES_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+
+    case GET_SEARCHED_RECIPE_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+
+    case ADD_REVIEW_FAIL:
       return {
         ...state,
         error: action.error
@@ -160,7 +223,7 @@ export const recipesReducer = (state = {}, action) => {
     case ADD_REVIEW:
       return {
         ...state,
-        reviews: mapKeys(action.recipe, 'id')
+        reviews: mapKeys(action.review, 'id')
       };
 
     case DELETE_RECEIPE: {

@@ -23,11 +23,4 @@ export const RecipeReviews = props =>
     </div>
   );
 
-RecipeReviews.propTypes = {
-  review: PropTypes.shape({
-    review: '',
-    User: {}
-  }).isRequired
-};
-
 export default RecipeReviews;

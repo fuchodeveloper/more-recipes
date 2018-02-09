@@ -10,7 +10,9 @@ module.exports = {
       .setValue('input[type=text]', 'rice')
       .click('input[type=text]')
       .pause(1000)
+      .assert.urlEquals('http://localhost:8000/search')
       .assert.containsText('#search-header', 'Search for your favorite recipes')
+      .assert.visible('.pagination')
       .end();
   }
 };

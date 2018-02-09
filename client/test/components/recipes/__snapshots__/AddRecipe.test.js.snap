@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AddRecipePage component AddRecipePage component snapshot should render with right amount of elements 1`] = `undefined`;
+
+exports[`AddRecipePage component should set the recipe image on click and call uploadWidget 1`] = `undefined`;

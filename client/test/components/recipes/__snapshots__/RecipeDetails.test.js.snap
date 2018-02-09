@@ -99,6 +99,7 @@ exports[`ReceipeDetails component should render the right amount of elements 1`]
         >
           <ul
             className="p-4"
+            id="ingredients-list"
           >
             <li
               id="recipe-ingredients"
@@ -114,7 +115,7 @@ exports[`ReceipeDetails component should render the right amount of elements 1`]
           <img
             alt="jollof rice and beans"
             className="img img-fluid"
-            id="image"
+            id="recipe-image"
             src="https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"
           />
           <span
@@ -132,7 +133,9 @@ exports[`ReceipeDetails component should render the right amount of elements 1`]
         <h3>
           Directions
         </h3>
-        <p>
+        <p
+          id="direction"
+        >
           proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.
         </p>
       </div>
@@ -196,6 +199,7 @@ exports[`ReceipeDetails component should render the right amount of elements 1`]
       >
         <h3
           className="mb-4"
+          id="reviews-title"
         >
           Reviews
         </h3>

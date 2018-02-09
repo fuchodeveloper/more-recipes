@@ -11,7 +11,9 @@ import updateProfileAction from '../../action/profile/updateProfileAction';
 import {
   SET_CURRENT_USER,
   GET_PROFILE_SUCCESS,
-  UPDATE_PROFILE
+  UPDATE_PROFILE,
+  SET_CURRENT_USER_FAIL,
+  GET_PROFILE_FAIL
 } from '../../action/types';
 import mockData from '../__mocks__/mockData';
 import mockLocalStorage from '../__mocks__/mockLocalStorage';
@@ -27,7 +29,7 @@ describe('Auth actions', () => {
 
   it(
     'creates SET_CURRENT_USER when signup action is successful',
-    async (done) => {
+    (done) => {
       const { authResponse, signupData } = mockData;
       moxios.stubRequest('/api/v1/users/signup', {
         status: 201,
@@ -38,7 +40,49 @@ describe('Auth actions', () => {
         user: jwt.decode(authResponse.token)
       };
       const store = mockStore({});
-      await store.dispatch(signupAction(signupData))
+      store.dispatch(signupAction(signupData))
+        .then(() => {
+          expect(store.getActions()[1]).toEqual(expectedActions);
+        });
+      done();
+    }
+  );
+
+  it(
+    'creates SET_CURRENT_USER_FAIL when signup action is not successful',
+    (done) => {
+      const { errorResponse, signupDetailsError } = mockData;
+      moxios.stubRequest('/api/v1/users/signup', {
+        status: 400,
+        response: errorResponse
+      });
+      const expectedActions = {
+        type: SET_CURRENT_USER_FAIL,
+        error: errorResponse.error
+      };
+      const store = mockStore({});
+      store.dispatch(signupAction(signupDetailsError))
+        .then(() => {
+          expect(store.getActions()[1]).toEqual(expectedActions);
+        });
+      done();
+    }
+  );
+
+  it(
+    'creates SET_CURRENT_USER_FAIL when signin action is not successful',
+    (done) => {
+      const { errorResponse, signinErrorData } = mockData;
+      moxios.stubRequest('/api/v1/users/signin', {
+        status: 400,
+        response: errorResponse
+      });
+      const expectedActions = {
+        type: SET_CURRENT_USER_FAIL,
+        error: errorResponse.error
+      };
+      const store = mockStore({});
+      store.dispatch(loginAction(signinErrorData))
         .then(() => {
           expect(store.getActions()[1]).toEqual(expectedActions);
         });
@@ -48,7 +92,7 @@ describe('Auth actions', () => {
 
   it(
     'creates SET_CURRENT_USER when login action is successful',
-    async (done) => {
+    (done) => {
       const { authResponse, signinData } = mockData;
       moxios.stubRequest('/api/v1/users/signin', {
         status: 200,
@@ -59,7 +103,7 @@ describe('Auth actions', () => {
         user: jwt.decode(authResponse.token)
       };
       const store = mockStore({});
-      await store.dispatch(loginAction(signinData))
+      store.dispatch(loginAction(signinData))
         .then(() => {
           expect(store.getActions()[1]).toEqual(expectedActions);
         });
@@ -69,7 +113,7 @@ describe('Auth actions', () => {
 
   it(
     'creates GET_PROFILE_SUCCESS to get user profile details',
-    async (done) => {
+    (done) => {
       const { authProfile } = mockData;
       moxios.stubRequest('/api/v1/profile/1', {
         status: 200,
@@ -80,7 +124,29 @@ describe('Auth actions', () => {
         profile: authProfile.user
       };
       const store = mockStore({});
-      await store.dispatch(profileAction(1))
+      store.dispatch(profileAction(1))
+        .then(() => {
+          expect(store.getActions()[1]).toEqual(expectedActions);
+        });
+      done();
+    }
+  );
+
+  it(
+    'creates GET_PROFILE_FAIL when get user profile detail fails',
+    (done) => {
+      const id = 10;
+      const { errorResponse } = mockData;
+      moxios.stubRequest(`/api/v1/profile/${id}`, {
+        status: 404,
+        response: errorResponse
+      });
+      const expectedActions = {
+        type: GET_PROFILE_FAIL,
+        error: errorResponse.error
+      };
+      const store = mockStore({});
+      store.dispatch(profileAction(id))
         .then(() => {
           expect(store.getActions()[1]).toEqual(expectedActions);
         });
@@ -90,13 +156,13 @@ describe('Auth actions', () => {
 
   it(
     'creates SET_CURRENT_USER to be empty object on logout',
-    async (done) => {
+    (done) => {
       const expectedActions = [{
         type: SET_CURRENT_USER,
         user: {}
       }];
       const store = mockStore({});
-      await store.dispatch(logoutAction());
+      store.dispatch(logoutAction());
       expect(store.getActions()).toEqual(expectedActions);
       done();
     }
@@ -104,7 +170,7 @@ describe('Auth actions', () => {
 
   it(
     'creates UPDATE_PROFILE when trying to edit profile',
-    async (done) => {
+    (done) => {
       const { authProfile, updatedAuthProfile } = mockData;
       moxios.stubRequest('/api/v1/users/update', {
         status: 200,
@@ -115,7 +181,7 @@ describe('Auth actions', () => {
         profile: updatedAuthProfile.user
       };
       const store = mockStore({});
-      await store.dispatch(updateProfileAction(authProfile))
+      store.dispatch(updateProfileAction(authProfile))
         .then(() => {
           expect(store.getActions()[1]).toEqual(expectedActions);
         });

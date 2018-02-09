@@ -1,7 +1,7 @@
 import axios from 'axios';
 import alertify from 'alertify.js';
-import { ADD_FAVORITE_SUCCESS } from '../types';
-
+import { ADD_FAVORITE_SUCCESS, ADD_FAVORITE_FAIL } from '../types';
+import networkError from '../networkError';
 /**
  * Create a favorite
  *
@@ -17,6 +17,11 @@ export const createFavoriteActionCreator = favorite => ({
   favorite
 });
 
+export const createFavoriteActionError = error => ({
+  type: ADD_FAVORITE_FAIL,
+  error
+});
+
 const createFavoriteAction = recipeId =>
   dispatch => axios.post(`/api/v1/users/${recipeId}/recipes`)
     .then((response) => {
@@ -25,10 +30,14 @@ const createFavoriteAction = recipeId =>
       alertify.success(response.data.favorite.message);
       return dispatch(createFavoriteActionCreator(response.data.favorite));
     })
-    .catch(() => {
+    .catch((error) => {
+      if (!error.response) {
+        return networkError(error);
+      }
       alertify.delay(2000);
       alertify.logPosition('bottom right');
       alertify.error('Please login to favorite recipe');
+      dispatch(createFavoriteActionError(error.response.data.error));
     });
 
 

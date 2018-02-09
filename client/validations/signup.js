@@ -37,7 +37,7 @@ const validateInput = (formInput) => {
   }
 
   if (formInput.emailAddress.length > 20) {
-    errors.lastName = 'Email address is too long';
+    errors.emailAddress = 'Email address is too long';
   }
 
   if (validator.isEmpty(formInput.password)) {

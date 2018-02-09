@@ -9,7 +9,10 @@ let props;
 const setup = () => {
   props = {
     review: {
-      review: ''
+      review: {},
+      User: {
+        firstName: 'john'
+      }
     }
   };
 

@@ -1,20 +1,18 @@
-import React from 'react';
 import axios from 'axios';
 import { batchActions } from 'redux-batched-actions';
-import { Redirect, Link } from 'react-router-dom';
 import { RECEIVE_RECIPE, RECEIVE_RECIPE_ERROR } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
 
 /**
  * Set type for GET all recipes
  *
- * @export {function} function
+ * @export {function} export function receiveRecipe
  *
- * @param {Object} recipe
- * @param {Object} favorited
+ * @param {Object} recipe recipe object parameter
+ * @param {Object} favorited favorited object parameter
  *
- * @returns {Object} recipe
- * @returns {Object} favorited
+ * @returns {Object} returns requested recipe
+ * @returns {Object} returned favorited
  */
 export const receiveRecipe = (recipe, favorited) => ({
   type: RECEIVE_RECIPE,
@@ -22,7 +20,14 @@ export const receiveRecipe = (recipe, favorited) => ({
   favorited
 });
 
-export const receiveRecipeError = error => ({
+/**
+ * @description recieve recipe error action creator
+ *
+ * @param {Object} error error object parameter
+ *
+ * @returns {Object} error recipe error
+ */
+const receiveRecipeError = error => ({
   type: RECEIVE_RECIPE_ERROR,
   error
 });

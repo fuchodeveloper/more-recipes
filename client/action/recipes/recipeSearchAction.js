@@ -2,19 +2,34 @@ import axios from 'axios';
 import alertify from 'alertify.js';
 import { batchActions } from 'redux-batched-actions';
 import {
-  GET_SEARCHED_RECIPE, GET_MY_RECIPES_PAGE_COUNT
+  GET_SEARCHED_RECIPE,
+  GET_MY_RECIPES_PAGE_COUNT,
+  GET_SEARCHED_RECIPE_ERROR
 } from '../types';
 
 /**
  * @description Recipe search action creator
  *
  * @export recipeSearchActionCreator
- * @param {recipes} recipes
- * @returns {recipes} recipes
+ *
+ * @param {recipes} recipes parameter
+ *
+ * @returns {recipes} return searched recipes
  */
 export const recipeSearchActionCreator = recipes => ({
   type: GET_SEARCHED_RECIPE,
   recipes
+});
+/**
+ * @description recipe search error
+ *
+ * @param {Object} error error parameter
+ *
+ * @returns {Object} error returns search error
+ */
+const recipeSearchActionError = error => ({
+  type: GET_SEARCHED_RECIPE_ERROR,
+  error
 });
 
 /**
@@ -48,6 +63,7 @@ const recipeSearchAction = (searchQuery, page) =>
         const message = 'No recipe matches your search';
         alertify.logPosition('bottom right');
         alertify.error(message);
+        dispatch(recipeSearchActionError(error.response.data));
       } else {
         alertify.logPosition('bottom right');
         alertify.error(error.message);

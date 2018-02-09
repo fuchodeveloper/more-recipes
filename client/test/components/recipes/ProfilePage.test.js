@@ -58,5 +58,26 @@ describe('Profile page component', () => {
 
     expect(wrapper.instance().state.lastName).toBe('hardley');
   });
+
+  it('component should receive props', () => {
+    const wrapper = setup();
+    const action = wrapper.instance();
+    const spy = sinon.spy(
+      ProfilePage.prototype,
+      'componentWillReceiveProps'
+    );
+    const nextProps = {
+      profile: {
+        firstName: 'john',
+        lastName: 'doe',
+        emailAddress: 'john@gmail.com'
+      }
+    };
+    shallow(<ProfilePage {...props} componentWillReceiveProps={spy} />);
+    action.componentWillReceiveProps(nextProps);
+    expect(action.state.firstName).toBe(nextProps.profile.firstName);
+    expect(action.state.lastName).toBe(nextProps.profile.lastName);
+    expect(action.state.emailAddress).toBe(nextProps.profile.emailAddress);
+  });
 });
 

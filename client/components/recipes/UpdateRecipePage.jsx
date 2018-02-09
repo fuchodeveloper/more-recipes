@@ -146,7 +146,9 @@ export class UpdateRecipePage extends React.Component {
         tags: ['recipe']
       },
       (error, result) => {
-        scope.setState({ image: result[0].url });
+        if (!error) {
+          scope.setState({ image: result[0].secure_url });
+        }
       }
     );
   }
@@ -197,12 +199,16 @@ export class UpdateRecipePage extends React.Component {
               />
             </div>
 
-            <form encType="multipart/form-data" onSubmit={this.onSubmit}>
+            <form
+              encType="multipart/form-data"
+              onSubmit={this.onSubmit}
+              id="update-recipe-forms"
+            >
               <br />
               <div className="upload text-center">
                 <button
                   name="image"
-                  id="image"
+                  id="image-button"
                   onClick={this.uploadWidget}
                   className="upload-button btn-primary btn-primary-color"
                 >

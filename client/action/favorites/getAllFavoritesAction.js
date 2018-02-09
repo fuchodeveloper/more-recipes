@@ -6,6 +6,7 @@ import {
   GET_ALL_FAVORITES_FAIL
 } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
+import networkError from '../networkError';
 
 /**
  * GET all favorite recipes action creator
@@ -52,7 +53,10 @@ const getAllFavoritesAction = (userId, page) => (dispatch) => {
       ]));
     })
     .catch((error) => {
-      dispatch(getAllFavoritesActionFail(error));
+      if (!error.response) {
+        return networkError(error);
+      }
+      dispatch(getAllFavoritesActionFail(error.response.data.error));
     });
 };
 

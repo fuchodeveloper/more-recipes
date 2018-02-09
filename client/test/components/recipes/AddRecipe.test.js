@@ -3,12 +3,16 @@ import { shallow } from 'enzyme';
 import expect from 'expect';
 import sinon from 'sinon';
 import { AddRecipePage } from '../../../components/recipes/AddRecipePage';
+import mockData from '../../__mocks__/mockData';
 
 let props;
 
 const setup = () => {
   props = {
-    addRecipeAction: jest.fn()
+    cloudinary: {
+      openUploadWidget: jest.fn(() => Promise.resolve())
+    },
+    addRecipeAction: jest.fn(() => Promise.resolve())
   };
   return shallow(<AddRecipePage {...props} />);
 };
@@ -65,6 +69,35 @@ describe('AddRecipePage component', () => {
     const wrapper = setup();
     const form = wrapper.find('#add-recipe-form');
 
+    form.simulate('submit', event);
+  });
+
+  it('should set the recipe image on click and call uploadWidget', () => {
+    const event = {
+      preventDefault: jest.fn()
+    };
+
+    const wrapper = setup();
+    const recipeImage = wrapper.find('#image-button');
+
+    recipeImage.simulate('click', event);
+    wrapper.setState({
+      image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+      + 'v1516760699/noodles_c6ltkq.jpg'
+    });
+    expect(wrapper.instance().uploadWidget(event)).toMatchSnapshot();
+  });
+  
+  it('should add new recipe if state is set currently', () => {
+    const event = {
+      preventDefault: jest.fn()
+    };
+    const { addRecipe } = mockData;
+    const wrapper = setup();
+    const form = wrapper.find('#add-recipe-form');
+    wrapper.setState(addRecipe);
+
+    expect(wrapper.instance().state.name).toEqual(addRecipe.name);
     form.simulate('submit', event);
   });
 

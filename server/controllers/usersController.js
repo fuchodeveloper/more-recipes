@@ -124,7 +124,7 @@ const UsersController = {
   getUser(req, res) {
     User.findOne({
       where: {
-        id: req.params.id
+        id: req.decoded.id
       },
       attributes: ['firstName', 'lastName', 'emailAddress']
     })

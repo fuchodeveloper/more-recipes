@@ -141,6 +141,7 @@ export class Home extends Component {
           <div className="container margin-top-70">
 
             <h1
+              id="hero-title"
               className="text-center p-4 center-hero-title"
             >Awesome Recipes Just For You
             </h1>
@@ -171,7 +172,11 @@ export class Home extends Component {
             <div className="margin-top-50 margin-bottom-50" />
 
             <div>
-              <h3 className="popular-text">Most recent recipes</h3>
+              <h3
+                className="popular-text"
+                id="recent"
+              >Most recent recipes
+              </h3>
             </div>
 
             <div>

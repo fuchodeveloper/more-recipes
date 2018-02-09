@@ -11,3 +11,4 @@ bin
 *.log
 selenium-debug.log
 e2e-reports/CHROME_62.0.3202.94_Mac OS X_index.test.xml
+.vscode

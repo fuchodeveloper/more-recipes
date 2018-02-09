@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
  *
  * @returns {JSX} JSX template
  */
-const AllFavoriteRecipes = props => (
+export const AllFavoriteRecipes = props => (
   <div className="col-md-4 mb-5">
     <div className="card mt-1">
       <img

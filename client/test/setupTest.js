@@ -5,3 +5,6 @@ configure({ adapter: new Adapter() });
 
 global.shallow = shallow;
 global.mount = mount;
+global.cloudinary = {
+  openUploadWidget: jest.fn()
+};

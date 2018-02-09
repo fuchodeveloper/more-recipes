@@ -6,6 +6,7 @@ import {
   GET_MOST_UPVOTES_COUNT
 } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
+import networkError from '../networkError';
 
 /**
  * @description Most recipe upvotes action creator
@@ -49,6 +50,9 @@ const mostUpvotesAction = page => (dispatch) => {
       ]));
     })
     .catch((serverError) => {
+      if (!serverError.response) {
+        return networkError(serverError);
+      }
       dispatch(mostUpvotesError(serverError.response.data.error));
     });
 };

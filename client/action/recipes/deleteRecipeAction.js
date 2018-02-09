@@ -1,6 +1,7 @@
 import axios from 'axios';
 import alertify from 'alertify.js';
 import { DELETE_RECEIPE, DELETE_RECEIPE_FAIL } from '../types';
+import networkError from '../networkError';
 
 export const deleteRecipeActionError = error => ({
   type: DELETE_RECEIPE_FAIL,
@@ -21,10 +22,10 @@ const deleteRecipeAction = recipeId => dispatch =>
       dispatch(deleteRecipeActionCreator(response.data.recipes));
     })
     .catch((error) => {
-      alertify.delay(900);
-      alertify.logPosition('bottom right');
-      alertify.success(error.data.message);
-      dispatch(deleteRecipeActionError(error.data.message));
+      if (!error.response) {
+        return networkError(error);
+      }
+      dispatch(deleteRecipeActionError(error.response.data));
     });
 
 export default deleteRecipeAction;

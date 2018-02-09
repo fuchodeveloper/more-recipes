@@ -1,10 +1,29 @@
 import axios from 'axios';
 import alertify from 'alertify.js';
-import { ADD_REVIEW } from '../types';
+import { ADD_REVIEW, ADD_REVIEW_FAIL } from '../types';
+import networkError from '../networkError';
 
-export const postReviewActionCreator = recipe => ({
+/**
+ * @description function to add review
+ *
+ * @param {Object} review add review object
+ *
+ * @returns {Object} review returns review
+ */
+const postReviewActionCreator = review => ({
   type: ADD_REVIEW,
-  recipe
+  review
+});
+/**
+ * @description function to return review error
+ *
+ * @param {Object} error the review error object
+ *
+ * @returns {Object} error returns error object
+ */
+const postReviewActionError = error => ({
+  type: ADD_REVIEW_FAIL,
+  error
 });
 
 const postReviewAction = (param, userReview) =>
@@ -14,9 +33,13 @@ const postReviewAction = (param, userReview) =>
       alertify.success(response.data.message);
       dispatch(postReviewActionCreator(response.data.recipe.Reviews));
     })
-    .catch(() => {
+    .catch((error) => {
+      if (!error.response) {
+        return networkError(error);
+      }
       alertify.logPosition('bottom right');
       alertify.error('An error occurred. Please try again');
+      dispatch(postReviewActionError(error.response.data));
     });
 
 export default postReviewAction;

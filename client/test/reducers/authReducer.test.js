@@ -39,6 +39,7 @@ describe('Auth reducer', () => {
     (done) => {
       const state = {};
       const error = mockData.signupDetailsError;
+      const { empty } = mockData;
 
       const action = {
         type: SET_CURRENT_USER_FAIL,
@@ -47,8 +48,8 @@ describe('Auth reducer', () => {
 
       const newState = authReducer(state, action);
       expect(newState.isAuthenticated).toEqual(false);
-      expect(newState.error.firstName).toEqual('');
-      expect(newState.error.lastName).toEqual('');
+      expect(newState.error.firstName).toEqual(empty);
+      expect(newState.error.lastName).toEqual(empty);
       done();
     }
   );
@@ -95,6 +96,7 @@ describe('Auth reducer', () => {
   it(
     'should set update profile to error when passed UPDATE_PROFILE_FAIL',
     (done) => {
+      const { empty } = mockData;
       const state = {};
       const error = {
         firstName: '',
@@ -108,9 +110,21 @@ describe('Auth reducer', () => {
 
       const newState = userProfileReducer(state, action);
 
-      expect(newState.error.firstName).toEqual('');
-      expect(newState.error.lastName).toEqual('');
+      expect(newState.error.firstName).toEqual(empty);
+      expect(newState.error.lastName).toEqual(empty);
       done();
     }
   );
+
+  it('should return default state', () => {
+    const state = {};
+
+    const action = {
+      type: 'EMPTY',
+      profile: {}
+    };
+
+    const newState = userProfileReducer(state, action);
+    expect(newState).toEqual({});
+  });
 });

@@ -1,6 +1,6 @@
 module.exports = {
   verbose: true,
-  rootDir: '/',
+  rootDir: 'client',
   roots: ['<rootDir>'],
   setupFiles: [
     '<rootDir>/test/setupTest.js',
@@ -11,7 +11,7 @@ module.exports = {
     '**/*.{js,jsx}',
   ],
   coveragePathIgnorePatterns: [
-    '<rootDir>/test',
+    '<rootDir>/components/navigation/Footer.jsx',
     '<rootDir>/Index.jsx',
     '<rootDir>/rootReducer.js',
     '<rootDir>/assets',
@@ -20,7 +20,8 @@ module.exports = {
     '<rootDir>/validations',
     '<rootDir>/store',
     '<rootDir>/components/errors/',
-    '<rootDir>/reducers/isFetching.js'
+    '<rootDir>/reducers/isFetching.js',
+    '<rootDir>/action/networkError.js'
   ],
   snapshotSerializers: ['enzyme-to-json/serializer']
 };

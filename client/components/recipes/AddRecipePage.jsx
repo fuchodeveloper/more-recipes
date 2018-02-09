@@ -114,11 +114,11 @@ export class AddRecipePage extends React.Component {
   /**
  * @description function to handle image uploads
  *
- * @param {Object} event
+ * @param {Object} event image event object
  *
  * @memberof AddRecipePage
  *
- * @returns {undefined}
+ * @returns {undefined} new image upload
  */
   uploadWidget(event) {
     event.preventDefault();
@@ -131,7 +131,9 @@ export class AddRecipePage extends React.Component {
         tags: ['recipe']
       },
       (error, result) => {
-        scope.setState({ image: result[0].url });
+        if (!error) {
+          scope.setState({ image: result[0].secure_url });
+        }
       }
     );
   }
@@ -181,7 +183,7 @@ export class AddRecipePage extends React.Component {
               <div className="upload text-center">
                 <button
                   name="image"
-                  id="image"
+                  id="image-button"
                   onClick={this.uploadWidget}
                   className="upload-button btn-primary-color text-white"
                 >

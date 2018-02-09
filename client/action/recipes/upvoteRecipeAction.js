@@ -1,6 +1,7 @@
 import axios from 'axios';
 import alertify from 'alertify.js';
 import { UPVOTE_RECIPE } from '../types';
+import networkError from '../networkError';
 
 /**
  * upvote recipe action creator
@@ -33,7 +34,10 @@ const upvoteRecipeAction = id => dispatch =>
       alertify.success(response.data.recipe.message);
       return dispatch(upvoteRecipeActionCreator(response.data.recipe));
     })
-    .catch(() => {
+    .catch((error) => {
+      if (!error.response) {
+        return networkError(error);
+      }
       alertify.delay(1000);
       alertify.logPosition('bottom right');
       alertify.error('Please login to upvote recipe');

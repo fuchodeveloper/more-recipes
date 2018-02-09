@@ -205,7 +205,11 @@ export class SignUp extends Component {
                       </button>
                     </div>
                     <p className="small text-muted mt-3 text-center">
-                    Already have an account? <Link to="/login">Sign in</Link>
+                    Already have an account? <Link
+                      to="/login"
+                      id="login"
+                    >Sign in
+                                             </Link>
                     </p>
                   </div>
                 </div>
