@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 const { Reviews } = db;
 
-let userToken, recipeId;
+let userToken;
 
 const doBeforeAll = () => {
   before((done) => {
@@ -51,25 +51,10 @@ describe('Reviews controller', () => {
         });
     });
 
-  it(`should return recipe name if user creates recipe
+  it(`should return recipe name if user creates review
     successfully`, (done) => {
       chai.request(app)
-        .post('/api/v1/recipes')
-        .set('Content-Type', 'application/json')
-        .set('x-access-token', userToken)
-        .send(mock.anotherNewRecipe)
-        .end((err, res) => {
-          recipeId = res.body.recipe.id;
-          expect(res.body.recipe.name).to.equal('dodo and eggs');
-          expect(res).to.have.status(201);
-          done();
-        });
-    });
-
-  it(`should return recipe name if user creates recipe
-    successfully`, (done) => {
-      chai.request(app)
-        .post(`/api/v1/recipes/${recipeId}/reviews`)
+        .post('/api/v1/recipes/1/reviews')
         .set('Content-Type', 'application/json')
         .set('x-access-token', userToken)
         .send({
@@ -87,7 +72,7 @@ describe('Reviews controller', () => {
   it(`should error message if creating review 
   fails due to validation error`, (done) => {
       chai.request(app)
-        .post(`/api/v1/recipes/${recipeId}/reviews`)
+        .post('/api/v1/recipes/1/reviews')
         .set('Content-Type', 'application/json')
         .set('x-access-token', userToken)
         .send({

@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -11,7 +10,12 @@ const userDetails = {
   emailAddress: 'john@gmail.com',
   password: 'password'
 };
-
+/**
+ * @description function to setup props and
+ * shallow mount LoginPage component
+ *
+ * @returns {DOM} LoginPage component
+ */
 const setup = () => {
   const props = {
     login: jest.fn(),
@@ -22,7 +26,14 @@ const setup = () => {
   return shallow(<LoginPage {...props} />);
 };
 
-describe('Login component', () => {
+describe('Login page component', () => {
+  describe('Login component snapshot', () => {
+    it('should render with right amount of elements', () => {
+      const { wrapper } = setup();
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
   it('should test that the component rendered successfully', () => {
     const wrapper = setup();
     expect(wrapper.find('.welcome-back').text()).toBe('Welcome Back');

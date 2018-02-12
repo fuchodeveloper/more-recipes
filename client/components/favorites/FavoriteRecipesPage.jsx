@@ -13,7 +13,7 @@ import AllFavoriteRecipes from './AllFavoriteRecipes';
  *
  * @extends {React.Component}
  */
-class FavoriteRecipesPage extends React.Component {
+export class FavoriteRecipesPage extends React.Component {
   /**
  * @description Creates an instance of FavoriteRecipesPage.
  *
@@ -173,7 +173,8 @@ class FavoriteRecipesPage extends React.Component {
 
 FavoriteRecipesPage.defaultProps = {
   id: null,
-  isFetching: false
+  isFetching: false,
+  recipes: {}
 };
 
 FavoriteRecipesPage.propTypes = {
@@ -182,7 +183,7 @@ FavoriteRecipesPage.propTypes = {
     id: PropTypes.number
   }).isRequired,
   getAllFavoritesAction: PropTypes.func.isRequired,
-  recipes: PropTypes.objectOf(String).isRequired,
+  recipes: PropTypes.shape({}),
   isFetching: PropTypes.bool
 };
 

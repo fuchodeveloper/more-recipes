@@ -24,10 +24,10 @@ export const myRecipesPageCount = pageCount => ({
 
 const myRecipesAction = page => (dispatch) => {
   dispatch(setFetching());
-  axios.get(`/api/v1/recipes/userRecipes?page=${page}`)
+  return axios.get(`/api/v1/recipes/userRecipes?page=${page}`)
     .then((response) => {
       dispatch(batchActions([
-        myRecipesActionCreator(response.data.recipes),
+        dispatch(myRecipesActionCreator(response.data.recipes)),
         myRecipesPageCount(response.data.pageCount),
         unsetFetching()
       ]));

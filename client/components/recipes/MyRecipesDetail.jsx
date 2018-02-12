@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import noodles from '../../assets/img/noodles.jpg';
+import PropTypes from 'prop-types';
 
-const MyRecipesDetail = props => (
-  <div className="col-md-4 mb-2">
+export const MyRecipesDetail = props => (
+  <div className="col-md-4 mb-2" id="my-recipe-card">
     <div className="card mt-1">
       <img
         className="card-img-top"
         max-width="348px"
         height="231px"
-        src={props.details.image === '' ? noodles : props.details.image}
+        src={props.details.image === '' ?
+        'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+              + 'v1516760699/noodles_c6ltkq.jpg' : props.details.image}
         alt={props.details.name}
       />
       <div className="card-body">
@@ -47,6 +49,7 @@ const MyRecipesDetail = props => (
           <Link
             to={`/update/${props.details.id}`}
             className="btn btn-light"
+            id="recipe-edit"
           >Edit
           </Link>
         </div>
@@ -54,5 +57,28 @@ const MyRecipesDetail = props => (
     </div>
   </div>
 );
+
+MyRecipesDetail.defaultProps = {
+  onConfirm: () => {},
+  details: {
+    views: 0,
+    id: 1,
+    upVotes: 0,
+    favoriteCount: 0
+  }
+};
+
+MyRecipesDetail.propTypes = {
+  onConfirm: PropTypes.func,
+  details: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    direction: PropTypes.string.isRequired,
+    views: PropTypes.number,
+    id: PropTypes.number,
+    upVotes: PropTypes.number,
+    favoriteCount: PropTypes.number,
+  }),
+};
 
 export default MyRecipesDetail;

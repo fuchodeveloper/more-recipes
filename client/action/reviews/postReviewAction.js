@@ -1,23 +1,45 @@
 import axios from 'axios';
 import alertify from 'alertify.js';
-import { ADD_REVIEW } from '../types';
+import { ADD_REVIEW, ADD_REVIEW_FAIL } from '../types';
+import networkError from '../networkError';
 
-export const postReviewAction = recipe => ({
+/**
+ * @description function to add review
+ *
+ * @param {Object} review add review object
+ *
+ * @returns {Object} review returns review
+ */
+const postReviewActionCreator = review => ({
   type: ADD_REVIEW,
-  recipe
+  review
+});
+/**
+ * @description function to return review error
+ *
+ * @param {Object} error the review error object
+ *
+ * @returns {Object} error returns error object
+ */
+const postReviewActionError = error => ({
+  type: ADD_REVIEW_FAIL,
+  error
 });
 
-const postRecipeReview = (param, userReview) => (dispatch) => {
-  axios.post(`/api/v1/recipes/${param}/reviews`, userReview)
+const postReviewAction = (param, userReview) =>
+  dispatch => axios.post(`/api/v1/recipes/${param}/reviews`, userReview)
     .then((response) => {
       alertify.logPosition('bottom right');
       alertify.success(response.data.message);
-      dispatch(postReviewAction(response.data.recipe.Reviews));
+      dispatch(postReviewActionCreator(response.data.recipe.Reviews));
     })
-    .catch(() => {
+    .catch((error) => {
+      if (!error.response) {
+        return networkError(error);
+      }
       alertify.logPosition('bottom right');
       alertify.error('An error occurred. Please try again');
+      dispatch(postReviewActionError(error.response.data));
     });
-};
 
-export default postRecipeReview;
+export default postReviewAction;

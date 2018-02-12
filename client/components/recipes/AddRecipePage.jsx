@@ -14,7 +14,7 @@ import validateRecipe from '../../validations/validateRecipe';
  *
  * @extends {React.Component}
  */
-class AddRecipePage extends React.Component {
+export class AddRecipePage extends React.Component {
   /**
    * @description Creates an instance of AddRecipePage.
    *
@@ -114,11 +114,11 @@ class AddRecipePage extends React.Component {
   /**
  * @description function to handle image uploads
  *
- * @param {Object} event
+ * @param {Object} event image event object
  *
  * @memberof AddRecipePage
  *
- * @returns {undefined}
+ * @returns {undefined} new image upload
  */
   uploadWidget(event) {
     event.preventDefault();
@@ -131,7 +131,9 @@ class AddRecipePage extends React.Component {
         tags: ['recipe']
       },
       (error, result) => {
-        scope.setState({ image: result[0].url });
+        if (!error) {
+          scope.setState({ image: result[0].secure_url });
+        }
       }
     );
   }
@@ -172,12 +174,16 @@ class AddRecipePage extends React.Component {
               />
             </div>
 
-            <form encType="multipart/form-data" onSubmit={this.onSubmit}>
+            <form
+              encType="multipart/form-data"
+              onSubmit={this.onSubmit}
+              id="add-recipe-form"
+            >
               <br />
               <div className="upload text-center">
                 <button
                   name="image"
-                  id="image"
+                  id="image-button"
                   onClick={this.uploadWidget}
                   className="upload-button btn-primary-color text-white"
                 >
@@ -223,7 +229,7 @@ class AddRecipePage extends React.Component {
                       cols="30"
                       rows="5"
                       name="ingredients"
-                      id="ingredient"
+                      id="ingredients"
                       className="form-control"
                       value={this.state.ingredients}
                       onChange={this.onChange}
@@ -266,6 +272,7 @@ class AddRecipePage extends React.Component {
                 <button
                   type="submit"
                   className="btn btn-primary btn-primary-color"
+                  id="recipe-submit"
                 >Submit
                 </button>
               </div>
@@ -285,7 +292,7 @@ AddRecipePage.propTypes = {
 };
 
 AddRecipePage.contextTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object
 };
 
 const mapStateToProps = state => ({

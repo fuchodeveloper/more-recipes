@@ -28,7 +28,7 @@ import Footer from './components/navigation/Footer';
 import ErrorBoundary from './components/errors/ErrorBoundary';
 import configureStore from './store/configureStore';
 
-const Root = () => {
+export const Index = () => {
   const store = configureStore();
 
   if (localStorage.jwtToken) {
@@ -72,4 +72,4 @@ const Root = () => {
   );
 };
 
-render(<Root />, document.getElementById('root'));
+render(<Index />, document.getElementById('root'));

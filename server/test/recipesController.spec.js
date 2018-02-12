@@ -243,17 +243,5 @@ describe('Recipe controller', () => {
           done();
         });
     });
-
-  it('should return 200 if recipe is successfully deleted', (done) => {
-    chai.request(app)
-      .delete(`/api/v1/recipes/${recipeId}`)
-      .set('Content-Type', 'application/json')
-      .set('x-access-token', userToken)
-      .end((err, res) => {
-        expect(res.body.message).to.equal('Recipe deleted');
-        expect(res).to.have.status(200);
-        done();
-      });
-  });
 });
 

@@ -3,6 +3,7 @@ import alertify from 'alertify.js';
 import { batchActions } from 'redux-batched-actions';
 import { UPDATE_RECIPE, UPDATE_RECIPE_ERROR } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
+import networkError from '../networkError';
 
 /**
  * @description update a recipe action creator
@@ -41,7 +42,7 @@ export const updateRecipeError = error => ({
  *
  * @param {Object} recipe
  *
- * @returns {Object} dispatch
+ * @returns {Object} dispatch update recipe action
  */
 const updateRecipeAction = (recipeId, recipe) =>
   (dispatch) => {
@@ -52,11 +53,14 @@ const updateRecipeAction = (recipeId, recipe) =>
         alertify.logPosition('bottom right');
         alertify.success(response.data.message);
         dispatch(batchActions([
-          updateRecipeActionCreator(response.data.recipe),
+          dispatch(updateRecipeActionCreator(response.data.recipe)),
           unsetFetching()
         ]));
       })
       .catch((error) => {
+        if (!error.response) {
+          return networkError(error);
+        }
         dispatch([
           dispatch(updateRecipeError(error.response.data.error)),
           unsetFetching()

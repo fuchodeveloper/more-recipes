@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 const { Favorites } = db;
 
-let userToken, recipeId;
+let userToken;
 
 const doBeforeAll = () => {
   before((done) => {
@@ -64,24 +64,9 @@ describe('Favorites controller', () => {
       });
   });
 
-  it('should return new recipe object and id', (done) => {
-    chai.request(app)
-      .post('/api/v1/recipes')
-      .set('Content-Type', 'application/json')
-      .set('x-access-token', userToken)
-      .send(mock.newRecipe)
-      .end((err, res) => {
-        recipeId = res.body.recipe.id;
-        expect(res.body.recipe).to.be.an('object');
-        expect(res.body.recipe.id).to.be.a('number');
-        expect(res).to.have.status(201);
-        done();
-      });
-  });
-
   it('should return 201 if a favorite is successfully created', (done) => {
     chai.request(app)
-      .post(`/api/v1/users/${recipeId}/recipes`)
+      .post('/api/v1/users/1/recipes')
       .set('Content-Type', 'application/json')
       .set('x-access-token', userToken)
       .end((err, res) => {

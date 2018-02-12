@@ -3,6 +3,7 @@ import axios from 'axios';
 import alertify from 'alertify.js';
 import { ADD_RECIPE, ADD_RECIPE_ERROR } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
+import networkError from '../networkError';
 
 /**
  * @description create a recipe
@@ -45,6 +46,9 @@ const addRecipeAction = recipe => (dispatch) => {
       ]));
     })
     .catch((error) => {
+      if (!error.response) {
+        return networkError(error);
+      }
       dispatch([
         dispatch(addRecipeActionError(error.response.data.error)),
         unsetFetching()

@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites errors="0"
-            failures="1"
-            tests="1">
+            failures="0"
+            tests="0">
 
   <testsuite name="index.test"
-    errors="0" failures="1" hostname="" id="" package="index.test" skipped="0"
-    tests="1" time="4.148" timestamp="Thu, 25 Jan 2018 12:00:58 GMT">
-  
-    <testcase name="Should display homepage and check for available elements" classname="index.test" time="4.148" assertions="3">
-
-    
-
-      <failure message="Testing if element &lt;h1&gt; contains text: &#34;Awesome Recipes Just For You&#34;.">    at Object.Should display homepage and check for available elements (/Users/fuchodeveloper/Public/more-recipes/e2e-tests/index.test.js:7:15)
-    at _combinedTickCallback (internal/process/next_tick.js:131:7)</failure>
-
-    
-    </testcase>
+    errors="0" failures="0" hostname="" id="" package="index.test" skipped="0"
+    tests="0" time="0.000" timestamp="Sun, 11 Feb 2018 09:55:06 GMT">
   
 
   

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ProfileDetail from './ProfileDetail';
-import profileAction from '../../action/profile/userProfileAction';
+import profileAction from '../../action/profile/profileAction';
 import updateProfileAction from '../../action/profile/updateProfileAction';
 
 /**
@@ -11,7 +11,7 @@ import updateProfileAction from '../../action/profile/updateProfileAction';
  * @class ProfilePage
  * @extends {Component}
  */
-class ProfilePage extends Component {
+export class ProfilePage extends Component {
   /**
    * @description Creates an instance of ProfilePage.
    *
@@ -22,7 +22,6 @@ class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profile: '',
       firstName: '',
       lastName: '',
       emailAddress: ''
@@ -99,7 +98,6 @@ class ProfilePage extends Component {
       <div>
 
         <ProfileDetail
-          profile={this.state.profile}
           onChange={this.onChange}
           onSubmit={this.onSubmit}
           firstName={this.state.firstName}
@@ -118,13 +116,14 @@ class ProfilePage extends Component {
 
 
 ProfilePage.defaultProps = {
-
+  login: {},
+  profile: {}
 };
 
 ProfilePage.propTypes = {
   getProfile: PropTypes.func.isRequired,
-  login: PropTypes.shape({}).isRequired,
-  profile: PropTypes.shape({}).isRequired,
+  login: PropTypes.shape({}),
+  profile: PropTypes.shape({}),
   updateProfile: PropTypes.func.isRequired,
 };
 

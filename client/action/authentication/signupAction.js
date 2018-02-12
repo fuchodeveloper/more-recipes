@@ -5,7 +5,7 @@ import alertify from 'alertify.js';
 import setAuthorizationToken from '../../utils/setAuthorizationToken';
 import { SET_CURRENT_USER, SET_CURRENT_USER_FAIL } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
-
+import networkError from '../networkError';
 
 /**
  * @description The set current user action creator
@@ -51,7 +51,7 @@ const signupAction = userDetails => (dispatch) => {
   return axios.post('/api/v1/users/signup', userDetails)
     .then((response) => {
       const { token, message } = response.data;
-      alertify.delay(2000);
+      alertify.delay(1000);
       alertify.logPosition('bottom right');
       alertify.success(message);
       localStorage.setItem('jwtToken', token);
@@ -62,7 +62,10 @@ const signupAction = userDetails => (dispatch) => {
       ]));
     })
     .catch((error) => {
-      alertify.delay(2000);
+      if (!error.response) {
+        return networkError(error);
+      }
+      alertify.delay(1000);
       alertify.logPosition('bottom right');
       alertify.error(error.response.data.error);
       dispatch(batchActions([

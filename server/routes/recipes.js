@@ -1,5 +1,5 @@
 import express from 'express';
-import recipesController from '../controllers/recipesController';
+import RecipesController from '../controllers/RecipesController';
 import authorization from '../middleware/tokenMiddleware';
 
 const router = express.Router();
@@ -11,37 +11,34 @@ const router = express.Router();
 // Allow an authenticated user create a new recipe
 router.post(
   '/',
-  authorization.verifyToken, recipesController.createRecipe
+  authorization.verifyToken, RecipesController.createRecipe
 );
 
 // Get all the available recipes, get sorted recipes
 router.get(
   '/',
-  recipesController.getAllRecipesPaginate, recipesController.sortRecipes
+  RecipesController.getAllRecipesPaginate, RecipesController.sortRecipes
 );
 
 // Get all the recipes created by a user
 router.get(
   '/userRecipes',
-  authorization.verifyToken, recipesController.getAllForUser
+  authorization.verifyToken, RecipesController.getAllForUser
 );
 
 // Get a particular recipe
-router.get('/:id', authorization.injectToken, recipesController.getRecipe);
+router.get('/:id', authorization.injectToken, RecipesController.getRecipe);
 
 // An authenticated user can delete their recipes
 router.delete(
   '/:id',
-  authorization.verifyToken, recipesController.deleteRecipe
+  authorization.verifyToken, RecipesController.deleteRecipe
 );
 
 //  An authenticated user can update their recipes
-router.put('/:id', authorization.verifyToken, recipesController.updateRecipe);
-
-// GET most upvoted recipes in desc order
-// router.get('/?sort=upvotes&order=desc', recipesController.sortRecipes);
+router.put('/:id', authorization.verifyToken, RecipesController.updateRecipe);
 
 // search for a recipe
-router.post('/search', recipesController.searchRecipes);
+router.post('/search', RecipesController.searchRecipes);
 
 export default router;

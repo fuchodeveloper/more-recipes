@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import placeholderImage from '../../assets/img/noodles.jpg';
 
 const RecipeSearchResult = props => (
   <div className="col-md-4 mb-2">
@@ -11,7 +10,8 @@ const RecipeSearchResult = props => (
         max-width="348px"
         height="231px"
         src={props.details.image === ''
-        ? placeholderImage
+        ? 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
+        + 'v1516760699/noodles_c6ltkq.jpg'
         : props.details.image}
         alt={props.details.name}
       />

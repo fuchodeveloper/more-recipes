@@ -11,7 +11,7 @@ const { User } = db;
 dotenv.config();
 const secret = process.env.SECRET_TOKEN;
 
-const usersController = {
+const UsersController = {
   /**
     * @description Controller to create a new user
    *
@@ -94,7 +94,7 @@ const usersController = {
           const confirmPassword =
           bcrypt.compareSync((request.body.password), user.password);
           if (confirmPassword === false) {
-            return response.status(403)
+            return response.status(401)
               .json({ error: 'Wrong email or password' });
           }
         }
@@ -124,7 +124,7 @@ const usersController = {
   getUser(req, res) {
     User.findOne({
       where: {
-        id: req.params.id
+        id: req.decoded.id
       },
       attributes: ['firstName', 'lastName', 'emailAddress']
     })
@@ -172,12 +172,11 @@ const usersController = {
               },
               attributes: ['firstName', 'lastName', 'emailAddress']
             })
-              .then(updatedUser => res.status(200).json({ user: updatedUser }))
-              .catch(error => res.status(404).json({ error: error.message }));
+              .then(updatedUser => res.status(200).json({ user: updatedUser }));
           });
       })
       .catch(error => res.status(500).json({ error: error.message }));
   }
 };
 
-export default usersController;
+export default UsersController;

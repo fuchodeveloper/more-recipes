@@ -5,6 +5,7 @@ import alertify from 'alertify.js';
 import setAuthorizationToken from '../../utils/setAuthorizationToken';
 import { SET_CURRENT_USER, SET_CURRENT_USER_FAIL } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
+import networkError from '../networkError';
 
 /**
  * @description The set current user action creator
@@ -48,7 +49,7 @@ export const setCurrentUserError = error => ({
  */
 const loginAction = userDetails => (dispatch) => {
   dispatch(setFetching());
-  axios.post('/api/v1/users/signin', userDetails)
+  return axios.post('/api/v1/users/signin', userDetails)
     .then((response) => {
       const { token, message } = response.data;
       alertify.delay(2000);
@@ -62,6 +63,9 @@ const loginAction = userDetails => (dispatch) => {
       ]));
     })
     .catch((error) => {
+      if (!error.response) {
+        return networkError(error);
+      }
       alertify.delay(2000);
       alertify.logPosition('bottom right');
       alertify.error(error.response.data.error);

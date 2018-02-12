@@ -1,7 +1,8 @@
 import {
   GET_PROFILE_SUCCESS,
-  UPDATE_PROFILE_SUCCESS,
-  UPDATE_PROFILE_FAIL
+  UPDATE_PROFILE,
+  UPDATE_PROFILE_FAIL,
+  GET_PROFILE_FAIL
 } from '../../action/types';
 
 export default (state = [], action) => {
@@ -12,13 +13,19 @@ export default (state = [], action) => {
         profile: action.profile
       };
 
-    case UPDATE_PROFILE_SUCCESS:
+    case UPDATE_PROFILE:
       return {
         ...state,
         profile: action.profile
       };
 
     case UPDATE_PROFILE_FAIL:
+      return {
+        ...state,
+        error: action.error
+      };
+
+    case GET_PROFILE_FAIL:
       return {
         ...state,
         error: action.error

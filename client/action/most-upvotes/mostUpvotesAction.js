@@ -6,6 +6,7 @@ import {
   GET_MOST_UPVOTES_COUNT
 } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
+import networkError from '../networkError';
 
 /**
  * @description Most recipe upvotes action creator
@@ -38,19 +39,22 @@ export const mostUpvotesPageCount = pageCount => ({
  *
  * @returns {object} object
  */
-const mostUpvotes = page => (dispatch) => {
+const mostUpvotesAction = page => (dispatch) => {
   dispatch(setFetching());
-  axios.get(`/api/v1/recipes?page=${page}&sort=upvotes&order=desc`)
+  return axios.get(`/api/v1/recipes?page=${page}&sort=upvotes&order=desc`)
     .then((response) => {
       dispatch(batchActions([
-        mostUpvotesActionCreator(response.data.recipes),
+        dispatch(mostUpvotesActionCreator(response.data.recipes)),
         mostUpvotesPageCount(response.data.pageCount),
         unsetFetching(),
       ]));
     })
     .catch((serverError) => {
+      if (!serverError.response) {
+        return networkError(serverError);
+      }
       dispatch(mostUpvotesError(serverError.response.data.error));
     });
 };
 
-export default mostUpvotes;
+export default mostUpvotesAction;

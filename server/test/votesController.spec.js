@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 const { Favorites } = db;
 
-let userToken, recipeId;
+let userToken;
 
 const doBeforeAll = () => {
   before((done) => {
@@ -51,24 +51,9 @@ describe('Votes Controller', () => {
         });
     });
 
-  it('should create recipe and return new recipe object and id', (done) => {
-    chai.request(app)
-      .post('/api/v1/recipes')
-      .set('Content-Type', 'application/json')
-      .set('x-access-token', userToken)
-      .send(mock.newRecipe)
-      .end((err, res) => {
-        recipeId = res.body.recipe.id;
-        expect(res.body.recipe).to.be.an('object');
-        expect(res.body.recipe.id).to.be.a('number');
-        expect(res).to.have.status(201);
-        done();
-      });
-  });
-
   it('should return \'Recipe upvoted\' if upvote is successful', (done) => {
     chai.request(app)
-      .post(`/api/v1/recipes/${recipeId}/upvote`)
+      .post('/api/v1/recipes/1/upvote')
       .set('Content-Type', 'application/json')
       .set('x-access-token', userToken)
       .end((err, res) => {
@@ -81,7 +66,7 @@ describe('Votes Controller', () => {
 
   it('should return \'Recipe downvoted\' if downvote is successful', (done) => {
     chai.request(app)
-      .post(`/api/v1/recipes/${recipeId}/downvote`)
+      .post('/api/v1/recipes/1/downvote')
       .set('Content-Type', 'application/json')
       .set('x-access-token', userToken)
       .end((err, res) => {

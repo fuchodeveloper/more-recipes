@@ -12,6 +12,10 @@ const validateInput = (formInput) => {
     errors.firstName = 'First name must be greater than 3 characters';
   }
 
+  if (formInput.firstName.length > 20) {
+    errors.firstName = 'First name is too long';
+  }
+
   if (validator.isEmpty(formInput.lastName.trim())) {
     errors.lastName = 'Last name is required';
   }
@@ -20,12 +24,20 @@ const validateInput = (formInput) => {
     errors.lastName = 'Last name must be greater than 3 characters';
   }
 
+  if (formInput.lastName.length > 20) {
+    errors.lastName = 'Last name is too long';
+  }
+
   if (validator.isEmpty(formInput.emailAddress.trim())) {
     errors.emailAddress = 'Email is required';
   }
 
   if (!validator.isEmail(formInput.emailAddress)) {
     errors.emailAddress = 'Email is invalid';
+  }
+
+  if (formInput.emailAddress.length > 20) {
+    errors.lastName = 'Email address is too long';
   }
 
   return {

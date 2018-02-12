@@ -19,7 +19,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 module.exports = {
 
   devtool: 'source-map',
-  entry: [path.join(__dirname, './client/index.js')],
+  entry: [path.join(__dirname, './client/Index.jsx')],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',

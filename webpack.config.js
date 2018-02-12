@@ -5,7 +5,7 @@ module.exports = {
   devtool: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client?reload=true',
-    path.join(__dirname, './client/index.js')
+    path.join(__dirname, './client/Index.jsx')
   ],
   module: {
     loaders: [

@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { batchActions } from 'redux-batched-actions';
 import { GET_PROFILE_SUCCESS, GET_PROFILE_FAIL } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
+import networkError from '../networkError';
+
 /**
  * @description update profile action creator
  *
@@ -9,7 +10,7 @@ import { setFetching, unsetFetching } from '../fetching';
  *
  * @returns {Object} profile
  */
-const profileActionCreator = profile => ({
+export const profileActionCreator = profile => ({
   type: GET_PROFILE_SUCCESS,
   profile
 });
@@ -19,9 +20,9 @@ const profileActionCreator = profile => ({
  *
  * @param {Object} error
  *
- * @returns {Object} error
+ * @returns {Object} error returns the error object
  */
-const profileActionCreatorError = error => ({
+export const profileActionCreatorError = error => ({
   type: GET_PROFILE_FAIL,
   error
 });
@@ -30,19 +31,20 @@ const profileActionCreatorError = error => ({
  *
  * @param {Nmber} id
  *
- * @returns {Promise} returns the authenticated user
+ * @returns {dispatch} returns the authenticated user profile
  */
 const profileAction = id => (dispatch) => {
   dispatch(setFetching());
-  axios.get(`/api/v1/profile/${id}`)
+  return axios.get(`/api/v1/profile/${id}`)
     .then((response) => {
-      dispatch(batchActions([
-        profileActionCreator(response.data.user),
-        unsetFetching()
-      ]));
+      dispatch(profileActionCreator(response.data.user));
+      dispatch(unsetFetching());
     })
     .catch((error) => {
-      dispatch(profileActionCreatorError(error));
+      if (!error.response) {
+        return networkError(error);
+      }
+      return dispatch(profileActionCreatorError(error.response.data.error));
     });
 };
 
