@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -22,7 +23,7 @@ export class RecipeDetails extends React.Component {
   /**
    * @description Creates an instance of RecipeDetails.
    *
-   * @param {Object} props
+   * @param {Object} props constructor props object
    *
    * @memberof RecipeDetails
    */
@@ -56,7 +57,7 @@ export class RecipeDetails extends React.Component {
  *
  * @memberof RecipeDetails
  *
- * @returns {undefined}
+ * @returns {undefined} sets loading state
  */
   componentWillReceiveProps(nextProps) {
     if (!nextProps.isFetching) {
@@ -66,7 +67,7 @@ export class RecipeDetails extends React.Component {
   /**
  * @description handle input field change
  *
- * @param {Object} event
+ * @param {Object} event onChange event object parameter
  *
  * @memberof RecipeDetail
  *
@@ -78,7 +79,7 @@ export class RecipeDetails extends React.Component {
   /**
  * @description Function to handle form submission
  *
- * @param {Object} event
+ * @param {Object} event onSubmit event object parameter
  *
  * @memberof RecipeDetails
  *
@@ -170,15 +171,15 @@ export class RecipeDetails extends React.Component {
               style={{
               backgroundImage: `url(${recipe.image === ''
               ?
-              'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-              + 'v1516760699/noodles_c6ltkq.jpg' : recipe.image})`
+              'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg'
+              : recipe.image})`
             }}
             >
               <div className="container recipe-overlay-text">
                 <h1
                   className="display-2 recipe-title"
                   style={{ marginTop: '10em' }}
-                  id="recipe-name"
+                  id="name"
                 >
                 Recipe: {recipe.name}
                 </h1>
@@ -205,7 +206,7 @@ export class RecipeDetails extends React.Component {
               <div className="col-sm-6">
                 <ul
                   className="p-4"
-                  id="ingredients-list"
+                  id="ingredients"
                   style={{ wordWrap: 'break-word' }}
                 >
                   {
@@ -217,11 +218,11 @@ export class RecipeDetails extends React.Component {
               <div className="col-sm-6 float-right">
                 <img
                   src={recipe.image === '' ?
-                  'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-                  + 'v1516760699/noodles_c6ltkq.jpg' : recipe.image}
+                  'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg'
+                  : recipe.image}
                   className="img img-fluid"
                   alt={recipe.name}
-                  id="recipe-image"
+                  id="image"
                 />
                 <span className="text-muted form-text text-center">
                   <em>Food is ready</em>
@@ -246,17 +247,17 @@ export class RecipeDetails extends React.Component {
                 {
                   !this.props.favorited ?
                     <div style={{ display: 'inline' }}>
-                      <i className="fa fa-heart-o fa-lg" id="favorite-recipe" />
+                      <i className="fa fa-heart-o fa-lg" id="favorite" />
                        &nbsp; Favorite
                     </div>
                     :
                     <div style={{ display: 'inline' }}>
                       &nbsp;
-                      <span className="fa-stack fa-lg">
+                      <span className="fa-stack fa-lg" id="favorited-container">
                         <i className="fa fa-square-o fa-stack-2x" />
                         <i
                           className="fa fa-heart-o fa-stack-1x"
-                          id="favorited-recipe"
+                          id="favorited"
                         />
                       </span> Favorited
                     </div>
@@ -268,17 +269,23 @@ export class RecipeDetails extends React.Component {
 
             <div className="mt-5">
               <h3>Was this recipe helpful?</h3>
-              <a href="#" onClick={this.upVote} className="font-awesome-thumb">
-                <i className="fa fa-thumbs-up fa-lg" id="recipe-upvote" />
+              <a
+                id="upvote-count"
+                href="#"
+                onClick={this.upVote}
+                className="font-awesome-thumb"
+              >
+                <i className="fa fa-thumbs-up fa-lg" id="upvote" />
                 {recipe.upVotes} &nbsp;
               </a>
                    &nbsp;
               <a
+                id="downvote-count"
                 href="#"
                 onClick={this.downVote}
                 className="font-awesome-thumb"
               >
-                <i className="fa fa-thumbs-down fa-lg" id="recipe-downvote" />
+                <i className="fa fa-thumbs-down fa-lg" id="downvote" />
                 {recipe.downVotes}
               </a>
             </div>
@@ -298,7 +305,11 @@ export class RecipeDetails extends React.Component {
                       review={this.props.reviews[key]}
                     />))
                   }
-                </div> : <i className="recipe-title">No reviews yet</i>
+                </div> : <i
+                  id="no-reviews"
+                  className="recipe-title"
+                >No reviews yet
+                         </i>
                 }
 
             </div>

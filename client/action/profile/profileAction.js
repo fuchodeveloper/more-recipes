@@ -6,9 +6,9 @@ import networkError from '../networkError';
 /**
  * @description update profile action creator
  *
- * @param {Object} profile
+ * @param {Object} profile user profile parameter
  *
- * @returns {Object} profile
+ * @returns {Object} profile returns user profile object
  */
 export const profileActionCreator = profile => ({
   type: GET_PROFILE_SUCCESS,
@@ -18,7 +18,7 @@ export const profileActionCreator = profile => ({
 /**
  * @description update profile action error
  *
- * @param {Object} error
+ * @param {Object} error user profile error object
  *
  * @returns {Object} error returns the error object
  */
@@ -29,9 +29,9 @@ export const profileActionCreatorError = error => ({
 /**
  * @description function to handle user profile
  *
- * @param {Nmber} id
+ * @param {Nmber} id user profile id
  *
- * @returns {dispatch} returns the authenticated user profile
+ * @returns {Object} returns the authenticated user profile
  */
 const profileAction = id => (dispatch) => {
   dispatch(setFetching());

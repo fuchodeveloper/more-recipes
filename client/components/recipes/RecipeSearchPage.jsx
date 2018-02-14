@@ -16,7 +16,7 @@ export class RecipeSearchPage extends Component {
   /**
    * Creates an instance of RecipeSearchPage.
    *
-   * @param {Object} props
+   * @param {Object} props constructor props object
    *
    * @memberof RecipeSearchPage
    */
@@ -35,11 +35,11 @@ export class RecipeSearchPage extends Component {
   /**
  * @description lifecycle method used to update state
  *
- * @param {Object} nextProps
+ * @param {Object} nextProps componentWillReceiveProps nextProps object
  *
  * @memberof RecipeSearchPage
  *
- * @returns {void}
+ * @returns {undefined} sets state of recipes and pageCount
  */
   componentWillReceiveProps(nextProps) {
     const { recipes } = nextProps;
@@ -54,7 +54,7 @@ export class RecipeSearchPage extends Component {
  *
  * @memberof MyRecipesPage
  *
- * @returns {undefined}
+ * @returns {undefined} calls recipeSearchAction
  */
   onPageChange(current) {
     current.selected += 1;
@@ -64,7 +64,7 @@ export class RecipeSearchPage extends Component {
   /**
  * @description handle input change
  *
- * @param {Object} event
+ * @param {Object} event onChange event object
  *
  * @memberof RecipeSearchPage
  *
@@ -82,7 +82,7 @@ export class RecipeSearchPage extends Component {
  *
  * @memberof RecipeSearchPage
  *
- * @returns {undefined}
+ * @returns {undefined} calls recipeSearchAction
  */
   onSubmit(event) {
     event.preventDefault();

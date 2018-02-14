@@ -3,8 +3,7 @@ import { configure, shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import Adapter from 'enzyme-adapter-react-16';
 import expect from 'expect';
-import mockData from '../../__mocks__/mockData';
-import ConnectedProfilePage, { ProfilePage }
+import { ProfilePage }
   from '../../../components/profile/ProfilePage';
 
 configure({ adapter: new Adapter() });

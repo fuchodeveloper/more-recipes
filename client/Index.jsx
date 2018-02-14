@@ -13,15 +13,15 @@ import AddRecipePage from './components/recipes/AddRecipePage';
 import MyRecipesPage from './components/recipes/MyRecipesPage';
 import UpdateRecipePage from './components/recipes/UpdateRecipePage';
 import FavoriteRecipesPage from './components/favorites/FavoriteRecipesPage';
-import MostUpvotesPage from './components/most-upvotes/MostUpvotesPage';
+import MostUpvotesPage from './components/upvotes/MostUpvotesPage';
 import ProfilePage from './components/profile/ProfilePage';
 import RecipeSearchPage from './components/recipes/RecipeSearchPage';
 import LoginPage from './components/auth/LoginPage';
 import './assets/scss/main.scss';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import { setCurrentUser } from './action/authentication/loginAction';
-import logout from './action/authentication/logoutAction';
-import requireAuth from './utils/requireAuth';
+import logoutAction from './action/authentication/logoutAction';
+import Authenticate from './utils/Authenticate';
 import NotFound from './components/errors/NotFound';
 import Header from './components/navigation/Header';
 import Footer from './components/navigation/Footer';
@@ -37,7 +37,7 @@ export const Index = () => {
     const tokenExpiryTime = token.exp;
 
     if (tokenExpiryTime < timeNow) {
-      store.dispatch(logout());
+      store.dispatch(logoutAction());
     } else {
       setAuthorizationToken(localStorage.jwtToken);
       store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
@@ -56,11 +56,11 @@ export const Index = () => {
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/recipes/:id" component={RecipeDetails} />
               <Route exact path="/search" component={RecipeSearchPage} />
-              <Route exact path="/add" component={requireAuth(AddRecipePage)} />
-              <Route exact path="/:name/recipes" component={requireAuth(MyRecipesPage)} />
-              <Route exact path="/favorites" component={requireAuth(FavoriteRecipesPage)} />
-              <Route exact path="/profile" component={requireAuth(ProfilePage)} />
-              <Route exact path="/update/:id" component={requireAuth(UpdateRecipePage)} />
+              <Route exact path="/add" component={Authenticate(AddRecipePage)} />
+              <Route exact path="/:name/recipes" component={Authenticate(MyRecipesPage)} />
+              <Route exact path="/favorites" component={Authenticate(FavoriteRecipesPage)} />
+              <Route exact path="/profile" component={Authenticate(ProfilePage)} />
+              <Route exact path="/update/:id" component={Authenticate(UpdateRecipePage)} />
               <Route exact path="/votes" component={MostUpvotesPage} />
               <Route component={NotFound} />
             </Switch>

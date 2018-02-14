@@ -1,7 +1,7 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-const validateInput = (formInput) => {
+const validateSignup = (formInput) => {
   const errors = {};
 
   if (validator.isEmpty(formInput.firstName.trim())) {
@@ -65,4 +65,4 @@ const validateInput = (formInput) => {
   };
 };
 
-export default validateInput;
+export default validateSignup;

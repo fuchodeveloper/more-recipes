@@ -1,8 +1,9 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 import { AllMostUpvotes }
-  from '../../../components/most-upvotes/AllMostUpvotes';
+  from '../../../components/upvotes/AllMostUpvotes';
 
 let props;
 
@@ -10,8 +11,7 @@ const setup = () => {
   props = {
     details: {
       upVotes: 0,
-      image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-    + 'v1516760699/noodles_c6ltkq.jpg',
+      image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
       name: 'jollof',
       direction: 'rice, beans',
       views: 0,

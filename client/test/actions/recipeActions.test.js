@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import getRecipeAction from '../../action/recipes/getRecipeAction';
-import myRecipesAction from '../../action/recipes/myRecipesActions';
+import myRecipesAction from '../../action/recipes/myRecipesAction';
 import {
   RECEIVE_RECIPE,
   GET_MY_RECIPES,
@@ -39,7 +39,7 @@ import getAllFavoritesAction
 import upvoteRecipeAction from '../../action/recipes/upvoteRecipeAction';
 import downvoteRecipeAction from '../../action/recipes/downvoteRecipeAction';
 import postReviewAction from '../../action/reviews/postReviewAction';
-import mostUpvotesAction from '../../action/most-upvotes/mostUpvotesAction';
+import mostUpvotesAction from '../../action/upvotes/mostUpvotesAction';
 import addRecipeAction from '../../action/recipes/addRecipeAction';
 import createFavoritesAction
   from '../../action/favorites/createFavoritesAction';
@@ -182,7 +182,6 @@ describe('Recipe actions', () => {
       const store = mockStore({});
       store.dispatch(updateRecipeAction(id, updateRecipeError))
         .then(() => {
-          console.log('\n\nstore action', store.getActions()[1]);
           expect(store.getActions()[1]).toEqual(expectedActions);
         });
       done();
@@ -323,28 +322,6 @@ describe('Recipe actions', () => {
     }
   );
 
-  // it(
-  //   'should create GET_SEARCHED_RECIPE when trying to search recipes',
-  //   (done) => {
-  //     const { allRecipesData } = mockData;
-  //     moxios.stubRequest('/api/v1/recipes/search?page=1', {
-  //       status: 200,
-  //       response: allRecipesData
-  //     });
-  //     const expectedActions = {
-  //       type: GET_SEARCHED_RECIPE,
-  //       recipes: allRecipesData.recipes
-  //     };
-
-  //     const store = mockStore({});
-  //     store.dispatch(recipeSearchAction(1, 'rice'))
-  //       .then(() => {
-  //         expect(store.getActions()[1]).toEqual(expectedActions);
-  //       });
-  //     done();
-  //   }
-  // );
-
   it(
     'creates GET_FAVORITE_RECIPES when trying to get user favorited recipe',
     (done) => {
@@ -365,30 +342,6 @@ describe('Recipe actions', () => {
       done();
     }
   );
-
-  // it(
-  //   'creates GET_ALL_FAVORITES_FAIL when get user favorited recipe fails',
-  //   (done) => {
-  //     const { errorResponse } = mockData;
-  //     const userId = 10;
-  //     const pageId = 10;
-
-  //     moxios.stubRequest(`/api/v1/users/${userId}/recipes?page=${pageId}`, {
-  //       status: 400,
-  //       response: errorResponse
-  //     });
-  //     const expectedActions = {
-  //       type: GET_ALL_FAVORITES_FAIL,
-  //       error: errorResponse.error
-  //     };
-  //     const store = mockStore({});
-  //     store.dispatch(getAllFavoritesAction(userId, pageId))
-  //       .then(() => {
-  //         expect(store.getActions()[1]).toEqual(expectedActions);
-  //       });
-  //     done();
-  //   }
-  // );
 
   it(
     'creates UPVOTE_RECIPE when trying to upvote recipe',
@@ -502,29 +455,6 @@ describe('Recipe actions', () => {
       done();
     }
   );
-
-  // it(
-  //   'creates RECEIVE_RECIPE when trying to view a recipe',
-  //    (done) => {
-  //     const { viewedRecipe } = mockData;
-  //     moxios.stubRequest('/api/v1/recipes/1', {
-  //       status: 200,
-  //       response: viewedRecipe.recipe.recipe
-  //     });
-  //     const expectedActions = {
-  //       type: RECEIVE_RECIPE,
-  //       recipe: viewedRecipe.recipe.recipe,
-  //       favorited: viewedRecipe.recipe.favorited
-  //     };
-  //     const store = mockStore({});
-
-  //     store.dispatch(getRecipeAction(1))
-  //       .then(() => {
-  //         expect(store.getActions()[1]).toEqual(expectedActions);
-  //       });
-  //     done();
-  //   }
-  // );
 
   it(
     'should create GET_SEARCHED_RECIPE when trying to search for recipes',

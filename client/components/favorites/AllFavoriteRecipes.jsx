@@ -1,10 +1,11 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 /**
  * @description stateless component for all favorited recipes
  *
- * @param {Object} props
+ * @param {Object} props AllFavoriteRecipes props object
  *
  * @returns {JSX} JSX template
  */
@@ -16,8 +17,7 @@ export const AllFavoriteRecipes = props => (
         max-width="348px"
         height="231px"
         src={props.details.Recipe.image === ''
-          ? 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-          + 'v1516760699/noodles_c6ltkq.jpg'
+          ? 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg'
           :
             props.details.Recipe.image}
         alt={props.details.Recipe.name}

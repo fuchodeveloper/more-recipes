@@ -2,11 +2,11 @@ import path from 'path';
 import UsersController from '../controllers/UsersController';
 import RecipesController from '../controllers/RecipesController';
 import ReviewsController from '../controllers/ReviewsController';
-import authorization from '../middleware/tokenMiddleware';
+import Authorization from '../middleware/Authorization';
 import FavoritesController from '../controllers/FavoritesController';
 import VotesController from '../controllers/VotesController';
 
-const routes = (router) => {
+const index = (router) => {
   router.get('/', (request, response) => {
     response.status(200).sendFile(path.join(__dirname, '../../src/index.html'));
   });
@@ -22,26 +22,26 @@ const routes = (router) => {
    */
   router.post(
     '/api/v1/recipes',
-    authorization.verifyToken, RecipesController.createRecipe
+    Authorization.verifyToken, RecipesController.createRecipe
   );
   router.get('/api/v1/recipes/:id', RecipesController.getRecipe);
   router.get('/api/v1/recipes', RecipesController.getAllRecipesPaginate);
   router.delete(
     '/api/v1/recipes/:id',
-    authorization.verifyToken, RecipesController.deleteRecipe
+    Authorization.verifyToken, RecipesController.deleteRecipe
   );
   router.put(
     '/api/v1/recipes/:id',
-    authorization.verifyToken, RecipesController.updateRecipe
+    Authorization.verifyToken, RecipesController.updateRecipe
   );
 
   router.post(
     '/api/v1/recipes/:id/upvote',
-    authorization.verifyUser, VotesController.upVote
+    Authorization.verifyUser, VotesController.upVote
   );
   router.post(
     '/api/v1/recipes/:id/downvote',
-    authorization.verifyUser, VotesController.downVote
+    Authorization.verifyUser, VotesController.downVote
   );
 
   /**
@@ -49,11 +49,11 @@ const routes = (router) => {
    */
   router.post(
     '/api/v1/recipes/:id/reviews',
-    authorization.verifyToken, ReviewsController.create
+    Authorization.verifyToken, ReviewsController.create
   );
   router.get(
     '/api/v1/recipes/:id/reviews',
-    authorization.verifyToken, ReviewsController.get
+    Authorization.verifyToken, ReviewsController.get
   );
 
   /**
@@ -61,15 +61,15 @@ const routes = (router) => {
    */
   router.post(
     '/api/v1/users/:id/recipes',
-    authorization.verifyToken, FavoritesController.create
+    Authorization.verifyToken, FavoritesController.create
   );
   router.get(
     '/api/v1/users/:id/recipes',
-    authorization.verifyToken, FavoritesController.getAll
+    Authorization.verifyToken, FavoritesController.getAll
   );
 
   router.get('/api/v1/favorites/:id', FavoritesController.getFavoriteCount);
 };
 
-export default routes;
+export default index;
 

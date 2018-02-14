@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import mock from './helper/mock';
@@ -31,8 +32,9 @@ describe('Votes Controller', () => {
   doBeforeAll();
   doBeforeEach();
 
-  it(`should return success 
-  message and token if user signin is successful`, (done) => {
+  it(
+    'should return success message and contain token if user signin is successful',
+    (done) => {
       const user = {
         emailAddress: mock.newUser.emailAddress,
         password: 'password'
@@ -49,22 +51,26 @@ describe('Votes Controller', () => {
           expect(res).to.have.status(200);
           done();
         });
-    });
+    }
+  );
 
-  it('should return \'Recipe upvoted\' if upvote is successful', (done) => {
-    chai.request(app)
-      .post('/api/v1/recipes/1/upvote')
-      .set('Content-Type', 'application/json')
-      .set('x-access-token', userToken)
-      .end((err, res) => {
-        expect(res.body.recipe).to.be.an('object');
-        expect(res.body.recipe.message).to.equal('Recipe upvoted');
-        expect(res).to.have.status(201);
-        done();
-      });
-  });
+  it(
+    'should return "Recipe upvoted" if recipe upvote is successful',
+    (done) => {
+      chai.request(app)
+        .post('/api/v1/recipes/1/upvote')
+        .set('Content-Type', 'application/json')
+        .set('x-access-token', userToken)
+        .end((err, res) => {
+          expect(res.body.recipe).to.be.an('object');
+          expect(res.body.recipe.message).to.equal('Recipe upvoted');
+          expect(res).to.have.status(201);
+          done();
+        });
+    }
+  );
 
-  it('should return \'Recipe downvoted\' if downvote is successful', (done) => {
+  it('should return "Recipe downvoted" if downvote is successful', (done) => {
     chai.request(app)
       .post('/api/v1/recipes/1/downvote')
       .set('Content-Type', 'application/json')

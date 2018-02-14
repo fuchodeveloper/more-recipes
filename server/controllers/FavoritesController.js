@@ -1,4 +1,3 @@
-import jwtDecode from 'jwt-decode';
 import db from '../models/';
 import validateId from '../validations/validateId';
 
@@ -8,10 +7,10 @@ const FavoritesController = {
   /**
    * @description Favorite a recipe
    *
-   * @param {Object} request
-   * @param {Object} response
+   * @param {Object} request - HTTP request object
+   * @param {Object} response - HTTP response object
    *
-   * @returns {Object} object - express http response object
+   * @returns {Object} favorite - returns favorite object
    */
 
   create(request, response) {
@@ -23,10 +22,12 @@ const FavoritesController = {
       return response.status(400).json({ error });
     }
 
+    const decodedId = request.user.id;
+
     Favorites.findOne({
       where: {
         recipeId: request.params.id,
-        userId: request.decoded.id
+        userId: decodedId
       }
     })
       .then((favorite) => {
@@ -62,7 +63,7 @@ const FavoritesController = {
             recipe.increment('favoriteCount');
             return Favorites.create({
               recipeId: request.params.id,
-              userId: request.decoded.id
+              userId: decodedId
             })
               .then(() => response.status(201).json({
                 favorite: {
@@ -78,7 +79,14 @@ const FavoritesController = {
         error: 'An unexpected error occurred'
       }));
   },
-
+  /**
+ * @description get favorite count
+ *
+ * @param {Object} request - HTTP request object
+ * @param {Object} response - HTTP response object
+ *
+ * @returns {Object} isFound returns favorite count object
+ */
   getFavoriteCount(request, response) {
     /**
      * @description validate request id
@@ -97,10 +105,18 @@ const FavoritesController = {
         }
         return response.status(200).send({ isFound });
       })
-      .catch(serverError => response.status(500)
-        .json({ error: serverError.message }));
+      .catch(() => response.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   },
 
+  /**
+   * @description get all favorites
+   *
+   * @param {Object} request - HTTP request object
+   * @param {Object} response - HTTP response object
+   *
+   * @returns {Object} recipes returns paginated favorite recipes
+   */
   getAllFavorites(request, response) {
     /**
      * @description validate request id
@@ -109,6 +125,7 @@ const FavoritesController = {
     if (error) {
       return response.status(400).json({ error });
     }
+    const decodedId = request.user.id;
 
     const page = Number.isInteger(parseInt(request.query.page, 10))
   && request.query.page > 0 ? request.query.page : 1;
@@ -119,7 +136,7 @@ const FavoritesController = {
       .findAndCountAll({
         limit,
         offset,
-        where: { userId: request.decoded.id },
+        where: { userId: decodedId },
         include: [{ model: Recipes }]
       })
       .then((recipes) => {
@@ -136,21 +153,29 @@ const FavoritesController = {
             page, pageCount, pageSize, totalCount, recipes: recipes.rows
           });
       })
-      .catch(serverError => response.status(500)
-        .json({ error: serverError.message }));
+      .catch(() => response.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   },
 
+  /**
+   * @description favorite recipes id
+   *
+   * @param {Object} request - HTTP request object
+   * @param {Object} response - HTTP response object
+   *
+   * @returns {Object} favoritesId returns favorite recipes id
+   */
   getFavoriteIds(request, response) {
-    const userDecodedToken = jwtDecode(request.decoded);
-    const { id } = userDecodedToken;
+    const decodedId = request.user.id;
     Favorites.findOne({
       where: {
-        userId: id,
+        userId: decodedId,
         recipeId: request.params.id
       }
     })
       .then(favoritesId => response.status(200).json({ favoritesId }))
-      .catch(error => response.status(500).json({ error: error.message }));
+      .catch(() => response.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   }
 };
 

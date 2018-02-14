@@ -11,21 +11,35 @@ import networkError from '../networkError';
 /**
  * @description Most recipe upvotes action creator
  *
- * @param {object} recipes
+ * @param {Object} recipes recipes object parameter
  *
- * @returns {object} recipes
+ * @returns {Object} recipes returns most upvotes recipes
  */
 export const mostUpvotesActionCreator = recipes => ({
   type: GET_MOST_UPVOTES,
   recipes
 });
 
-export const mostUpvotesError = error => ({
+/**
+ * @description most upvotes recipes error
+ *
+ * @param {Object} error most upvotes recipes error parameter
+ *
+ * @returns {Object} error returns most upvotes recipes error
+ */
+const mostUpvotesError = error => ({
   type: GET_MOST_UPVOTES_ERROR,
   error
 });
 
-export const mostUpvotesPageCount = pageCount => ({
+/**
+ * @description most upvotes recipes page count
+ *
+ * @param {Number} pageCount most upvotes recipes page count parameter
+ *
+ * @returns {Object} most upvotes recipes page count
+ */
+const mostUpvotesPageCount = pageCount => ({
   type: GET_MOST_UPVOTES_COUNT,
   pageCount
 });
@@ -35,9 +49,9 @@ export const mostUpvotesPageCount = pageCount => ({
  *
  * @export mostUpvotes
  *
- * @param {Number} page
+ * @param {Number} page most upvotes recipes page parameter
  *
- * @returns {object} object
+ * @returns {object} recipes returns most upvotes recipes
  */
 const mostUpvotesAction = page => (dispatch) => {
   dispatch(setFetching());

@@ -4,13 +4,13 @@ import { UPVOTE_RECIPE } from '../types';
 import networkError from '../networkError';
 
 /**
- * upvote recipe action creator
+ * @description upvote recipe action creator
  *
  * @export upvoteRecipeAction
  *
- * @param {Object} recipe
+ * @param {Object} recipe upvote recipe object parameter
  *
- * @returns {object} recipe
+ * @returns {object} recipe returns upvote recipe object
  */
 export const upvoteRecipeActionCreator = recipe => ({
   type: UPVOTE_RECIPE,
@@ -22,7 +22,7 @@ export const upvoteRecipeActionCreator = recipe => ({
  *
  * @export upvoteRecipe
  *
- * @param {Number} id
+ * @param {Number} id recipe id
  *
  * @returns {Object} dispatch recipe upvote
  */

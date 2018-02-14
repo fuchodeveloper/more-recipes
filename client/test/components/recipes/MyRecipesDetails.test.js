@@ -8,8 +8,7 @@ let props;
 const setup = () => {
   props = {
     details: {
-      image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-      + 'v1516760699/noodles_c6ltkq.jpg',
+      image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
       name: 'jollof rice',
       direction: 'cook for five minutes'
     }

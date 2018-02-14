@@ -6,7 +6,9 @@ exports[`RecipeReviews component should render the right amount of elements 1`] 
     <span
       className="text-muted"
     >
-      <em>
+      <em
+        id="review-creator"
+      >
         john
          said:
       </em>

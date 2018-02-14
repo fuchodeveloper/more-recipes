@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -6,19 +8,26 @@ export const MyRecipesDetail = props => (
   <div className="col-md-4 mb-2" id="my-recipe-card">
     <div className="card mt-1">
       <img
+        id="image"
         className="card-img-top"
         max-width="348px"
         height="231px"
         src={props.details.image === '' ?
-        'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-              + 'v1516760699/noodles_c6ltkq.jpg' : props.details.image}
+        'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg'
+        : props.details.image}
         alt={props.details.name}
       />
       <div className="card-body">
-        <h4 className="card-title">
+        <h4
+          id="name"
+          className="card-title"
+        >
           {`${props.details.name.slice(0, 40)}...`}
         </h4>
-        <p className="card-text">
+        <p
+          id="direction"
+          className="card-text"
+        >
           {`${props.details.direction.slice(0, 100)}...`}
         </p>
         <div className="card-footer custom-card-footer-bg">
@@ -34,12 +43,14 @@ export const MyRecipesDetail = props => (
             </small>
           </p>
           <Link
+            id="view-recipe"
             to={`/recipes/${props.details.id}`}
             className="btn btn-primary btn-primary-color"
           >
           View
           </Link> &nbsp;
           <a
+            id="delete-recipe"
             href="#"
             onClick={props.onConfirm}
             className="btn btn-danger"
@@ -47,9 +58,9 @@ export const MyRecipesDetail = props => (
           >Delete
           </a>&nbsp;
           <Link
+            id="edit-recipe"
             to={`/update/${props.details.id}`}
             className="btn btn-light"
-            id="recipe-edit"
           >Edit
           </Link>
         </div>

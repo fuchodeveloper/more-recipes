@@ -36,7 +36,7 @@ exports[`ReceipeDetails component should render the right amount of elements 1`]
         >
           <h1
             className="display-2 recipe-title"
-            id="recipe-name"
+            id="name"
             style={
               Object {
                 "marginTop": "10em",
@@ -99,7 +99,12 @@ exports[`ReceipeDetails component should render the right amount of elements 1`]
         >
           <ul
             className="p-4"
-            id="ingredients-list"
+            id="ingredients"
+            style={
+              Object {
+                "wordWrap": "break-word",
+              }
+            }
           >
             <li
               id="recipe-ingredients"
@@ -115,7 +120,7 @@ exports[`ReceipeDetails component should render the right amount of elements 1`]
           <img
             alt="jollof rice and beans"
             className="img img-fluid"
-            id="recipe-image"
+            id="image"
             src="https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"
           />
           <span
@@ -128,6 +133,9 @@ exports[`ReceipeDetails component should render the right amount of elements 1`]
         </div>
       </div>
       <div
+        className="clearfix"
+      />
+      <div
         className="mt-5"
       >
         <h3>
@@ -135,6 +143,11 @@ exports[`ReceipeDetails component should render the right amount of elements 1`]
         </h3>
         <p
           id="direction"
+          style={
+            Object {
+              "wordWrap": "break-word",
+            }
+          }
         >
           proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.
         </p>
@@ -156,7 +169,7 @@ exports[`ReceipeDetails component should render the right amount of elements 1`]
           >
             <i
               className="fa fa-heart-o fa-lg"
-              id="favorite-recipe"
+              id="favorite"
             />
               Favorite
           </div>
@@ -172,11 +185,12 @@ exports[`ReceipeDetails component should render the right amount of elements 1`]
         <a
           className="font-awesome-thumb"
           href="#"
+          id="upvote-count"
           onClick={[Function]}
         >
           <i
             className="fa fa-thumbs-up fa-lg"
-            id="recipe-upvote"
+            id="upvote"
           />
           0
             
@@ -185,11 +199,12 @@ exports[`ReceipeDetails component should render the right amount of elements 1`]
         <a
           className="font-awesome-thumb"
           href="#"
+          id="downvote-count"
           onClick={[Function]}
         >
           <i
             className="fa fa-thumbs-down fa-lg"
-            id="recipe-downvote"
+            id="downvote"
           />
           0
         </a>

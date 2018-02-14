@@ -11,6 +11,7 @@ exports[`AllRecipes component AllRecipes component snapshot should render with r
       alt="jollof"
       className="card-img-top"
       height="231px"
+      id="image"
       max-width="348px"
       src="https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"
     />
@@ -19,12 +20,14 @@ exports[`AllRecipes component AllRecipes component snapshot should render with r
     >
       <h4
         className="card-title"
+        id="name"
       >
         jollof
         ...
       </h4>
       <p
         className="card-text"
+        id="direction"
       >
         rice, beans...
       </p>

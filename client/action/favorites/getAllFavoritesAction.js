@@ -9,36 +9,50 @@ import { setFetching, unsetFetching } from '../fetching';
 import networkError from '../networkError';
 
 /**
- * GET all favorite recipes action creator
+ * @description get all favorite recipes action creator
  *
- * @param {Object} recipes
+ * @param {Object} recipes recipes parameter
  *
- * @export getAllFavoritesActionCreator
+ * @export getAllFavoritesActionCreator get all favorites action creator
  *
- * @returns {Object} recipes
+ * @returns {Object} recipes returns all favorited recipes
  */
 export const getAllFavoritesActionCreator = recipes => ({
   type: GET_ALL_FAVORITES,
   recipes
 });
 
-export const getAllFavoritesActionFail = error => ({
+/**
+ * @description get all favorites fail action creator
+ *
+ * @param {Object} error favorites fail error
+ *
+ * @returns {Object} error returns favorites fail error object
+ */
+const getAllFavoritesActionFail = error => ({
   type: GET_ALL_FAVORITES_FAIL,
   error
 });
 
-export const favoritesPageCount = pageCount => ({
+/**
+ * @description get favorited recipes page count
+ *
+ * @param {Number} pageCount favorites page count parameter
+ *
+ * @returns {Number} pageCount returns favorited recipes page count
+ */
+const favoritesPageCount = pageCount => ({
   type: GET_ALL_FAVORITES_PAGE_COUNT,
   pageCount
 });
 
 /**
- * GET all favorite recipes action for an authenticated user
+ * @description get all favorite recipes action for an authenticated user
  *
- * @export getAllFavoritesAction
+ * @export getAllFavoritesAction exports getAllFavoritesAction
  *
  * @param {Number} userId Id of authenticated user
- * @param {Number} page page number
+ * @param {Number} page favorited recipes page number
  *
  * @returns {Object} dispatch favorites and page count dispatch
  */

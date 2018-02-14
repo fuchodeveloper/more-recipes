@@ -3,8 +3,8 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { pick } from 'lodash';
 import db from '../models/';
-import validateInput from '../validations/validateInput';
-import validateLoginInput from '../validations/validateLoginInput';
+import validateSignup from '../validations/validateSignup';
+import validateLogin from '../validations/validateLogin';
 
 const { User } = db;
 
@@ -23,7 +23,7 @@ const UsersController = {
   create(request, response) {
     const { body } = request;
 
-    const { errors, isValid } = validateInput(body);
+    const { errors, isValid } = validateSignup(body);
     if (!isValid) {
       return response.status(400).json({ error: errors });
     }
@@ -66,15 +66,15 @@ const UsersController = {
   /**
    * @description Controller to log in an existing user
    *
-   * @param {Object} request
-   * @param {Object} response
+   * @param {Object} request login request
+   * @param {Object} response login response
    *
-   * @returns {Object} user
+   * @returns {Object} authenticated user object
    */
   login(request, response) {
     const { body } = request;
 
-    const { errors, isValid } = validateLoginInput(body);
+    const { errors, isValid } = validateLogin(body);
     if (!isValid) {
       return response.status(400).json({ error: errors });
     }
@@ -87,7 +87,7 @@ const UsersController = {
       .then((user) => {
         if (!user) {
           return response.status(404).json({
-            error: 'Authentication failed. No user found.'
+            error: 'Wrong email or password'
           });
         }
         if (user) {
@@ -117,26 +117,21 @@ const UsersController = {
   /**
    * @description Get the user with the id specified in the param
    *
-   * @param {Object} req
-   * @param {Object} res
-   * @returns {Object} user
+   * @param {Object} req get user request
+   * @param {Object} res get user response
+   *
+   * @returns {Object} returns user object
    */
   getUser(req, res) {
-    User.findOne({
-      where: {
-        id: req.params.id
-      },
-      attributes: ['firstName', 'lastName', 'emailAddress']
-    })
-      .then(user => res.status(200).json({ user }))
-      .catch(error => res.status(404).json({ error }));
+    const userProfileDetails = req.user;
+    return res.status(200).json({ user: userProfileDetails });
   },
 
   updateUser(req, res) {
     const { body } = req;
 
     const isNotValid = () => {
-      const { errors, isValid } = validateInput(body);
+      const { errors, isValid } = validateSignup(body);
       if (!isValid) {
         return errors;
       }
@@ -146,36 +141,33 @@ const UsersController = {
       return res.status(400).json({ errors: isNotValid() });
     }
 
-    const { firstName } = req.body;
-    const { lastName } = req.body;
-    const { emailAddress } = req.body;
+    const {
+      firstName,
+      lastName,
+      emailAddress
+    } = req.body;
 
-    return User.findOne({
-      where: {
-        id: req.decoded.id
-      }
-    })
-      .then((user) => {
-        if (!user) {
-          return res.status(404).json({ error: 'No user found.' });
-        }
+    const decodedId = req.user.id;
+    const decodedFirstName = req.user.firstName;
+    const decodedLastName = req.user.lastName;
+    const decodedEmailAddress = req.user.emailAddress;
 
-        return user.update({
-          firstName: firstName ? firstName.trim() : user.firstName,
-          lastName: lastName ? lastName.trim() : user.lastName,
-          emailAddress: emailAddress ? emailAddress.trim() : user.emailAddress,
-        }, { where: { id: req.decoded.id } })
-          .then((userData) => {
-            User.findOne({
-              where: {
-                id: userData.id
-              },
-              attributes: ['firstName', 'lastName', 'emailAddress']
-            })
-              .then(updatedUser => res.status(200).json({ user: updatedUser }));
-          });
+    return User.update({
+      firstName: firstName ? firstName : decodedFirstName,
+      lastName: lastName ? lastName : decodedLastName,
+      emailAddress: emailAddress ? emailAddress : decodedEmailAddress,
+    }, { where: { id: decodedId } })
+      .then(() => {
+        User.findOne({
+          where: {
+            id: decodedId
+          },
+          attributes: ['firstName', 'lastName', 'emailAddress']
+        })
+          .then(updatedUser => res.status(200).json({ user: updatedUser }));
       })
-      .catch(error => res.status(500).json({ error: error.message }));
+      .catch(() => res.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   }
 };
 

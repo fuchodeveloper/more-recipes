@@ -4,17 +4,38 @@ import
 { GET_ALL_RECIPES, GET_PAGE_DETAILS, GET_ALL_RECIPES_ERROR } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
 
-export const receiveRecipes = recipes => ({
+/**
+ * @description get all recipes action creator
+ *
+ * @param {Object} recipes recipes object parameter
+ *
+ * @returns {Object} recipes returns all recipes object
+ */
+const receiveRecipes = recipes => ({
   type: GET_ALL_RECIPES,
   recipes
 });
 
-export const receiveRecipesError = error => ({
+/**
+ * @description get all recipes error action
+ *
+ * @param {Object} error recipes error object
+ *
+ * @returns {Object} error returns get all recipes error object
+ */
+const receiveRecipesError = error => ({
   type: GET_ALL_RECIPES_ERROR,
   error
 });
 
-export const recipePageDetails = pageCount => ({
+/**
+ * @description handles page detail
+ *
+ * @param {Number} pageCount recipe page count parameter
+ *
+ * @returns {Number} returns recipes page Count
+ */
+const recipePageCount = pageCount => ({
   type: GET_PAGE_DETAILS,
   pageCount
 });
@@ -25,7 +46,7 @@ const getAllRecipesAction = page => (dispatch) => {
     .then((response) => {
       dispatch(batchActions([
         dispatch(receiveRecipes(response.data.recipes)),
-        recipePageDetails(response.data.pageCount),
+        recipePageCount(response.data.pageCount),
         unsetFetching(),
       ]));
     })

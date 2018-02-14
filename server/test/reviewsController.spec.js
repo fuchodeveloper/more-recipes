@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import mock from './helper/mock';
@@ -31,8 +32,9 @@ describe('Reviews controller', () => {
   doBeforeAll();
   doBeforeEach();
 
-  it(`should return success 
-  message and token if user signin is successful`, (done) => {
+  it(
+    'should return success message and contain token if user signin is successful',
+    (done) => {
       const user = {
         emailAddress: mock.newUser.emailAddress,
         password: 'password'
@@ -49,10 +51,12 @@ describe('Reviews controller', () => {
           expect(res).to.have.status(200);
           done();
         });
-    });
+    }
+  );
 
-  it(`should return recipe name if user creates review
-    successfully`, (done) => {
+  it(
+    'should return created review if user creates review successfully',
+    (done) => {
       chai.request(app)
         .post('/api/v1/recipes/1/reviews')
         .set('Content-Type', 'application/json')
@@ -67,10 +71,12 @@ describe('Reviews controller', () => {
           expect(res).to.have.status(201);
           done();
         });
-    });
+    }
+  );
 
-  it(`should error message if creating review 
-  fails due to validation error`, (done) => {
+  it(
+    'should error message if creating review fails due to validation error',
+    (done) => {
       chai.request(app)
         .post('/api/v1/recipes/1/reviews')
         .set('Content-Type', 'application/json')
@@ -83,10 +89,12 @@ describe('Reviews controller', () => {
           expect(res).to.have.status(400);
           done();
         });
-    });
+    }
+  );
 
-  it(`should error message if creating review 
-  fails due to validation error`, (done) => {
+  it(
+    'should return error message if recipe to be reviewed is not found',
+    (done) => {
       chai.request(app)
         .post('/api/v1/recipes/988/reviews')
         .set('Content-Type', 'application/json')
@@ -99,5 +107,6 @@ describe('Reviews controller', () => {
           expect(res).to.have.status(404);
           done();
         });
-    });
+    }
+  );
 });

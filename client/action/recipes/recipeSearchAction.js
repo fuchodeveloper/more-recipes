@@ -12,20 +12,21 @@ import {
  *
  * @export recipeSearchActionCreator
  *
- * @param {recipes} recipes parameter
+ * @param {Object} recipes search parameter
  *
- * @returns {recipes} return searched recipes
+ * @returns {Object} return searched recipes object
  */
 export const recipeSearchActionCreator = recipes => ({
   type: GET_SEARCHED_RECIPE,
   recipes
 });
+
 /**
  * @description recipe search error
  *
- * @param {Object} error error parameter
+ * @param {Object} error recipes error parameter
  *
- * @returns {Object} error returns search error
+ * @returns {Object} error returns recipes search error
  */
 const recipeSearchActionError = error => ({
   type: GET_SEARCHED_RECIPE_ERROR,
@@ -35,15 +36,23 @@ const recipeSearchActionError = error => ({
 /**
  * @description Recipe search page count
  *
- * @param {Number} pageCount
+ * @param {Number} pageCount recipes search page count parameter
  *
- * @returns {Number} pageCount
+ * @returns {Number} returns pageCount
  */
 const recipeSearchCount = pageCount => ({
   type: GET_MY_RECIPES_PAGE_COUNT,
   pageCount
 });
 
+/**
+ * @description recipe search action
+ *
+ * @param {Object} searchQuery recipe search query parameter
+ * @param {Number} page recipe search page
+ *
+ * @returns {Object} recipes returns searched recipes
+ */
 const recipeSearchAction = (searchQuery, page) =>
   dispatch => axios.post(`/api/v1/recipes/search?page=${page}`, { searchQuery })
     .then((response) => {

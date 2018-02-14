@@ -17,7 +17,7 @@ export class FavoriteRecipesPage extends React.Component {
   /**
  * @description Creates an instance of FavoriteRecipesPage.
  *
- * @param {Object} props
+ * @param {Object} props constructor props object
  *
  * @memberof FavoriteRecipesPage
  */
@@ -30,8 +30,7 @@ export class FavoriteRecipesPage extends React.Component {
     this.onPageChange = this.onPageChange.bind(this);
   }
   /**
- * @description get all favorite recipes for authenticated
- *  user using API endpoint
+ * @description get all favorite recipes for authenticated user
  *
  * @memberof FavoriteRecipesPage
  *
@@ -78,7 +77,7 @@ export class FavoriteRecipesPage extends React.Component {
  *
  * @memberof FavoriteRecipesPage
  *
- * @returns  {undefined}
+ * @returns  {undefined} renders JSX
  */
   render() {
     const { isFetching } = this.props;
@@ -193,7 +192,8 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 const mapDispatchToProps = dispatch => ({
-  getAllFavoritesAction: (userId, pageCount) => dispatch(getAllFavoritesAction(userId, pageCount))
+  getAllFavoritesAction: (userId, pageCount) =>
+    dispatch(getAllFavoritesAction(userId, pageCount))
 });
 
 export default connect(

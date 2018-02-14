@@ -15,7 +15,7 @@ export class ProfilePage extends Component {
   /**
    * @description Creates an instance of ProfilePage.
    *
-   * @param {Object} props
+   * @param {Object} props constructor props
    *
    * @memberof ProfilePage
    */
@@ -34,7 +34,8 @@ export class ProfilePage extends Component {
  * @description lifecycle method for profile page component
  *
  * @memberof ProfilePage
- * @returns {undefined}
+ *
+ * @returns {undefined} calls getProfile
  */
   componentDidMount() {
     const id = this.props.login;
@@ -45,7 +46,7 @@ export class ProfilePage extends Component {
    * @description lifecycle method used to update state on
    * receiving new props
    *
-   * @param {Object} nextProps
+   * @param {Object} nextProps componentWillReceiveProps props object
    *
    * @memberof ProfilePage
    *
@@ -66,7 +67,7 @@ export class ProfilePage extends Component {
    *
    * @param {Object} event
    *
-   * @returns {undefined}
+   * @returns {undefined} sets state on change
    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -79,7 +80,7 @@ export class ProfilePage extends Component {
  *
  * @memberof ProfilePage
  *
- * @returns {undefined}
+ * @returns {undefined} calls updateProfile on submit
  */
   onSubmit(event) {
     event.preventDefault();

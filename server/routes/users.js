@@ -1,12 +1,14 @@
 import express from 'express';
 import UsersController from '../controllers/UsersController';
-import authorization from '../middleware/tokenMiddleware';
+import Authorization from '../middleware/Authorization';
 
-const router = express.Router();
+const users = express.Router();
 
 /**
  * @description route to get an authenticated user's profile
  */
-router.get('/profile/:id', authorization.verifyToken, UsersController.getUser);
+users.get('/profile/:id', Authorization.verifyToken, UsersController.getUser);
+users
+  .post('/users/update', Authorization.verifyToken, UsersController.updateUser);
 
-export default router;
+export default users;

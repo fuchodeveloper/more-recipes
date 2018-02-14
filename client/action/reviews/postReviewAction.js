@@ -8,16 +8,17 @@ import networkError from '../networkError';
  *
  * @param {Object} review add review object
  *
- * @returns {Object} review returns review
+ * @returns {Object} review returns recipe review
  */
 const postReviewActionCreator = review => ({
   type: ADD_REVIEW,
   review
 });
+
 /**
  * @description function to return review error
  *
- * @param {Object} error the review error object
+ * @param {Object} error the review error object parameter
  *
  * @returns {Object} error returns error object
  */
@@ -26,8 +27,16 @@ const postReviewActionError = error => ({
   error
 });
 
-const postReviewAction = (param, userReview) =>
-  dispatch => axios.post(`/api/v1/recipes/${param}/reviews`, userReview)
+/**
+ * @description add review to recipe
+ *
+ * @param {Number} id recipe id
+ * @param {Object} userReview user review object parameter
+ *
+ * @returns {Object} review returns the recipe review
+ */
+const postReviewAction = (id, userReview) =>
+  dispatch => axios.post(`/api/v1/recipes/${id}/reviews`, userReview)
     .then((response) => {
       alertify.logPosition('bottom right');
       alertify.success(response.data.message);

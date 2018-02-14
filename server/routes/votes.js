@@ -1,20 +1,20 @@
 import express from 'express';
 import VotesController from '../controllers/VotesController';
-import authorization from '../middleware/tokenMiddleware';
+import Authorization from '../middleware/Authorization';
 
-const router = express.Router();
+const votes = express.Router();
 
 /**
  * @description routes for upvote and downvote
  */
-router.post(
+votes.post(
   '/:id/upvote',
-  authorization.verifyToken, VotesController.upVote
+  Authorization.verifyToken, VotesController.upVote
 );
 
-router.post(
+votes.post(
   '/:id/downvote',
-  authorization.verifyToken, VotesController.downVote
+  Authorization.verifyToken, VotesController.downVote
 );
 
-export default router;
+export default votes;

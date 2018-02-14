@@ -6,20 +6,21 @@ import networkError from '../networkError';
 /**
  * @description Recipe downvote action creator
  *
- * @param {recipe} recipe recipe parameter
+ * @param {Object} recipe recipe object parameter
  *
- * @returns {recipe} recipe downvoted
+ * @returns {Object} recipe returns downvote object
  */
 export const downvoteRecipeActionCreator = recipe => ({
   type: DOWNVOTE_RECIPE,
   recipe
 });
+
 /**
  * @description Recipe downvote error
  *
- * @param {Object} error error parameter
+ * @param {Object} error downvote recipe error parameter
  *
- * @returns {Object} error returns the error object
+ * @returns {Object} error returns delete recipe error
  *
  */
 const downvoteRecipeActionError = error => ({
@@ -30,11 +31,11 @@ const downvoteRecipeActionError = error => ({
 /**
  * @description Authenticated user can downvote a recipe
  *
- * @export downvoteRecipe
+ * @export downvoteRecipeAction export downvoteRecipeAction
  *
- * @param {Number} id
+ * @param {Number} id downvote recipe id
  *
- * @returns {object} downvoted recipe object
+ * @returns {object} returns downvote recipe object
  */
 const downvoteRecipeAction = id =>
   dispatch => axios.post(`/api/v1/recipes/${id}/downvote`)

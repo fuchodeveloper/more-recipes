@@ -8,11 +8,11 @@ import networkError from '../networkError';
 /**
  * @description update a recipe action creator
  *
- * @param {Object} recipe
+ * @param {Object} recipe recipe object parameter
  *
  * @export updateRecipeActionCreator
  *
- * @returns {Object} recipe
+ * @returns {Object} recipe returns updated recipe
  */
 export const updateRecipeActionCreator = recipe => ({
   type: UPDATE_RECIPE,
@@ -22,11 +22,11 @@ export const updateRecipeActionCreator = recipe => ({
 /**
  * @description update a recipe action error
  *
- * @param {Object} error
- *
  * @export updateRecipeError
  *
- * @returns {Object} error
+ * @param {Object} error error object parameter
+ *
+ * @returns {Object} error returns update recipe error
  */
 export const updateRecipeError = error => ({
   type: UPDATE_RECIPE_ERROR,
@@ -38,9 +38,9 @@ export const updateRecipeError = error => ({
  *
  * @export updateRecipeAction
  *
- * @param {Integer} recipeId
+ * @param {Number} recipeId update recipe id parameter
  *
- * @param {Object} recipe
+ * @param {Object} recipe update recipe object parameter
  *
  * @returns {Object} dispatch update recipe action
  */

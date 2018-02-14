@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import mostUpvotesAction from '../../action/most-upvotes/mostUpvotesAction';
+import mostUpvotesAction from '../../action/upvotes/mostUpvotesAction';
 import AllMostUpvotes from './AllMostUpvotes';
 /**
  * @description most upvotes class
@@ -15,7 +15,7 @@ export class MostUpvotesPage extends React.Component {
   /**
    * @description Creates an instance of MostUpvotesPage.
    *
-   * @param {Object} props
+   * @param {Object} props constructor props object
    *
    * @memberof MostUpvotesPage
    */
@@ -32,7 +32,7 @@ export class MostUpvotesPage extends React.Component {
  *
  * @memberof MostUpvotesPage
  *
- * @returns {undefined}
+ * @returns {undefined} calls mostUpvotesAction
  */
   componentDidMount() {
     this.props.mostUpvotesAction(this.state.pageCount);
@@ -40,11 +40,11 @@ export class MostUpvotesPage extends React.Component {
   /**
  * @description componentWillRecieveProps
  *
- * @param {Object} nextProps
+ * @param {Object} nextProps componentWillReceiveProps nextProps object
  *
  * @memberof MostUpvotesPage
  *
- * @returns {undefined}
+ * @returns {undefined} sets state of recipes and pageCount
  */
   componentWillReceiveProps(nextProps) {
     const { recipes } = nextProps;
@@ -55,11 +55,11 @@ export class MostUpvotesPage extends React.Component {
   /**
  * @description function to handle page number change
  *
- * @param {Number} current
+ * @param {Number} current onPageChange current parameter
  *
  * @memberof MostUpvotesPage
  *
- * @returns {undefined}
+ * @returns {undefined} calls mostUpvotesAction
  */
   onPageChange(current) {
     current.selected += 1;

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -6,7 +7,7 @@ import alertify from 'alertify.js';
 import ReactPaginate from 'react-paginate';
 import { BounceLoader } from 'react-spinners';
 import MyRecipesDetail from './MyRecipesDetail';
-import myRecipesAction from '../../action/recipes/myRecipesActions';
+import myRecipesAction from '../../action/recipes/myRecipesAction';
 import deleteRecipeAction from '../../action/recipes/deleteRecipeAction';
 
 /**
@@ -20,7 +21,7 @@ export class MyRecipesPage extends React.Component {
   /**
    * @description Creates an instance of MyRecipesPage.
    *
-   * @param {Object} props
+   * @param {Object} props constructor props object
    *
    * @memberof MyRecipesPage
    */
@@ -41,7 +42,7 @@ export class MyRecipesPage extends React.Component {
    *
    * @memberof MyRecipesPage
    *
-   * @returns {undefined}
+   * @returns {undefined} calls myRecipesAction
    */
   componentDidMount() {
     this.props.myRecipesAction(this.state.pageCount);
@@ -49,11 +50,11 @@ export class MyRecipesPage extends React.Component {
   /**
  * @description Component lifecycle method
  *
- * @param {Object} nextProps
+ * @param {Object} nextProps componentWillReceiveProps nextProps object
  *
  * @memberof MyRecipesPage
  *
- * @returns {undefined}
+ * @returns {undefined} sets state of recipes and pageCount
  */
   componentWillReceiveProps(nextProps) {
     const { recipes } = nextProps;
@@ -63,13 +64,13 @@ export class MyRecipesPage extends React.Component {
 
 
   /**
- * function to handle page number change
+ * @description function to handle page number change
  *
- * @param {Number} current
+ * @param {Number} current onPageChange current object parameter
  *
  * @memberof MyRecipesPage
  *
- * @returns {undefined}
+ * @returns {undefined} calls myRecipesAction
  */
   onPageChange(current) {
     current.selected += 1;
@@ -79,11 +80,11 @@ export class MyRecipesPage extends React.Component {
   /**
  * @description confirm recipe deletion
  *
- * @param {Object} event
+ * @param {Object} event onConfirm event object parameter
  *
  * @memberof MyRecipesPage
  *
- * @returns {undefined}
+ * @returns {undefined} calls deleteRecipeAction
  */
   onConfirm(event) {
     event.preventDefault();

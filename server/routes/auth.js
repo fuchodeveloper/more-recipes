@@ -1,11 +1,9 @@
 import express from 'express';
 import UsersController from '../controllers/UsersController';
-import authorization from '../middleware/tokenMiddleware';
 
-const router = express.Router();
+const auth = express.Router();
 
-router.post('/signup', UsersController.create);
-router.post('/signin', UsersController.login);
-router.post('/update', authorization.verifyToken, UsersController.updateUser);
+auth.post('/signup', UsersController.create);
+auth.post('/signin', UsersController.login);
 
-export default router;
+export default auth;

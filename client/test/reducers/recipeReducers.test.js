@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import expect from 'expect';
 import {
   GET_ALL_RECIPES,

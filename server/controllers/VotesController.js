@@ -25,6 +25,8 @@ const VotesController = {
       return response.status(400).json({ error });
     }
 
+    const decodedId = request.user.id;
+
     return Recipes.findById(request.params.id)
       .then((recipe) => {
         if (!recipe) {
@@ -36,7 +38,7 @@ const VotesController = {
 
         Votes.findOne({
           where:
-          { userId: request.decoded.id, recipeId: request.params.id }
+          { userId: decodedId, recipeId: request.params.id }
         })
           .then((vote) => {
             if (vote) {
@@ -97,7 +99,7 @@ const VotesController = {
                 messageText = 'Recipe upvoted';
                 return Votes.create({
                   recipeId: request.params.id,
-                  userId: request.decoded.id,
+                  userId: decodedId,
                   upvotes: true
                 }).then(() => response.status(201)
                   .json({
@@ -112,7 +114,7 @@ const VotesController = {
           });
       })
       .catch(() => response.status(500).json({
-        message: 'something went wrong'
+        message: 'An unexpected error occurred'
       }));
   },
 
@@ -133,6 +135,8 @@ const VotesController = {
       return response.status(400).json({ error });
     }
 
+    const decodedId = request.user.id;
+
     Recipes.findById(request.params.id)
       .then((recipe) => {
         if (!recipe) {
@@ -144,7 +148,7 @@ const VotesController = {
 
         Votes.findOne({
           where:
-          { userId: request.decoded.id, recipeId: request.params.id }
+          { userId: decodedId, recipeId: request.params.id }
         })
           .then((vote) => {
             if (vote) {
@@ -203,7 +207,7 @@ const VotesController = {
                 messageText = 'Recipe downvoted';
                 return Votes.create({
                   recipeId: request.params.id,
-                  userId: request.decoded.id,
+                  userId: decodedId,
                   downvotes: true
                 }).then(() => response.status(201)
                   .json({
@@ -217,7 +221,7 @@ const VotesController = {
             }
           });
       }).catch(() => response.status(500).json({
-        message: 'something went wrong'
+        message: 'An unexpected error occurred'
       }));
   }
 };
