@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import mock from './helper/mock';
@@ -32,18 +33,21 @@ const doBeforeEach = () => {
 describe('User authentication', () => {
   doBeforeAll();
   doBeforeEach();
-  it('should return token and message if user is created', (done) => {
-    chai.request(app)
-      .post('/api/v1/users/signup')
-      .set('Content-Type', 'application/json')
-      .send(mock.newUser)
-      .end((err, res) => {
-        userToken = res.body.token;
-        expect(res.body.message).to.equal('Signup successful');
-        expect(res.body).to.have.property('token');
-        done();
-      });
-  });
+  it(
+    'should return success message and contain token if user is created',
+    (done) => {
+      chai.request(app)
+        .post('/api/v1/users/signup')
+        .set('Content-Type', 'application/json')
+        .send(mock.newUser)
+        .end((err, res) => {
+          userToken = res.body.token;
+          expect(res.body.message).to.equal('Signup successful');
+          expect(res.body).to.have.property('token');
+          done();
+        });
+    }
+  );
 
   it('should return validation error if first name is empty', (done) => {
     chai.request(app)
@@ -58,8 +62,9 @@ describe('User authentication', () => {
       });
   });
 
-  it(`should return 404 if user attempting to sign in
-   does not exist`, (done) => {
+  it(
+    'should return 404 and error if user attempting to sign in does not exist',
+    (done) => {
       const user = {
         emailAddress: 'userdoesnotexist@domain.com',
         password: 'password'
@@ -71,13 +76,14 @@ describe('User authentication', () => {
         .send(user)
         .end((err, res) => {
           expect(res.body.error).to
-            .equal('Authentication failed. No user found.');
+            .equal('Wrong email or password');
           expect(res).to.have.status(404);
           done();
         });
-    });
+    }
+  );
 
-  it('should return 409 if user already exists', (done) => {
+  it('should return 409 and error if user email already exists', (done) => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .set('Content-Type', 'application/json')
@@ -89,8 +95,9 @@ describe('User authentication', () => {
       });
   });
 
-  it(`should return validation error if signin email address provided
-  is invalid`, (done) => {
+  it(
+    'should return validation error if signin email address provided is invalid',
+    (done) => {
       const user = {
         emailAddress: 'dff@sdfsdf',
         password: 'password'
@@ -105,10 +112,12 @@ describe('User authentication', () => {
           expect(res).to.have.status(400);
           done();
         });
-    });
+    }
+  );
 
-  it(`should return success 
-  message and token if user signin is successful`, (done) => {
+  it(
+    'should return success message and contain token if user signin is successful',
+    (done) => {
       const user = {
         emailAddress: mock.newUser.emailAddress,
         password: 'password'
@@ -124,10 +133,12 @@ describe('User authentication', () => {
           expect(res).to.have.status(200);
           done();
         });
-    });
+    }
+  );
 
-  it(`should return wrong email or password error 
-  is email or password provided is wrong`, (done) => {
+  it(
+    'should return wrong email or password error if email or password provided is wrong',
+    (done) => {
       const user = {
         emailAddress: mock.newUser.emailAddress,
         password: 'passworddddddd'
@@ -142,10 +153,12 @@ describe('User authentication', () => {
           expect(res).to.have.status(401);
           done();
         });
-    });
+    }
+  );
 
-  it(`should return error message if update user profile 
-  validation fails`, (done) => {
+  it(
+    'should return error if update user profile fails due to validation error',
+    (done) => {
       const user = {
         firstName: 'j',
         lastName: 'D',
@@ -167,5 +180,6 @@ describe('User authentication', () => {
           expect(res).to.have.status(400);
           done();
         });
-    });
+    }
+  );
 });

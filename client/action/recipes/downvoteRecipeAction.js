@@ -1,11 +1,14 @@
 import axios from 'axios';
 import alertify from 'alertify.js';
-import { DOWNVOTE_RECIPE } from '../types';
+import { DOWNVOTE_RECIPE, DOWNVOTE_RECIPE_ERROR } from '../types';
+import networkError from '../networkError';
 
 /**
- * Recipe doenvote action creator
- * @param {recipe} recipe
- * @returns {recipe} recipe
+ * @description Recipe downvote action creator
+ *
+ * @param {Object} recipe recipe object parameter
+ *
+ * @returns {Object} recipe returns downvote object
  */
 export const downvoteRecipeActionCreator = recipe => ({
   type: DOWNVOTE_RECIPE,
@@ -13,13 +16,26 @@ export const downvoteRecipeActionCreator = recipe => ({
 });
 
 /**
- * Authenticated user can downvote a recipe
+ * @description Recipe downvote error
  *
- * @export downvoteRecipe
+ * @param {Object} error downvote recipe error parameter
  *
- * @param {Number} id
+ * @returns {Object} error returns delete recipe error
  *
- * @returns {object} object
+ */
+const downvoteRecipeActionError = error => ({
+  type: DOWNVOTE_RECIPE_ERROR,
+  error
+});
+
+/**
+ * @description Authenticated user can downvote a recipe
+ *
+ * @export downvoteRecipeAction export downvoteRecipeAction
+ *
+ * @param {Number} id downvote recipe id
+ *
+ * @returns {object} returns downvote recipe object
  */
 const downvoteRecipeAction = id =>
   dispatch => axios.post(`/api/v1/recipes/${id}/downvote`)
@@ -29,10 +45,14 @@ const downvoteRecipeAction = id =>
       alertify.success(response.data.recipe.message);
       return dispatch(downvoteRecipeActionCreator(response.data.recipe));
     })
-    .catch(() => {
+    .catch((error) => {
+      if (!error.response) {
+        return networkError(error);
+      }
       alertify.delay(1000);
       alertify.logPosition('bottom right');
       alertify.error('Please login to downvote recipe');
+      dispatch(downvoteRecipeActionError(error.response.data));
     });
 
 

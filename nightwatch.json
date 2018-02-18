@@ -1,6 +1,6 @@
 {
-  "src_folders" : ["e2e-tests"],
-  "output_folder" : "e2e-reports",
+  "src_folders" : ["e2etests"],
+  "output_folder" : "e2ereports",
 
   "selenium" : {
     "start_process" : true,
@@ -21,6 +21,9 @@
         "browserName": "chrome",
         "javascriptEnabled": true,
         "acceptSslCerts": true
+      },
+      "globals": {
+        "waitForConditionTimeout": 10000
       }
     }
   }

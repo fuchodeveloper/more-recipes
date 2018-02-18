@@ -21,6 +21,7 @@ const recipeController = {
    */
   createRecipe(request, response) {
     const { body } = request;
+    const decodedId = request.user.id;
 
     const { errors, isValid } = validateRecipes(body);
     if (!isValid) {
@@ -28,7 +29,7 @@ const recipeController = {
     }
 
     Recipes.create({
-      userId: request.decoded.id,
+      userId: decodedId,
       name: request.body.name.trim().toLowerCase(),
       ingredients: request.body.ingredients.trim().toLowerCase(),
       direction: request.body.direction.trim().toLowerCase(),
@@ -71,10 +72,11 @@ const recipeController = {
             .json({ error: 'Recipe not found' });
         }
 
-        if (request.decoded) {
+        if (request.user) {
+          const decodedId = request.user.id;
           Favorites.findOne({
             where: {
-              userId: request.decoded.id,
+              userId: decodedId,
               recipeId: request.params.id
             }
           })
@@ -83,11 +85,11 @@ const recipeController = {
                 return response.status(200).json({ recipe, favorited: true });
               }
 
-              if (request.decoded.id === recipe.userId &&
+              if (decodedId === recipe.userId &&
                 recipe.recipeOwnerView === false) {
                 recipe
                   .update({ views: recipe.views + 1, recipeOwnerView: true });
-              } else if (request.decoded.id !== recipe.userId) {
+              } else if (decodedId !== recipe.userId) {
                 recipe
                   .update({ views: recipe.views + 1 });
               }
@@ -159,6 +161,7 @@ const recipeController = {
    * @returns {Object} recipes
    */
   getAllForUser(request, response) {
+    const decodedId = request.user.id;
     const page = request.query.page || 1;
     const limit = request.query.limit || 9;
     const offset = (page - 1) * limit;
@@ -167,7 +170,7 @@ const recipeController = {
       .findAndCountAll({
         limit,
         offset,
-        where: { userId: request.decoded.id },
+        where: { userId: decodedId },
         order: [
           ['createdAt', 'DESC']
         ]
@@ -182,8 +185,8 @@ const recipeController = {
             page, pageCount, pageSize, totalCount, recipes: recipes.rows
           });
       })
-      .catch(error => response.status(500)
-        .json({ error: error.message }));
+      .catch(() => response.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   },
 
   /**
@@ -200,6 +203,8 @@ const recipeController = {
      */
     validateId(request.params.id, response);
 
+    const decodedId = request.user.id;
+
     return Recipes
       .findById(request.params.id)
       .then((recipe) => {
@@ -207,7 +212,7 @@ const recipeController = {
           return response.status(404)
             .json({ message: 'Recipe not found' });
         }
-        if (request.decoded.id === recipe.userId) {
+        if (decodedId === recipe.userId) {
           return recipe
             .destroy()
             .then(() => {
@@ -224,8 +229,8 @@ const recipeController = {
           error: 'Only recipe owners can delete recipe.'
         });
       })
-      .catch(error => response.status(500)
-        .json({ error: error.message }));
+      .catch(() => response.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   },
 
   /**
@@ -253,7 +258,7 @@ const recipeController = {
     }
 
     /**
-     * Deconstruct body
+     * Destructure body
      */
     const name = body.name.trim().toLowerCase();
     const ingredients = body.ingredients.trim().toLowerCase();
@@ -282,8 +287,8 @@ const recipeController = {
             message: 'Recipe updated', recipe: updateSuccess
           }));
       })
-      .catch(error => response.status(500)
-        .json({ error: error.message }));
+      .catch(() => response.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   },
 
   /**
@@ -291,6 +296,7 @@ const recipeController = {
    *
    * @param {Object} request - HTTP Request
    * @param {Object} response - HTTP Response
+   *
    * @returns {Object} - Returned json
    */
   sortRecipes(request, response) {
@@ -316,8 +322,8 @@ const recipeController = {
             page, pageCount, pageSize, totalCount, recipes: recipes.rows
           });
       })
-      .catch(error => response.status(500)
-        .json({ error: error.message }));
+      .catch(() => response.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   },
   /**
  * @description Search for a recipe
@@ -366,7 +372,8 @@ const recipeController = {
             });
         }
       })
-      .catch(error => response.status(500).json({ error: error.message }));
+      .catch(() => response.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   }
 };
 

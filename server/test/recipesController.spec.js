@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import mock from './helper/mock';
@@ -31,8 +32,9 @@ describe('Recipe controller', () => {
   doBeforeAll();
   doBeforeEach();
 
-  it(`should return success 
-  message and token if user signin is successful`, (done) => {
+  it(
+    'should return success message and token if user signin is successful',
+    (done) => {
       const user = {
         emailAddress: mock.newUser.emailAddress,
         password: 'password'
@@ -49,7 +51,8 @@ describe('Recipe controller', () => {
           expect(res).to.have.status(200);
           done();
         });
-    });
+    }
+  );
 
   it('should error message if create recipe validation fails', (done) => {
     chai.request(app)
@@ -69,8 +72,9 @@ describe('Recipe controller', () => {
       });
   });
 
-  it(`should return recipe name if user creates recipe
-  successfully`, (done) => {
+  it(
+    'should return recipe name if user creates recipe successfully',
+    (done) => {
       chai.request(app)
         .post('/api/v1/recipes')
         .set('Content-Type', 'application/json')
@@ -82,19 +86,32 @@ describe('Recipe controller', () => {
           expect(res).to.have.status(201);
           done();
         });
-    });
+    }
+  );
 
-  it(`should return an array of recipes if all recipes 
-  are retrieved successfully`, (done) => {
-      chai.request(app)
-        .get('/api/v1/recipes')
-        .set('Content-Type', 'application/json')
-        .end((err, res) => {
-          expect(res.body.recipes).to.be.an('array');
-          expect(res).to.have.status(200);
-          done();
-        });
-    });
+  it('should allow user view all recipes', (done) => {
+    chai.request(app)
+      .get('/api/v1/recipes')
+      .set('Content-Type', 'application/json')
+      .end((err, res) => {
+        expect(res.body.recipes).to.be.an('array');
+        expect(res).to.have.status(200);
+        expect(res.body.recipes[0].id).to.equal(1);
+        expect(res.body.recipes[0].userId).to.equal(1);
+        expect(res.body.recipes[0].name).to.equal('jollof rice');
+        expect(res.body.recipes[0].favoriteCount).to.equal(0);
+        expect(res.body.recipes[0].ingredients).to
+          .equal('lorem, ipsum, itsum, gallum');
+        expect(res.body.recipes[0].direction).to.equal('this is a sample recipe description. if you parboiled the rice as described at parboiling rice for cooking jollof rice, the rice should be done by the time the water is dry. taste to confirm. if not, you will need to add more water and reduce the heat to prevent burning. keep cooking till done.');
+        expect(res.body.recipes[0].image).to
+          .equal('http://www/allnigeriafoods.com/sample-recipe-url');
+        expect(res.body.recipes[0].views).to.equal(0);
+        expect(res.body.recipes[0].upVotes).to.equal(0);
+        expect(res.body.recipes[0].downVotes).to.equal(0);
+        expect(res.body.recipes[0].recipeOwnerView).to.equal(false);
+        done();
+      });
+  });
 
   it('should return 400 and error message if recipe id is invalid', (done) => {
     chai.request(app)
@@ -118,20 +135,35 @@ describe('Recipe controller', () => {
       });
   });
 
-  it('should return 200 if a recipe is retrieved', (done) => {
-    chai.request(app)
-      .get(`/api/v1/recipes/${recipeId}`)
-      .set('Content-Type', 'application/json')
-      .end((err, res) => {
-        expect(res.body.recipe.name).to.equal('jollof rice');
-        expect(res.body.recipe.ingredients).to
-          .equal('lorem, ipsum, itsum, gallum');
-        expect(res).to.have.status(200);
-        done();
-      });
-  });
+  it(
+    'should return 200 and recipe details of a recipe retrieved',
+    (done) => {
+      chai.request(app)
+        .get(`/api/v1/recipes/${recipeId}`)
+        .set('Content-Type', 'application/json')
+        .end((err, res) => {
+          expect(res.body.recipe.id).to.equal(1);
+          expect(res.body.recipe.userId).to.equal(1);
+          expect(res.body.recipe.name).to.equal('jollof rice');
+          expect(res.body.recipe.favoriteCount).to.equal(0);
+          expect(res.body.recipe.ingredients).to
+            .equal('lorem, ipsum, itsum, gallum');
+          expect(res.body.recipe.ingredients).to
+            .equal('lorem, ipsum, itsum, gallum');
+          expect(res.body.recipe.direction).to.equal('this is a sample recipe description. if you parboiled the rice as described at parboiling rice for cooking jollof rice, the rice should be done by the time the water is dry. taste to confirm. if not, you will need to add more water and reduce the heat to prevent burning. keep cooking till done.');
+          expect(res.body.recipe.image).to
+            .equal('http://www/allnigeriafoods.com/sample-recipe-url');
+          expect(res.body.recipe.views).to.equal(1);
+          expect(res.body.recipe.upVotes).to.equal(0);
+          expect(res.body.recipe.downVotes).to.equal(0);
+          expect(res.body.recipe.recipeOwnerView).to.equal(false);
+          expect(res).to.have.status(200);
+          done();
+        });
+    }
+  );
 
-  it('should return array of recipes created by authenticated user', (done) => {
+  it('should return recipes created by authenticated user', (done) => {
     chai.request(app)
       .get('/api/v1/recipes/userRecipes')
       .set('Content-Type', 'application/json')
@@ -139,12 +171,26 @@ describe('Recipe controller', () => {
       .end((err, res) => {
         expect(res.body.recipes).to.be.an('array');
         expect(res).to.have.status(200);
+        expect(res.body.recipes[0].id).to.equal(1);
+        expect(res.body.recipes[0].userId).to.equal(1);
+        expect(res.body.recipes[0].name).to.equal('jollof rice');
+        expect(res.body.recipes[0].favoriteCount).to.equal(0);
+        expect(res.body.recipes[0].ingredients).to
+          .equal('lorem, ipsum, itsum, gallum');
+        expect(res.body.recipes[0].direction).to.equal('this is a sample recipe description. if you parboiled the rice as described at parboiling rice for cooking jollof rice, the rice should be done by the time the water is dry. taste to confirm. if not, you will need to add more water and reduce the heat to prevent burning. keep cooking till done.');
+        expect(res.body.recipes[0].image).to
+          .equal('http://www/allnigeriafoods.com/sample-recipe-url');
+        expect(res.body.recipes[0].views).to.equal(1);
+        expect(res.body.recipes[0].upVotes).to.equal(0);
+        expect(res.body.recipes[0].downVotes).to.equal(0);
+        expect(res.body.recipes[0].recipeOwnerView).to.equal(false);
         done();
       });
   });
 
-  it(`should return 404 and error message if 
-  recipe to be deleted is not found`, (done) => {
+  it(
+    'should return 404 and error message if recipe to be deleted is not found',
+    (done) => {
       chai.request(app)
         .delete('/api/v1/recipes/999999')
         .set('Content-Type', 'application/json')
@@ -154,10 +200,12 @@ describe('Recipe controller', () => {
           expect(res).to.have.status(404);
           done();
         });
-    });
+    }
+  );
 
-  it(`should return 404 and error message if 
-  recipe to be updated is not found`, (done) => {
+  it(
+    'should return 404 and error message if recipe to be updated is not found',
+    (done) => {
       chai.request(app)
         .put('/api/v1/recipes/999999')
         .set('Content-Type', 'application/json')
@@ -168,10 +216,12 @@ describe('Recipe controller', () => {
           expect(res).to.have.status(404);
           done();
         });
-    });
+    }
+  );
 
-  it(`should return 'internal server error' 
-  if wrong recipe ingredient name is supplied`, (done) => {
+  it(
+    'should return "internal server error" if wrong recipe ingredient name is supplied for update',
+    (done) => {
       chai.request(app)
         .put(`/api/v1/recipes/${recipeId}`)
         .set('Content-Type', 'application/json')
@@ -179,12 +229,7 @@ describe('Recipe controller', () => {
         .send({
           name: 'sushi',
           wrongIngredientNameVariable: 'new lorem, ipsum, itsum, gallum',
-          direction: `This is a sample recipe description. 
-        If you parboiled the rice as described at
-        parboiling rice for cooking jollof rice,
-         the rice should be done by the time the water is dry. 
-         Taste to confirm. If not, you will need to add more water and 
-         educe the heat to prevent burning. Keep cooking till done.`,
+          direction: 'this is a sample recipe description. if you parboiled the rice as described at parboiling rice for cooking jollof rice, the rice should be done by the time the water is dry. taste to confirm. if not, you will need to add more water and reduce the heat to prevent burning. keep cooking till done.',
           image: 'http://www/allnigeriafoods.com/sample-recipe-url'
         })
         .end((err, res) => {
@@ -192,47 +237,62 @@ describe('Recipe controller', () => {
           expect(res).to.have.status(500);
           done();
         });
-    });
+    }
+  );
 
-  it('should return 200 if recipe is updated successfully', (done) => {
-    chai.request(app)
-      .put(`/api/v1/recipes/${recipeId}`)
-      .set('Content-Type', 'application/json')
-      .set('x-access-token', userToken)
-      .send({
-        name: 'sushi',
-        ingredients: 'updated lorem, ipsum, itsum, gallum',
-        direction: `This is a sample recipe description. 
-        If you parboiled the rice as described at
-        parboiling rice for cooking jollof rice,
-         the rice should be done by the time the water is dry. 
-         Taste to confirm. If not, you will need to add more water and 
-         educe the heat to prevent burning. Keep cooking till done.`,
-        image: 'http://www/allnigeriafoods.com/sample-recipe-url'
-      })
-      .end((err, res) => {
-        expect(res.body.message).to.equal('Recipe updated');
-        expect(res).to.have.status(200);
-        done();
-      });
-  });
+  it(
+    'should return 200 and success message if recipe is updated successfully',
+    (done) => {
+      chai.request(app)
+        .put(`/api/v1/recipes/${recipeId}`)
+        .set('Content-Type', 'application/json')
+        .set('x-access-token', userToken)
+        .send({
+          name: 'sushi',
+          ingredients: 'updated lorem, ipsum, itsum, gallum',
+          direction: 'this is a sample recipe description. if you parboiled the rice as described at parboiling rice for cooking jollof rice, the rice should be done by the time the water is dry. taste to confirm. if not, you will need to add more water and reduce the heat to prevent burning. keep cooking till done.',
+          image: 'http://www/allnigeriafoods.com/sample-recipe-url'
+        })
+        .end((err, res) => {
+          expect(res.body.message).to.equal('Recipe updated');
+          expect(res).to.have.status(200);
+          done();
+        });
+    }
+  );
 
 
-  it(`should return 200 if recipe sort in descending
-  order by upvote is successful`, (done) => {
+  it(
+    'should return 200 and recipes if recipe sort in descending order by upvote is successful',
+    (done) => {
       chai.request(app)
         .get('/api/v1/recipes/?sort=upvotes&order=desc')
         .end((err, res) => {
           expect(res.body.recipes).to.be.an('array');
           expect(res).to.have.status(200);
+          expect(res.body.recipes[0].id).to.equal(1);
+          expect(res.body.recipes[0].userId).to.equal(1);
+          expect(res.body.recipes[0].name).to.equal('sushi');
+          expect(res.body.recipes[0].favoriteCount).to.equal(0);
+          expect(res.body.recipes[0].ingredients).to
+            .equal('updated lorem, ipsum, itsum, gallum');
+          expect(res.body.recipes[0].direction).to.equal('this is a sample recipe description. if you parboiled the rice as described at parboiling rice for cooking jollof rice, the rice should be done by the time the water is dry. taste to confirm. if not, you will need to add more water and reduce the heat to prevent burning. keep cooking till done.');
+          expect(res.body.recipes[0].image).to
+            .equal('http://www/allnigeriafoods.com/sample-recipe-url');
+          expect(res.body.recipes[0].views).to.equal(1);
+          expect(res.body.recipes[0].upVotes).to.equal(0);
+          expect(res.body.recipes[0].downVotes).to.equal(0);
+          expect(res.body.recipes[0].recipeOwnerView).to.equal(false);
           done();
         });
-    });
+    }
+  );
 
   /** Delete recipe */
 
-  it(`should return 401 if deleting 
-  recipe failed due to Invalid credentials`, (done) => {
+  it(
+    'should return 401 and error if deleting recipe failed due to invalid credentials',
+    (done) => {
       chai.request(app)
         .delete(`/api/v1/recipes/${recipeId}`)
         .set('Content-Type', 'application/json')
@@ -242,18 +302,6 @@ describe('Recipe controller', () => {
           expect(res).to.have.status(401);
           done();
         });
-    });
-
-  it('should return 200 if recipe is successfully deleted', (done) => {
-    chai.request(app)
-      .delete(`/api/v1/recipes/${recipeId}`)
-      .set('Content-Type', 'application/json')
-      .set('x-access-token', userToken)
-      .end((err, res) => {
-        expect(res.body.message).to.equal('Recipe deleted');
-        expect(res).to.have.status(200);
-        done();
-      });
-  });
+    }
+  );
 });
-

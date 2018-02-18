@@ -5,16 +5,16 @@ import alertify from 'alertify.js';
 import setAuthorizationToken from '../../utils/setAuthorizationToken';
 import { SET_CURRENT_USER, SET_CURRENT_USER_FAIL } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
-
+import networkError from '../networkError';
 
 /**
  * @description The set current user action creator
  *
- * @export  setCurrentUser
+ * @export  setCurrentUser action creator to set current user
+ *
  * @param   {object} user - the user object
  *
  * @returns {object} user - the user details saved
- * @returns {string} type - the action type
  */
 
 export const setCurrentUser = user => ({
@@ -26,10 +26,10 @@ export const setCurrentUser = user => ({
  * @description The set current user error
  *
  * @export  setCurrentUserError
+ *
  * @param   {object} error - the error that occurred while signing up
  *
  * @returns {object} error - the error details from the server
- * @returns {string} type  - the error type
  */
 
 export const setCurrentUserError = error => ({
@@ -41,11 +41,11 @@ export const setCurrentUserError = error => ({
  * @description The signup action
  *
  * @export  signupAction
+ *
  * @param   {object} userDetails - the details supplied by the user to be saved
  *
  * @returns {object} dispatch    - the dispatch object returned
  */
-
 const signupAction = userDetails => (dispatch) => {
   dispatch(setFetching());
   return axios.post('/api/v1/users/signup', userDetails)
@@ -62,6 +62,9 @@ const signupAction = userDetails => (dispatch) => {
       ]));
     })
     .catch((error) => {
+      if (!error.response) {
+        return networkError(error);
+      }
       alertify.delay(1000);
       alertify.logPosition('bottom right');
       alertify.error(error.response.data.error);

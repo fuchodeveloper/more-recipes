@@ -6,7 +6,7 @@ dotenv.config();
 const secret = process.env.SECRET_TOKEN;
 const { User } = db;
 
-const authourization = {
+const Authorization = {
   /**
    * @description Verify authenticated user id supplied in token
    *
@@ -30,15 +30,23 @@ const authourization = {
         if (error) {
           return res.status(401).json({ error: 'Invalid credentials' });
         }
-        User.findById(decoded.id)
+        User.findOne({
+          where: {
+            id: decoded.id
+          },
+          attributes: ['id', 'firstName', 'lastName', 'emailAddress']
+        })
           .then((user) => {
             if (!user) {
               return res.status(404).json({ error: 'User not found' });
             }
+
+            req.user = user;
             req.decoded = decoded;
             return next();
           })
-          .catch(err => res.status(500).json({ error: err.message }));
+          .catch(() => res.status(500)
+            .json({ error: 'An unexpected error occurred' }));
       });
     }
   },
@@ -82,11 +90,25 @@ const authourization = {
         if (error) {
           return res.status(401).json({ error: 'Invalid credentials' });
         }
-        req.decoded = decoded;
-        return next();
+        User.findOne({
+          where: {
+            id: decoded.id
+          },
+          attributes: ['id', 'firstName', 'lastName', 'emailAddress']
+        })
+          .then((user) => {
+            if (!user) {
+              return res.status(404).json({ error: 'User not found' });
+            }
+
+            req.user = user;
+            return next();
+          })
+          .catch(() => res.status(500)
+            .json({ error: 'An unexpected error occurred' }));
       });
     }
   }
 };
 
-export default authourization;
+export default Authorization;

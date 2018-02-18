@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef, max-len */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -18,7 +18,7 @@ export class AddRecipePage extends React.Component {
   /**
    * @description Creates an instance of AddRecipePage.
    *
-   * @param {Object} props
+   * @param {Object} props constructor props
    *
    * @memberof AddRecipePage
    */
@@ -45,11 +45,11 @@ export class AddRecipePage extends React.Component {
   /**
  * @description component lifecycle method
  *
- * @param {Object} nextProps
+ * @param {Object} nextProps componentWillReceiveProps nextProps object
  *
  * @memberof AddRecipePage
  *
- * @returns {undefined}
+ * @returns {undefined} sets state of errors
  */
   componentWillReceiveProps(nextProps) {
     const { name, ingredients, direction } =
@@ -64,11 +64,11 @@ export class AddRecipePage extends React.Component {
   /**
  * @description Function to handle change event
  *
- * @param {Object} event
+ * @param {Object} event onChange event object
  *
  * @memberof AddRecipePage
  *
- * @returns {undefined}
+ * @returns {undefined} sets state on change
  */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -77,11 +77,11 @@ export class AddRecipePage extends React.Component {
   /**
  * @description function to handle form submission
  *
- * @param {Object} event
+ * @param {Object} event onSubmit event object
  *
  * @memberof AddRecipePage
  *
- * @returns {undefined}
+ * @returns {undefined} calls addRecipeAction on submit
  */
   onSubmit(event) {
     event.preventDefault();
@@ -97,7 +97,7 @@ export class AddRecipePage extends React.Component {
   /**
    * @description Handle form validation
    *
-   * @returns {Object} isValid
+   * @returns {Object} isValid returns boolean
    *
    * @memberof AddRecipePage
    */
@@ -114,11 +114,11 @@ export class AddRecipePage extends React.Component {
   /**
  * @description function to handle image uploads
  *
- * @param {Object} event
+ * @param {Object} event image event object
  *
  * @memberof AddRecipePage
  *
- * @returns {undefined}
+ * @returns {undefined} new image upload
  */
   uploadWidget(event) {
     event.preventDefault();
@@ -131,7 +131,9 @@ export class AddRecipePage extends React.Component {
         tags: ['recipe']
       },
       (error, result) => {
-        scope.setState({ image: result[0].url });
+        if (!error) {
+          scope.setState({ image: result[0].secure_url });
+        }
       }
     );
   }
@@ -181,7 +183,7 @@ export class AddRecipePage extends React.Component {
               <div className="upload text-center">
                 <button
                   name="image"
-                  id="image"
+                  id="image-button"
                   onClick={this.uploadWidget}
                   className="upload-button btn-primary-color text-white"
                 >

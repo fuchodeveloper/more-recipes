@@ -5,15 +5,16 @@ import alertify from 'alertify.js';
 import setAuthorizationToken from '../../utils/setAuthorizationToken';
 import { SET_CURRENT_USER, SET_CURRENT_USER_FAIL } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
+import networkError from '../networkError';
 
 /**
  * @description The set current user action creator
  *
- * @export  setCurrentUser
+ * @export  setCurrentUser action creator for set current user
+ *
  * @param   {object} user - the user object
  *
  * @returns {object} user - the user details saved
- * @returns {string} type - the action type
  */
 
 export const setCurrentUser = user => ({
@@ -24,11 +25,11 @@ export const setCurrentUser = user => ({
 /**
  * @description The set current user error
  *
- * @export  setCurrentUserError
+ * @export  setCurrentUserError action creator for set current user error
+ *
  * @param   {object} error - the error that occurred while signing up
  *
  * @returns {object} error - the error details from the server
- * @returns {string} type  - the error type
  */
 
 export const setCurrentUserError = error => ({
@@ -39,7 +40,7 @@ export const setCurrentUserError = error => ({
 /**
  * @description log in user into the application
  *
- * @export  signupAction
+ * @export  signupAction signup action
  *
  * @param   {object} userDetails -
  *          the details supplied by the user to be used for authentication
@@ -62,6 +63,9 @@ const loginAction = userDetails => (dispatch) => {
       ]));
     })
     .catch((error) => {
+      if (!error.response) {
+        return networkError(error);
+      }
       alertify.delay(2000);
       alertify.logPosition('bottom right');
       alertify.error(error.response.data.error);

@@ -18,7 +18,7 @@ export class UpdateRecipePage extends React.Component {
   /**
    * @description Creates an instance of UpdateRecipePage.
    *
-   * @param {Object} props
+   * @param {Object} props constructor props object
    *
    * @memberof UpdateRecipePage
    */
@@ -47,7 +47,7 @@ export class UpdateRecipePage extends React.Component {
  *
  * @memberof UpdateRecipePage
  *
- * @returns {undefined}
+ * @returns {undefined} calls getRecipe
  */
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -61,7 +61,7 @@ export class UpdateRecipePage extends React.Component {
  *
  * @memberof UpdateRecipePage
  *
- * @returns {undefined}
+ * @returns {undefined} sets state of name, image, ingredients and direction
  */
   componentWillReceiveProps(nextProps) {
     const {
@@ -75,9 +75,9 @@ export class UpdateRecipePage extends React.Component {
   /**
    * @description Handle change events
    *
-   * @param {event} event
+   * @param {event} event onChange event props
    *
-   * @returns {undefined}
+   * @returns {undefined} sets state on change
    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -86,11 +86,11 @@ export class UpdateRecipePage extends React.Component {
   /**
  * @description function to handle form submission
  *
- * @param {Object} event
+ * @param {Object} event onSubmti props object
  *
  * @memberof UpdateRecipePage
  *
- * @returns {undefined}
+ * @returns {undefined} calls updateRecipe
  */
   onSubmit(event) {
     event.preventDefault();
@@ -112,7 +112,7 @@ export class UpdateRecipePage extends React.Component {
   /**
    * @description Handle form validation
    *
-   * @returns {Object} isValid
+   * @returns {Object} isValid returns boolean
    *
    * @memberof UpdateRecipePage
    */
@@ -129,11 +129,11 @@ export class UpdateRecipePage extends React.Component {
   /**
  * @description widget function to handle image upload
  *
- * @param {Object} event
+ * @param {Object} event uploadWidget event object parameter
  *
  * @memberof UpdateRecipePage
  *
- * @returns {undefined}
+ * @returns {undefined} sets state of image
  */
   uploadWidget(event) {
     event.preventDefault();
@@ -146,7 +146,9 @@ export class UpdateRecipePage extends React.Component {
         tags: ['recipe']
       },
       (error, result) => {
-        scope.setState({ image: result[0].url });
+        if (!error) {
+          scope.setState({ image: result[0].secure_url });
+        }
       }
     );
   }
@@ -190,19 +192,23 @@ export class UpdateRecipePage extends React.Component {
               <img
                 src={this.state.image}
                 width="350px"
-                id="recipe-image-avatar"
+                id="image"
                 height="auto"
                 className="img-fluid"
                 alt={this.state.name}
               />
             </div>
 
-            <form encType="multipart/form-data" onSubmit={this.onSubmit}>
+            <form
+              encType="multipart/form-data"
+              onSubmit={this.onSubmit}
+              id="update-recipe-forms"
+            >
               <br />
               <div className="upload text-center">
                 <button
                   name="image"
-                  id="image"
+                  id="image-button"
                   onClick={this.uploadWidget}
                   className="upload-button btn-primary btn-primary-color"
                 >
@@ -270,7 +276,7 @@ export class UpdateRecipePage extends React.Component {
                     className="form-control"
                     placeholder="Give a detailed direction for this recipe:"
                     name="direction"
-                    id="recipe-direction"
+                    id="direction"
                     cols="30"
                     rows="10"
                     value={this.state.direction}
@@ -288,7 +294,7 @@ export class UpdateRecipePage extends React.Component {
               <div className="float-right p-1">
                 <input
                   type="submit"
-                  id="update-recipe-form"
+                  id="submit"
                   className="btn btn-primary btn-primary-color"
                   value="Submit"
                 />

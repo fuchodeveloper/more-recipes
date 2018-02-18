@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
-import validateInput from '../../validations/login';
+import validateLogin from '../../validations/validateLogin';
 import login from '../../action/authentication/loginAction';
 
 /**
@@ -17,7 +17,7 @@ export class LoginPage extends React.Component {
   /**
    * @description Creates an instance of LoginForm.
    *
-   * @param {Object} props
+   * @param {Object} props constructor props
    *
    * @memberof LoginForm
    */
@@ -43,11 +43,11 @@ export class LoginPage extends React.Component {
   /**
  * @description Implement on change for form fields
  *
- * @param {Object} event
+ * @param {Object} event onChange event parameter
  *
  * @memberof LoginPage
  *
- * @returns {undefined}
+ * @returns {undefined} handles onChange event
  */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -56,7 +56,7 @@ export class LoginPage extends React.Component {
   /**
  * @description Function to handle form submissions
  *
- * @param {Object} event
+ * @param {Object} event onSubmit event object
  *
  * @memberof LoginPage
  *
@@ -73,12 +73,12 @@ export class LoginPage extends React.Component {
   /**
    * @description Handle form validation
    *
-   * @returns {Object} isValid
+   * @returns {Object} isValid returns boolean
    *
    * @memberof LoginPage
    */
   isValid() {
-    const { errors, isValid } = validateInput(this.state);
+    const { errors, isValid } = validateLogin(this.state);
 
     if (!isValid) {
       this.setState({ errors });

@@ -11,7 +11,7 @@ class ErrorBoundary extends React.Component {
   /**
    * Creates an instance of ErrorBoundary.
    *
-   * @param {Object} props
+   * @param {Object} props constructor props object
    *
    * @memberof ErrorBoundary
    */
@@ -27,7 +27,7 @@ class ErrorBoundary extends React.Component {
  *
  * @memberof ErrorBoundary
  *
- * @returns {undefined}
+ * @returns {undefined} sets state of unexpectedError
  */
   componentDidCatch() {
     this.setState({ unexpectedError: true });

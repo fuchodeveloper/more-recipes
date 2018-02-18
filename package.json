@@ -6,7 +6,7 @@
   "directories": {},
   "scripts": {
     "test": "nyc mocha --compilers js:babel-core/register --timeout=5000 ./server/test/index.spec.js",
-    "test:dev": "NODE_ENV=test_dev nyc mocha --compilers js:babel-core/register ./server/test/index.spec.js",
+    "test:dev": "NODE_ENV=test_dev nyc mocha --compilers js:babel-core/register --timeout=5000 ./server/test/index.spec.js",
     "test:client": "jest --watch",
     "test:watch": "npm run test:client -- --watch",
     "start": "NODE_ENV=production node ./dist/index.js",

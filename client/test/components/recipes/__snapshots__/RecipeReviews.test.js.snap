@@ -2,6 +2,22 @@
 
 exports[`RecipeReviews component should render the right amount of elements 1`] = `
 <div>
-  no reviews
+  <div>
+    <span
+      className="text-muted"
+    >
+      <em
+        id="review-creator"
+      >
+        john
+         said:
+      </em>
+    </span>
+    <p
+      id="new-review-body"
+    >
+       
+    </p>
+  </div>
 </div>
 `;

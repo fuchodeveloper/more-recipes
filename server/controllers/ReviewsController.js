@@ -28,15 +28,7 @@ const ReviewsController = {
       return response.status(400).json({ error: 'review is required' });
     }
 
-    User.findById(request.decoded.id)
-      .then((user) => {
-        if (!user) {
-          return response.status(404).json({
-            error: 'User not found.'
-          });
-        }
-      })
-      .catch(error => response.status(500).json(error.message));
+    const decodedId = request.user.id;
 
     return Recipes.findById(request.params.id)
       .then((recipe) => {
@@ -49,7 +41,7 @@ const ReviewsController = {
         Reviews.create({
           review: request.body.review.trim(),
           recipeId: request.params.id,
-          userId: request.decoded.id
+          userId: decodedId
         })
           .then(() => Recipes
             .findOne({
@@ -68,16 +60,10 @@ const ReviewsController = {
               statusCode: 201,
               message: 'Review created.',
               recipe: updatedRecipe
-            }))
-            .catch(error => response.status(404).json({
-              error: error.message
-            })))
-          .catch(error => response.status(400).json({
-            error: error.message
-          }));
+            })));
       })
-      .catch(error => response.status(500).json({
-        error: error.message
+      .catch(() => response.status(500).json({
+        error: 'An unexpected error occurred'
       }));
   },
 
@@ -99,11 +85,12 @@ const ReviewsController = {
     })
       .then((review) => {
         if (!review) {
-          return response.status(404).json({ error: review });
+          return response.status(404).json({ error: 'Review not found' });
         }
         return response.status(200).json({ review });
       })
-      .catch(error => response.status(500).json(error.message));
+      .catch(() => response.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   },
 
   getUserReviews(request, response) {
@@ -112,11 +99,12 @@ const ReviewsController = {
     })
       .then((review) => {
         if (!review) {
-          return response.status(404).json({ error: review });
+          return response.status(404).json({ error: 'Review not found' });
         }
       })
       .then(review => response.status(200).json({ message: review }))
-      .catch(error => response.status(500).json(error.message));
+      .catch(() => response.status(500)
+        .json({ error: 'An unexpected error occurred' }));
   }
 };
 

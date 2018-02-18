@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
-import validateInput from '../../validations/signup';
+import validateSignup from '../../validations/validateSignup';
 import signupAction from '../../action/authentication/signupAction';
 
 /**
@@ -17,7 +17,7 @@ export class SignUp extends Component {
   /**
    * @description Creates an instance of SignUp.
    *
-   * @param {Object} props
+   * @param {Object} props constructor props object
    *
    * @memberof SignUp
    */
@@ -45,11 +45,11 @@ export class SignUp extends Component {
   /**
  * @description function to handle on change event
  *
- * @param {Object} event
+ * @param {Object} event onChange props object
  *
  * @memberof SignUp
  *
- * @returns {void}
+ * @returns {undefined} sets state on change
  */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -58,7 +58,7 @@ export class SignUp extends Component {
   /**
  * @description function to handle form submission
  *
- * @param {Object} event
+ * @param {Object} event onSubmit props object
  *
  * @memberof SignUp
  *
@@ -81,7 +81,7 @@ export class SignUp extends Component {
  * @returns {undefined} returns validation state errors
  */
   isValid() {
-    const { errors, isValid } = validateInput(this.state);
+    const { errors, isValid } = validateSignup(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
@@ -205,7 +205,11 @@ export class SignUp extends Component {
                       </button>
                     </div>
                     <p className="small text-muted mt-3 text-center">
-                    Already have an account? <Link to="/login">Sign in</Link>
+                    Already have an account? <Link
+                      to="/login"
+                      id="login"
+                    >Sign in
+                                             </Link>
                     </p>
                   </div>
                 </div>

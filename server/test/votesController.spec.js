@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import mock from './helper/mock';
@@ -8,7 +9,7 @@ chai.use(chaiHttp);
 
 const { Favorites } = db;
 
-let userToken, recipeId;
+let userToken;
 
 const doBeforeAll = () => {
   before((done) => {
@@ -31,8 +32,9 @@ describe('Votes Controller', () => {
   doBeforeAll();
   doBeforeEach();
 
-  it(`should return success 
-  message and token if user signin is successful`, (done) => {
+  it(
+    'should return success message and contain token if user signin is successful',
+    (done) => {
       const user = {
         emailAddress: mock.newUser.emailAddress,
         password: 'password'
@@ -49,39 +51,28 @@ describe('Votes Controller', () => {
           expect(res).to.have.status(200);
           done();
         });
-    });
+    }
+  );
 
-  it('should create recipe and return new recipe object and id', (done) => {
-    chai.request(app)
-      .post('/api/v1/recipes')
-      .set('Content-Type', 'application/json')
-      .set('x-access-token', userToken)
-      .send(mock.newRecipe)
-      .end((err, res) => {
-        recipeId = res.body.recipe.id;
-        expect(res.body.recipe).to.be.an('object');
-        expect(res.body.recipe.id).to.be.a('number');
-        expect(res).to.have.status(201);
-        done();
-      });
-  });
+  it(
+    'should return "Recipe upvoted" if recipe upvote is successful',
+    (done) => {
+      chai.request(app)
+        .post('/api/v1/recipes/1/upvote')
+        .set('Content-Type', 'application/json')
+        .set('x-access-token', userToken)
+        .end((err, res) => {
+          expect(res.body.recipe).to.be.an('object');
+          expect(res.body.recipe.message).to.equal('Recipe upvoted');
+          expect(res).to.have.status(201);
+          done();
+        });
+    }
+  );
 
-  it('should return \'Recipe upvoted\' if upvote is successful', (done) => {
+  it('should return "Recipe downvoted" if downvote is successful', (done) => {
     chai.request(app)
-      .post(`/api/v1/recipes/${recipeId}/upvote`)
-      .set('Content-Type', 'application/json')
-      .set('x-access-token', userToken)
-      .end((err, res) => {
-        expect(res.body.recipe).to.be.an('object');
-        expect(res.body.recipe.message).to.equal('Recipe upvoted');
-        expect(res).to.have.status(201);
-        done();
-      });
-  });
-
-  it('should return \'Recipe downvoted\' if downvote is successful', (done) => {
-    chai.request(app)
-      .post(`/api/v1/recipes/${recipeId}/downvote`)
+      .post('/api/v1/recipes/1/downvote')
       .set('Content-Type', 'application/json')
       .set('x-access-token', userToken)
       .end((err, res) => {

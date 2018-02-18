@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AllRecipes component AllRecipes component snapshot should render with right amount of elements 1`] = `
+exports[`AllFavoriteRecipes component should render with right amount of elements 1`] = `
 <div
-  className="col-md-4 mb-2"
+  className="col-md-4 mb-5"
 >
   <div
     className="card mt-1"
@@ -11,7 +11,6 @@ exports[`AllRecipes component AllRecipes component snapshot should render with r
       alt="jollof"
       className="card-img-top"
       height="231px"
-      id="image"
       max-width="348px"
       src="https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg"
     />
@@ -19,15 +18,14 @@ exports[`AllRecipes component AllRecipes component snapshot should render with r
       className="card-body"
     >
       <h4
-        className="card-title"
-        id="name"
+        className="card-title favorite-recipe-title"
       >
-        jollof
-        ...
+        <strong>
+          jollof
+        </strong>
       </h4>
       <p
-        className="card-text"
-        id="direction"
+        className="card-text recipe-font-family"
       >
         rice, beans...
       </p>
@@ -41,19 +39,16 @@ exports[`AllRecipes component AllRecipes component snapshot should render with r
             className="text-muted"
           >
             0
-              
             <i
               aria-hidden="true"
               className="fa fa-eye"
             />
-             .  
-             
+             .
             <i
               aria-hidden="true"
               className="fa fa-thumbs-up"
             />
-             .  
-              
+             .
             <i
               aria-hidden="true"
               className="fa fa-star"
@@ -62,7 +57,6 @@ exports[`AllRecipes component AllRecipes component snapshot should render with r
         </p>
         <Link
           className="btn btn-primary btn-primary-color"
-          id="view-recipe-button"
           replace={false}
           to="/recipes/1"
         >

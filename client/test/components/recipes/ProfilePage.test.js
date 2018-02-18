@@ -3,8 +3,7 @@ import { configure, shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import Adapter from 'enzyme-adapter-react-16';
 import expect from 'expect';
-import mockData from '../../__mocks__/mockData';
-import ConnectedProfilePage, { ProfilePage }
+import { ProfilePage }
   from '../../../components/profile/ProfilePage';
 
 configure({ adapter: new Adapter() });
@@ -57,6 +56,27 @@ describe('Profile page component', () => {
     firstNameInput.simulate('change', event);
 
     expect(wrapper.instance().state.lastName).toBe('hardley');
+  });
+
+  it('component should receive props', () => {
+    const wrapper = setup();
+    const action = wrapper.instance();
+    const spy = sinon.spy(
+      ProfilePage.prototype,
+      'componentWillReceiveProps'
+    );
+    const nextProps = {
+      profile: {
+        firstName: 'john',
+        lastName: 'doe',
+        emailAddress: 'john@gmail.com'
+      }
+    };
+    shallow(<ProfilePage {...props} componentWillReceiveProps={spy} />);
+    action.componentWillReceiveProps(nextProps);
+    expect(action.state.firstName).toBe(nextProps.profile.firstName);
+    expect(action.state.lastName).toBe(nextProps.profile.lastName);
+    expect(action.state.emailAddress).toBe(nextProps.profile.emailAddress);
   });
 });
 

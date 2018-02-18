@@ -1,13 +1,18 @@
+/* eslint-disable max-len */
 const mockData = {
   authResponse: {
     message: 'Log in successful',
     token:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiam9'
-    + 'obiIsImxhc3ROYW1lIjoiZG9lIiwiZW1haWxBZGRyZXNzIjoiam9obkBnbWFpbC5'
-    + 'jb20iLCJpYXQiOjE1MTc1ODk5MzQsImV4cCI6MTUxNzY3NjMzNH0.qzrmVXkP2G8'
-    + 'sQ2ukoONv-osraCuss6DZkZsDShAeKZw'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiam9obiIsImxhc3ROYW1lIjoiZG9lIiwiZW1haWxBZGRyZXNzIjoiam9obkBnbWFpbC5jb20iLCJpYXQiOjE1MTc1ODk5MzQsImV4cCI6MTUxNzY3NjMzNH0.qzrmVXkP2G8sQ2ukoONv-osraCuss6DZkZsDShAeKZw'
   },
 
+  errorResponse: {
+    error: 'An error occurred, try again!'
+  },
+
+  deleteErrorResponse: {
+    message: 'An error occurred, try again!'
+  },
 
   authProfile: {
     firstName: 'john',
@@ -21,6 +26,8 @@ const mockData = {
     },
   },
 
+  empty: '',
+
   pageCount: 1,
 
   addFavoriteResponse: {
@@ -31,6 +38,7 @@ const mockData = {
       message: 'Recipe favorited'
     }
   },
+
   updatedAuthProfile: {
     user: {
       firstName: 'johnny',
@@ -39,8 +47,10 @@ const mockData = {
     }
   },
 
-  addReview: {
-    review: 'An amazing recipe idea'
+  updatedAuthProfileError: {
+    firstName: '',
+    lastName: 'doey',
+    emailAddress: 'johnny@gmail.com'
   },
 
   recipeReviews: {
@@ -52,13 +62,8 @@ const mockData = {
       name: 'jollof rice and beans',
       favoriteCount: 1,
       ingredients: 'rice and beans',
-      direction: 'proin eget tortor risus. nulla quis lorem ut libero'
-      + 'malesuada feugiat. curabitur non nulla  sit amet nisl tempus'
-      + ' convallis quis ac lectus. curabitur arcu erat,  accumsan id '
-      + 'imperdiet et, porttitor at sem. cras ultricies ligula sed magna'
-      + ' dictum porta.',
-      image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-      + 'v1516760699/noodles_c6ltkq.jpg',
+      direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+      image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
       views: 60,
       upVotes: 0,
       downVotes: 1,
@@ -80,12 +85,15 @@ const mockData = {
   addRecipe: {
     name: 'party rice and beans',
     ingredients: 'local rice and beans',
-    direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada'
-      + ' feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac'
-      + ' lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at'
-      + ' sem. cras ultricies ligula sed magna dictum porta.',
-    image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-      + 'v1516760699/noodles_c6ltkq.jpg',
+    direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+    image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
+  },
+
+  addRecipeError: {
+    name: '',
+    ingredients: 'local rice and beans',
+    direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+    image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
   },
 
   addRecipeResponse: {
@@ -108,25 +116,17 @@ const mockData = {
   },
 
   updateRecipe: {
-    name: '',
-    ingredients: '',
-    direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada'
-      + ' feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac'
-      + ' lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at'
-      + ' sem. cras ultricies ligula sed magna dictum porta.',
-    image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-      + 'v1516760699/noodles_c6ltkq.jpg',
+    name: 'party jambalaya rice and beans',
+    ingredients: 'chicken and sauce',
+    direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+    image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
   },
 
   updateRecipeError: {
     name: '',
     ingredients: '',
-    direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada'
-      + ' feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac'
-      + ' lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at'
-      + ' sem. cras ultricies ligula sed magna dictum porta.',
-    image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-      + 'v1516760699/noodles_c6ltkq.jpg',
+    direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+    image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
   },
 
   updatedRecipe: {
@@ -136,12 +136,8 @@ const mockData = {
       name: 'party rice and beans',
       favoriteCount: 1,
       ingredients: 'local rice and beans',
-      direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada'
-      + ' feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac'
-      + ' lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at'
-      + ' sem. cras ultricies ligula sed magna dictum porta.',
-      image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-      + 'v1516760699/noodles_c6ltkq.jpg',
+      direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+      image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
       views: 60,
       upVotes: 0,
       downVotes: 1,
@@ -163,6 +159,11 @@ const mockData = {
 
   signinData: {
     emailAddress: 'john@gmail.com',
+    password: 'password'
+  },
+
+  signinErrorData: {
+    emailAddress: '',
     password: 'password'
   },
 
@@ -190,19 +191,38 @@ const mockData = {
         name: 'jollof rice and beans',
         favoriteCount: 0,
         ingredients: 'rice and beans',
-        direction: 'proin eget tortor risus. nulla quis lorem ut libero'
-        + ' malesuada feugiat. curabitur non nulla  sit amet nisl tempus'
-        + 'convallis quis ac lectus. curabitur arcu erat,  accumsan id'
-        + ' imperdiet et, porttitor at sem. cras ultricies ligula sed magna'
-        + ' dictum porta.',
-        image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-        + 'v1516760699/noodles_c6ltkq.jpg',
+        direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+        image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
         views: 59,
         upVotes: 0,
         downVotes: 0,
         recipeOwnerView: true,
         createdAt: '2018-02-04T16:52:28.768Z',
         updatedAt: '2018-02-06T02:55:06.389Z'
+      }
+    ]
+  },
+
+  deletedRecipe: {
+    message: 'Recipe deleted',
+    recipes: 3
+  },
+
+  deletedRecipeState: {
+    recipes: [
+      {
+        id: 2,
+        name: 'test',
+        ingredients: 'rice, food',
+        direction: 'adfjdfnadfladfd sdf dfadsffsdfkdfkdasmfkdfkdfakdsf kdfakdfmksdf maksfm kadsfmkadfm kadsmfkadfmadsfmkads fkdafkadfmkad fmkad mfakdf',
+        image: ''
+      },
+      {
+        id: 4,
+        name: 'testing',
+        ingredients: 'dodo, fred',
+        direction: 'adfjdfnadfladfd sdf dfadsffsdfkdfkdasmfkdfkdfakdsf kdfakdfmksdf maksfm kadsfmkadfm kadsmfkadfmadsfmkads fkdafkadfmkad fmkad mfakdf',
+        image: ''
       }
     ]
   },
@@ -320,6 +340,10 @@ const mockData = {
 
   searchRecipeQuery: {
     searchQuery: 'rice'
+  },
+
+  errorSearchRecipeQuery: {
+    searchQuery: 'thisisawrongrecipe'
   },
 
   searchRecipes: {

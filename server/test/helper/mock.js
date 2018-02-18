@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import faker from 'faker';
 
 const mock = {
@@ -10,10 +11,7 @@ const mock = {
   },
 
   newUserResponse: {
-    token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3
-    ROYW1lIjoiam9obiIsImxhc3ROYW1lIjoiZG9lIiwiZW1haWxBZGRyZXNzIjoia
-    m9obkBnbWFpbC5jb20iLCJpYXQiOjE1MTY4ODI0ODYsImV4cCI6MTUxNjk2ODg4Nn0.
-    pbnjo8i8VM8CoKEOau930c5R_B7COE3CQ5n2AbnAIbk`,
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiam9obiIsImxhc3ROYW1lIjoiZG9lIiwiZW1haWxBZGRyZXNzIjoiam9obkBnbWFpbC5jb20iLCJpYXQiOjE1MTY4ODI0ODYsImV4cCI6MTUxNjk2ODg4Nn0.pbnjo8i8VM8CoKEOau930c5R_B7COE3CQ5n2AbnAIbk',
     message: 'Signup Successful'
   },
 
@@ -45,12 +43,7 @@ const mock = {
     userId: null,
     name: 'jollof rice',
     ingredients: 'lorem, ipsum, itsum, gallum',
-    direction: `This is a sample recipe description. 
-    If you parboiled the rice as described at
-    parboiling rice for cooking jollof rice,
-     the rice should be done by the time the water is dry. 
-     Taste to confirm. If not, you will need to add more water and 
-     educe the heat to prevent burning. Keep cooking till done.`,
+    direction: 'This is a sample recipe description. If you parboiled the rice as described at parboiling rice for cooking jollof rice, the rice should be done by the time the water is dry. Taste to confirm. If not, you will need to add more water and reduce the heat to prevent burning. Keep cooking till done.',
     image: 'http://www/allnigeriafoods.com/sample-recipe-url'
   },
 
@@ -58,12 +51,7 @@ const mock = {
     userId: null,
     name: 'dodo and eggs',
     ingredients: 'lorem, ipsum, itsum, gallum',
-    direction: `This is a sample recipe description. 
-    If you parboiled the rice as described at
-    parboiling rice for cooking jollof rice,
-     the rice should be done by the time the water is dry. 
-     Taste to confirm. If not, you will need to add more water and 
-     educe the heat to prevent burning. Keep cooking till done.`,
+    direction: 'This is a sample recipe description. If you parboiled the rice as described at parboiling rice for cooking jollof rice, the rice should be done by the time the water is dry. Taste to confirm. If not, you will need to add more water and reduce the heat to prevent burning. Keep cooking till done.',
     image: 'http://www/allnigeriafoods.com/sample-recipe-url'
   },
 

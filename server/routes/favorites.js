@@ -1,30 +1,30 @@
 import express from 'express';
 import FavoritesController from '../controllers/FavoritesController';
-import authorization from '../middleware/tokenMiddleware';
+import Authorization from '../middleware/Authorization';
 
-const router = express.Router();
+const favorites = express.Router();
 
 /**
  * Recipe favorite routes
  */
-router.post(
+favorites.post(
   '/users/:id/recipes',
-  authorization.verifyToken, FavoritesController.create
+  Authorization.verifyToken, FavoritesController.create
 );
-router.get(
+favorites.get(
   '/users/:id/recipes',
-  authorization.verifyToken, FavoritesController.getAllFavorites
+  Authorization.verifyToken, FavoritesController.getAllFavorites
 );
-router.get(
+favorites.get(
   '/favorites/:id',
   FavoritesController.getFavoriteCount
 );
 
-router.get(
+favorites.get(
   '/favorites/:id/identifiers',
-  authorization.injectToken,
+  Authorization.injectToken,
   FavoritesController.getFavoriteIds
 );
 
-export default router;
+export default favorites;
 

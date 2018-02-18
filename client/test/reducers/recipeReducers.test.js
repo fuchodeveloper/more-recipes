@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import expect from 'expect';
 import {
   GET_ALL_RECIPES,
@@ -18,7 +19,19 @@ import {
   GET_ALL_FAVORITES,
   GET_ALL_FAVORITES_PAGE_COUNT,
   GET_MY_RECIPES_PAGE_COUNT,
-  GET_MOST_UPVOTES_COUNT
+  GET_MOST_UPVOTES_COUNT,
+  ADD_FAVORITE_SUCCESS,
+  ADD_FAVORITE_FAIL,
+  GET_MOST_UPVOTES_ERROR,
+  DELETE_RECEIPE_FAIL,
+  ADD_REVIEW,
+  DOWNVOTE_RECIPE_ERROR,
+  GET_ALL_FAVORITES_FAIL,
+  UPDATE_PROFILE_FAIL,
+  GET_ALL_RECIPES_ERROR,
+  GET_SEARCHED_RECIPE_ERROR,
+  ADD_REVIEW_FAIL,
+  DELETE_RECEIPE
 } from '../../action/types';
 import { recipesReducer } from '../../reducers/recipes/recipesReducer';
 import mockData from '../__mocks__/mockData';
@@ -42,6 +55,46 @@ describe('Recipes reducer', () => {
     done();
   });
 
+  it('should delete recipe when passed DELETE_RECEIPE', (done) => {
+    const state = {
+      recipes: [
+        {
+          id: 2,
+          name: 'test',
+          ingredients: 'rice, food',
+          direction: 'adfjdfnadfladfd sdf dfadsffsdfkdfkdasmfkdfkdfakdsf kdfakdfmksdf maksfm kadsfmkadfm kadsmfkadfmadsfmkads fkdafkadfmkad fmkad mfakdf',
+          image: ''
+        },
+        {
+          id: 4,
+          name: 'testing',
+          ingredients: 'dodo, fred',
+          direction: 'adfjdfnadfladfd sdf dfadsffsdfkdfkdasmfkdfkdfakdsf kdfakdfmksdf maksfm kadsfmkadfm kadsmfkadfmadsfmkads fkdafkadfmkad fmkad mfakdf',
+          image: ''
+        },
+
+        {
+          id: 3,
+          name: 'trying',
+          ingredients: 'dodo, fred',
+          direction: 'adfjdfnadfladfd sdf dfadsffsdfkdfkdasmfkdfkdfakdsf kdfakdfmksdf maksfm kadsfmkadfm kadsmfkadfmadsfmkads fkdafkadfmkad fmkad mfakdf',
+          image: ''
+        }
+      ]
+    };
+
+    const { deletedRecipe, deletedRecipeState } = mockData;
+
+    const action = {
+      type: DELETE_RECEIPE,
+      recipes: deletedRecipe.recipes
+    };
+
+    const newState = recipesReducer(state, action);
+    expect(newState.recipes).toEqual(deletedRecipeState.recipes);
+    done();
+  });
+
   it(
     'should return most voted recipes when passed GET_MOST_UPVOTES',
     (done) => {
@@ -59,6 +112,166 @@ describe('Recipes reducer', () => {
 
       const newState = recipesReducer(state, action);
       expect(newState.recipes).toEqual(recipes);
+      done();
+    }
+  );
+
+  it(
+    'should return most voted recipes error when passed GET_MOST_UPVOTES_ERROR',
+    (done) => {
+      const state = {
+        recipes: []
+      };
+
+      const serverError = 'An unexpected error occurred';
+
+      const action = {
+        type: GET_MOST_UPVOTES_ERROR,
+        error: serverError
+      };
+
+      const newState = recipesReducer(state, action);
+      expect(newState.error).toEqual(action.error);
+      done();
+    }
+  );
+
+  it(
+    'should return delete recipe error when passed DELETE_RECEIPE_FAIL',
+    (done) => {
+      const state = {
+        recipes: []
+      };
+
+      const serverError = 'An unexpected error occurred';
+
+      const action = {
+        type: DELETE_RECEIPE_FAIL,
+        error: serverError
+      };
+
+      const newState = recipesReducer(state, action);
+      expect(newState.error).toEqual(action.error);
+      done();
+    }
+  );
+
+  it(
+    'should return downvote error when passed DOWNVOTE_RECIPE_ERROR',
+    (done) => {
+      const state = {
+        recipes: []
+      };
+
+      const serverError = 'An unexpected error occurred';
+
+      const action = {
+        type: DOWNVOTE_RECIPE_ERROR,
+        error: serverError
+      };
+
+      const newState = recipesReducer(state, action);
+      expect(newState.error).toEqual(action.error);
+      done();
+    }
+  );
+
+  it(
+    'should return update profile error when passed UPDATE_PROFILE_FAIL',
+    (done) => {
+      const state = {
+        recipes: []
+      };
+
+      const serverError = 'An unexpected error occurred';
+
+      const action = {
+        type: UPDATE_PROFILE_FAIL,
+        error: serverError
+      };
+
+      const newState = recipesReducer(state, action);
+      expect(newState.error).toEqual(action.error);
+      done();
+    }
+  );
+
+  it(
+    'should return get all recipes error when passed GET_ALL_RECIPES_ERROR',
+    (done) => {
+      const state = {
+        recipes: []
+      };
+
+      const serverError = 'An unexpected error occurred';
+
+      const action = {
+        type: GET_ALL_RECIPES_ERROR,
+        error: serverError
+      };
+
+      const newState = recipesReducer(state, action);
+      expect(newState.error).toEqual(action.error);
+      done();
+    }
+  );
+
+  it(
+    'should return search recipes error when passed GET_SEARCHED_RECIPE_ERROR',
+    (done) => {
+      const state = {
+        recipes: []
+      };
+
+      const serverError = 'An unexpected error occurred';
+
+      const action = {
+        type: GET_SEARCHED_RECIPE_ERROR,
+        error: serverError
+      };
+
+      const newState = recipesReducer(state, action);
+      expect(newState.error).toEqual(action.error);
+      done();
+    }
+  );
+
+  it(
+    'should return add review error when passed ADD_REVIEW_FAIL',
+    (done) => {
+      const state = {
+        recipes: []
+      };
+
+      const serverError = 'An unexpected error occurred';
+
+      const action = {
+        type: ADD_REVIEW_FAIL,
+        error: serverError
+      };
+
+      const newState = recipesReducer(state, action);
+      expect(newState.error).toEqual(action.error);
+      done();
+    }
+  );
+
+  it(
+    'should return get all favorites error when passed GET_ALL_FAVORITES_FAIL',
+    (done) => {
+      const state = {
+        recipes: []
+      };
+
+      const serverError = 'An unexpected error occurred';
+
+      const action = {
+        type: GET_ALL_FAVORITES_FAIL,
+        error: serverError
+      };
+
+      const newState = recipesReducer(state, action);
+      expect(newState.error).toEqual(action.error);
       done();
     }
   );
@@ -162,7 +375,7 @@ describe('Recipes reducer', () => {
     }
   );
 
-  it('should return a recipe', (done) => {
+  it('should return a recipe when passed RECEIVE_RECIPE', (done) => {
     const state = {
       recipe: {}
     };
@@ -264,7 +477,57 @@ describe('Recipes reducer', () => {
     expect(newState.recipe.direction).toEqual(action.recipe.direction);
   });
 
-  it('should add recipe error when passed ADD_RECIPE_ERROR', () => {
+  it('should add review when passed ADD_REVIEW', () => {
+    const state = {
+      reviews: {}
+    };
+    const { recipeReviews } = mockData;
+
+    const action = {
+      type: ADD_REVIEW,
+      review: recipeReviews
+    };
+
+    const newState = recipesReducer(state, action);
+    const stateReview = newState.reviews[1].Reviews[0].review;
+    const actionReview = action.review.recipe.Reviews[0].review;
+
+    expect(stateReview).toEqual(actionReview);
+  });
+
+  it('should add favorite when passed ADD_FAVORITE_SUCCESS', () => {
+    const state = {
+      favorite: {}
+    };
+    const { addFavoriteResponse } = mockData;
+
+    const action = {
+      type: ADD_FAVORITE_SUCCESS,
+      favorite: addFavoriteResponse.favorite
+    };
+
+    const newState = recipesReducer(state, action);
+    expect(newState.favorite.message).toEqual(action.favorite.message);
+    expect(newState.favorite.favorited).toEqual(action.favorite.favorited);
+  });
+
+  it('should return favorite error when passed ADD_FAVORITE_FAIL', () => {
+    const state = {
+      error: {}
+    };
+
+    const serverError = 'An unexpected error occurred';
+
+    const action = {
+      type: ADD_FAVORITE_FAIL,
+      error: serverError
+    };
+
+    const newState = recipesReducer(state, action);
+    expect(newState.error).toEqual(action.error);
+  });
+
+  it('should return recipe error when passed ADD_RECIPE_ERROR', () => {
     const state = {
       recipe: {}
     };
@@ -406,5 +669,17 @@ describe('Recipes reducer', () => {
       expect(newState.recipe.downVotes).toEqual(action.recipe.downVotes);
     }
   );
+
+  it('should return default state', () => {
+    const state = {};
+
+    const action = {
+      type: 'EMPTY',
+      recipe: {}
+    };
+
+    const newState = recipesReducer(state, action);
+    expect(newState).toEqual({});
+  });
 });
 

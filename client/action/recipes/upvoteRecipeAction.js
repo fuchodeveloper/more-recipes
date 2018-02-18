@@ -1,15 +1,16 @@
 import axios from 'axios';
 import alertify from 'alertify.js';
 import { UPVOTE_RECIPE } from '../types';
+import networkError from '../networkError';
 
 /**
- * upvote recipe action creator
+ * @description upvote recipe action creator
  *
  * @export upvoteRecipeAction
  *
- * @param {Object} recipe
+ * @param {Object} recipe upvote recipe object parameter
  *
- * @returns {object} recipe
+ * @returns {object} recipe returns upvote recipe object
  */
 export const upvoteRecipeActionCreator = recipe => ({
   type: UPVOTE_RECIPE,
@@ -21,7 +22,7 @@ export const upvoteRecipeActionCreator = recipe => ({
  *
  * @export upvoteRecipe
  *
- * @param {Number} id
+ * @param {Number} id recipe id
  *
  * @returns {Object} dispatch recipe upvote
  */
@@ -33,7 +34,10 @@ const upvoteRecipeAction = id => dispatch =>
       alertify.success(response.data.recipe.message);
       return dispatch(upvoteRecipeActionCreator(response.data.recipe));
     })
-    .catch(() => {
+    .catch((error) => {
+      if (!error.response) {
+        return networkError(error);
+      }
       alertify.delay(1000);
       alertify.logPosition('bottom right');
       alertify.error('Please login to upvote recipe');

@@ -1,4 +1,5 @@
 
+/* eslint-disable max-len */
 import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
@@ -13,9 +14,7 @@ const setup = () => {
     recipes: {},
     pageCount: 1,
     recipeSearchAction: jest.fn(),
-    // event: {
     preventDefault: jest.fn()
-    // }
   };
   return shallow(<RecipeSearchPage {...props} />);
 };
@@ -38,18 +37,6 @@ describe('RecipeSearchPage component', () => {
     shallow(<RecipeSearchPage {...props} onPageChange={spy} />)
       .instance().onPageChange(page);
   });
-
-  // it('should set searchQuery to state when input values changes', () => {
-  //   const event = { target: { name: 'searchQuery', value: '' } };
-
-  //   const wrapper = setup();
-  //   const searchInput = wrapper.find('#searchQuery');
-
-  //   event.target.value = 'rice';
-  //   searchInput.simulate('change', event);
-
-  //   expect(wrapper.instance().state.searchQuery).toBe('rice');
-  // });
 
   it('should submit search when query is supplied', () => {
     const event = {
@@ -82,13 +69,8 @@ describe('RecipeSearchPage component', () => {
           name: 'jollof rice and beans',
           favoriteCount: 0,
           ingredients: 'rice and beans',
-          direction: 'proin eget tortor risus. nulla quis lorem ut libero '
-          + 'malesuada feugiat. curabitur non nulla  sit amet nisl tempus '
-          + 'convallis quis ac lectus. curabitur arcu erat,  accumsan id '
-          + 'imperdiet et, porttitor at sem. cras ultricies ligula sed magna '
-          + 'dictum porta.',
-          image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-          + 'v1516760699/noodles_c6ltkq.jpg',
+          direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+          image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
           views: 59,
           upVotes: 0,
           downVotes: 0,

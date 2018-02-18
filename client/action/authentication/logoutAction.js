@@ -4,11 +4,11 @@ import setAuthorizationToken from '../../utils/setAuthorizationToken';
 /**
  * @description The set current user action creator
  *
- * @export  setCurrentUser
+ * @export  setCurrentUser action creator for set current user
+ *
  * @param   {Object} user - the user object
  *
  * @returns {Object} user - the user details saved
- * @returns {String} type - the action type
  */
 
 export const setCurrentUser = user => ({
@@ -19,14 +19,14 @@ export const setCurrentUser = user => ({
 /**
  * @description Log authenticated user out from app
  *
- * @export logout function
+ * @export logoutAction function to log out user
  *
  * @returns {Object} dispatch - the dispatch object returned
  */
-const logout = () => (dispatch) => {
+const logoutAction = () => (dispatch) => {
   localStorage.removeItem('jwtToken');
   setAuthorizationToken(false);
   dispatch(setCurrentUser({}));
 };
 
-export default logout;
+export default logoutAction;

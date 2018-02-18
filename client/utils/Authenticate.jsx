@@ -16,7 +16,7 @@ export default (ComposedComponent) => {
    *
    * @memberof Authenticate
    *
-   * @returns {undefined}
+   * @returns {undefined} calls isAuthenticated on componentWillMount
    */
     componentWillMount() {
       if (!this.props.isAuthenticated) {
@@ -31,7 +31,7 @@ export default (ComposedComponent) => {
  *
  * @memberof Authenticate
  *
- * @returns {undefined}
+ * @returns {undefined} calls isAuthenticated on componentWillUpdate
  */
     componentWillUpdate(nextProps) {
       if (!nextProps.isAuthenticated) {

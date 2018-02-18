@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -10,8 +11,7 @@ const RecipeSearchResult = props => (
         max-width="348px"
         height="231px"
         src={props.details.image === ''
-        ? 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-        + 'v1516760699/noodles_c6ltkq.jpg'
+        ? 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg'
         : props.details.image}
         alt={props.details.name}
       />

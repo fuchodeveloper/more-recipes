@@ -1,20 +1,18 @@
-import React from 'react';
 import axios from 'axios';
 import { batchActions } from 'redux-batched-actions';
-import { Redirect, Link } from 'react-router-dom';
 import { RECEIVE_RECIPE, RECEIVE_RECIPE_ERROR } from '../types';
 import { setFetching, unsetFetching } from '../fetching';
 
 /**
- * Set type for GET all recipes
+ * @description get a recipe action creator
  *
- * @export {function} function
+ * @export receiveRecipe exports receiveRecipe function
  *
- * @param {Object} recipe
- * @param {Object} favorited
+ * @param {Object} recipe recipe object parameter
+ * @param {Object} favorited favorited object parameter
  *
- * @returns {Object} recipe
- * @returns {Object} favorited
+ * @returns {Object} returns recipe object
+ * @returns {Object} returns favorited object
  */
 export const receiveRecipe = (recipe, favorited) => ({
   type: RECEIVE_RECIPE,
@@ -22,18 +20,26 @@ export const receiveRecipe = (recipe, favorited) => ({
   favorited
 });
 
-export const receiveRecipeError = error => ({
+/**
+ * @description recieve recipe error action creator
+ *
+ * @param {Object} error error object parameter
+ *
+ * @returns {Object} error returns recipe error
+ */
+const receiveRecipeError = error => ({
   type: RECEIVE_RECIPE_ERROR,
   error
 });
 
 /**
- * GET a recipe
- * @param {Number} id
+ * @description get a recipe action
  *
- * @export {function} getRecipeAction
+ * @param {Number} id recipe id
  *
- * @returns {Object} dispatch - dispatch the get recipe action
+ * @export getRecipeAction exports getRecipeAction
+ *
+ * @returns {Object} - dispatch the get recipe action
  */
 const getRecipeAction = id => (dispatch) => {
   dispatch(setFetching());
@@ -49,6 +55,7 @@ const getRecipeAction = id => (dispatch) => {
       ]));
     })
     .catch((error) => {
+      window.location.replace('/notfound');
       dispatch(receiveRecipeError(error.response.data.error));
     });
 };

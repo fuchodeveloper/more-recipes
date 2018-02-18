@@ -1,7 +1,7 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-const validateInput = (formInput) => {
+const validateSignup = (formInput) => {
   const errors = {};
 
   if (validator.isEmpty(formInput.firstName.trim())) {
@@ -37,7 +37,26 @@ const validateInput = (formInput) => {
   }
 
   if (formInput.emailAddress.length > 20) {
-    errors.lastName = 'Email address is too long';
+    errors.emailAddress = 'Email address is too long';
+  }
+
+  if (validator.isEmpty(formInput.password)) {
+    errors.password = 'password is required';
+  }
+
+  if (formInput.password.length < 6) {
+    errors.password = 'Password must be greater than 6 characters';
+  }
+
+  if (formInput.password.length > 20) {
+    errors.password = 'Password is too long';
+  }
+
+  if (!validator.equals(formInput.password, formInput.passwordConfirmation)) {
+    errors.passwordConfirmation = 'Passwords must match';
+  }
+  if (validator.isEmpty(formInput.passwordConfirmation)) {
+    errors.passwordConfirmation = 'Confirm password is required';
   }
 
   return {
@@ -46,4 +65,4 @@ const validateInput = (formInput) => {
   };
 };
 
-export default validateInput;
+export default validateSignup;

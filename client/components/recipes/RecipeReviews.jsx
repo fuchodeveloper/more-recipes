@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 export const RecipeReviews = props =>
 
   /**
-   * Get the review and the first name of the user who posted a review
+   * @description Get the review and first name of review creator
    *
    * @memberof RecipeReviews
    */
@@ -14,7 +13,7 @@ export const RecipeReviews = props =>
       { props.review.review ? (
         <div>
           <span className="text-muted">
-            <em>{props.review.User.firstName} said:</em>
+            <em id="review-creator">{props.review.User.firstName} said:</em>
           </span>
           <p id="new-review-body">{props.review.review} </p>
         </div>
@@ -22,12 +21,5 @@ export const RecipeReviews = props =>
 
     </div>
   );
-
-RecipeReviews.propTypes = {
-  review: PropTypes.shape({
-    review: '',
-    User: {}
-  }).isRequired
-};
 
 export default RecipeReviews;

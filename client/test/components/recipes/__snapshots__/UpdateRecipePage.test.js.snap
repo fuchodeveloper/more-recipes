@@ -1,3 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UpdateRecipePage component should render with right amount of elements 1`] = `undefined`;
+
+exports[`UpdateRecipePage component should set the recipe image on click and call uploadWidget 1`] = `undefined`;
+
+exports[`UpdateRecipePage component should simulate click event on image button to call uploadWidget 1`] = `undefined`;

@@ -9,12 +9,14 @@ import logoutAction from '../../action/authentication/logoutAction';
  * @description class for app header
  *
  * @class Header
+ *
  * @extends {React.Component}
  */
 export class Header extends React.Component {
   /**
-   * Creates an instance of Header.
-   * @param {Object} props
+   * @description Creates an instance of Header.
+   *
+   * @param {Object} props constructor props object
    *
    * @memberof Header
    */
@@ -26,11 +28,11 @@ export class Header extends React.Component {
   /**
  * @description handle user log out
  *
- * @param {Object} event
+ * @param {Object} event logout event object
  *
  * @memberof Header
  *
- * @returns {undefined}
+ * @returns {undefined} calls logoutProps
  */
   logout(event) {
     event.preventDefault();

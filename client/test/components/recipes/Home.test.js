@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { configure, shallow } from 'enzyme';
 import sinon from 'sinon';
@@ -51,14 +52,6 @@ describe('Home component', () => {
       .instance().onPageChange(page);
   });
 
-  // it('should render a search component when search input is focused', () => {
-  //   const wrapper = setup();
-  //   const searchInput = wrapper.find('#searchQuery');
-
-  //   searchInput.simulate('focus');
-  //   expect(searchInput.instance().state.searchQuery).toBe(true);
-  // });
-
   it('component should receive props', () => {
     const wrapper = setup();
     const action = wrapper.instance();
@@ -74,13 +67,8 @@ describe('Home component', () => {
           name: 'jollof rice and beans',
           favoriteCount: 0,
           ingredients: 'rice and beans',
-          direction: 'proin eget tortor risus. nulla quis lorem ut libero '
-          + 'malesuada feugiat. curabitur non nulla  sit amet nisl tempus '
-          + 'convallis quis ac lectus. curabitur arcu erat,  accumsan id '
-          + 'imperdiet et, porttitor at sem. cras ultricies ligula sed magna '
-          + 'dictum porta.',
-          image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/'
-          + 'v1516760699/noodles_c6ltkq.jpg',
+          direction: 'proin eget tortor risus. nulla quis lorem ut libero malesuada feugiat. curabitur non nulla  sit amet nisl tempus convallis quis ac lectus. curabitur arcu erat,  accumsan id imperdiet et, porttitor at sem. cras ultricies ligula sed magna dictum porta.',
+          image: 'https://res.cloudinary.com/fuchodeveloper/image/upload/v1516760699/noodles_c6ltkq.jpg',
           views: 59,
           upVotes: 0,
           downVotes: 0,

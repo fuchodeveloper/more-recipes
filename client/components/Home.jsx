@@ -18,7 +18,7 @@ export class Home extends Component {
   /**
    * @description Creates an instance of Home.
    *
-   * @param {Object} props
+   * @param {Object} props constructor props
    *
    * @memberof Home
    */
@@ -40,7 +40,7 @@ export class Home extends Component {
    *
    * @memberof Home
    *
-   * @returns {undefined}
+   * @returns {undefined} calls recipesAction
    */
   componentDidMount() {
     this.props.recipesAction(this.state.pageCount);
@@ -49,11 +49,11 @@ export class Home extends Component {
   /**
  * @description lifecycle method used to update state
  *
- * @param {Object} nextProps
+ * @param {Object} nextProps componentWillReceiveProps nextProps parameter
  *
  * @memberof Home
  *
- * @returns {undefined}
+ * @returns {undefined} sets state of recipes and pageCount
  */
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -66,7 +66,8 @@ export class Home extends Component {
  * @description function to handle focus on search
  *
  * @memberof Home
- * @returns {undefined}
+ *
+ * @returns {undefined} redirects to search page
  */
   onFocus() {
     this.context.router.history.push('/search');
@@ -75,11 +76,11 @@ export class Home extends Component {
   /**
  * function to handle page number change
  *
- * @param {Number} current
+ * @param {Number} current onPageChange current paramter
  *
  * @memberof Home
  *
- * @returns {undefined}
+ * @returns {undefined} calls recipesAction
  */
   onPageChange(current) {
     current.selected += 1;
@@ -87,13 +88,13 @@ export class Home extends Component {
   }
 
   /**
+ * @description handles change event
  *
- *
- * @param {Object} event
+ * @param {Object} event onChange event parameter
  *
  * @memberof Home
  *
- * @return {undefined}
+ * @return {undefined} sets state on change
  */
   onChange(event) {
     event.preventDefault();
@@ -104,11 +105,11 @@ export class Home extends Component {
   /**
  * @description handle form submit
  *
- * @param {Object} event
+ * @param {Object} event onSubmit event parameter
  *
  * @memberof Home
  *
- * @returns {undefined}
+ * @returns {undefined} calls recipeSearch
  */
   onSubmit(event) {
     event.preventDefault();
@@ -141,6 +142,7 @@ export class Home extends Component {
           <div className="container margin-top-70">
 
             <h1
+              id="hero-title"
               className="text-center p-4 center-hero-title"
             >Awesome Recipes Just For You
             </h1>
@@ -171,12 +173,20 @@ export class Home extends Component {
             <div className="margin-top-50 margin-bottom-50" />
 
             <div>
-              <h3 className="popular-text">Most recent recipes</h3>
+              <h3
+                className="popular-text"
+                id="recent"
+              >Most recent recipes
+              </h3>
             </div>
 
             <div>
               <div className="text-center">
-                <i className="recipe-title">No recipes available yet</i>
+                <i
+                  id="no-recipe"
+                  className="recipe-title"
+                >No recipes available yet
+                </i>
 
               </div>
 
